@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-14T21:47:34.923Z",
+  "fechaPublicacion": "2026-08-14T21:52:11.044Z",
   "manuales": [
     {
       "id": "manual_1786737977204_6e461fde1f6388",
       "codigo": "test",
-      "titulo": "testtessss",
+      "titulo": "otro test",
       "idioma": "Español",
       "archivoElectronico": "No",
       "ocRelacionado": "kkkkk",
