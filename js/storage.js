@@ -1,98 +1,112 @@
-"use strict";
-
-window.KIRIS_STORAGE_CONFIG = window.KIRIS_STORAGE_CONFIG || {
-    modo: "local",
-    sitioSharePoint: "https://evertecgroup.sharepoint.com/sites/UnidadEnlaceOperacional",
-    lista: "RepositorioDocumentacionLista",
-    tituloBorrador: "BASE_GESTOR_BORRADOR",
-    tituloPublicado: "BASE_GESTOR_PUBLICADO",
-    campoJson: "JsonData"
-};
-
-window.KirisStorage = (() => {
-    const CLAVE_LOCAL = "kirisV2_estado_maestro";
-    const CLAVE_PUBLICADO = "kirisV2_publicado";
-    const config = window.KIRIS_STORAGE_CONFIG;
-
-    function esSharePointMismoOrigen() {
-        if (config.modo !== "sharepoint") return false;
-        try {
-            return location.protocol.startsWith("http") &&
-                new URL(config.sitioSharePoint).origin === location.origin;
-        } catch {
-            return false;
-        }
-    }
-
-    async function obtenerDigest() {
-        const respuesta = await fetch(`${config.sitioSharePoint}/_api/contextinfo`, {
-            method: "POST",
-            headers: { Accept: "application/json;odata=nometadata" },
-            credentials: "include"
-        });
-        if (!respuesta.ok) throw new Error(`No fue posible obtener el digest (${respuesta.status}).`);
-        const datos = await respuesta.json();
-        return datos.FormDigestValue;
-    }
-
-    async function buscarItem(titulo) {
-        const filtro = encodeURIComponent(`Title eq '${titulo.replaceAll("'", "''")}'`);
-        const url = `${config.sitioSharePoint}/_api/web/lists/getbytitle('${encodeURIComponent(config.lista)}')/items?$select=Id,Title,${config.campoJson}&$filter=${filtro}&$top=1`;
-        const respuesta = await fetch(url, {
-            headers: { Accept: "application/json;odata=nometadata" },
-            credentials: "include"
-        });
-        if (!respuesta.ok) throw new Error(`No fue posible leer SharePoint (${respuesta.status}).`);
-        const datos = await respuesta.json();
-        return datos.value?.[0] || null;
-    }
-
-    async function guardarItem(titulo, paquete) {
-        const item = await buscarItem(titulo);
-        if (!item) throw new Error(`No existe el registro ${titulo} en ${config.lista}.`);
-        const digest = await obtenerDigest();
-        const url = `${config.sitioSharePoint}/_api/web/lists/getbytitle('${encodeURIComponent(config.lista)}')/items(${item.Id})`;
-        const respuesta = await fetch(url, {
-            method: "POST",
-            headers: {
-                Accept: "application/json;odata=nometadata",
-                "Content-Type": "application/json;odata=nometadata",
-                "X-RequestDigest": digest,
-                "IF-MATCH": "*",
-                "X-HTTP-Method": "MERGE"
-            },
-            credentials: "include",
-            body: JSON.stringify({ [config.campoJson]: JSON.stringify(paquete) })
-        });
-        if (!respuesta.ok) throw new Error(`No fue posible actualizar SharePoint (${respuesta.status}).`);
-    }
-
-    async function cargar() {
-        if (!esSharePointMismoOrigen()) {
-            const local = localStorage.getItem(CLAVE_LOCAL);
-            return local ? JSON.parse(local) : null;
-        }
-        const item = await buscarItem(config.tituloBorrador);
-        return item?.[config.campoJson] ? JSON.parse(item[config.campoJson]) : null;
-    }
-
-    async function guardar(paquete) {
-        if (!esSharePointMismoOrigen()) {
-            localStorage.setItem(CLAVE_LOCAL, JSON.stringify(paquete));
-            return { modo: "local" };
-        }
-        await guardarItem(config.tituloBorrador, paquete);
-        return { modo: "sharepoint" };
-    }
-
-    async function publicar(paquete) {
-        if (!esSharePointMismoOrigen()) {
-            localStorage.setItem(CLAVE_PUBLICADO, JSON.stringify(paquete));
-            return { modo: "local" };
-        }
-        await guardarItem(config.tituloPublicado, paquete);
-        return { modo: "sharepoint" };
-    }
-
-    return { cargar, guardar, publicar, esSharePointMismoOrigen };
-})();
+"use strict"; 
+ 
+window.KIRIS_STORAGE_CONFIG = window.KIRIS_STORAGE_CONFIG || { 
+    propietario: "kiris25", 
+    repositorio: "kiris-v2", 
+    rama: "main", 
+    archivoPublicado: "data.json", 
+    claveLocal: "kirisV2_estado_maestro" 
+}; 
+ 
+window.KirisStorage = (() => { 
+    const config = window.KIRIS_STORAGE_CONFIG; 
+ 
+    function codificarBase64Unicode(texto) { 
+        const bytes = new TextEncoder().encode(texto); 
+        let binario = ""; 
+        const bloque = 32768; 
+        for (let i = 0; i < bytes.length; i += bloque) { 
+            binario += String.fromCharCode(...bytes.subarray(i, i + bloque)); 
+        } 
+        return btoa(binario); 
+    } 
+ 
+    async function cargar() { 
+        const guardado = localStorage.getItem(config.claveLocal); 
+        return guardado ? JSON.parse(guardado) : null; 
+    } 
+ 
+    async function guardar(paquete) { 
+        localStorage.setItem(config.claveLocal, JSON.stringify(paquete)); 
+        return { modo: "local" }; 
+    } 
+ 
+    async function cargarPublicado() { 
+        const respuesta = await fetch(`./${config.archivoPublicado}?v=${Date.now()}`, { 
+            cache: "no-store" 
+        }); 
+ 
+        if (!respuesta.ok) { 
+            throw new Error(`No fue posible leer ${config.archivoPublicado} (${respuesta.status}).`); 
+        } 
+ 
+        const publicado = await respuesta.json(); 
+        if (!publicado || typeof publicado !== "object") { 
+            throw new Error(`${config.archivoPublicado} no contiene un objeto JSON válido.`); 
+        } 
+ 
+        return publicado.datos || publicado.data || publicado; 
+    } 
+ 
+    async function obtenerArchivoGitHub(token) { 
+        const url = `https://api.github.com/repos/${config.propietario}/${config.repositorio}/contents/${config.archivoPublicado}?ref=${encodeURIComponent(config.rama)}`; 
+        const respuesta = await fetch(url, { 
+            headers: { 
+                Accept: "application/vnd.github+json", 
+                Authorization: `Bearer ${token}`, 
+                "X-GitHub-Api-Version": "2022-11-28" 
+            } 
+        }); 
+ 
+        if (respuesta.status === 404) return null; 
+        if (!respuesta.ok) { 
+            const detalle = await respuesta.text(); 
+            throw new Error(`GitHub rechazó la lectura (${respuesta.status}). ${detalle}`); 
+        } 
+ 
+        return respuesta.json(); 
+    } 
+ 
+    async function publicar(paquete) { 
+        const token = window.prompt( 
+            "Pegue el token de GitHub para publicar. El token se usará una sola vez y no se guardará." 
+        ); 
+ 
+        if (!token || !token.trim()) { 
+            throw new Error("Publicación cancelada: no se proporcionó el token."); 
+        } 
+ 
+        const tokenTemporal = token.trim(); 
+        const archivoActual = await obtenerArchivoGitHub(tokenTemporal); 
+        const contenido = JSON.stringify(paquete, null, 2); 
+        const url = `https://api.github.com/repos/${config.propietario}/${config.repositorio}/contents/${config.archivoPublicado}`; 
+        const cuerpo = { 
+            message: `Publicar datos KIRIS ${new Date().toISOString()}`, 
+            content: codificarBase64Unicode(contenido), 
+            branch: config.rama 
+        }; 
+ 
+        if (archivoActual?.sha) cuerpo.sha = archivoActual.sha; 
+ 
+        const respuesta = await fetch(url, { 
+            method: "PUT", 
+            headers: { 
+                Accept: "application/vnd.github+json", 
+                Authorization: `Bearer ${tokenTemporal}`, 
+                "Content-Type": "application/json", 
+                "X-GitHub-Api-Version": "2022-11-28" 
+            }, 
+            body: JSON.stringify(cuerpo) 
+        }); 
+ 
+        if (!respuesta.ok) { 
+            const detalle = await respuesta.text(); 
+            throw new Error(`GitHub rechazó la publicación (${respuesta.status}). ${detalle}`); 
+        } 
+ 
+        return respuesta.json(); 
+    } 
+ 
+    return { cargar, guardar, cargarPublicado, publicar }; 
+})(); 
+ 
