@@ -1,305 +1,86 @@
-/* ============================================================= 
-   KIRIS V2 - MODIFICACIONES APP.JS 
-   Sustituir la línea final: 
-   document.addEventListener("DOMContentLoaded", inicializar); 
-   por TODO este bloque. 
-   ============================================================= */ 
+"use strict"; 
  
-/* 1. INDEX EXCLUSIVAMENTE EDITOR */ 
-configurarLogin = function () { 
-    $("btnIngresarEditor").addEventListener("click", () => entrar("editor")); 
-    $("btnCerrarSesion").addEventListener("click", cerrarSesion); 
-}; 
+const $ = (id) => document.getElementById(id); 
+const STORAGE_KEY = "kirisV2_estado_maestro"; 
+const PUBLISHED_KEY = "kirisV2_publicado"; 
+const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]; 
+const DIAS = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"]; 
+const HEADERS_CICLO = ["Change #","Link To","Seq","Task","Company","Affected End User","Priority","Assignee","Group","Start Date","Pres. Date","Est Comp Date","Task Status","Change Status","Change Category","Project","Need By","Comp Date","Task Description","Task Comments","Change Description","Order Comments"]; 
  
-entrar = async function () { 
-    editorActivo = true; 
-    try { 
-        const borrador = window.KirisStorage ? await window.KirisStorage.cargar() : JSON.parse(localStorage.getItem(STORAGE_KEY)); 
-        if (borrador && typeof borrador === "object") estado = { ...estadoInicial(), ...borrador, modo: "editor" }; 
-    } catch (error) { 
-        console.error(error); 
-        mostrarToast(error.message || "No fue posible cargar el borrador"); 
-    } 
-    estado.modo = "editor"; 
-    document.body.classList.remove("modo-visitante"); 
-    $("loginScreen").hidden = true; 
-    $("app").hidden = false; 
-    const badge = $("modoUsuarioBadge"); 
-    if (badge) { badge.textContent = "Editor"; badge.className = "modo-badge-editor"; } 
-    renderTodo(); 
-    if ($("estadoSincronizacion")) $("estadoSincronizacion").textContent = "Borrador local"; 
-}; 
- 
-/* 2. CONTROL DE VERSIONES: Código, Descripción, Versión más reciente */ 
-COLUMNAS_VERSIONES.splice(0, COLUMNAS_VERSIONES.length, 
-    { key: "seleccion", label: "", width: 42, especial: "seleccion" }, 
-    { key: "codigo", label: "Código", width: 180 }, 
-    { key: "descripcion", label: "Descripción", width: 520 }, 
-    { key: "versionMasReciente", label: "Versión más reciente", width: 190 }, 
-    { key: "acciones", label: "Acciones", width: 110, especial: "acciones" } 
-); 
- 
-abrirVersion = function (versionId = "") { 
-    const v = estado.versiones.find((x) => x.id === versionId); 
-    $("versionForm").reset(); 
-    $("versionId").value = v?.id || ""; 
-    $("versionFormTitle").textContent = v ? "Editar versión" : "Agregar versión"; 
-    $("versionCodigo").value = v?.codigo || ""; 
-    $("versionDescripcion").value = v?.descripcion || v?.manual || ""; 
-    $("versionMasReciente").value = v?.versionMasReciente || v?.numero || v?.version || ""; 
-    abrirPantalla("versionScreen"); 
-}; 
- 
-guardarVersionFormulario = function (evento) { 
-    evento.preventDefault(); 
-    const existenteId = $("versionId").value; 
-    const datos = { 
-        id: existenteId || id("version"), 
-        codigo: $("versionCodigo").value.trim(), 
-        descripcion: $("versionDescripcion").value.trim(), 
-        versionMasReciente: $("versionMasReciente").value.trim() 
-    }; 
-    const indice = estado.versiones.findIndex((x) => x.id === existenteId); 
-    if (indice >= 0) estado.versiones[indice] = datos; 
-    else estado.versiones.unshift(datos); 
-    guardarEstado("Versión guardada"); 
-    cerrarPantalla("versionScreen"); 
-    renderVersiones(); 
-}; 
- 
-renderResumenVersiones = function () { 
-    const codigos = new Set(estado.versiones.map((v) => String(v.codigo || "").trim()).filter(Boolean)).size; 
-    const conVersion = estado.versiones.filter((v) => String(v.versionMasReciente || v.numero || "").trim()).length; 
-    $("resumenVersiones").innerHTML = [ 
-        ["Registros", estado.versiones.length], 
-        ["Códigos únicos", codigos], 
-        ["Con versión", conVersion] 
-    ].map(([label, value]) => `<div class="kpi-card"><div class="label">${label}</div><div class="value">${value}</div></div>`).join(""); 
-}; 
- 
-async function importarVersionesXLSX(archivo) { 
-    if (!archivo) return; 
-    try { 
-        if (typeof XLSX === "undefined") throw new Error("No se cargó la librería XLSX."); 
-        const libro = XLSX.read(await archivo.arrayBuffer(), { type: "array" }); 
-        const hoja = libro.Sheets[libro.SheetNames[0]]; 
-        const filas = XLSX.utils.sheet_to_json(hoja, { defval: "", raw: false }); 
-        if (!filas.length) throw new Error("El archivo no contiene registros."); 
-        const encabezados = Object.keys(filas[0]); 
-        const buscar = (nombre) => encabezados.find((h) => normalizar(h).trim() === normalizar(nombre).trim()); 
-        const hCodigo = buscar("Código"); 
-        const hDescripcion = buscar("Descripción"); 
-        const hVersion = buscar("Versión más reciente"); 
-        const faltantes = []; 
-        if (!hCodigo) faltantes.push("Código"); 
-        if (!hDescripcion) faltantes.push("Descripción"); 
-        if (!hVersion) faltantes.push("Versión más reciente"); 
-        if (faltantes.length) throw new Error(`Faltan encabezados: ${faltantes.join(", ")}`); 
-        estado.versiones = filas.filter((f) => String(f[hCodigo] || f[hDescripcion] || f[hVersion]).trim()).map((f) => ({ 
-            id: id("version"), 
-            codigo: String(f[hCodigo] ?? "").trim(), 
-            descripcion: String(f[hDescripcion] ?? "").trim(), 
-            versionMasReciente: String(f[hVersion] ?? "").trim() 
-        })); 
-        await guardarEstado(`${estado.versiones.length} versión(es) importada(s)`); 
-        renderVersiones(); 
-    } catch (error) { 
-        console.error(error); 
-        mostrarToast(`No fue posible importar el XLSX: ${error.message}`); 
-    } finally { 
-        if ($("inputExcelVersiones")) $("inputExcelVersiones").value = ""; 
-    } 
-} 
- 
-function exportarVersionesXLSX() { 
-    if (typeof XLSX === "undefined") return mostrarToast("No se cargó la librería XLSX"); 
-    const filas = estado.versiones.map((v) => ({ 
-        "Código": v.codigo || "", 
-        "Descripción": v.descripcion || v.manual || "", 
-        "Versión más reciente": v.versionMasReciente || v.numero || v.version || "" 
-    })); 
-    const libro = XLSX.utils.book_new(); 
-    const hoja = XLSX.utils.json_to_sheet(filas, { header: ["Código", "Descripción", "Versión más reciente"] }); 
-    hoja["!cols"] = [{ wch: 22 }, { wch: 70 }, { wch: 24 }]; 
-    XLSX.utils.book_append_sheet(libro, hoja, "Control de Versiones"); 
-    XLSX.writeFile(libro, "Control_de_Versiones_KIRIS.xlsx"); 
-} 
- 
-/* Compatibilidad con respaldos anteriores */ 
-function normalizarVersionesActuales() { 
-    estado.versiones = (estado.versiones || []).map((v) => ({ 
-        id: v.id || id("version"), 
-        codigo: v.codigo || "", 
-        descripcion: v.descripcion ?? v.manual ?? v.observaciones ?? "", 
-        versionMasReciente: v.versionMasReciente ?? v.numero ?? v.version ?? "" 
-    })); 
-} 
- 
-/* 3. TOOLTIP COMPLETO DE BITÁCORA */ 
-function horasTotalesRegistro(registro) { 
-    const objetivo = normalizar(registro.manual); 
-    return estado.bitacora 
-        .filter((r) => normalizar(r.manual) === objetivo) 
-        .reduce((total, r) => total + Number(r.horas || 0), 0); 
-} 
- 
-function resumenBitacora(registro) { 
-    return [ 
-        `Manual: ${registro.manual || ""}`, 
-        `Tipo: ${registro.tipo || ""}`, 
-        `Hora inicio: ${registro.horaInicio || ""}`, 
-        `Hora fin: ${registro.horaFin || ""}`, 
-        `Horas: ${Number(registro.horas || 0).toFixed(2)}`, 
-        `Páginas: ${registro.paginas ?? ""}`, 
-        `Horas totales: ${horasTotalesRegistro(registro).toFixed(2)}`, 
-        `Detalle: ${registro.detalle || ""}` 
-    ].join("\n"); 
-} 
- 
-renderBitacora = function () { 
-    poblarSelectMesAnio($("selectorMesBitacora"), $("selectorAnioBitacora"), fechaBitacora); 
-    $("tituloBitacora").textContent = `Bitácora · ${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`; 
-    const dias = matrizMes(fechaBitacora); 
-    $("calendarioBitacora").innerHTML = DIAS.map((d) => `<div class="calendario-encabezado">${d}</div>`).join("") + dias.map((dia) => { 
-        const iso = `${dia.getFullYear()}-${String(dia.getMonth() + 1).padStart(2, "0")}-${String(dia.getDate()).padStart(2, "0")}`; 
-        const registros = estado.bitacora.filter((r) => r.fecha === iso); 
-        const horas = registros.reduce((t, r) => t + Number(r.horas || 0), 0); 
-        return `<div class="calendario-dia ${dia.getMonth() !== fechaBitacora.getMonth() ? "fuera-mes" : ""}" data-bitacora-fecha="${iso}"> 
-            <div class="calendario-numero">${dia.getDate()}</div> 
-            ${registros.map((r) => `<div class="calendario-evento tipo-${normalizar(r.tipo)}" data-registro-id="${r.id}" title="${escaparHTML(resumenBitacora(r))}">${escaparHTML(r.manual)} · ${Number(r.horas || 0).toFixed(2)} h</div>`).join("")} 
-            <div class="bitacora-resumen-dia">${registros.length ? `${registros.length} registro(s) · ${horas.toFixed(2)} h` : ""}</div> 
-        </div>`; 
-    }).join(""); 
-    document.querySelectorAll("[data-bitacora-fecha]").forEach((celda) => celda.addEventListener("dblclick", () => abrirBitacora("", celda.dataset.bitacoraFecha))); 
-    document.querySelectorAll("[data-registro-id]").forEach((evento) => evento.addEventListener("click", (e) => { e.stopPropagation(); abrirBitacora(evento.dataset.registroId); })); 
-}; 
- 
-/* 4. FILTRO: la barra permite escribir y abre las casillas en el mismo clic */ 
-crearEncabezado = function (elemento, columnas, tipo, ocultas = []) { 
-    const fila = columnas.map((columna) => { 
-        const oculto = ocultas.includes(columna.key) ? "display:none" : ""; 
-        if (columna.especial === "seleccion") return `<th style="${oculto}"><input id="seleccionarTodos_${tipo}" type="checkbox" aria-label="Seleccionar todos"></th>`; 
-        if (columna.especial) return `<th data-key="${columna.key}" draggable="true" data-col-drag="${tipo}" style="${oculto}"><div class="th-content"><span>${escaparHTML(columna.label)}</span><span class="resize-handle" data-tipo="${tipo}" data-key="${columna.key}"></span></div></th>`; 
-        return `<th data-key="${columna.key}" draggable="true" data-col-drag="${tipo}" style="${oculto}"> 
-            <div class="th-content"><span>${escaparHTML(columna.label)}</span><span class="resize-handle" data-tipo="${tipo}" data-key="${columna.key}"></span></div> 
-            <div class="filter-combo"><input class="filter-input" data-tipo="${tipo}" data-key="${columna.key}" value="${escaparHTML(filtros[tipo][columna.key] || "")}" placeholder="Buscar"><button type="button" class="excel-filter-btn" data-filtro-tipo="${tipo}" data-filtro-key="${columna.key}" aria-label="Abrir valores">▼</button></div> 
-        </th>`; 
-    }).join(""); 
-    elemento.innerHTML = `<tr>${fila}</tr>`; 
-    elemento.querySelectorAll(".filter-input").forEach((input) => { 
-        input.addEventListener("focus", () => abrirFiltroExcel(input.dataset.tipo, input.dataset.key, input)); 
-        input.addEventListener("click", (e) => { e.stopPropagation(); abrirFiltroExcel(input.dataset.tipo, input.dataset.key, input); }); 
-        input.addEventListener("input", () => { 
-            filtros[input.dataset.tipo][input.dataset.key] = input.value; 
-            renderSegunTipo(input.dataset.tipo); 
-            const nuevo = document.querySelector(`.filter-input[data-tipo="${input.dataset.tipo}"][data-key="${input.dataset.key}"]`); 
-            nuevo?.focus(); 
-            nuevo?.setSelectionRange(nuevo.value.length, nuevo.value.length); 
-        }); 
-    }); 
-    elemento.querySelectorAll(".excel-filter-btn").forEach((boton) => boton.addEventListener("click", (e) => { e.stopPropagation(); abrirFiltroExcel(boton.dataset.filtroTipo, boton.dataset.filtroKey, boton); })); 
-    habilitarMovimientoColumnas(elemento, tipo); 
-}; 
- 
-/* 5. COLUMNAS MOVIBLES SOLO DURANTE LA SESIÓN */ 
-const ordenTemporalColumnas = { 
-    manuales: COLUMNAS_MANUALES.map((c) => c.key), 
-    tramites: COLUMNAS_TRAMITES.map((c) => c.key), 
-    versiones: COLUMNAS_VERSIONES.map((c) => c.key) 
-}; 
- 
-function columnasBase(tipo) { 
-    return tipo === "manuales" ? COLUMNAS_MANUALES : tipo === "tramites" ? COLUMNAS_TRAMITES : COLUMNAS_VERSIONES; 
-} 
- 
-function columnasOrdenadas(tipo) { 
-    const base = columnasBase(tipo); 
-    const mapa = new Map(base.map((c) => [c.key, c])); 
-    return (ordenTemporalColumnas[tipo] || base.map((c) => c.key)).map((key) => mapa.get(key)).filter(Boolean); 
-} 
- 
-function habilitarMovimientoColumnas(thead, tipo) { 
-    thead.querySelectorAll('th[draggable="true"]').forEach((th) => { 
-        th.addEventListener("dragstart", (e) => { e.dataTransfer.setData("text/plain", th.dataset.key); th.classList.add("columna-arrastrando"); }); 
-        th.addEventListener("dragend", () => th.classList.remove("columna-arrastrando")); 
-        th.addEventListener("dragover", (e) => { e.preventDefault(); th.classList.add("columna-destino"); }); 
-        th.addEventListener("dragleave", () => th.classList.remove("columna-destino")); 
-        th.addEventListener("drop", (e) => { 
-            e.preventDefault(); th.classList.remove("columna-destino"); 
-            const origen = e.dataTransfer.getData("text/plain"), destino = th.dataset.key; 
-            if (!origen || origen === destino) return; 
-            const orden = ordenTemporalColumnas[tipo]; 
-            const desde = orden.indexOf(origen), hacia = orden.indexOf(destino); 
-            if (desde < 0 || hacia < 0) return; 
-            orden.splice(hacia, 0, orden.splice(desde, 1)[0]); 
-            renderSegunTipo(tipo); 
-        }); 
-    }); 
-} 
- 
-/* Se reutilizan los renderizadores actuales, pero con el orden temporal */ 
-const _renderManualesBase = renderManuales; 
-const _renderTramitesBase = renderTramites; 
-const _renderVersionesBase = renderVersiones; 
- 
-function intercambiarArrayEnSitio(destino, origen) { 
-    destino.splice(0, destino.length, ...origen); 
-} 
- 
-renderManuales = function () { 
-    const original = [...COLUMNAS_MANUALES]; 
-    intercambiarArrayEnSitio(COLUMNAS_MANUALES, columnasOrdenadas("manuales")); 
-    _renderManualesBase(); 
-    intercambiarArrayEnSitio(COLUMNAS_MANUALES, original); 
-}; 
-renderTramites = function () { 
-    const original = [...COLUMNAS_TRAMITES]; 
-    intercambiarArrayEnSitio(COLUMNAS_TRAMITES, columnasOrdenadas("tramites")); 
-    _renderTramitesBase(); 
-    intercambiarArrayEnSitio(COLUMNAS_TRAMITES, original); 
-}; 
-renderVersiones = function () { 
-    const original = [...COLUMNAS_VERSIONES]; 
-    intercambiarArrayEnSitio(COLUMNAS_VERSIONES, columnasOrdenadas("versiones")); 
-    _renderVersionesBase(); 
-    intercambiarArrayEnSitio(COLUMNAS_VERSIONES, original); 
-}; 
- 
-/* Ajustes de eventos para XLSX y nuevo formulario */ 
-configurarFormularios = function () { 
-    $("manualForm").addEventListener("submit", guardarManualFormulario); 
-    $("tramiteForm").addEventListener("submit", guardarTramiteFormulario); 
-    $("bitacoraForm").addEventListener("submit", guardarBitacoraFormulario); 
-    $("versionForm").addEventListener("submit", guardarVersionFormulario); 
-    [["btnCerrarManual","manualScreen"],["btnCancelarManual","manualScreen"],["btnCerrarTramite","tramiteScreen"],["btnCancelarTramite","tramiteScreen"],["btnCerrarBitacora","bitacoraScreen"],["btnCancelarBitacora","bitacoraScreen"],["btnCerrarVersion","versionScreen"],["btnCancelarVersion","versionScreen"]].forEach(([b,p]) => $(b).addEventListener("click", () => cerrarPantalla(p))); 
-    ["bitacoraHoraInicio","bitacoraHoraFin"].forEach((campo) => $(campo).addEventListener("change", () => { $("bitacoraHoras").value = calcularHoras($("bitacoraHoraInicio").value, $("bitacoraHoraFin").value).toFixed(2); })); 
-    $("bitacoraManual").addEventListener("change", () => { const m = estado.manuales.find((x) => x.titulo === $("bitacoraManual").value || x.codigo === $("bitacoraManual").value); $("bitacoraTipo").value = m?.tipo || ""; }); 
-}; 
- 
-const _configurarBotonesBase = configurarBotones; 
-configurarBotones = function () { 
-    _configurarBotonesBase(); 
-    const input = $("inputExcelVersiones"); 
-    const reemplazo = input.cloneNode(true); 
-    input.parentNode.replaceChild(reemplazo, input); 
-    reemplazo.addEventListener("change", (e) => importarVersionesXLSX(e.target.files[0])); 
-    const botonExportar = $("btnExportarVersiones"); 
-    const nuevoExportar = botonExportar.cloneNode(true); 
-    botonExportar.parentNode.replaceChild(nuevoExportar, botonExportar); 
-    nuevoExportar.addEventListener("click", exportarVersionesXLSX); 
-}; 
- 
-const _inicializarBase = inicializar; 
-inicializar = async function () { 
-    estado = await cargarEstado(); 
-    normalizarVersionesActuales(); 
-    configurarLogin(); 
-    configurarTabs(); 
-    configurarCalendarios(); 
-    configurarFormularios(); 
-    configurarBotones(); 
-    actualizarEstadoGuardado(); 
-}; 
- 
-document.addEventListener("DOMContentLoaded", inicializar); 
+const COLUMNAS_MANUALES_BASE = [ 
+{key:"seleccion",label:"",width:42,especial:"seleccion"},{key:"orden",label:"",width:42,especial:"orden"},{key:"codigo",label:"Código",width:120},{key:"titulo",label:"Título",width:280},{key:"idioma",label:"Idioma",width:110,tipo:"select",opciones:["Español","Inglés"]},{key:"archivoElectronico",label:"Archivo electrónico",width:145,tipo:"select",opciones:["","Sí","No"]},{key:"ocRelacionado",label:"OC relacionado",width:135},{key:"prioridad",label:"Prioridad",width:110,tipo:"select",opciones:["","Alta","Media","Baja"]},{key:"tipo",label:"Tipo",width:85,tipo:"select",opciones:["","N","T","A","R"]},{key:"paginas",label:"Páginas",width:95,tipo:"number"},{key:"diasEsfuerzo",label:"Días esfuerzo",width:120,tipo:"number"},{key:"horasEsfuerzo",label:"Horas esfuerzo",width:125,tipo:"number"},{key:"tiempoInvertido",label:"Tiempo invertido",width:125,calculado:true},{key:"fechaInicio",label:"Fecha inicio",width:130,tipo:"date"},{key:"fechaFinalizacion",label:"Fecha finalización",width:145,tipo:"date"},{key:"fechaPublicado",label:"Fecha publicado",width:140,tipo:"date"},{key:"estado",label:"Estado",width:145,calculado:true},{key:"acciones",label:"Acciones",width:110,especial:"acciones"} 
+]; 
+const COLUMNAS_TRAMITES_BASE = [ 
+{key:"seleccion",label:"",width:42,especial:"seleccion"},{key:"requerimiento",label:"Requerimiento",width:135},{key:"detalle",label:"Detalle",width:230},{key:"fechaIngreso",label:"Fecha ingreso",width:130,tipo:"date"},{key:"fechaInicio",label:"Fecha inicio",width:125,tipo:"date"},{key:"manualActualizar",label:"Manual a actualizar",width:220},{key:"temaGeneral",label:"Tema general",width:170},{key:"baAsignado",label:"BA asignado",width:150},{key:"consultas",label:"Consultas / comentarios",width:260,tipo:"textarea"},{key:"respuestaConsulta",label:"Respuesta a consulta",width:250,tipo:"textarea"},{key:"justificacionGestor",label:"Justificación en Gestor",width:180,tipo:"select",opciones:["","SÍ","NO","NO APLICA"]},{key:"fechaPublicado",label:"Fecha publicado",width:130,tipo:"date"},{key:"versionTraducir",label:"Versión para traducir agregada",width:210,tipo:"select",opciones:["","SÍ","NO","NO APLICA"]},{key:"justificacionIngles",label:"Justificación Gestor Inglés",width:200,tipo:"select",opciones:["","SÍ","NO","AÚN NO SE HA TRADUCIDO","NO APLICA"]},{key:"listo",label:"Listo",width:230,tipo:"select",opciones:["","PENDIENTE","PENDIENTE / NO SE VE EL CAMBIO","PENDIENTE / FALTA INFORMACIÓN","PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN","SOLO ESPAÑOL / NO APLICA INGLÉS","SOLO ESPAÑOL / FALTA INGLÉS","SOLO INGLÉS","AMBOS IDIOMAS"]},{key:"acciones",label:"Acciones",width:110,especial:"acciones"} 
+]; 
+const COLUMNAS_VERSIONES_BASE = [ 
+{key:"seleccion",label:"",width:42,especial:"seleccion"},{key:"codigo",label:"Código",width:180},{key:"descripcion",label:"Descripción",width:520},{key:"versionMasReciente",label:"Versión más reciente",width:190},{key:"acciones",label:"Acciones",width:110,especial:"acciones"} 
+]; 
+const ordenTemporal = {manuales:COLUMNAS_MANUALES_BASE.map(c=>c.key),tramites:COLUMNAS_TRAMITES_BASE.map(c=>c.key),versiones:COLUMNAS_VERSIONES_BASE.map(c=>c.key)}; 
+function columnasBase(tipo){return tipo==="manuales"?COLUMNAS_MANUALES_BASE:tipo==="tramites"?COLUMNAS_TRAMITES_BASE:COLUMNAS_VERSIONES_BASE} 
+function columnas(tipo){const m=new Map(columnasBase(tipo).map(c=>[c.key,c]));return ordenTemporal[tipo].map(k=>m.get(k)).filter(Boolean)} 
+function id(p){return `${p}_${Date.now()}_${Math.random().toString(16).slice(2)}`} 
+function fechaISOHoy(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`} 
+function estadoInicial(){return{modo:"editor",ultimaCopia:"",manuales:[],tramites:[],bitacora:[],versiones:[],ciclo:[],columnasOcultasManuales:[],columnasOcultasTramites:[],anchosManuales:{},anchosTramites:{},anchosVersiones:{}}} 
+let estado=estadoInicial(),filtros={manuales:{},tramites:{},versiones:{}},filtrosSeleccion={manuales:{},tramites:{},versiones:{}},fechaCalendario=new Date(),fechaBitacora=new Date(),fechaDashboard=new Date(),fechasDestinoCopia=[],editorActivo=true; 
+function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")} 
+function norm(v){return String(v??"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")} 
+function claseEstado(v){return `estado-${norm(v).replace(/\s+/g,"-")}`} 
+function estadoManual(m){if(m.fechaPublicado)return"Publicado";if(m.fechaFinalizacion)return"Completado";if(m.fechaInicio)return"En proceso";return"No iniciado"} 
+function horasManual(m){return estado.bitacora.filter(r=>r.manual===m.titulo||r.manual===m.codigo).reduce((a,r)=>a+Number(r.horas||0),0)} 
+function toast(t){const x=$("toast");if(!x)return;x.textContent=t;x.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>x.hidden=true,2800)} 
+async function cargarEstado(){try{const g=window.KirisStorage?await window.KirisStorage.cargar():JSON.parse(localStorage.getItem(STORAGE_KEY));const s=g&&typeof g==="object"?{...estadoInicial(),...g}:estadoInicial();s.modo="editor";s.versiones=(s.versiones||[]).map(v=>({id:v.id||id("version"),codigo:v.codigo||"",descripcion:v.descripcion??v.manual??v.observaciones??"",versionMasReciente:v.versionMasReciente??v.numero??v.version??""}));return s}catch(e){console.error(e);return estadoInicial()}} 
+async function guardarEstado(m="Cambios guardados"){estado.ultimaCopia=new Date().toISOString();if(window.KirisStorage)await window.KirisStorage.guardar(estado);else localStorage.setItem(STORAGE_KEY,JSON.stringify(estado));actualizarGuardado();if(m)toast(m)} 
+function actualizarGuardado(){if($("ultimaCopiaTexto"))$("ultimaCopiaTexto").textContent=estado.ultimaCopia?new Date(estado.ultimaCopia).toLocaleString("es-CR"):"Sin guardado registrado";if($("estadoSincronizacion"))$("estadoSincronizacion").textContent="Borrador local"} 
+async function entrar(){editorActivo=true;estado=await cargarEstado();document.body.classList.remove("modo-visitante");$("loginScreen").hidden=true;$("app").hidden=false;if($("modoUsuarioBadge")){$("modoUsuarioBadge").textContent="Editor";$("modoUsuarioBadge").className="modo-badge-editor"}renderTodo()} 
+function cerrarSesion(){$("app").hidden=true;$("loginScreen").hidden=false;$("loginPassword").value=""} 
+function activarTab(tab){document.querySelectorAll(".tab-btn").forEach(b=>{const a=b.dataset.tab===tab;b.classList.toggle("active",a);b.setAttribute("aria-selected",String(a))});document.querySelectorAll(".tab-content").forEach(p=>p.classList.toggle("active",p.id===tab));if(tab==="tabCalendario")renderCalendario();if(tab==="tabBitacora")renderBitacora();if(tab==="tabDashboard")renderDashboard();if(tab==="tabTramites")renderTabla("tramites");if(tab==="tabVersiones")renderTabla("versiones")} 
+function valorVisible(o,c){if(c.key==="tiempoInvertido")return horasManual(o).toFixed(2);if(c.key==="estado"&&o.codigo!==undefined)return estadoManual(o);return o[c.key]??""} 
+function cumple(o,t){return columnas(t).every(c=>{if(c.especial)return true;const v=String(valorVisible(o,c)),q=filtros[t][c.key],s=filtrosSeleccion[t][c.key];return(!q||norm(v).includes(norm(q)))&&(!Array.isArray(s)||!s.length||s.includes(v))})} 
+function refs(tipo){return tipo==="manuales"?{col:"colgroupManuales",head:"theadManuales",body:"tbodyManuales",hidden:estado.columnasOcultasManuales,width:estado.anchosManuales}:tipo==="tramites"?{col:"colgroupTramites",head:"theadTramites",body:"tbodyTramites",hidden:estado.columnasOcultasTramites,width:estado.anchosTramites}:{col:"colgroupVersiones",head:"theadVersiones",body:"tbodyVersiones",hidden:[],width:estado.anchosVersiones}} 
+function crearColgroup(tipo){const r=refs(tipo);$(r.col).innerHTML=columnas(tipo).map(c=>`<col data-key="${c.key}" style="width:${r.width[c.key]||c.width||120}px;${r.hidden.includes(c.key)?"display:none":""}">`).join("")} 
+function crearEncabezado(tipo){const r=refs(tipo),cols=columnas(tipo);$(r.head).innerHTML=`<tr>${cols.map(c=>{const st=r.hidden.includes(c.key)?"display:none":"";if(c.especial==="seleccion")return`<th style="${st}"><input id="seleccionarTodos_${tipo}" type="checkbox"></th>`;if(c.especial)return`<th data-key="${c.key}" draggable="true" style="${st}"><div class="th-content"><span>${esc(c.label)}</span><span class="resize-handle" data-tipo="${tipo}" data-key="${c.key}"></span></div></th>`;return`<th data-key="${c.key}" draggable="true" style="${st}"><div class="th-content"><span>${esc(c.label)}</span><span class="resize-handle" data-tipo="${tipo}" data-key="${c.key}"></span></div><div class="filter-combo"><input class="filter-input" data-tipo="${tipo}" data-key="${c.key}" value="${esc(filtros[tipo][c.key]||"")}" placeholder="Buscar"><button class="excel-filter-btn" data-filtro-tipo="${tipo}" data-filtro-key="${c.key}" type="button">▼</button></div></th>`}).join("")}</tr>`; 
+$(r.head).querySelectorAll(".filter-input").forEach(i=>{i.onclick=e=>{e.stopPropagation();abrirFiltro(tipo,i.dataset.key,i)};i.onfocus=()=>abrirFiltro(tipo,i.dataset.key,i);i.oninput=()=>{filtros[tipo][i.dataset.key]=i.value;renderTabla(tipo);const n=document.querySelector(`.filter-input[data-tipo="${tipo}"][data-key="${i.dataset.key}"]`);n?.focus();n?.setSelectionRange(n.value.length,n.value.length)}});$(r.head).querySelectorAll(".excel-filter-btn").forEach(b=>b.onclick=e=>{e.stopPropagation();abrirFiltro(tipo,b.dataset.filtroKey,b)});habilitarMover(tipo);habilitarResize()} 
+function cerrarFiltro(){if($("filterMenu")){$("filterMenu").hidden=true;$("filterMenu").innerHTML=""}} 
+function abrirFiltro(tipo,key,ancla){const c=columnas(tipo).find(x=>x.key===key);if(!c)return;const vals=[...new Set((estado[tipo]||[]).map(o=>String(valorVisible(o,c))))].sort((a,b)=>a.localeCompare(b,"es",{numeric:true})),act=filtrosSeleccion[tipo][key]||[],m=$("filterMenu");m.innerHTML=`<div class="excel-filter-title">${esc(c.label)}</div><input id="excelFilterSearch" class="filter-input" placeholder="Buscar valores..."><label class="excel-filter-option"><input id="excelFilterAll" type="checkbox" ${!act.length||act.length===vals.length?"checked":""}> Seleccionar todo</label><div id="excelFilterValues" class="excel-filter-values">${vals.map(v=>`<label class="excel-filter-option" data-value-text="${esc(norm(v))}"><input type="checkbox" value="${esc(v)}" ${!act.length||act.includes(v)?"checked":""}> <span>${esc(v||"(Vacío)")}</span></label>`).join("")}</div><div class="excel-filter-actions"><button id="excelFilterClear" class="btn btn-light">Borrar filtro</button><button id="excelFilterApply" class="btn btn-primary">Aplicar</button></div>`;const q=ancla.getBoundingClientRect();m.style.left=`${Math.max(8,Math.min(q.left,innerWidth-330))}px`;m.style.top=`${Math.max(8,Math.min(q.bottom+4,innerHeight-440))}px`;m.hidden=false;$("excelFilterSearch").oninput=e=>m.querySelectorAll("[data-value-text]").forEach(l=>l.hidden=!l.dataset.valueText.includes(norm(e.target.value)));$("excelFilterAll").onchange=e=>m.querySelectorAll('#excelFilterValues input[type="checkbox"]').forEach(x=>{if(!x.closest("label").hidden)x.checked=e.target.checked});$("excelFilterClear").onclick=()=>{delete filtrosSeleccion[tipo][key];cerrarFiltro();renderTabla(tipo)};$("excelFilterApply").onclick=()=>{const s=[...m.querySelectorAll('#excelFilterValues input[type="checkbox"]:checked')].map(x=>x.value);filtrosSeleccion[tipo][key]=s.length===vals.length?[]:s;cerrarFiltro();renderTabla(tipo)}} 
+function celda(o,c,t){const v=valorVisible(o,c);if(c.calculado)return c.key==="estado"?`<span class="estado ${claseEstado(v)}">${esc(v)}</span>`:esc(v);if(c.tipo==="select")return`<select class="cell-select" data-entidad="${t}" data-id="${o.id}" data-key="${c.key}">${c.opciones.map(x=>`<option ${String(x)===String(v)?"selected":""}>${esc(x)}</option>`).join("")}</select>`;if(c.tipo==="textarea")return`<textarea class="cell-textarea" data-entidad="${t}" data-id="${o.id}" data-key="${c.key}">${esc(v)}</textarea>`;return`<input class="cell-input" type="${c.tipo||"text"}" data-entidad="${t}" data-id="${o.id}" data-key="${c.key}" value="${esc(v)}">`} 
+function renderTabla(tipo){crearColgroup(tipo);crearEncabezado(tipo);const r=refs(tipo),cols=columnas(tipo),lista=(estado[tipo]||[]).filter(o=>cumple(o,tipo)),sing=tipo==="manuales"?"manual":tipo==="tramites"?"tramite":"version";$(r.body).innerHTML=lista.length?lista.map(o=>`<tr data-id="${o.id}">${cols.map(c=>{const st=r.hidden.includes(c.key)?"display:none":"";if(c.especial==="seleccion")return`<td style="${st}"><input class="seleccion-${sing}" type="checkbox" data-id="${o.id}"></td>`;if(c.especial==="orden")return`<td class="drag-handle" style="${st}">⋮⋮</td>`;if(c.especial==="acciones")return`<td style="${st}"><button class="btn-icon" data-editar-${sing}="${o.id}">✏️</button></td>`;return`<td style="${st}">${celda(o,c,tipo)}</td>`}).join("")}</tr>`).join(""):`<tr><td class="empty-state" colspan="${cols.length}">No hay registros que coincidan con los filtros.</td></tr>`;$(r.body).querySelectorAll(".cell-input,.cell-select,.cell-textarea").forEach(x=>x.onchange=()=>{const o=estado[tipo].find(y=>y.id===x.dataset.id);if(!o)return;o[x.dataset.key]=x.type==="number"?Number(x.value||0):x.value;guardarEstado("");renderTabla(tipo);if(tipo==="manuales")renderCalendario()});$(`seleccionarTodos_${tipo}`)?.addEventListener("change",e=>document.querySelectorAll(`.seleccion-${sing}`).forEach(x=>x.checked=e.target.checked));document.querySelectorAll(`[data-editar-${sing}]`).forEach(b=>b.onclick=()=>tipo==="manuales"?abrirManual(b.dataset.editarManual):tipo==="tramites"?abrirTramite(b.dataset.editarTramite):abrirVersion(b.dataset.editarVersion));if(tipo==="versiones")renderResumenVersiones()} 
+function habilitarMover(tipo){const head=$(refs(tipo).head);head.querySelectorAll('th[draggable="true"]').forEach(th=>{th.ondragstart=e=>{if(e.target.closest("input,button,.resize-handle")){e.preventDefault();return}e.dataTransfer.setData("text/plain",th.dataset.key);th.classList.add("columna-arrastrando")};th.ondragend=()=>th.classList.remove("columna-arrastrando");th.ondragover=e=>{e.preventDefault();th.classList.add("columna-destino")};th.ondragleave=()=>th.classList.remove("columna-destino");th.ondrop=e=>{e.preventDefault();th.classList.remove("columna-destino");const a=e.dataTransfer.getData("text/plain"),b=th.dataset.key,o=ordenTemporal[tipo],i=o.indexOf(a),j=o.indexOf(b);if(i>=0&&j>=0&&i!==j){o.splice(j,0,o.splice(i,1)[0]);renderTabla(tipo)}}})} 
+function habilitarResize(){document.querySelectorAll(".resize-handle").forEach(h=>h.onpointerdown=e=>{e.stopPropagation();const th=h.closest("th"),x=e.clientX,w=th.offsetWidth,t=h.dataset.tipo,k=h.dataset.key,m=v=>{const n=Math.max(60,w+v.clientX-x),c=document.querySelector(`#${refs(t).col} col[data-key="${k}"]`);if(c)c.style.width=`${n}px`},u=v=>{document.removeEventListener("pointermove",m);document.removeEventListener("pointerup",u);refs(t).width[k]=Math.max(60,w+v.clientX-x);guardarEstado("")};document.addEventListener("pointermove",m);document.addEventListener("pointerup",u)})} 
+function poblarMes(m,a,d){m.innerHTML=MESES.map((x,i)=>`<option value="${i}" ${i===d.getMonth()?"selected":""}>${x}</option>`).join("");const y=d.getFullYear();a.innerHTML=Array.from({length:11},(_,i)=>y-5+i).map(x=>`<option ${x===y?"selected":""}>${x}</option>`).join("")} 
+function matrizMes(d){const p=new Date(d.getFullYear(),d.getMonth(),1),s=(p.getDay()+6)%7,i=new Date(d.getFullYear(),d.getMonth(),1-s);return Array.from({length:42},(_,n)=>new Date(i.getFullYear(),i.getMonth(),i.getDate()+n))} 
+function iso(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`} 
+function renderCalendario(){poblarMes($("selectorMesCalendario"),$("selectorAnioCalendario"),fechaCalendario);$("tituloCalendario").textContent=`${MESES[fechaCalendario.getMonth()]} ${fechaCalendario.getFullYear()}`;$("calendarioManuales").innerHTML=DIAS.map(x=>`<div class="calendario-encabezado">${x}</div>`).join("")+matrizMes(fechaCalendario).map(d=>{const f=iso(d),ev=estado.manuales.filter(m=>[m.fechaInicio,m.fechaFinalizacion,m.fechaPublicado].includes(f));return`<div class="calendario-dia ${d.getMonth()!==fechaCalendario.getMonth()?"fuera-mes":""} ${f===fechaISOHoy()?"hoy":""}"><div class="calendario-numero">${d.getDate()}</div>${ev.map(m=>`<div class="calendario-evento tipo-${norm(m.tipo)}" title="${esc(m.titulo)}">${esc(m.codigo)} · ${esc(m.titulo)}</div>`).join("")}</div>`}).join("")} 
+function horasTotales(r){return estado.bitacora.filter(x=>norm(x.manual)===norm(r.manual)).reduce((a,x)=>a+Number(x.horas||0),0)} 
+function resumenBitacora(r){return[`Manual: ${r.manual||""}`,`Tipo: ${r.tipo||""}`,`Hora inicio: ${r.horaInicio||""}`,`Hora fin: ${r.horaFin||""}`,`Horas: ${Number(r.horas||0).toFixed(2)}`,`Páginas: ${r.paginas??""}`,`Horas totales: ${horasTotales(r).toFixed(2)}`,`Detalle: ${r.detalle||""}`].join("\n")} 
+function renderBitacora(){poblarMes($("selectorMesBitacora"),$("selectorAnioBitacora"),fechaBitacora);$("tituloBitacora").textContent=`Bitácora · ${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`;$("calendarioBitacora").innerHTML=DIAS.map(x=>`<div class="calendario-encabezado">${x}</div>`).join("")+matrizMes(fechaBitacora).map(d=>{const f=iso(d),rs=estado.bitacora.filter(r=>r.fecha===f),h=rs.reduce((a,r)=>a+Number(r.horas||0),0);return`<div class="calendario-dia ${d.getMonth()!==fechaBitacora.getMonth()?"fuera-mes":""}" data-bitacora-fecha="${f}"><div class="calendario-numero">${d.getDate()}</div>${rs.map(r=>`<div class="calendario-evento tipo-${norm(r.tipo)}" data-registro-id="${r.id}" title="${esc(resumenBitacora(r))}">${esc(r.manual)} · ${Number(r.horas||0).toFixed(2)} h</div>`).join("")}<div class="bitacora-resumen-dia">${rs.length?`${rs.length} registro(s) · ${h.toFixed(2)} h`:""}</div></div>`}).join("");document.querySelectorAll("[data-bitacora-fecha]").forEach(x=>x.ondblclick=()=>abrirBitacora("",x.dataset.bitacoraFecha));document.querySelectorAll("[data-registro-id]").forEach(x=>x.onclick=e=>{e.stopPropagation();abrirBitacora(x.dataset.registroId)})} 
+function barras(id,datos,suf=""){const e=Object.entries(datos).sort((a,b)=>b[1]-a[1]),mx=Math.max(1,...e.map(x=>x[1]));$(id).innerHTML=e.map(([k,v])=>`<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${esc(k)}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${v/mx*100}%"></div></div><div class="dashboard-cycle-meta">${Number(v).toFixed(suf===" h"?2:1)}${suf}</div></div>`).join("")||'<div class="empty-state">Sin datos.</div>'} 
+function renderDashboard(){const h=estado.bitacora.reduce((a,r)=>a+Number(r.horas||0),0),p=estado.manuales.filter(m=>estadoManual(m)==="Publicado").length,e=estado.manuales.filter(m=>estadoManual(m)==="En proceso").length,a=estado.manuales.filter(m=>m.prioridad==="Alta").length;$("kpiCards").innerHTML=[["Total de manuales",estado.manuales.length],["Publicados",p],["En proceso",e],["Prioridad alta",a],["Horas registradas",h.toFixed(2)]].map(([l,v])=>`<div class="kpi-card"><div class="label">${l}</div><div class="value">${v}</div></div>`).join("");const pt={N:0,T:0,A:0,R:0};estado.bitacora.forEach(r=>pt[r.tipo]=(pt[r.tipo]||0)+Number(r.horas||0));barras("graficoTiposMes",pt," h");$("selectorMesDashboard").innerHTML=MESES.map((m,i)=>`<option value="${i}" ${i===fechaDashboard.getMonth()?"selected":""}>${m}</option>`).join("");$("selectorAnioDashboard").value=fechaDashboard.getFullYear();const top={};estado.bitacora.filter(r=>{const d=new Date(`${r.fecha}T00:00:00`);return d.getMonth()===fechaDashboard.getMonth()&&d.getFullYear()===fechaDashboard.getFullYear()}).forEach(r=>top[r.manual]=(top[r.manual]||0)+Number(r.horas||0));$("topManualesHoras").innerHTML=Object.entries(top).sort((a,b)=>b[1]-a[1]).map(([m,v])=>`<div class="fecha-destino-item"><strong>${esc(m)}</strong><span>${v.toFixed(2)} h</span></div>`).join("")||'<div class="empty-state">Sin registros para el mes.</div>';$("estrategiaSemanal").innerHTML='<p><strong>Lunes, martes y jueves:</strong> traducciones, actualizaciones y manuales nuevos.</p><p><strong>Miércoles:</strong> requerimientos.</p>';$("analisisTipos").innerHTML=["N","T","A","R"].map(t=>`<div class="fecha-destino-item"><strong>${t}</strong><span>${estado.manuales.filter(m=>m.tipo===t).length} manual(es)</span></div>`).join("");const gr={};estado.ciclo.forEach(x=>(gr[x.tipo||"Sin tipo"]??=[]).push(Number(x.dias||0)));const pr={};Object.entries(gr).forEach(([k,v])=>pr[k]=v.reduce((a,b)=>a+b,0)/v.length);$("resumenDashboardCiclo").innerHTML=Object.entries(pr).map(([k,v])=>`<div class="dashboard-cycle-card"><div class="label">${esc(k)}</div><div class="value">${v.toFixed(1)}</div></div>`).join("")||'<div class="empty-state">Importe datos de ciclo.</div>';barras("graficoDashboardCiclo",pr," días")} 
+function abrirPantalla(x){$(x).hidden=false}function cerrarPantalla(x){$(x).hidden=true} 
+function abrirManual(i=""){const m=estado.manuales.find(x=>x.id===i);$("manualForm").reset();$("manualId").value=m?.id||"";$("manualFormTitle").textContent=m?"Editar manual":"Agregar manual";["codigo","titulo","idioma","archivoElectronico","ocRelacionado","prioridad","tipo","paginas","diasEsfuerzo","fechaInicio","fechaFinalizacion","fechaPublicado","horasEsfuerzo"].forEach(k=>{const c=$(`manual${k[0].toUpperCase()}${k.slice(1)}`);if(c)c.value=m?.[k]??""});$("manualEstado").value=m?estadoManual(m):"No iniciado";abrirPantalla("manualScreen")} 
+function guardarManual(e){e.preventDefault();const i=$("manualId").value,d={id:i||id("manual"),codigo:$("manualCodigo").value.trim(),titulo:$("manualTitulo").value.trim(),idioma:$("manualIdioma").value,archivoElectronico:$("manualArchivoElectronico").value,ocRelacionado:$("manualOcRelacionado").value.trim(),prioridad:$("manualPrioridad").value,tipo:$("manualTipo").value,paginas:Number($("manualPaginas").value||0),diasEsfuerzo:Number($("manualDiasEsfuerzo").value||0),fechaInicio:$("manualFechaInicio").value,fechaFinalizacion:$("manualFechaFinalizacion").value,fechaPublicado:$("manualFechaPublicado").value,horasEsfuerzo:Number($("manualHorasEsfuerzo").value||0),color:estado.manuales.find(x=>x.id===i)?.color||"#FF6C0C"},n=estado.manuales.findIndex(x=>x.id===i);n>=0?estado.manuales[n]=d:estado.manuales.unshift(d);guardarEstado("Manual guardado");cerrarPantalla("manualScreen");renderTodo()} 
+function abrirTramite(i=""){const t=estado.tramites.find(x=>x.id===i);$("tramiteForm").reset();$("tramiteId").value=t?.id||"";$("tramiteFormTitle").textContent=t?"Editar trámite":"Nuevo trámite";const m={Requerimiento:"requerimiento",Detalle:"detalle",FechaIngreso:"fechaIngreso",FechaInicio:"fechaInicio",ManualActualizar:"manualActualizar",TemaGeneral:"temaGeneral",BAAsignado:"baAsignado",Consultas:"consultas",RespuestaConsulta:"respuestaConsulta",JustificacionGestor:"justificacionGestor",FechaPublicado:"fechaPublicado",VersionTraducir:"versionTraducir",JustificacionIngles:"justificacionIngles",Listo:"listo"};Object.entries(m).forEach(([s,k])=>$(`tramite${s}`).value=t?.[k]??"");abrirPantalla("tramiteScreen")} 
+function guardarTramite(e){e.preventDefault();const i=$("tramiteId").value,d={id:i||id("tramite"),requerimiento:$("tramiteRequerimiento").value.trim(),detalle:$("tramiteDetalle").value.trim(),fechaIngreso:$("tramiteFechaIngreso").value,fechaInicio:$("tramiteFechaInicio").value,manualActualizar:$("tramiteManualActualizar").value.trim(),temaGeneral:$("tramiteTemaGeneral").value.trim(),baAsignado:$("tramiteBAAsignado").value.trim(),consultas:$("tramiteConsultas").value.trim(),respuestaConsulta:$("tramiteRespuestaConsulta").value.trim(),justificacionGestor:$("tramiteJustificacionGestor").value,fechaPublicado:$("tramiteFechaPublicado").value,versionTraducir:$("tramiteVersionTraducir").value,justificacionIngles:$("tramiteJustificacionIngles").value,listo:$("tramiteListo").value},n=estado.tramites.findIndex(x=>x.id===i);n>=0?estado.tramites[n]=d:estado.tramites.unshift(d);guardarEstado("Trámite guardado");cerrarPantalla("tramiteScreen");renderTabla("tramites")} 
+function calcularHoras(a,b){if(!a||!b)return 0;const[ha,ma]=a.split(":").map(Number),[hb,mb]=b.split(":").map(Number);let m=hb*60+mb-ha*60-ma;if(m<0)m+=1440;return m/60} 
+function abrirBitacora(i="",f=fechaISOHoy()){const r=estado.bitacora.find(x=>x.id===i);$("bitacoraForm").reset();$("bitacoraId").value=r?.id||"";$("bitacoraFormTitle").textContent=r?"Editar registro de Bitácora":"Registro de Bitácora";$("bitacoraFecha").value=r?.fecha||f;$("bitacoraManual").value=r?.manual||"";$("bitacoraTipo").value=r?.tipo||"";$("bitacoraHoraInicio").value=r?.horaInicio||"";$("bitacoraHoraFin").value=r?.horaFin||"";$("bitacoraHoras").value=r?.horas||"";$("bitacoraPaginas").value=r?.paginas||"";$("bitacoraDetalle").value=r?.detalle||"";abrirPantalla("bitacoraScreen")} 
+function guardarBitacora(e){e.preventDefault();const i=$("bitacoraId").value,m=estado.manuales.find(x=>x.titulo===$("bitacoraManual").value||x.codigo===$("bitacoraManual").value),d={id:i||id("bitacora"),fecha:$("bitacoraFecha").value,manual:$("bitacoraManual").value.trim(),tipo:$("bitacoraTipo").value||m?.tipo||"",horaInicio:$("bitacoraHoraInicio").value,horaFin:$("bitacoraHoraFin").value,horas:calcularHoras($("bitacoraHoraInicio").value,$("bitacoraHoraFin").value),paginas:Number($("bitacoraPaginas").value||0),detalle:$("bitacoraDetalle").value.trim()},n=estado.bitacora.findIndex(x=>x.id===i);n>=0?estado.bitacora[n]=d:estado.bitacora.unshift(d);guardarEstado("Registro de Bitácora guardado");cerrarPantalla("bitacoraScreen");renderTodo()} 
+function abrirVersion(i=""){const v=estado.versiones.find(x=>x.id===i);$("versionForm").reset();$("versionId").value=v?.id||"";$("versionFormTitle").textContent=v?"Editar versión":"Agregar versión";$("versionCodigo").value=v?.codigo||"";$("versionDescripcion").value=v?.descripcion||"";$("versionMasReciente").value=v?.versionMasReciente||"";abrirPantalla("versionScreen")} 
+function guardarVersion(e){e.preventDefault();const i=$("versionId").value,d={id:i||id("version"),codigo:$("versionCodigo").value.trim(),descripcion:$("versionDescripcion").value.trim(),versionMasReciente:$("versionMasReciente").value.trim()},n=estado.versiones.findIndex(x=>x.id===i);n>=0?estado.versiones[n]=d:estado.versiones.unshift(d);guardarEstado("Versión guardada");cerrarPantalla("versionScreen");renderTabla("versiones")} 
+function renderResumenVersiones(){const c=new Set(estado.versiones.map(v=>v.codigo).filter(Boolean)).size,v=estado.versiones.filter(x=>x.versionMasReciente).length;$("resumenVersiones").innerHTML=[["Registros",estado.versiones.length],["Códigos únicos",c],["Con versión",v]].map(([l,n])=>`<div class="kpi-card"><div class="label">${l}</div><div class="value">${n}</div></div>`).join("")} 
+function eliminar(tipo){const s=tipo==="versiones"?"version":tipo.slice(0,-1),ids=[...document.querySelectorAll(`.seleccion-${s}:checked`)].map(x=>x.dataset.id);if(!ids.length)return toast("No hay registros seleccionados");if(!confirm(`¿Eliminar ${ids.length} registro(s)?`))return;estado[tipo]=estado[tipo].filter(x=>!ids.includes(x.id));guardarEstado("Registros eliminados");renderTabla(tipo)} 
+function poblarDatalists(){const o=estado.manuales.map(m=>`<option value="${esc(m.titulo)}">${esc(m.codigo)}</option>`).join("");$("listaManualesTramite").innerHTML=o;$("listaManualesBitacora").innerHTML=o;$("listaTemasTramite").innerHTML=[...new Set(estado.tramites.map(t=>t.temaGeneral).filter(Boolean))].map(x=>`<option value="${esc(x)}"></option>`).join("")} 
+function abrirColumnas(tipo){const man=tipo==="manuales",p=$(man?"columnsPanelManuales":"columnsPanelTramites"),l=$(man?"columnsListManuales":"columnsListTramites"),oc=man?estado.columnasOcultasManuales:estado.columnasOcultasTramites;l.innerHTML=columnasBase(tipo).filter(c=>!c.especial).map(c=>`<label><input type="checkbox" data-columna="${c.key}" ${!oc.includes(c.key)?"checked":""}>${esc(c.label)}</label>`).join("");l.querySelectorAll("input").forEach(x=>x.onchange=()=>{const d=man?estado.columnasOcultasManuales:estado.columnasOcultasTramites;if(x.checked){const nuevo=d.filter(k=>k!==x.dataset.columna);if(man)estado.columnasOcultasManuales=nuevo;else estado.columnasOcultasTramites=nuevo}else if(!d.includes(x.dataset.columna)){d.push(x.dataset.columna)};guardarEstado("");renderTabla(tipo)});p.hidden=false} 
+function descargar(n,c,t="text/plain;charset=utf-8"){const b=new Blob([c],{type:t}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=n;a.click();URL.revokeObjectURL(a.href)} 
+function exportarCSV(tipo){const c=columnasBase(tipo).filter(x=>!x.especial&&!x.calculado),f=[c.map(x=>x.label),...estado[tipo].map(o=>c.map(x=>o[x.key]??""))];descargar(`${tipo}.csv`,f.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n"),"text/csv;charset=utf-8")} 
+async function importarVersionesXLSX(a){if(!a)return;try{if(typeof XLSX==="undefined")throw new Error("No se cargó la librería XLSX");const w=XLSX.read(await a.arrayBuffer(),{type:"array"}),f=XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]],{defval:"",raw:false});if(!f.length)throw new Error("El archivo no contiene registros");const hs=Object.keys(f[0]),get=n=>hs.find(h=>norm(h).trim()===norm(n).trim()),hc=get("Código"),hd=get("Descripción"),hv=get("Versión más reciente"),falt=[!hc&&"Código",!hd&&"Descripción",!hv&&"Versión más reciente"].filter(Boolean);if(falt.length)throw new Error(`Faltan encabezados: ${falt.join(", ")}`);estado.versiones=f.map(r=>({id:id("version"),codigo:String(r[hc]??"").trim(),descripcion:String(r[hd]??"").trim(),versionMasReciente:String(r[hv]??"").trim()})).filter(r=>r.codigo||r.descripcion||r.versionMasReciente);await guardarEstado(`${estado.versiones.length} versión(es) importada(s)`);renderTabla("versiones")}catch(e){console.error(e);toast(`No fue posible importar el XLSX: ${e.message}`)}finally{$("inputExcelVersiones").value=""}} 
+function exportarVersionesXLSX(){if(typeof XLSX==="undefined")return toast("No se cargó la librería XLSX");const w=XLSX.utils.book_new(),s=XLSX.utils.json_to_sheet(estado.versiones.map(v=>({"Código":v.codigo,"Descripción":v.descripcion,"Versión más reciente":v.versionMasReciente})));s["!cols"]=[{wch:22},{wch:70},{wch:24}];XLSX.utils.book_append_sheet(w,s,"Control de Versiones");XLSX.writeFile(w,"Control_de_Versiones_KIRIS.xlsx")} 
+function leerCSV(t){const f=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const x=t[i],n=t[i+1];if(x==='"'&&q&&n==='"'){c+='"';i++}else if(x==='"')q=!q;else if(x===","&&!q){r.push(c.trim());c=""}else if((x==="\n"||x==="\r")&&!q){if(x==="\r"&&n==="\n")i++;r.push(c.trim());if(r.some(v=>v!==""))f.push(r);r=[];c=""}else c+=x}r.push(c.trim());if(r.some(v=>v!==""))f.push(r);return f} 
+function importarCSV(tipo,a){if(!a)return;const l=new FileReader();l.onload=()=>{try{const f=leerCSV(String(l.result||""));if(f.length<2)throw new Error("El archivo no contiene filas");const cs=columnasBase(tipo),h=f[0].map(e=>cs.find(c=>norm(c.label).replace(/[^a-z0-9]/g,"")===norm(e).replace(/[^a-z0-9]/g,"")||norm(c.key)===norm(e))?.key);estado[tipo]=f.slice(1).map(r=>{const o={id:id(tipo.slice(0,-1))};h.forEach((k,i)=>{if(k&&!['seleccion','orden','acciones','tiempoInvertido'].includes(k))o[k]=r[i]??""});return o});guardarEstado(`${estado[tipo].length} registro(s) importado(s)`);renderTodo()}catch(e){toast(`No fue posible importar: ${e.message}`)}};l.readAsText(a,"UTF-8")} 
+async function publicar(){const b=$("btnPublicarCambios"),t=b.textContent;b.disabled=true;b.textContent="Publicando...";try{const p={version:1,versionPublicada:`v2.${Date.now()}`,publicadoPor:"Stephanie Arias Garcia",fechaPublicacion:new Date().toISOString(),manuales:estado.manuales,bitacora:estado.bitacora,tramites:estado.tramites,versiones:estado.versiones,ciclo:estado.ciclo};await window.KirisStorage.publicar(p);localStorage.setItem(PUBLISHED_KEY,JSON.stringify(p));toast("Versión publicada correctamente")}catch(e){console.error(e);toast(e.message)}finally{b.disabled=false;b.textContent=t}} 
+function respaldo(){descargar(`KIRIS_V2_Respaldo_${fechaISOHoy()}.json`,JSON.stringify({tipo:"KIRIS_V2_RESPALDO_COMPLETO",version:1,fechaExportacion:new Date().toISOString(),datos:estado},null,2),"application/json;charset=utf-8");toast("Copia de seguridad completa exportada")} 
+function importarRespaldo(a){if(!a)return;const l=new FileReader();l.onload=async()=>{try{const r=JSON.parse(String(l.result||"")),d=r.datos||r.data||r;if(!d||!Array.isArray(d.manuales))throw new Error("Respaldo incompatible");if(!confirm("La importación reemplazará los datos actuales. ¿Desea continuar?"))return;estado={...estadoInicial(),...d,modo:"editor"};estado.versiones=(estado.versiones||[]).map(v=>({id:v.id||id("version"),codigo:v.codigo||"",descripcion:v.descripcion??v.manual??"",versionMasReciente:v.versionMasReciente??v.numero??v.version??""}));await guardarEstado("Copia de seguridad restaurada");renderTodo()}catch(e){toast(`No fue posible importar el respaldo: ${e.message}`)}finally{$("inputRespaldoCompleto").value=""}};l.readAsText(a,"UTF-8")} 
+function configurar(){ $("btnIngresarEditor").onclick=entrar;$("btnCerrarSesion").onclick=cerrarSesion;document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>activarTab(b.dataset.tab));$("manualForm").onsubmit=guardarManual;$("tramiteForm").onsubmit=guardarTramite;$("bitacoraForm").onsubmit=guardarBitacora;$("versionForm").onsubmit=guardarVersion;[["btnCerrarManual","manualScreen"],["btnCancelarManual","manualScreen"],["btnCerrarTramite","tramiteScreen"],["btnCancelarTramite","tramiteScreen"],["btnCerrarBitacora","bitacoraScreen"],["btnCancelarBitacora","bitacoraScreen"],["btnCerrarVersion","versionScreen"],["btnCancelarVersion","versionScreen"]].forEach(([b,p])=>$(b).onclick=()=>cerrarPantalla(p));$("btnAgregarManual").onclick=()=>abrirManual();$("btnAgregarTramite").onclick=()=>abrirTramite();$("btnAgregarBitacora").onclick=()=>abrirBitacora();$("btnAgregarVersion").onclick=()=>abrirVersion();$("btnEliminarManuales").onclick=()=>eliminar("manuales");$("btnEliminarTramites").onclick=()=>eliminar("tramites");$("btnEliminarVersiones").onclick=()=>eliminar("versiones");[["btnLimpiarFiltrosManuales","manuales"],["btnLimpiarFiltrosTramites","tramites"],["btnLimpiarFiltrosVersiones","versiones"]].forEach(([b,t])=>$(b).onclick=()=>{filtros[t]={};filtrosSeleccion[t]={};renderTabla(t)});$("btnExportarManuales").onclick=()=>exportarCSV("manuales");$("btnExportarTramites").onclick=()=>exportarCSV("tramites");$("btnExportarVersiones").onclick=exportarVersionesXLSX;$("btnImportarManuales").onclick=()=>$("inputExcelManuales").click();$("btnImportarTramites").onclick=()=>$("inputExcelTramites").click();$("btnImportarVersiones").onclick=()=>$("inputExcelVersiones").click();$("inputExcelManuales").onchange=e=>{importarCSV("manuales",e.target.files[0]);e.target.value=""};$("inputExcelTramites").onchange=e=>{importarCSV("tramites",e.target.files[0]);e.target.value=""};$("inputExcelVersiones").onchange=e=>importarVersionesXLSX(e.target.files[0]);$("btnColumnasManuales").onclick=()=>abrirColumnas("manuales");$("btnColumnasTramites").onclick=()=>abrirColumnas("tramites");$("btnCerrarColumnasManuales").onclick=()=>$("columnsPanelManuales").hidden=true;$("btnCerrarColumnasTramites").onclick=()=>$("columnsPanelTramites").hidden=true;$("btnMostrarTodasManuales").onclick=()=>{estado.columnasOcultasManuales=[];renderTabla("manuales")};$("btnMostrarTodasTramites").onclick=()=>{estado.columnasOcultasTramites=[];renderTabla("tramites")};$("btnGuardarNube").onclick=()=>guardarEstado("Información guardada");$("btnPublicarCambios").onclick=publicar;$("btnExportarRespaldo").onclick=respaldo;$("btnImportarRespaldo").onclick=()=>$("inputRespaldoCompleto").click();$("inputRespaldoCompleto").onchange=e=>importarRespaldo(e.target.files[0]);$("btnPantallaCompleta").onclick=()=>document.fullscreenElement?document.exitFullscreen():$("panelManuales").requestFullscreen?.();["bitacoraHoraInicio","bitacoraHoraFin"].forEach(c=>$(c).onchange=()=>$("bitacoraHoras").value=calcularHoras($("bitacoraHoraInicio").value,$("bitacoraHoraFin").value).toFixed(2));$("bitacoraManual").onchange=()=>{const m=estado.manuales.find(x=>x.titulo===$("bitacoraManual").value||x.codigo===$("bitacoraManual").value);$("bitacoraTipo").value=m?.tipo||""};$("btnCalendarioAnterior").onclick=()=>{fechaCalendario.setMonth(fechaCalendario.getMonth()-1);renderCalendario()};$("btnCalendarioSiguiente").onclick=()=>{fechaCalendario.setMonth(fechaCalendario.getMonth()+1);renderCalendario()};$("btnCalendarioHoy").onclick=()=>{fechaCalendario=new Date();renderCalendario()};$("selectorMesCalendario").onchange=e=>{fechaCalendario.setMonth(+e.target.value);renderCalendario()};$("selectorAnioCalendario").onchange=e=>{fechaCalendario.setFullYear(+e.target.value);renderCalendario()};$("btnBitacoraAnterior").onclick=()=>{fechaBitacora.setMonth(fechaBitacora.getMonth()-1);renderBitacora()};$("btnBitacoraSiguiente").onclick=()=>{fechaBitacora.setMonth(fechaBitacora.getMonth()+1);renderBitacora()};$("selectorMesBitacora").onchange=e=>{fechaBitacora.setMonth(+e.target.value);renderBitacora()};$("selectorAnioBitacora").onchange=e=>{fechaBitacora.setFullYear(+e.target.value);renderBitacora()};$("btnDashboardMesAnterior").onclick=()=>{fechaDashboard.setMonth(fechaDashboard.getMonth()-1);renderDashboard()};$("btnDashboardMesSiguiente").onclick=()=>{fechaDashboard.setMonth(fechaDashboard.getMonth()+1);renderDashboard()};$("selectorMesDashboard").onchange=e=>{fechaDashboard.setMonth(+e.target.value);renderDashboard()};$("selectorAnioDashboard").onchange=e=>{fechaDashboard.setFullYear(+e.target.value);renderDashboard()};document.addEventListener("click",e=>{if(!$("filterMenu").hidden&&!$("filterMenu").contains(e.target)&&!e.target.closest(".filter-combo"))cerrarFiltro()})} 
+function renderTodo(){actualizarGuardado();poblarDatalists();renderTabla("manuales");renderCalendario();renderBitacora();renderDashboard();renderTabla("tramites");renderTabla("versiones")} 
+async function inicializar(){estado=await cargarEstado();configurar();actualizarGuardado()} 
+document.addEventListener("DOMContentLoaded",inicializar); 
  
