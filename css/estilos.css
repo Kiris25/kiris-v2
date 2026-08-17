@@ -1144,4 +1144,3 @@ tbody tr.dragging td {
 
 }
 
-.excel-filter-btn{border:0;background:transparent;color:#fff;cursor:pointer;font-size:11px;padding:2px 4px}.excel-filter-title{font-weight:800;color:#ff6c0c;margin-bottom:8px}.excel-filter-values{max-height:240px;overflow:auto;margin:8px 0}.excel-filter-option{display:flex;gap:8px;align-items:center;padding:5px;border-radius:6px;font-size:12px}.excel-filter-option:hover{background:#fff0e6}.excel-filter-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
