@@ -323,15 +323,17 @@ function renderVersiones() {
     habilitarRedimensionamiento();  
 }  
  
-function renderResumenVersiones() {  
-    const sistemas = new Set(estado.versiones.map((v) => v.sistema)).size;  
-    const vigentes = estado.versiones.filter((v) => v.estado === "Disponible").length;  
-    $("resumenVersiones").innerHTML = [  
-        ["Total de versiones", estado.versiones.length],  
-        ["Sistemas", sistemas],  
-        ["Disponibles", vigentes],  
-        ["Idiomas", new Set(estado.versiones.map((v) => v.idioma)).size]  
-    ].map(([label, value]) => `<div class="kpi-card"><div class="label">${label}</div><div class="value">${value}</div></div>`).join("");  
+function renderResumenVersiones() {
+    const ingles = estado.versiones.filter(v => normalizar(v.idioma) === "ingles").length;
+    const espanol = estado.versiones.filter(v => normalizar(v.idioma) === "espanol").length;
+    const siscardPlusIngles = estado.versiones.filter(v => normalizar(v.sistema).includes("siscard+") && normalizar(v.idioma) === "ingles").length;
+    const siscardPlusEspanol = estado.versiones.filter(v => normalizar(v.sistema).includes("siscard+") && normalizar(v.idioma) === "espanol").length;
+    $("resumenVersiones").innerHTML = [
+        ["Total en Inglés", ingles],
+        ["Total en Español", espanol],
+        ["Total siscard+ Inglés", siscardPlusIngles],
+        ["Total siscard+ Español", siscardPlusEspanol]
+    ].map(([label,value]) => `<div class="kpi-card"><div class="label">${label}</div><div class="value">${value}</div></div>`).join("");
 }  
  
 function habilitarRedimensionamiento() {  
@@ -374,21 +376,56 @@ function matrizMes(fecha) {
     return Array.from({ length: 42 }, (_, i) => new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate() + i));  
 }  
  
-function renderCalendario() {  
-    poblarSelectMesAnio($("selectorMesCalendario"), $("selectorAnioCalendario"), fechaCalendario);  
-    $("tituloCalendario").textContent = `${MESES[fechaCalendario.getMonth()]} ${fechaCalendario.getFullYear()}`;  
-    const hoy = fechaISOHoy();  
-    const dias = matrizMes(fechaCalendario);  
-    const encabezados = DIAS.map((d) => `<div class="calendario-encabezado">${d}</div>`).join("");  
-    const celdas = dias.map((dia) => {  
-        const iso = `${dia.getFullYear()}-${String(dia.getMonth() + 1).padStart(2, "0")}-${String(dia.getDate()).padStart(2, "0")}`;  
-        const eventos = estado.manuales.filter((m) => [m.fechaInicio, m.fechaFinalizacion, m.fechaPublicado].includes(iso));  
-        return `<div class="calendario-dia ${dia.getMonth() !== fechaCalendario.getMonth() ? "fuera-mes" : ""} ${iso === hoy ? "hoy" : ""}" data-fecha="${iso}">  
-            <div class="calendario-numero">${dia.getDate()}</div>  
-            ${eventos.map((m) => `<div class="calendario-evento tipo-${normalizar(m.tipo)}" style="background:${m.color || "#FF6C0C"}" title="${escaparHTML(m.titulo)}">${escaparHTML(m.codigo)} · ${escaparHTML(m.titulo)}</div>`).join("")}  
-        </div>`;  
-    }).join("");  
-    $("calendarioManuales").innerHTML = encabezados + celdas;  
+function colorManualCalendario(manual) {
+    if (manual.colorCalendario) return manual.colorCalendario;
+    const paleta = ["#FF6C0C","#E63946","#2A9D8F","#3A86FF","#8338EC","#F4A261","#00A896","#D62828","#6A994E","#4D908E","#F72585","#4361EE"];
+    const clave = String(manual.id || manual.codigo || manual.titulo || "manual");
+    let hash = 0;
+    for (let i=0;i<clave.length;i++) hash = ((hash << 5) - hash) + clave.charCodeAt(i);
+    manual.colorCalendario = paleta[Math.abs(hash) % paleta.length];
+    return manual.colorCalendario;
+}
+function fechaValidaManual(valor) {
+    if (!valor) return null;
+    const d = new Date(`${valor}T00:00:00`);
+    return Number.isNaN(d.getTime()) ? null : d;
+}
+function posicionEventoManual(manual, fechaISO) {
+    const inicio = fechaValidaManual(manual.fechaInicio);
+    const fin = fechaValidaManual(manual.fechaFinalizacion || manual.fechaPublicado || manual.fechaInicio);
+    const actual = fechaValidaManual(fechaISO);
+    if (!inicio || !fin || !actual || actual < inicio || actual > fin) return "";
+    if (inicio.getTime() === fin.getTime()) return "unico";
+    if (actual.getTime() === inicio.getTime()) return "inicio";
+    if (actual.getTime() === fin.getTime()) return "final";
+    return "continuacion";
+}
+function resumenCalendarioManual(manual) {
+    const horas = horasBitacoraManual(manual);
+    return [
+        `Manual: ${manual.codigo || ""} - ${manual.titulo || ""}`,
+        `Tipo: ${manual.tipo || ""}`,
+        `Fecha de inicio: ${manual.fechaInicio || ""}`,
+        `Fecha de finalización: ${manual.fechaFinalizacion || manual.fechaPublicado || ""}`,
+        `Tiempo invertido: ${horas.toFixed(2)} h`,
+        `Total de horas registradas: ${horas.toFixed(2)} h`
+    ].join("\n");
+}
+function renderCalendario() {
+    poblarSelectMesAnio($("selectorMesCalendario"), $("selectorAnioCalendario"), fechaCalendario);
+    $("tituloCalendario").textContent = `${MESES[fechaCalendario.getMonth()]} ${fechaCalendario.getFullYear()}`;
+    const hoy = fechaISOHoy();
+    const dias = matrizMes(fechaCalendario);
+    const encabezados = DIAS.map(d => `<div class="calendario-encabezado">${d}</div>`).join("");
+    const celdas = dias.map(dia => {
+        const iso = `${dia.getFullYear()}-${String(dia.getMonth()+1).padStart(2,"0")}-${String(dia.getDate()).padStart(2,"0")}`;
+        const eventos = estado.manuales.map(m => ({manual:m,posicion:posicionEventoManual(m,iso)})).filter(x => x.posicion);
+        return `<div class="calendario-dia ${dia.getMonth()!==fechaCalendario.getMonth()?"fuera-mes":""} ${iso===hoy?"hoy":""}" data-fecha="${iso}">
+            <div class="calendario-numero">${dia.getDate()}</div>
+            ${eventos.map(({manual,posicion}) => `<div class="calendario-evento evento-${posicion}" style="--evento-color:${colorManualCalendario(manual)};background:${colorManualCalendario(manual)}" title="${escaparHTML(resumenCalendarioManual(manual))}">${escaparHTML(manual.codigo || manual.titulo)}</div>`).join("")}
+        </div>`;
+    }).join("");
+    $("calendarioManuales").innerHTML = encabezados + celdas;
 }  
  
 function renderBitacora() {  
@@ -585,8 +622,64 @@ function normalizarEncabezado(v){return normalizar(v).replace(/[^a-z0-9]/g,"");}
 async function importarCSV(tipo,archivo){  
     if(!archivo)return;try{const matriz=parsearCSV(await archivo.text());if(matriz.length<2)throw new Error("El archivo no contiene registros");const columnas=tipo==="manuales"?COLUMNAS_MANUALES:tipo==="tramites"?COLUMNAS_TRAMITES:COLUMNAS_VERSIONES;const utiles=columnas.filter(c=>!c.especial&&!c.calculado),headers=matriz[0].map(normalizarEncabezado);const nuevos=matriz.slice(1).map(fila=>{const obj={id:id(tipo.slice(0,-1))};utiles.forEach(c=>{const ix=headers.findIndex(h=>h===normalizarEncabezado(c.label)||h===normalizarEncabezado(c.key));let v=ix>=0?(fila[ix]??""):"";if(c.tipo==="number")v=Number(v||0);obj[c.key]=v;});return obj;}).filter(o=>utiles.some(c=>String(o[c.key]??"").trim()!==""));if(!nuevos.length)throw new Error("No se encontraron filas válidas");if(confirm(`¿Reemplazar los registros de ${tipo}?\nAceptar = reemplazar. Cancelar = agregar.`))estado[tipo]=nuevos;else estado[tipo].push(...nuevos);guardarEstado(`${nuevos.length} registro(s) importado(s)`);renderTodo();}catch(error){console.error(error);mostrarToast(`No fue posible importar: ${error.message}`);}  
 }  
-function exportarRespaldoCompleto(){descargar("KIRIS_RESPALDO_COMPLETO.json",JSON.stringify(estado,null,2),"application/json;charset=utf-8");}  
-async function importarRespaldoCompleto(archivo){if(!archivo)return;try{const datos=JSON.parse(await archivo.text());if(!datos||typeof datos!=="object")throw new Error("JSON inválido");if(!confirm("¿Reemplazar el estado actual con este respaldo?"))return;estado={...estadoInicial(),...datos,modo:"editor"};editorActivo=true;guardarEstado("Respaldo restaurado");renderTodo();}catch(error){console.error(error);mostrarToast(`No fue posible restaurar: ${error.message}`);}}  
+function exportarRespaldoCompleto() {
+    const respaldo = {
+        tipo: "KIRIS_V2_RESPALDO_COMPLETO",
+        version: 2,
+        fechaExportacion: new Date().toISOString(),
+        datos: {
+            manuales: estado.manuales || [],
+            calendario: estado.manuales || [],
+            bitacora: estado.bitacora || [],
+            dashboardProduccion: estado.ciclo || [],
+            tramites: estado.tramites || [],
+            controlVersiones: estado.versiones || [],
+            comentarios: estado.comentarios || [],
+            configuracion: {
+                ultimaCopia: estado.ultimaCopia || "",
+                columnasOcultasManuales: estado.columnasOcultasManuales || [],
+                columnasOcultasTramites: estado.columnasOcultasTramites || [],
+                anchosManuales: estado.anchosManuales || {},
+                anchosTramites: estado.anchosTramites || {},
+                anchosVersiones: estado.anchosVersiones || {}
+            }
+        }
+    };
+    descargar(`KIRIS_RESPALDO_COMPLETO_${fechaISOHoy()}.json`, JSON.stringify(respaldo,null,2), "application/json;charset=utf-8");
+    mostrarToast("Copia de seguridad completa generada");
+}  
+async function importarRespaldoCompleto(archivo) {
+    if (!archivo) return;
+    try {
+        const respaldo = JSON.parse(await archivo.text());
+        const origen = respaldo?.tipo === "KIRIS_V2_RESPALDO_COMPLETO" ? respaldo.datos : respaldo;
+        if (!origen || typeof origen !== "object") throw new Error("JSON inválido");
+        if (!confirm("¿Reemplazar toda la información actual con este respaldo?")) return;
+        const config = origen.configuracion || {};
+        estado = {
+            ...estadoInicial(),
+            manuales: origen.manuales || origen.calendario || [],
+            bitacora: origen.bitacora || [],
+            ciclo: origen.dashboardProduccion || origen.ciclo || [],
+            tramites: origen.tramites || [],
+            versiones: origen.controlVersiones || origen.versiones || [],
+            comentarios: origen.comentarios || [],
+            ultimaCopia: config.ultimaCopia || origen.ultimaCopia || "",
+            columnasOcultasManuales: config.columnasOcultasManuales || origen.columnasOcultasManuales || [],
+            columnasOcultasTramites: config.columnasOcultasTramites || origen.columnasOcultasTramites || [],
+            anchosManuales: config.anchosManuales || origen.anchosManuales || {},
+            anchosTramites: config.anchosTramites || origen.anchosTramites || {},
+            anchosVersiones: config.anchosVersiones || origen.anchosVersiones || {},
+            modo: "editor"
+        };
+        editorActivo = true;
+        guardarEstado("Respaldo completo restaurado");
+        renderTodo();
+    } catch(error) {
+        console.error(error);
+        mostrarToast(`No fue posible restaurar: ${error.message}`);
+    }
+}  
 async function publicarCambios() {  
     const paquete={version:1,fechaPublicacion:new Date().toISOString(),manuales:estado.manuales,bitacora:estado.bitacora,tramites:estado.tramites,versiones:estado.versiones,ciclo:estado.ciclo};  
     try{if(window.KirisStorage?.publicar){await window.KirisStorage.publicar(paquete);localStorage.setItem(PUBLISHED_KEY,JSON.stringify(paquete));mostrarToast("Cambios publicados en GitHub");}else{throw new Error("El módulo storage.js no está disponible");}}catch(error){console.error(error);mostrarToast(error.message||"No fue posible publicar");}  
@@ -668,7 +761,7 @@ async function leerLibroXLSX(archivo){if(typeof XLSX==="undefined")throw new Err
 function fechaXLSX(v){if(!v)return"";const d=v instanceof Date?v:new Date(v);return isNaN(d)?"":`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;} 
 async function importarControlVersionesXLSX(archivo){if(!archivo)return;try{const wb=await leerLibroXLSX(archivo),nuevos=[];wb.SheetNames.forEach(nombre=>{const idioma=normalizar(nombre).includes("ingles")?"Inglés":normalizar(nombre).includes("espanol")?"Español":"";if(!idioma)return;const filas=XLSX.utils.sheet_to_json(wb.Sheets[nombre],{header:1,defval:""});filas.slice(1).forEach(f=>{const codigo=String(f[0]||"").trim(),manual=String(f[1]||"").trim();if(!codigo.startsWith("UEO-")||!manual)return;nuevos.push({id:id("version"),sistema:/siscard\s*\+|siscardplus/i.test(manual)?"siscard+":"SISCARD",codigo,manual,idioma,numero:String(f[2]??"").trim()||"0",fecha:"",estado:"Disponible",observaciones:""});});});if(!nuevos.length)throw new Error("No se encontraron filas válidas");if(confirm("¿Reemplazar el Control de Versiones actual?\nAceptar = reemplazar. Cancelar = agregar."))estado.versiones=nuevos;else estado.versiones.push(...nuevos);guardarEstado(`${nuevos.length} versiones importadas`);renderVersiones();}catch(e){console.error(e);mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);}} 
 async function importarDashboardProduccion(archivo){if(!archivo)return;try{const wb=await leerLibroXLSX(archivo),hoja=wb.Sheets[wb.SheetNames[0]],filas=XLSX.utils.sheet_to_json(hoja,{defval:"",raw:true});estado.ciclo=filas.map((original,i)=>{const start=original["Start Date"],comp=original["Comp Date"],cat=String(original["Change Category"]||"Sin categoría"),a=start?new Date(start):null,b=comp?new Date(comp):null,dias=a&&b&&!isNaN(a)&&!isNaN(b)?Math.max(0,Math.round((b-a)/86400000)):null;return{id:id("ciclo"),tipo:cat,dias:dias??0,diasCiclo:dias,original};});guardarEstado(`${estado.ciclo.length} registros de producción importados`);renderDashboard();}catch(e){console.error(e);mostrarToast(`No fue posible importar export.xlsx: ${e.message}`);}} 
-function abrirDetalleProduccion(){if(!estado.ciclo.length)return mostrarToast("Primero importe export.xlsx");const rows=estado.ciclo.map(x=>x.original||x),headers=[...new Set(rows.flatMap(Object.keys))];const data=JSON.stringify({headers,rows},(k,v)=>v instanceof Date?v.toISOString():v).replace(/</g,"\\u003c");const html=`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Detalle de producción</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:white;padding:16px 22px}.bar{display:flex;gap:8px;padding:14px;align-items:center;position:sticky;top:0;background:#f3f3f3;z-index:5}.bar input{min-width:320px;padding:9px;border:1px solid #ccc;border-radius:8px}.bar button{padding:9px 12px;border:0;border-radius:8px;font-weight:700}.wrap{margin:0 14px 14px;overflow:auto;max-height:calc(100vh - 100px);background:white}table{border-collapse:collapse;width:max-content;min-width:100%}th,td{border:1px solid #ddd;padding:7px;font-size:12px;vertical-align:top}thead tr:first-child th{position:sticky;top:0;background:#666;color:#fff;z-index:3}.filtros th{position:sticky;top:33px;background:#f7f7f7;z-index:2}.filtros input{min-width:125px;width:100%;box-sizing:border-box;padding:6px}</style></head><body><header><h2>Detalle de producción</h2></header><div class="bar"><input id="global" placeholder="Buscar en toda la réplica"><button onclick="limpiar()">Limpiar filtros</button><span id="count"></span></div><div class="wrap"><table id="tabla"></table></div><script>const DATA=${data};function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}function render(){const g=global.value.toLowerCase(),fs=[...document.querySelectorAll('.f')].map(x=>x.value.toLowerCase());const r=DATA.rows.filter(o=>DATA.headers.some(h=>String(o[h]??'').toLowerCase().includes(g))&&DATA.headers.every((h,i)=>!fs[i]||String(o[h]??'').toLowerCase().includes(fs[i])));tabla.innerHTML='<thead><tr>'+DATA.headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr><tr class="filtros">'+DATA.headers.map((h,i)=>'<th><input class="f" data-i="'+i+'" placeholder="Buscar o filtrar" value="'+esc(fs[i]||'')+'"></th>').join('')+'</tr></thead><tbody>'+r.map(o=>'<tr>'+DATA.headers.map(h=>'<td>'+esc(o[h])+'</td>').join('')+'</tr>').join('')+'</tbody>';count.textContent=r.length+' de '+DATA.rows.length+' registros';document.querySelectorAll('.f').forEach(x=>x.oninput=render)}function limpiar(){global.value='';document.querySelectorAll('.f').forEach(x=>x.value='');render()}global.oninput=render;render();<\/script></body></html>`;const w=open("","_blank");if(!w)return mostrarToast("Permita ventanas emergentes para ver el detalle");w.document.write(html);w.document.close();} 
+function abrirDetalleProduccion(){if(!estado.ciclo.length)return mostrarToast("Primero importe export.xlsx");const rows=estado.ciclo.map(x=>x.original||x),headers=[...new Set(rows.flatMap(Object.keys))];const data=JSON.stringify({headers,rows},(k,v)=>v instanceof Date?v.toISOString():v).replace(/</g,"\\u003c");const html=`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Detalle de producción</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:white;padding:16px 22px}.bar{display:flex;gap:8px;padding:14px;align-items:center;position:sticky;top:0;background:#f3f3f3;z-index:5}.bar input{min-width:320px;padding:9px;border:1px solid #ccc;border-radius:8px}.bar button{padding:9px 12px;border:0;border-radius:8px;font-weight:700}.wrap{margin:0 14px 14px;overflow:auto;max-height:calc(100vh - 100px);background:white}table{border-collapse:collapse;width:max-content;min-width:100%;table-layout:fixed}th,td{border:1px solid #ddd;padding:7px;font-size:12px;vertical-align:top;white-space:normal;overflow-wrap:anywhere;word-break:break-word;min-width:150px;max-width:280px;line-height:1.4}thead tr:first-child th{position:sticky;top:0;background:#666;color:#fff;z-index:3}.filtros th{position:sticky;top:33px;background:#f7f7f7;z-index:2}.filtros input{min-width:125px;width:100%;box-sizing:border-box;padding:6px}</style></head><body><header><h2>Detalle de producción</h2></header><div class="bar"><input id="global" placeholder="Buscar en toda la réplica"><button onclick="limpiar()">Limpiar filtros</button><span id="count"></span></div><div class="wrap"><table id="tabla"></table></div><script>const DATA=${data};function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}function render(){const g=global.value.toLowerCase(),fs=[...document.querySelectorAll('.f')].map(x=>x.value.toLowerCase());const r=DATA.rows.filter(o=>DATA.headers.some(h=>String(o[h]??'').toLowerCase().includes(g))&&DATA.headers.every((h,i)=>!fs[i]||String(o[h]??'').toLowerCase().includes(fs[i])));tabla.innerHTML='<thead><tr>'+DATA.headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr><tr class="filtros">'+DATA.headers.map((h,i)=>'<th><input class="f" data-i="'+i+'" placeholder="Buscar o filtrar" value="'+esc(fs[i]||'')+'"></th>').join('')+'</tr></thead><tbody>'+r.map(o=>'<tr>'+DATA.headers.map(h=>'<td>'+esc(o[h])+'</td>').join('')+'</tr>').join('')+'</tbody>';count.textContent=r.length+' de '+DATA.rows.length+' registros';document.querySelectorAll('.f').forEach(x=>x.oninput=render)}function limpiar(){global.value='';document.querySelectorAll('.f').forEach(x=>x.value='');render()}global.oninput=render;render();<\/script></body></html>`;const w=open("","_blank");if(!w)return mostrarToast("Permita ventanas emergentes para ver el detalle");w.document.write(html);w.document.close();} 
  
 /* Bitácora: nombre visible y copia de un único registro */ 
 function nombreManualBitacora(m){return `${m.codigo||""} - ${m.titulo||""}`.replace(/^\s*-\s*|\s*-\s*$/g,"");} 
@@ -679,3 +772,59 @@ function actualizarPreviewCopia(){const r=estado.bitacora.find(x=>x.id===$("regi
 function confirmarCopiaRegistro(){const r=estado.bitacora.find(x=>x.id===$("registroOrigenCopia").value),fecha=$("fechaDestinoCopia").value;if(!r||!fecha)return mostrarToast("Seleccione un registro y una fecha");estado.bitacora.unshift({...r,id:id("bitacora"),fecha});guardarEstado("Registro copiado");cerrarPantalla("panelCopiaMasiva");renderTodo();} 
 document.addEventListener("DOMContentLoaded",()=>{$("btnImportarCiclo")?.addEventListener("click",()=>$("inputExcelDashboardCiclo").click());$("inputExcelDashboardCiclo")?.addEventListener("change",e=>importarDashboardProduccion(e.target.files[0]).finally(()=>e.target.value=""));$("btnCopiarRegistros")?.addEventListener("click",abrirCopiaRegistro);$("btnCerrarCopiaMasiva")?.addEventListener("click",()=>cerrarPantalla("panelCopiaMasiva"));$("btnCancelarCopiaMasiva")?.addEventListener("click",()=>cerrarPantalla("panelCopiaMasiva"));$("registroOrigenCopia")?.addEventListener("change",actualizarPreviewCopia);$("btnConfirmarCopiaMasiva")?.addEventListener("click",confirmarCopiaRegistro);}); 
  
+
+
+/* ===== KIRIS V4: columnas, fila activa y cierres ===== */
+function ocultarTodasColumnas(tipo) {
+    const columnas = tipo === "manuales" ? COLUMNAS_MANUALES : COLUMNAS_TRAMITES;
+    const todas = columnas.filter(c => !c.especial).map(c => c.key);
+    if (tipo === "manuales") estado.columnasOcultasManuales = todas;
+    else estado.columnasOcultasTramites = todas;
+    guardarEstado("");
+    if (tipo === "manuales") renderManuales(); else renderTramites();
+    abrirColumnas(tipo);
+}
+function cerrarPanelesColumnas(evento) {
+    const manuales = $("columnsPanelManuales");
+    const tramites = $("columnsPanelTramites");
+    const dentroManual = manuales && !manuales.hidden && manuales.contains(evento.target);
+    const dentroTramite = tramites && !tramites.hidden && tramites.contains(evento.target);
+    const botonManual = evento.target.closest?.("#btnColumnasManuales");
+    const botonTramite = evento.target.closest?.("#btnColumnasTramites");
+    if (manuales && !dentroManual && !botonManual) manuales.hidden = true;
+    if (tramites && !dentroTramite && !botonTramite) tramites.hidden = true;
+}
+function activarFilaManualDesdeEvento(evento) {
+    const fila = evento.target.closest("#tbodyManuales tr[data-id]");
+    if (!fila) return;
+    document.querySelectorAll("#tbodyManuales tr.fila-activa").forEach(r => r.classList.remove("fila-activa"));
+    fila.classList.add("fila-activa");
+}
+document.addEventListener("click", cerrarPanelesColumnas);
+document.addEventListener("click", activarFilaManualDesdeEvento);
+document.addEventListener("focusin", activarFilaManualDesdeEvento);
+document.addEventListener("DOMContentLoaded", () => {
+    $("btnOcultarTodasManuales")?.addEventListener("click", e => {e.stopPropagation();ocultarTodasColumnas("manuales");});
+    $("btnOcultarTodasTramites")?.addEventListener("click", e => {e.stopPropagation();ocultarTodasColumnas("tramites");});
+});
+
+/* Mantener visible la fila de Manuales que está en trabajo */
+let manualActivoId = "";
+document.addEventListener("focusin", evento => {
+    const fila = evento.target.closest?.("#tbodyManuales tr[data-id]");
+    if (fila) manualActivoId = fila.dataset.id || "";
+});
+document.addEventListener("click", evento => {
+    const fila = evento.target.closest?.("#tbodyManuales tr[data-id]");
+    if (fila) manualActivoId = fila.dataset.id || "";
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const cuerpo = $("tbodyManuales");
+    if (!cuerpo) return;
+    new MutationObserver(() => {
+        if (!manualActivoId) return;
+        cuerpo.querySelectorAll("tr.fila-activa").forEach(r => r.classList.remove("fila-activa"));
+        cuerpo.querySelector(`tr[data-id="${CSS.escape(manualActivoId)}"]`)?.classList.add("fila-activa");
+    }).observe(cuerpo,{childList:true});
+});
+
