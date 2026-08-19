@@ -302,7 +302,7 @@ function renderManuales() {
         if (columna.especial === "orden") return `<td class="numero-manual" style="${oculto}"><span class="numero-manual-valor">${estado.manuales.findIndex((item) => item.id === manual.id) + 1}</span><button class="drag-handle drag-manual" type="button" draggable="true" data-id="${manual.id}" title="Arrastrar para reordenar" aria-label="Mover fila ${estado.manuales.findIndex((item) => item.id === manual.id) + 1}">⋮⋮</button></td>`;   
         if (columna.especial === "acciones") return `<td style="${oculto}"><button class="btn-icon editor-only" data-editar-manual="${manual.id}" title="Editar">✏️</button></td>`;   
         return `<td style="${oculto}">${campoCelda(manual, columna, "manuales")}</td>`;   
-    }).join("")}</tr>`).join("") : `<tr><td class="empty-state" colspan="${COLUMNAS_MANUALES.length}">No hay manuales que coincidan con los filtros.</td></tr>`;   
+    }).join("")}</tr>`).join("") : `<tr><td class="empty-state" colspan="${COLUMNAS_MANUALES.length}">No se encontraron manuales que coincidan con la búsqueda.</td></tr>`;   
     enlazarEdicionTabla($("tbodyManuales"));   
     $("seleccionarTodos_manuales")?.addEventListener("change", (e) => document.querySelectorAll(".seleccion-manual").forEach((c) => { c.checked = e.target.checked; }));   
     document.querySelectorAll("[data-editar-manual]").forEach((b) => b.addEventListener("click", () => abrirManual(b.dataset.editarManual)));   
@@ -320,7 +320,7 @@ function renderTramites() {
         if (columna.especial === "seleccion") return `<td style="${oculto}"><input class="seleccion-tramite" type="checkbox" data-id="${tramite.id}"></td>`;   
         if (columna.especial === "acciones") return `<td style="${oculto}"><button class="btn-icon editor-only" data-editar-tramite="${tramite.id}" title="Editar">✏️</button></td>`;   
         return `<td style="${oculto}">${campoCelda(tramite, columna, "tramites")}</td>`;   
-    }).join("")}</tr>`).join("") : `<tr><td class="empty-state" colspan="${COLUMNAS_TRAMITES.length}">No hay trámites que coincidan con los filtros.</td></tr>`;   
+    }).join("")}</tr>`).join("") : `<tr><td class="empty-state" colspan="${COLUMNAS_TRAMITES.length}">No se encontraron trámites que coincidan con la búsqueda.</td></tr>`;   
     enlazarEdicionTabla($("tbodyTramites"));   
     $("seleccionarTodos_tramites")?.addEventListener("change", (e) => document.querySelectorAll(".seleccion-tramite").forEach((c) => { c.checked = e.target.checked; }));   
     document.querySelectorAll("[data-editar-tramite]").forEach((b) => b.addEventListener("click", () => abrirTramite(b.dataset.editarTramite)));   
@@ -335,7 +335,7 @@ function renderVersiones() {
         if (columna.especial === "seleccion") return `<td><input class="seleccion-version" type="checkbox" data-id="${version.id}"></td>`;   
         if (columna.especial === "acciones") return `<td><button class="btn-icon editor-only" data-editar-version="${version.id}" title="Editar">✏️</button></td>`;   
         return `<td>${campoCelda(version, columna, "versiones")}</td>`;   
-    }).join("")}</tr>`).join("") : `<tr><td class="empty-state" colspan="${COLUMNAS_VERSIONES.length}">No hay versiones que coincidan con los filtros.</td></tr>`;   
+    }).join("")}</tr>`).join("") : `<tr><td class="empty-state" colspan="${COLUMNAS_VERSIONES.length}">No se encontraron versiones que coincidan con la búsqueda.</td></tr>`;   
     enlazarEdicionTabla($("tbodyVersiones"));   
     $("seleccionarTodos_versiones")?.addEventListener("change", (e) => document.querySelectorAll(".seleccion-version").forEach((c) => { c.checked = e.target.checked; }));   
     document.querySelectorAll("[data-editar-version]").forEach((b) => b.addEventListener("click", () => abrirVersion(b.dataset.editarVersion)));   
@@ -826,7 +826,8 @@ function abrirFiltroInlineKiris(evento, tipo, columna, input) {
     document.querySelectorAll(".inline-filter-options").forEach((panel) => panel.remove()); 
     const cfg = filtros[tipo][columna.key]; 
     const seleccionados = typeof cfg === "object" ? (cfg.valores || []) : []; 
-    const valores = opcionesFiltroInline(tipo, columna); 
+    const textoActual = input.value || ""; 
+    const valores = opcionesFiltroInline(tipo, columna).filter((valor) => !textoActual || normalizar(valor).includes(normalizar(textoActual))); 
     const panel = document.createElement("div"); 
     panel.className = "inline-filter-options"; 
     panel.innerHTML = `<div class="inline-filter-list">${valores.map((valor) => `<label class="inline-filter-option"><input type="checkbox" value="${escaparHTML(valor)}" ${!seleccionados.length || seleccionados.includes(valor) ? "checked" : ""}><span>${escaparHTML(valor)}</span></label>`).join("")}</div><div class="inline-filter-actions"><button type="button" class="btn-inline-clear">Limpiar</button><button type="button" class="btn-inline-apply">Aplicar</button></div>`; 
@@ -846,6 +847,14 @@ function crearEncabezado(elemento,columnas,tipo,ocultas=[]){
     elemento.querySelectorAll(".filter-input").forEach(input=>{ 
         const col=columnas.find(c=>c.key===input.dataset.key); 
         input.onclick=(e)=>abrirFiltroInlineKiris(e,tipo,col,input); 
+        input.oninput=()=>{ 
+            const texto=input.value; 
+            const prev=filtros[tipo][col.key]; 
+            filtros[tipo][col.key]={texto,valores:typeof prev==="object"?(prev.valores||[]):[]}; 
+            renderEntidad(tipo); 
+            const nuevo=document.querySelector(`.filter-input[data-tipo="${tipo}"][data-key="${col.key}"]`); 
+            if(nuevo){nuevo.focus();nuevo.setSelectionRange(nuevo.value.length,nuevo.value.length);abrirFiltroInlineKiris({stopPropagation(){}},tipo,col,nuevo);} 
+        }; 
         input.onkeydown=(e)=>{if(e.key!=="Enter")return;e.preventDefault();const prev=filtros[tipo][col.key];filtros[tipo][col.key]={texto:input.value,valores:typeof prev==="object"?(prev.valores||[]):[]};renderEntidad(tipo);}; 
     }); 
 } 
