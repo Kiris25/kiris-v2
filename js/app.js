@@ -53,6 +53,7 @@ const COLUMNAS_VERSIONES = [
     { key: "manual", label: "Manual", width: 280 },   
     { key: "idioma", label: "Idioma", width: 110, tipo: "select", opciones: ["Español", "Inglés"] },   
     { key: "numero", label: "Versión disponible", width: 145 },   
+    { key: "ubicacionEService", label: "Ubicación en E-service", width: 190 },   
     { key: "fecha", label: "Fecha de versión", width: 135, tipo: "date" },   
     { key: "estado", label: "Estado", width: 130, tipo: "select", opciones: ["Disponible", "Pendiente", "En revisión", "Obsoleta"] },   
     { key: "observaciones", label: "Observaciones", width: 280, tipo: "textarea" },   
@@ -295,16 +296,17 @@ function renderManuales() {
     crearColgroup($("colgroupManuales"), COLUMNAS_MANUALES, estado.anchosManuales || {}, ocultas);   
     crearEncabezado($("theadManuales"), COLUMNAS_MANUALES, "manuales", ocultas);   
     const lista = estado.manuales.filter((objeto) => cumpleFiltros(objeto, "manuales", COLUMNAS_MANUALES));   
-    $("tbodyManuales").innerHTML = lista.length ? lista.map((manual, indiceVisible) => `<tr data-id="${manual.id}">${COLUMNAS_MANUALES.map((columna) => {   
+    $("tbodyManuales").innerHTML = lista.length ? lista.map((manual) => `<tr data-id="${manual.id}">${COLUMNAS_MANUALES.map((columna) => {   
         const oculto = ocultas.includes(columna.key) ? "display:none" : "";   
         if (columna.especial === "seleccion") return `<td style="${oculto}"><input class="seleccion-manual" type="checkbox" data-id="${manual.id}"></td>`;   
-        if (columna.especial === "orden") return `<td class="drag-handle numero-manual" style="${oculto}" title="Arrastrar para reordenar">${indiceVisible + 1} <span aria-hidden="true">⋮⋮</span></td>`;   
+        if (columna.especial === "orden") return `<td class="numero-manual" style="${oculto}"><span class="numero-manual-valor">${estado.manuales.findIndex((item) => item.id === manual.id) + 1}</span><button class="drag-handle drag-manual" type="button" draggable="true" data-id="${manual.id}" title="Arrastrar para reordenar" aria-label="Mover fila ${estado.manuales.findIndex((item) => item.id === manual.id) + 1}">⋮⋮</button></td>`;   
         if (columna.especial === "acciones") return `<td style="${oculto}"><button class="btn-icon editor-only" data-editar-manual="${manual.id}" title="Editar">✏️</button></td>`;   
         return `<td style="${oculto}">${campoCelda(manual, columna, "manuales")}</td>`;   
     }).join("")}</tr>`).join("") : `<tr><td class="empty-state" colspan="${COLUMNAS_MANUALES.length}">No hay manuales que coincidan con los filtros.</td></tr>`;   
     enlazarEdicionTabla($("tbodyManuales"));   
     $("seleccionarTodos_manuales")?.addEventListener("change", (e) => document.querySelectorAll(".seleccion-manual").forEach((c) => { c.checked = e.target.checked; }));   
     document.querySelectorAll("[data-editar-manual]").forEach((b) => b.addEventListener("click", () => abrirManual(b.dataset.editarManual)));   
+    habilitarReordenamientoManuales(); 
     habilitarRedimensionamiento();   
 }   
  
@@ -353,6 +355,47 @@ function renderResumenVersiones() {
         ["Total siscard+ Español", siscardPlusEspanol] 
     ].map(([label,value]) => `<div class="kpi-card"><div class="label">${label}</div><div class="value">${value}</div></div>`).join(""); 
 }   
+ 
+let manualArrastradoId = ""; 
+function habilitarReordenamientoManuales() { 
+    const cuerpo = $("tbodyManuales"); 
+    if (!cuerpo) return; 
+    cuerpo.querySelectorAll(".drag-manual").forEach((handle) => { 
+        handle.ondragstart = (evento) => { 
+            manualArrastradoId = handle.dataset.id || ""; 
+            evento.dataTransfer.effectAllowed = "move"; 
+            evento.dataTransfer.setData("text/plain", manualArrastradoId); 
+            handle.closest("tr")?.classList.add("dragging"); 
+        }; 
+        handle.ondragend = () => { 
+            cuerpo.querySelectorAll("tr").forEach((fila) => fila.classList.remove("dragging", "drop-target")); 
+            manualArrastradoId = ""; 
+        }; 
+    }); 
+    cuerpo.querySelectorAll("tr[data-id]").forEach((filaDestino) => { 
+        filaDestino.ondragover = (evento) => { 
+            if (!manualArrastradoId || manualArrastradoId === filaDestino.dataset.id) return; 
+            evento.preventDefault(); 
+            evento.dataTransfer.dropEffect = "move"; 
+            cuerpo.querySelectorAll("tr.drop-target").forEach((fila) => fila.classList.remove("drop-target")); 
+            filaDestino.classList.add("drop-target"); 
+        }; 
+        filaDestino.ondragleave = () => filaDestino.classList.remove("drop-target"); 
+        filaDestino.ondrop = (evento) => { 
+            evento.preventDefault(); 
+            const origenId = evento.dataTransfer.getData("text/plain") || manualArrastradoId; 
+            const destinoId = filaDestino.dataset.id; 
+            const origen = estado.manuales.findIndex((manual) => manual.id === origenId); 
+            const destino = estado.manuales.findIndex((manual) => manual.id === destinoId); 
+            if (origen < 0 || destino < 0 || origen === destino) return; 
+            const [movido] = estado.manuales.splice(origen, 1); 
+            const posicionDestino = estado.manuales.findIndex((manual) => manual.id === destinoId); 
+            estado.manuales.splice(posicionDestino, 0, movido); 
+            guardarEstado("Orden de manuales guardado"); 
+            renderManuales(); 
+        }; 
+    }); 
+} 
  
 function habilitarRedimensionamiento() {   
     document.querySelectorAll(".resize-handle").forEach((handle) => {   
