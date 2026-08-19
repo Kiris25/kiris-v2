@@ -1073,23 +1073,67 @@ document.addEventListener("DOMContentLoaded", () => {
         });  
     }  
  
-    function moverManualAPosicion(manualId) {  
-        const indiceActual = estado.manuales.findIndex((manual) => manual.id === manualId);  
-        if (indiceActual < 0) return;  
-        const actual = indiceActual + 1;  
-        const respuesta = prompt(`Posición actual: ${actual}\nMover este manual a la posición:`, String(actual));  
-        if (respuesta === null) return;  
-        const destinoSolicitado = Number.parseInt(respuesta, 10);  
-        if (!Number.isInteger(destinoSolicitado) || destinoSolicitado < 1 || destinoSolicitado > estado.manuales.length) {  
-            mostrarToast(`Indique una posición entre 1 y ${estado.manuales.length}`);  
-            return;  
-        }  
-        if (destinoSolicitado === actual) return;  
-        const [movido] = estado.manuales.splice(indiceActual, 1);  
-        estado.manuales.splice(destinoSolicitado - 1, 0, movido);  
-        guardarEstado(`Manual movido a la posición ${destinoSolicitado}`);  
-        renderManuales();  
-    }  
+    function cerrarPopupMoverKiris() { 
+        document.querySelectorAll(".move-popup-kiris").forEach((popup) => popup.remove()); 
+    } 
+ 
+    function moverManualAPosicion(manualId, boton) { 
+        const indiceActual = estado.manuales.findIndex((manual) => manual.id === manualId); 
+        if (indiceActual < 0 || !boton) return; 
+        cerrarPopupMoverKiris(); 
+ 
+        const actual = indiceActual + 1; 
+        const popup = document.createElement("div"); 
+        popup.className = "move-popup-kiris"; 
+        popup.innerHTML = ` 
+            <div class="move-popup-title">Mover manual</div> 
+            <div class="move-popup-current">Posición actual: <strong>${actual}</strong></div> 
+            <label class="move-popup-label" for="movePositionKiris">Nueva posición</label> 
+            <input id="movePositionKiris" class="move-popup-input" type="number" min="1" max="${estado.manuales.length}" value="${actual}" inputmode="numeric"> 
+            <div class="move-popup-help">Escriba una posición entre 1 y ${estado.manuales.length}.</div> 
+            <div class="move-popup-actions"> 
+                <button type="button" class="move-popup-cancel">Cancelar</button> 
+                <button type="button" class="move-popup-confirm">Mover</button> 
+            </div>`; 
+ 
+        document.body.appendChild(popup); 
+        const rect = boton.getBoundingClientRect(); 
+        const ancho = popup.offsetWidth; 
+        const alto = popup.offsetHeight; 
+        let izquierda = rect.left + rect.width / 2 - ancho / 2; 
+        izquierda = Math.max(8, Math.min(izquierda, window.innerWidth - ancho - 8)); 
+        let arriba = rect.bottom + 6; 
+        if (arriba + alto > window.innerHeight - 8) arriba = Math.max(8, rect.top - alto - 6); 
+        popup.style.left = `${izquierda}px`; 
+        popup.style.top = `${arriba}px`; 
+        popup.onclick = (evento) => evento.stopPropagation(); 
+ 
+        const input = popup.querySelector(".move-popup-input"); 
+        const ejecutarMovimiento = () => { 
+            const destinoSolicitado = Number.parseInt(input.value, 10); 
+            if (!Number.isInteger(destinoSolicitado) || destinoSolicitado < 1 || destinoSolicitado > estado.manuales.length) { 
+                input.classList.add("move-popup-input-error"); 
+                input.focus(); 
+                mostrarToast(`Indique una posición entre 1 y ${estado.manuales.length}`); 
+                return; 
+            } 
+            if (destinoSolicitado === actual) { cerrarPopupMoverKiris(); return; } 
+            const [movido] = estado.manuales.splice(indiceActual, 1); 
+            estado.manuales.splice(destinoSolicitado - 1, 0, movido); 
+            cerrarPopupMoverKiris(); 
+            guardarEstado(`Manual movido a la posición ${destinoSolicitado}`); 
+            renderManuales(); 
+        }; 
+ 
+        popup.querySelector(".move-popup-cancel").onclick = cerrarPopupMoverKiris; 
+        popup.querySelector(".move-popup-confirm").onclick = ejecutarMovimiento; 
+        input.oninput = () => input.classList.remove("move-popup-input-error"); 
+        input.onkeydown = (evento) => { 
+            if (evento.key === "Enter") { evento.preventDefault(); ejecutarMovimiento(); } 
+            if (evento.key === "Escape") cerrarPopupMoverKiris(); 
+        }; 
+        requestAnimationFrame(() => { input.focus(); input.select(); }); 
+    } 
  
     function agregarBotonesMover() {  
         document.querySelectorAll("#tbodyManuales tr[data-id]").forEach((fila) => {  
@@ -1104,7 +1148,7 @@ document.addEventListener("DOMContentLoaded", () => {
             boton.onclick = (evento) => {  
                 evento.preventDefault();  
                 evento.stopPropagation();  
-                moverManualAPosicion(fila.dataset.id);  
+                moverManualAPosicion(fila.dataset.id, boton);  
             };  
             celda.appendChild(boton);  
         });  
@@ -1115,7 +1159,7 @@ document.addEventListener("DOMContentLoaded", () => {
         agregarBotonesMover();  
     }  
  
-    document.addEventListener("click", () => document.querySelectorAll(".sort-menu-kiris").forEach((menu) => menu.remove()));  
+    document.addEventListener("click", () => { document.querySelectorAll(".sort-menu-kiris").forEach((menu) => menu.remove()); cerrarPopupMoverKiris(); });  
     document.addEventListener("DOMContentLoaded", () => {  
         actualizarControles();  
         ["theadManuales", "theadTramites", "theadVersiones", "tbodyManuales"].forEach((id) => {  
