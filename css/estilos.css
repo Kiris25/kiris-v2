@@ -1182,3 +1182,10 @@ select.estado-listo { min-width: 210px; }
 .listo-ambos { background: #d1e7dd !important; color: #0f5132 !important; border-color: #badbcc !important; } 
 .listo-espanol { background: #cfe2ff !important; color: #084298 !important; border-color: #b6d4fe !important; } 
  
+/* Corrección de numeración y reordenamiento */ 
+.numero-manual { display: flex; align-items: center; justify-content: space-between; gap: 5px; } 
+.numero-manual-valor { min-width: 20px; color: #333; font-weight: 800; text-align: right; } 
+.drag-manual { width: 26px; min-width: 26px; padding: 0; color: var(--naranja); background: transparent; border: 0; font-size: 18px; font-weight: 800; cursor: grab; } 
+.drag-manual:active { cursor: grabbing; } 
+#tbodyManuales tr.drop-target td { box-shadow: inset 0 4px 0 var(--naranja); } 
+ 
