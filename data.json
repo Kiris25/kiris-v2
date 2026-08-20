@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-20T18:57:00.465Z",
+  "fechaPublicacion": "2026-08-20T19:03:48.857Z",
   "manuales": [
     {
       "id": "manual_1783711643192_509e1c34f88b08",
-      "codigo": "",
+      "codigo": "UEO-CAP-MU-133",
       "titulo": "siscard+ Manual Proceso generación de embozado (TRMBEPR0)",
       "idioma": "Español",
       "archivoElectronico": "No",
@@ -809,7 +809,7 @@
     },
     {
       "id": "manual_1783711643196_8b4abad93d78e",
-      "codigo": "",
+      "codigo": "UEO-CAP-MI-133",
       "titulo": "siscard+ Embossing Generation Process Manual (TRMBEPR0)",
       "idioma": "Inglés",
       "archivoElectronico": "No",
@@ -6049,7 +6049,7 @@
       "ubicacionEService": "",
       "id": "version_1786998835545_57a8790ab0dea",
       "sistema": "siscard+",
-      "codigo": "UEO-CAP-MU-133",
+      "codigo": "",
       "manual": "siscard+ Manual Tarjetas de Priority Pass",
       "idioma": "Español",
       "numero": "0",
