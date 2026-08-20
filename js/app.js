@@ -257,15 +257,13 @@ function cargarEstado() {
   } 
 } 
  
-let estado = cargarEstado(); 
-estado.tramites = (estado.tramites || []).map((tramite) => ({ 
-  ...tramite, 
-  listo: normalizarEstadoListo(tramite.listo), 
-})); 
-estado.versiones = (estado.versiones || []).map((version) => ({ 
-  ubicacionEService: "", 
-  ...version, 
-})); 
+let estado = cargarEstado();
+
+estado.tramites = (estado.tramites || []).map((tramite) => ({
+  id: tramite.id || id("tramite"),
+  ...tramite,
+  listo: normalizarEstadoListo(tramite.listo),
+}));
 let filtros = { manuales: {}, tramites: {}, versiones: {} }; 
 let fechaCalendario = new Date(); 
 let fechaBitacora = new Date(); 
@@ -1586,6 +1584,9 @@ async function importarCSV(tipo, archivo) {
           if (c.tipo === "number") v = Number(v || 0); 
           obj[c.key] = v; 
         }); 
+       if (!obj.id) {
+    obj.id = id(tipo.slice(0, -1));
+}
         return obj; 
       }) 
       .filter((o) => utiles.some((c) => String(o[c.key] ?? "").trim() !== "")); 
