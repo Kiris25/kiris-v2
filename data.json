@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-20T18:02:33.073Z",
+  "fechaPublicacion": "2026-08-20T18:57:00.465Z",
   "manuales": [
     {
       "id": "manual_1783711643192_509e1c34f88b08",
@@ -3952,7 +3952,7 @@
       "codigo": "UEO-CAP-MI-046",
       "manual": "Web Acquiring Manual",
       "idioma": "Inglés",
-      "numero": "4",
+      "numero": "3",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -4024,7 +4024,7 @@
       "codigo": "UEO-CAP-MI-065",
       "manual": "Manual for the Procedure to Create Web Acquiring Merchants",
       "idioma": "Inglés",
-      "numero": "0",
+      "numero": "2",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -4036,7 +4036,7 @@
       "codigo": "UEO-CAP-MI-066",
       "manual": "Web Acquiring Security Module Manual",
       "idioma": "Inglés",
-      "numero": "0",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -4180,7 +4180,7 @@
       "codigo": "UEO-CAP-MI-101",
       "manual": "siscard+ Loyalty Module Manual",
       "idioma": "Inglés",
-      "numero": "0",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -4348,7 +4348,7 @@
       "codigo": "UEO-CAP-MI-115",
       "manual": "siscard+  Transactions Maintenance Manual",
       "idioma": "Inglés",
-      "numero": "2",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -4936,7 +4936,7 @@
       "codigo": "UEO-CAP-MU-040",
       "manual": "Manual Parámetros de superfranquicia",
       "idioma": "Español",
-      "numero": "2",
+      "numero": "3",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -5188,7 +5188,7 @@
       "codigo": "UEO-CAP-MU-061",
       "manual": "Manual Parámetros del emisor",
       "idioma": "Español",
-      "numero": "06",
+      "numero": "6",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -5668,7 +5668,7 @@
       "codigo": "UEO-CAP-MU-101",
       "manual": "siscard+ Manual Módulo de premiación",
       "idioma": "Español",
-      "numero": "2",
+      "numero": "3",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -5836,7 +5836,7 @@
       "codigo": "UEO-CAP-MU-115",
       "manual": "siscard+ Manual Mantenimiento de movimientos",
       "idioma": "Español",
-      "numero": "1",
+      "numero": "2",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
