@@ -1323,6 +1323,43 @@ function exportarCSV(tipo) {
     "text/csv;charset=utf-8", 
   ); 
 } 
+
+function exportarTramitesExcel() {
+
+    const columnas = COLUMNAS_TRAMITES
+        .filter(c => !c.especial && !c.calculado);
+
+    const datos = estado.tramites.map(tramite => {
+
+        const fila = {};
+
+        columnas.forEach(columna => {
+
+            fila[columna.label] =
+                tramite[columna.key] ?? "";
+
+        });
+
+        return fila;
+
+    });
+
+    const hoja = XLSX.utils.json_to_sheet(datos);
+
+    const libro = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(
+        libro,
+        hoja,
+        "Tramites"
+    );
+
+    XLSX.writeFile(
+        libro,
+        "Tramites_Requerimientos.xlsx"
+    );
+
+}
  
 function publicarCambios() { 
   const paquete = { 
@@ -1663,9 +1700,10 @@ function configurarBotones() {
   $("btnExportarManuales").addEventListener("click", () => 
     exportarCSV("manuales"), 
   ); 
-  $("btnExportarTramites").addEventListener("click", () => 
-    exportarCSV("tramites"), 
-  ); 
+$("btnExportarTramites").addEventListener(
+    "click",
+    exportarTramitesExcel
+);
   $("btnExportarVersiones").addEventListener("click", () => 
     exportarCSV("versiones"), 
   ); 
