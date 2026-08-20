@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-20T19:35:38.292Z",
+  "fechaPublicacion": "2026-08-20T20:54:25.306Z",
   "manuales": [
     {
       "id": "manual_1783711643192_509e1c34f88b08",
@@ -39,6 +39,24 @@
       "color": "",
       "estado": "No iniciado",
       "colorCalendario": "#F4A261"
+    },
+    {
+      "id": "manual_1783711643187_a2908e63f28a5",
+      "codigo": "UEO-CAP-MI-020",
+      "titulo": "Master Files Manual for Clients",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "",
+      "prioridad": "Alta",
+      "tipo": "A",
+      "paginas": "16",
+      "diasEsfuerzo": "1.6",
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicadoGestor": "",
+      "horasEsfuerzo": "",
+      "color": "",
+      "estado": "No iniciado"
     },
     {
       "id": "manual_1784742747379_9f2443a5181908",
@@ -461,6 +479,23 @@
       "estado": "Ya publicado"
     },
     {
+      "id": "manual_1787257947694_fb5416c7c67fa",
+      "codigo": "UEO-CAP-MI-116",
+      "titulo": "siscard + Insurance Policies Manual",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2862509",
+      "prioridad": "Media",
+      "tipo": "A",
+      "paginas": 37,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
       "id": "manual_1783711643187_e6494a740f738",
       "codigo": "UEO-CAP-MI-008",
       "titulo": "Massages sending system manual (SEATH)",
@@ -496,24 +531,6 @@
       "color": "",
       "estado": "En proceso",
       "colorCalendario": "#F72585"
-    },
-    {
-      "id": "manual_1783711643187_a2908e63f28a5",
-      "codigo": "UEO-CAP-MI-020",
-      "titulo": "Master Files Manual for Clients",
-      "idioma": "Inglés",
-      "archivoElectronico": "Sí",
-      "ocRelacionado": "",
-      "prioridad": "Alta",
-      "tipo": "A",
-      "paginas": "16",
-      "diasEsfuerzo": "1.6",
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicadoGestor": "",
-      "horasEsfuerzo": "",
-      "color": "",
-      "estado": "No iniciado"
     },
     {
       "id": "manual_1783711643188_edb4cff5fc17c",
@@ -2708,40 +2725,6 @@
   ],
   "tramites": [
     {
-      "id": "tramite_1787254496682_96953d064578f",
-      "requerimiento": "2921143",
-      "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
-      "fechaIngreso": "2026-08-19",
-      "fechaInicio": "",
-      "manualActualizar": "NUEVO MANUAL CLICK TO PAY",
-      "temaGeneral": "CLICK TO PAY",
-      "baAsignado": "",
-      "consultas": "",
-      "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
-      "versionTraducir": "NO",
-      "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
-    },
-    {
-      "id": "tramite_1787254351401_9aa9adff71a898",
-      "requerimiento": "2921143",
-      "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
-      "fechaIngreso": "2026-08-19",
-      "fechaInicio": "",
-      "manualActualizar": "CLICK TO PAY",
-      "temaGeneral": "",
-      "baAsignado": "",
-      "consultas": "",
-      "respuestaConsulta": "",
-      "justificacionGestor": "",
-      "fechaPublicado": "",
-      "versionTraducir": "",
-      "justificacionIngles": "",
-      "listo": ""
-    },
-    {
       "requerimiento": 2553738,
       "detalle": "Nuevo Archivo Maestro",
       "fechaIngreso": "2025-06-26",
@@ -3803,6 +3786,40 @@
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
       "listo": "PENDIENTE"
+    },
+    {
+      "id": "tramite_1787254496682_96953d064578f",
+      "requerimiento": "2921143",
+      "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
+      "fechaIngreso": "2026-08-19",
+      "fechaInicio": "",
+      "manualActualizar": "NUEVO MANUAL CLICK TO PAY",
+      "temaGeneral": "CLICK TO PAY",
+      "baAsignado": "",
+      "consultas": "",
+      "respuestaConsulta": "",
+      "justificacionGestor": "NO",
+      "fechaPublicado": "",
+      "versionTraducir": "NO",
+      "justificacionIngles": "NO",
+      "listo": "PENDIENTE"
+    },
+    {
+      "id": "tramite_1787254351401_9aa9adff71a898",
+      "requerimiento": "2921143",
+      "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
+      "fechaIngreso": "2026-08-19",
+      "fechaInicio": "",
+      "manualActualizar": "CLICK TO PAY",
+      "temaGeneral": "",
+      "baAsignado": "",
+      "consultas": "",
+      "respuestaConsulta": "",
+      "justificacionGestor": "",
+      "fechaPublicado": "",
+      "versionTraducir": "",
+      "justificacionIngles": "",
+      "listo": ""
     },
     {
       "id": "tramite_1787239953045_8d136c07cce068",
