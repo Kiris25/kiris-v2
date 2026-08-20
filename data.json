@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-20T16:51:31.104Z",
+  "fechaPublicacion": "2026-08-20T18:02:33.073Z",
   "manuales": [
     {
       "id": "manual_1783711643192_509e1c34f88b08",
@@ -3778,7 +3778,7 @@
   ],
   "versiones": [
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual uso Eservice clientes Evertec",
       "id": "version_1786998835544_0ee8887457ee7",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-001",
@@ -3790,7 +3790,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_2773b7e233bd3",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-002",
@@ -3802,7 +3802,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_5e8722a72a1e4",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-003",
@@ -3814,7 +3814,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_27fd6047c09b68",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-004",
@@ -3826,7 +3826,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_a60aee584fb118",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-005",
@@ -3838,7 +3838,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Issuer Web Applications User Manuals",
       "id": "version_1786998835544_aa2d1e47d8cb28",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-008",
@@ -3850,7 +3850,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_301b91567c54b",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-009",
@@ -3862,7 +3862,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_a2ca564776a9c8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-010",
@@ -3874,7 +3874,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_c5ecbe0684ca2",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-012",
@@ -3886,7 +3886,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_76dfb2cd8f4f38",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-017",
@@ -3898,7 +3898,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_c035975fbac028",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-018",
@@ -3910,7 +3910,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_e319ab76c5c52",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-020",
@@ -3922,7 +3922,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Web Acquiring  User Manuals ",
       "id": "version_1786998835544_f1b8fb386fe3c",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-042",
@@ -3934,7 +3934,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Web Acquiring  User Manuals ",
       "id": "version_1786998835544_d3bf0c371e554",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-047",
@@ -3946,7 +3946,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Web Acquiring  User Manuals ",
       "id": "version_1786998835544_bdce040219814",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-046",
@@ -3958,7 +3958,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Issuer Web Applications User Manuals",
       "id": "version_1786998835544_529f75af290178",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-049",
@@ -3970,7 +3970,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Issuer Web Applications User Manuals",
       "id": "version_1786998835544_95c493a1e90e68",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-050",
@@ -3982,7 +3982,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_9b8d9d89cab978",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-051",
@@ -3994,7 +3994,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_76bf930672849",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-058",
@@ -4006,19 +4006,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Siscard Issuer User Manuals ",
       "id": "version_1786998835544_924ba475e111e8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-061",
       "manual": "Issuer Parameters Manual",
       "idioma": "Inglés",
-      "numero": "2",
+      "numero": "3",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Web Acquiring  User Manuals ",
       "id": "version_1786998835544_98b9c17a4a4a58",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-065",
@@ -4030,7 +4030,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Web Acquiring  User Manuals ",
       "id": "version_1786998835544_4978bc6790df7",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-066",
@@ -4042,7 +4042,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_ee884a28452fb8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-086",
@@ -4054,7 +4054,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_5116ee3a75325",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-088",
@@ -4066,7 +4066,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_6eac21617f575",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-091",
@@ -4078,7 +4078,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_f87fc240b5548",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-092",
@@ -4090,7 +4090,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_da1403855633f8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-093",
@@ -4102,7 +4102,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_01c9a1e9a75d3",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-094",
@@ -4114,7 +4114,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_48e2a3af8c2428",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-095",
@@ -4126,7 +4126,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_4becb459b2c638",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-096",
@@ -4138,7 +4138,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_aadc571f80b718",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-097",
@@ -4150,7 +4150,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_abd63c4b961be8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-098",
@@ -4162,7 +4162,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_b139950baadc18",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-100",
@@ -4174,7 +4174,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_2aecc9b8e30f4",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-101",
@@ -4186,7 +4186,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_fbd8ca1954ed4",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-102",
@@ -4198,7 +4198,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_ecbd7fccad049",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-103",
@@ -4210,7 +4210,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_fb3727a95ed4",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-104",
@@ -4222,7 +4222,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_30af32175e8028",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-105",
@@ -4234,7 +4234,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_0a2688aab443c8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-106",
@@ -4246,7 +4246,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_c2467a6590ba58",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-107",
@@ -4258,7 +4258,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_6b421819fa36c",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-108",
@@ -4270,7 +4270,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_d8b33d301f8dd",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-109",
@@ -4282,7 +4282,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_a07d6255570b6",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-110",
@@ -4294,7 +4294,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_6f9a2f989821d",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-111",
@@ -4306,7 +4306,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_e4d0257b94e4e",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-112",
@@ -4318,7 +4318,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_4689d7b0a4a088",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-113",
@@ -4330,7 +4330,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_1f83374f10402",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-114",
@@ -4342,19 +4342,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_c1a6bced831b48",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-115",
       "manual": "siscard+  Transactions Maintenance Manual",
       "idioma": "Inglés",
-      "numero": "1",
+      "numero": "2",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_f98b818ec4ab28",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-116",
@@ -4366,7 +4366,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_ce2a4d7cbe6b08",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-117",
@@ -4378,7 +4378,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Web Acquiring  User Manuals ",
       "id": "version_1786998835544_0a39303105bcc",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-118",
@@ -4390,7 +4390,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Web Acquiring  User Manuals ",
       "id": "version_1786998835544_faaf9e20ca7be",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MI-122",
@@ -4402,7 +4402,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_d8f3f93ea53db",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-123",
@@ -4414,7 +4414,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_ae9723f4c993e",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-124",
@@ -4426,7 +4426,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_7792600a83ba4",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-126",
@@ -4438,7 +4438,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Issuer User Manuals ",
       "id": "version_1786998835544_d3de88262e7248",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MI-131",
@@ -4462,7 +4462,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual uso Eservice clientes Evertec",
       "id": "version_1786998835545_8580396e748668",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-001",
@@ -4474,7 +4474,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_dacd466fefd058",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-002",
@@ -4486,7 +4486,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_ee86cb32f526b",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-003",
@@ -4498,7 +4498,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_fbb19f5285893",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-004",
@@ -4510,19 +4510,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_6ba5d09efda5c",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-005",
       "manual": "Manual de Extra- Intra Financiamiento",
       "idioma": "Español",
-      "numero": "0",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_1e2f4dab54ec28",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-006",
@@ -4534,19 +4534,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_a2089a2772f81",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-007",
       "manual": "Manual Módulo de premiación",
       "idioma": "Español",
-      "numero": "4",
+      "numero": "5",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Aplicaciones Web Emisor Manuales de usuario",
       "id": "version_1786998835545_f22c1e7627111",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-008",
@@ -4558,7 +4558,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_5c7a71920c45d",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-009",
@@ -4570,7 +4570,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_b75eaa16874a68",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-010",
@@ -4582,7 +4582,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_241ea9a99dc42",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-011",
@@ -4594,7 +4594,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_59bb797d6c49f",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-012",
@@ -4606,19 +4606,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_71ed3dc5dbcb4",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-013",
       "manual": "Manual Mantenimiento de movimientos",
       "idioma": "Español",
-      "numero": "0",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_5e07d57869da2",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-014",
@@ -4630,7 +4630,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_d12c789cbbe6b",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-015",
@@ -4642,7 +4642,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_3457c3c6f4f04",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-016",
@@ -4654,7 +4654,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_939d31d3a2ce9",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-017",
@@ -4666,7 +4666,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_23c8cdf37d1938",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-018",
@@ -4678,7 +4678,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_3dbe786359cd1",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-019",
@@ -4690,19 +4690,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_13b24b0d0de078",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-020",
       "manual": "Manual Archivos maestros para clientes",
       "idioma": "Español",
-      "numero": "3",
+      "numero": "4",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_8bde750200b228",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-021",
@@ -4714,7 +4714,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_11a778f82e864",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-022",
@@ -4726,7 +4726,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_04c9329598bb48",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-023",
@@ -4738,19 +4738,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_6f98c20fe7fd58",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-024",
       "manual": "Manual parámetros de pólizas",
       "idioma": "Español",
-      "numero": "1",
+      "numero": "2",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_3fe258ba5cd6f",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-025",
@@ -4762,7 +4762,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_c84dd3d8134378",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-026",
@@ -4774,7 +4774,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_1b99790091ad7",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-027",
@@ -4786,7 +4786,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_2f455bb59bd6b8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-028",
@@ -4798,7 +4798,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_94f3001186ee18",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-029",
@@ -4810,7 +4810,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_4cf78f85ecab48",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-030",
@@ -4822,7 +4822,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manuales Varios",
       "id": "version_1786998835545_a1504e89b0b7d8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-031",
@@ -4834,7 +4834,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_936209e2106ae",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-032",
@@ -4846,7 +4846,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_cef9195d837f7",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-033",
@@ -4858,7 +4858,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_4c9f8401941568",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-034",
@@ -4870,7 +4870,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_4f63b4580d3188",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-035",
@@ -4882,7 +4882,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_03121cc8b3db8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-036",
@@ -4894,7 +4894,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_dfa3ed51a82a6",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-037",
@@ -4906,7 +4906,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_34efa39ef19a98",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-038",
@@ -4918,7 +4918,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_7e77f7ac989468",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-039",
@@ -4930,19 +4930,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_78ff8d6b7938b",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-040",
       "manual": "Manual Parámetros de superfranquicia",
       "idioma": "Español",
-      "numero": "1",
+      "numero": "2",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_303ba4acdc18d",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-041",
@@ -4954,7 +4954,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_e108dadde6bb48",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-042",
@@ -4966,7 +4966,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_185f0621ac18e",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-043",
@@ -4978,7 +4978,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_c8496d5cfb87c8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-044",
@@ -4990,7 +4990,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_ffa87e4e785848",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-045",
@@ -5002,19 +5002,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_89e51a4d6c055",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-046",
       "manual": "Manual de Adquirencia Web",
       "idioma": "Español",
-      "numero": "4",
+      "numero": "5",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_52f8444a5ca44",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-047",
@@ -5026,7 +5026,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Adquirencia Siscard Manuales de usuario",
       "id": "version_1786998835545_006c9afdf890e",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-048",
@@ -5038,7 +5038,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Aplicaciones Web Emisor Manuales de usuario",
       "id": "version_1786998835545_87a73d4688b6d8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-049",
@@ -5050,7 +5050,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Aplicaciones Web Emisor Manuales de usuario",
       "id": "version_1786998835545_0a36aa13f50ee",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-050",
@@ -5062,7 +5062,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_dbd371a0ee1aa",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-051",
@@ -5074,7 +5074,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_0f9b66563d76e8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-052",
@@ -5086,7 +5086,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_444ef864901ab8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-053",
@@ -5098,7 +5098,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_09933957c58038",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-054",
@@ -5110,7 +5110,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_f7fc5b83430ad",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-055",
@@ -5122,7 +5122,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_4285fcf03eba3",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-056",
@@ -5134,7 +5134,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_03ab8862827a18",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-057",
@@ -5146,7 +5146,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_498603a8e8b688",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-058",
@@ -5158,7 +5158,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_767b5bc406e348",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-059",
@@ -5170,7 +5170,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_4978fad84d44",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-060",
@@ -5182,19 +5182,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_b1007d37e3b068",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-061",
       "manual": "Manual Parámetros del emisor",
       "idioma": "Español",
-      "numero": "1",
+      "numero": "06",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_fb60099a10f948",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-062",
@@ -5206,7 +5206,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_b66d72d5b3adf8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-063",
@@ -5218,7 +5218,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_8005e13da7b078",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-064",
@@ -5230,7 +5230,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_5eea781344e4b",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-065",
@@ -5242,7 +5242,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_7bb884b53606c8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-066",
@@ -5254,7 +5254,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_166c4a48f73268",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-067",
@@ -5266,7 +5266,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_3550ae43cecf98",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-068",
@@ -5278,7 +5278,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_d3688e28c05e88",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-069",
@@ -5290,7 +5290,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_1840520f59321",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-070",
@@ -5302,7 +5302,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_20779448fff01",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-071",
@@ -5314,7 +5314,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Adquirencia Siscard Manuales de usuario",
       "id": "version_1786998835545_c0eb58c0e336d8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-072",
@@ -5326,7 +5326,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual uso Eservice clientes Evertec",
       "id": "version_1786998835545_faf401817779d8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-073",
@@ -5338,7 +5338,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_1bb71b519a14",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-074",
@@ -5350,7 +5350,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_60879b8c898cf",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-075",
@@ -5362,7 +5362,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_1ae5a74311a97",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-076",
@@ -5374,7 +5374,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_fc12d16c32b32",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-077",
@@ -5386,7 +5386,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Aplicaciones Web Emisor Manuales de usuario",
       "id": "version_1786998835545_42a681c87d5708",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-078",
@@ -5398,7 +5398,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_086d3022f5ed5",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-079",
@@ -5410,7 +5410,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_d187e661ada908",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-080",
@@ -5422,7 +5422,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_f68fbc377369",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-081",
@@ -5434,7 +5434,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manuales Varios",
       "id": "version_1786998835545_e830d284bece8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-082",
@@ -5446,7 +5446,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_1565788220948",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-083",
@@ -5458,7 +5458,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_ef955a121b9878",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-084",
@@ -5470,7 +5470,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manuales Varios",
       "id": "version_1786998835545_993fbc35bfd858",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-085",
@@ -5482,7 +5482,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_ae9cb3703437b",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-086",
@@ -5494,7 +5494,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Adquirencia Siscard Manuales de usuario",
       "id": "version_1786998835545_1a434562cc49b",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-087",
@@ -5506,7 +5506,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_770c67acfef73",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-088",
@@ -5518,7 +5518,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "PAYA",
       "id": "version_1786998835545_a76ae1f7e2c728",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-089",
@@ -5530,7 +5530,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Aplicaciones Web Emisor Manuales de usuario",
       "id": "version_1786998835545_46dcc69e197468",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-090",
@@ -5542,19 +5542,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_a3829145be981",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-091",
       "manual": "siscard+ Manual Módulo extrafinanciamiento",
       "idioma": "Español",
-      "numero": "0",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_0d9a3a04af96a8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-092",
@@ -5566,7 +5566,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_cf38551aeeeed",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-093",
@@ -5578,7 +5578,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_c375e945ce8948",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-094",
@@ -5590,7 +5590,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_68b640cf2c7068",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-095",
@@ -5602,7 +5602,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_14a8e9367591e",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-096",
@@ -5614,7 +5614,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_03ab7883627a2",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-097",
@@ -5626,7 +5626,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_5bd9941fdea1d8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-098",
@@ -5638,7 +5638,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_1ede0832b5ff78",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-099",
@@ -5650,7 +5650,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_f31148e1a6f83",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-100",
@@ -5662,7 +5662,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_5eae07186cf0e",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-101",
@@ -5674,7 +5674,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_fe697a50d87758",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-102",
@@ -5686,7 +5686,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_0c71f287257f4",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-103",
@@ -5698,7 +5698,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_e6b7a55fe1f06",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-104",
@@ -5710,7 +5710,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_97b29aa8250f88",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-105",
@@ -5722,7 +5722,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_810c00afd47e68",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-106",
@@ -5734,7 +5734,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_955e72752596b8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-107",
@@ -5746,7 +5746,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_9e1c2444f7f7b",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-108",
@@ -5758,7 +5758,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_6264828d925a9",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-109",
@@ -5770,7 +5770,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_65c45c50cd352",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-110",
@@ -5782,7 +5782,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_ca25f54e87431",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-111",
@@ -5794,7 +5794,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_4ccab6aa219b7",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-112",
@@ -5806,7 +5806,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_ebe904585a7148",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-113",
@@ -5818,7 +5818,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_944ee4188be768",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-114",
@@ -5830,7 +5830,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_64a30d26ad502",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-115",
@@ -5842,7 +5842,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_0c92e89b5a549",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-116",
@@ -5854,7 +5854,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_1b383c24f35ba8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-117",
@@ -5866,7 +5866,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_9ef7db280b0e9",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-118",
@@ -5878,19 +5878,19 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_31360ae8a2a0e8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-119",
       "manual": "Manual Adquirencia Web Administrador usuarios sitio comercios -GlobalBank-",
       "idioma": "Español",
-      "numero": "0",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Adquirencia Siscard Manuales de usuario",
       "id": "version_1786998835545_7ea4991b65d5b8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-120",
@@ -5902,7 +5902,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manual interno- Evertec- NO APLICA-",
       "id": "version_1786998835545_c1c3291285506",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-121",
@@ -5914,7 +5914,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_b8d3866570efe8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-122",
@@ -5926,7 +5926,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_7ff4f2f3a72ca8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-123",
@@ -5938,7 +5938,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_945dee5f0eefd8",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-124",
@@ -5950,7 +5950,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": " Siscard Emisor Manuales de usuario",
       "id": "version_1786998835545_920ce013733a2",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-125",
@@ -5962,7 +5962,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_ee26c46ce3f92",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-126",
@@ -5974,7 +5974,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Adquirencia Web Manuales de usuario",
       "id": "version_1786998835545_65cfc32e3f4ef8",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-127",
@@ -5986,7 +5986,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "PAYA",
       "id": "version_1786998835545_4d1716a2217b38",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-128",
@@ -5998,7 +5998,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "PAYA",
       "id": "version_1786998835545_5d67a2945e831",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-129",
@@ -6010,7 +6010,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "Manuales Varios",
       "id": "version_1786998835545_1f41bf8c06be88",
       "sistema": "SISCARD",
       "codigo": "UEO-CAP-MU-130",
@@ -6022,7 +6022,7 @@
       "observaciones": ""
     },
     {
-      "ubicacionEService": "",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "id": "version_1786998835545_37ad499e348008",
       "sistema": "siscard+",
       "codigo": "UEO-CAP-MU-131",
