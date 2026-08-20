@@ -1,657 +1,97 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Repositorio de Manuales KIRIS V2 | Visor</title>
-<link href="css/estilos.css" rel="stylesheet"/>
-<style>
-/* Solo complementa estilos del editor. La apariencia principal procede del mismo css/estilos.css. */
-.viewer-meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}.viewer-meta span{white-space:nowrap}.filter-menu{position:fixed;z-index:9999;width:270px;max-height:410px;padding:10px;background:var(--fondo-ventana,#f9f9f9);border:1px solid var(--borde-claro,#ddd);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.15)}.filter-menu-close{position:absolute;top:5px;right:5px;background:0;border:0;font-size:20px;cursor:pointer;color:#999;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center}.filter-menu-close:hover{color:#333}.filter-options{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px}.filter-option{display:flex;align-items:center;gap:8px;padding:4px 8px;cursor:pointer;user-select:none;font-size:.9em}.filter-option:hover{background:rgba(0,0,0,.05);border-radius:3px}.filter-option input{cursor:pointer;margin:0}
-.viewer-only .editor-only,.viewer-only .btn-danger,.viewer-only [data-edit],.viewer-only [data-delete]{display:none!important}
-.viewer-table{width:100%;border-collapse:collapse}.viewer-table th{position:sticky;top:0;background:var(--gris,#666);color:#fff;overflow:visible}.viewer-table td{white-space:normal;overflow-wrap:anywhere;word-break:break-word}.viewer-table col{width:auto}
-.viewer-filter-input{padding:6px 8px;border:1px solid var(--borde-claro,#ddd);border-radius:3px;font-size:.85em;background:#f5f5f5;cursor:pointer}.viewer-filter-input:hover{background:#f0f0f0}
-.viewer-inline-filter{position:fixed;z-index:10000;background:#fff;border:1px solid var(--borde-claro,#ddd);border-radius:3px;padding:6px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-</style>
-</head>
-<body class="viewer-only">
-<main class="app" id="app">
-<header class="app-header">
-<div><h1>Repositorio de Manuales</h1><div class="header-subtitle">Bitácora, seguimiento y respaldo de información · <span class="modo-badge-visitante">Visor</span></div></div>
-<div class="backup-timer"><strong>Última publicación:</strong> <span id="ultimaCopiaTexto">Cargando...</span><div class="small-note" id="estadoSincronizacion">Leyendo data.json</div></div>
-<div class="header-actions viewer-meta"><span id="versionPublicada">Versión: -</span><span id="publicadoPor">Publicado por: -</span></div>
-</header>
-<div class="layout">
-<nav class="tabs">
-<button aria-selected="true" class="tab-btn active" data-tab="tabManuales" type="button">Avance de Manuales</button>
-<button class="tab-btn" data-tab="tabCalendario" type="button">Calendario</button>
-<button class="tab-btn" data-tab="tabBitacora" type="button">Bitácora</button>
-<button class="tab-btn" data-tab="tabDashboard" type="button">Dashboard de Producción</button>
-<button class="tab-btn" data-tab="tabTramites" type="button">Trámites y Requerimientos</button>
-<button class="tab-btn" data-tab="tabVersiones" type="button">Control de Versiones</button>
-</nav>
-<section class="tab-content active" id="tabManuales"><div class="panel" id="panelManuales"><div class="panel-header"><div><h2>Bitácora de Manuales</h2><div class="small-note">Consulta, filtros y columnas configurables</div></div><div class="toolbar"><button class="btn btn-light" id="btnColumnasM" type="button">⚙️ Columnas</button><button class="btn btn-light" id="btnLimpiarM" type="button" data-clear="tablaManuales">🔄 Limpiar</button></div></div><div id="tablaManuales"></div></div></section>
-<section class="tab-content" id="tabCalendario"><div class="panel"><div class="panel-header"><div class="navegacion-mes"><button class="btn btn-light" id="btnCalendarioAnterior">◀</button><h2 id="tituloCalendarioManuales">Calendario</h2><button class="btn btn-light" id="btnCalendarioSiguiente">▶</button></div><div><select id="selectorMesCalendario"></select><select id="selectorAnioCalendario"></select></div></div><div id="calendarioManuales"></div></div></section>
-<section class="tab-content" id="tabBitacora"><div class="panel"><div class="panel-header"><div class="navegacion-mes"><button class="btn btn-light" id="btnBitacoraAnterior">◀</button><h2 id="tituloBitacora">Bitácora</h2><button class="btn btn-light" id="btnBitacoraSiguiente">▶</button></div><div><select id="selectorMesBitacora"></select><select id="selectorAnioBitacora"></select></div></div><div id="calendarioBitacora"></div></div></section>
-<section class="tab-content" id="tabDashboard">
-<div class="panel dashboard-header-panel"><div class="panel-header"><div><h2>Dashboard de Producción</h2><div class="small-note">Indicadores, horas y tiempos de ciclo.</div></div><div class="toolbar"><button class="btn btn-light" id="btnDetalleProduccion" type="button">📋 Ver detalle</button><button class="btn btn-light" id="btnExportarDashboard" type="button">⬇️ Exportar</button></div></div></div>
-<div class="kpi-grid" id="kpiCards"></div>
-<div class="dashboard-grid"><div class="panel"><h3>📈 Horas por tipo</h3><div id="graficoTiposMes"></div></div><div class="panel"><div class="panel-header compacta"><h3>🏆 Manuales del mes</h3><button class="btn btn-light small" id="btnManualesMes">↓</button></div><div id="manualesMes"></div></div></div>
-<div class="dashboard-grid"><div class="panel"><h3>📅 Estrategia Semanal</h3><div id="estrategiaSemanal"></div></div><div class="panel"><h3>📚 Análisis por tipo</h3><div id="analisisTipos"></div></div></div>
-<div class="panel panel-ciclo"><div class="panel-header"><div><h3>⏱️ Tiempo total de ciclo</h3><div class="small-note">Días calendario desde inicio hasta finalización.</div></div><button class="btn btn-light" id="btnCicloDetalle">📊 Ver ciclos</button></div><div id="graficoCiclo"></div></div>
-</section>
-<section class="tab-content" id="tabTramites"><div class="panel"><div class="panel-header"><div><h2>Trámites y Requerimientos</h2></div><div class="toolbar"><button class="btn btn-light" id="btnColumnasT" type="button">⚙️ Columnas</button><button class="btn btn-light" id="btnLimpiarT" type="button" data-clear="tablaTramites">🔄 Limpiar</button></div></div><div id="tablaTramites"></div></div></section>
-<section class="tab-content" id="tabVersiones"><div class="panel"><div class="panel-header"><div><h2>Control de Versiones</h2></div><div class="toolbar"><button class="btn btn-light" id="btnLimpiarV" type="button" data-clear="tablaVersiones">🔄 Limpiar</button></div></div><div id="tablaVersiones"></div></div></section>
-</div>
-</main>
-<aside class="columns-panel" hidden="" id="columnsPanelManuales"><h3>Columnas de Manuales</h3><div id="columnsListManuales"></div><div class="form-acciones"><button class="btn btn-light" data-show-all="tablaManuales" type="button">Mostrar todo</button><button class="btn btn-primary" data-close="columnsPanelManuales" type="button">Aplicar</button></div></aside>
-<aside class="columns-panel" hidden="" id="columnsPanelTramites"><h3>Columnas de Trámites</h3><div id="columnsListTramites"></div><div class="form-acciones"><button class="btn btn-light" data-show-all="tablaTramites" type="button">Mostrar todo</button><button class="btn btn-primary" data-close="columnsPanelTramites" type="button">Aplicar</button></div></aside>
-<div class="filter-menu" hidden="" id="filterMenu"></div><div class="toast" hidden="" id="toast"></div>
-
-<script>
-"use strict";
-
-const $ = id => document.getElementById(id);
-
-const MESES = [
-  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-];
-
-const DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
-
-const esc = v => 
-  String(v ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-
-const norm = v => 
-  String(v ?? "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-
-function normalizarListo(v) {
-  return String(v ?? "").trim().replace(/AMBOS\s*[ÍI]\s*IDIOMAS/gi, "AMBOS IDIOMAS");
-}
-
-function claseListo(v) {
-  const n = norm(normalizarListo(v));
-  if (n.startsWith("pendiente")) return "listo-pendiente";
-  if (n === "ambos idiomas") return "listo-ambos";
-  if (n.startsWith("solo espanol")) return "listo-esp";
-  if (n.startsWith("solo ingles")) return "listo-eng";
-  if (n === "completo") return "listo-completo";
-  return "";
-}
-
-let datos = {
-  manuales: [],
-  bitacora: [],
-  tramites: [],
-  versiones: [],
-  ciclo: []
-};
-
-let fechaManual = new Date();
-let fechaBitacora = new Date();
-let fechaDash = new Date();
-let tablas = {};
-
-function estadoManual(m) {
-  if (m.fechaPublicado || m.fechaPublicadoGestor) return "Publicado";
-  if (m.fechaFinalizacion) return "Completado";
-  if (m.fechaInicio) return "En proceso";
-  return "No iniciado";
-}
-
-function adaptar(raw) {
-  const r = raw?.datos || raw?.data || raw || {};
-  const meta = raw?.metadata || raw?.publicacion || r.metadata || {};
-  const manuales = (r.manuales || []).map(m => ({
-    ...m,
-    fechaPublicado: m.fechaPublicado ?? m.fechaPublicadoGestor
-  }));
-
-  return {
-    manuales,
-    bitacora: r.bitacora || [],
-    tramites: r.tramites || [],
-    versiones: r.versiones || [],
-    ciclo: r.ciclo || [],
-    metadata: {
-      version: meta.version ?? "",
-      publicadoPor: meta.publicadoPor ?? "",
-      fechaPublicacion: meta.fechaPublicacion ?? ""
-    }
-  };
-}
-
-async function cargar() {
-  try {
-    const res = await fetch(`./data.json?v=${Date.now()}`, { cache: "no-store" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    datos = adaptar(await res.json());
-    const d = new Date(datos.metadata?.fechaPublicacion || Date.now());
-    $("ultimaCopiaTexto").textContent = d.toLocaleString("es-ES");
-    $("estadoSincronizacion").textContent = "✓ Sincronizado";
-    $("versionPublicada").textContent = `Versión: ${datos.metadata?.version || "-"}`;
-    $("publicadoPor").textContent = `Publicado por: ${datos.metadata?.publicadoPor || "-"}`;
-    renderTodo();
-  } catch (err) {
-    console.error("Error al cargar datos:", err);
-    $("estadoSincronizacion").textContent = "✗ Error al cargar";
-  }
-}
-
-const CM = [
-  { key: "orden", label: "#", width: 60 },
-  { key: "codigo", label: "Código" },
-  { key: "titulo", label: "Título" },
-  { key: "idioma", label: "Idioma" },
-  { key: "archivoElectronico", label: "Archivo electrónico" },
-  { key: "ocR", label: "OCR" },
-  { key: "cAM", label: "CAM" },
-  { key: "fotografia", label: "Fotografía" },
-  { key: "tipo", label: "Tipo" },
-  { key: "fechaInicio", label: "Fecha inicio" },
-  { key: "fechaFinalizacion", label: "Fecha finalización" },
-  { key: "fechaPublicado", label: "Publicado" }
-];
-
-const CT = [
-  { key: "requerimiento", label: "Requerimiento" },
-  { key: "detalle", label: "Detalle" },
-  { key: "fechaIngreso", label: "Fecha ingreso" },
-  { key: "fechaInicio", label: "Fecha inicio" },
-  { key: "manualActualizar", label: "Manual a actualizar" },
-  { key: "estado", label: "Estado" }
-];
-
-const CV = [
-  { key: "sistema", label: "Sistema" },
-  { key: "codigo", label: "Código" },
-  { key: "manual", label: "Manual" },
-  { key: "idioma", label: "Idioma" },
-  { key: "numero", label: "Versión disponible" },
-  { key: "ubicacionEService", label: "Ubicación eService" }
-];
-
-function valor(f, c) {
-  return String(c.value ? c.value(f) : f[c.key] ?? "");
-}
-
-function estadoTabla(id, filas, columnas) {
-  const p = tablas[id] || {};
-  return tablas[id] = {
-    filas,
-    columnas,
-    orden: p.orden || columnas.map((_, i) => i),
-    filtros: p.filtros || {},
-    ocultas: p.ocultas || new Set(),
-    anchos: p.anchos || {}
-  };
-}
-
-function cumpleFila(t, f) {
-  return Object.entries(t.filtros).every(([i, cfg]) => {
-    if (!cfg) return true;
-    const v = valor(f, t.columnas[+i]);
-    const mostrar = v.trim() || "(Vacío)";
-    return (!cfg.texto || norm(v).includes(norm(cfg.texto)));
-  });
-}
-
-function renderTabla(id, filas, columnas) {
-  const t = estadoTabla(id, filas, columnas);
-  const vis = t.orden.filter(i => !t.ocultas.has(i));
-  const html = filas.length
-    ? `<table class="viewer-table"><colgroup>${vis.map(i => `<col data-ci="${i}" style="width:${t.anchos[i] || "auto"}px">`).join("")}</colgroup><thead><tr>${vis.map(i => {
-        const c = t.columnas[i];
-        return `<th data-ci="${i}"><div style="display:flex;justify-content:space-between;align-items:center;gap:4px;"><span>${esc(c.label)}</span><button class="viewer-filter-input" data-ci="${i}" type="button" title="Filtrar por ${esc(c.label)}">ⓞ</button></div></th>`;
-      }).join("")}</tr></thead><tbody>${filas.filter(f => cumpleFila(t, f)).map((f, idx) => `<tr>${vis.map(i => `<td data-ci="${i}" class="${claseListo(valor(f, t.columnas[i]))}">${esc(valor(f, t.columnas[i]))}</td>`).join("")}</tr>`).join("")}</tbody></table>`
-    : "<p style='padding:20px;text-align:center;color:#999;'>No hay registros</p>";
-  $(id).innerHTML = html;
-  enlazarTabla(id);
-}
-
-function abrirFiltroInline(evento, id, ci, input) {
-  evento.stopPropagation();
-  input.focus();
-  document.querySelectorAll(".viewer-inline-filter").forEach(p => p.remove());
-  const t = tablas[id];
-  const cfg = t.filtros[ci] || {};
-  const rect = input.getBoundingClientRect();
-  const filtro = document.createElement("input");
-  filtro.className = "viewer-inline-filter";
-  filtro.type = "text";
-  filtro.placeholder = "Buscar...";
-  filtro.value = cfg.texto || "";
-  filtro.style.top = (rect.bottom + 5) + "px";
-  filtro.style.left = rect.left + "px";
-  filtro.style.width = rect.width + "px";
-  filtro.oninput = () => {
-    t.filtros[ci] = { texto: filtro.value };
-    renderTabla(id, t.filas, t.columnas);
-  };
-  filtro.onblur = () => {
-    setTimeout(() => {
-      if (document.activeElement !== filtro) {
-        filtro.remove();
-      }
-    }, 100);
-  };
-  document.body.appendChild(filtro);
-  filtro.focus();
-}
-
-function enlazarTabla(id) {
-  const t = tablas[id];
-  const box = $(id);
-  box.querySelectorAll(".viewer-filter-input").forEach(input => {
-    input.onclick = e => abrirFiltroInline(e, id, +input.dataset.ci, input);
-  });
-}
-
-function abrirFiltro(event, id, ci, ancla) {
-  event.stopPropagation();
-  const t = tablas[id];
-  const c = t.columnas[ci];
-  const vals = [...new Set(t.filas.map(f => valor(f, c).trim() || "(Vacío)"))].sort((a, b) => a.localeCompare(b, "es"));
-  const menu = $("filterMenu");
-  menu.innerHTML = `<button class="filter-menu-close" type="button">✕</button><div class="filter-options">${vals.map((v, i) => `<label class="filter-option"><input type="checkbox" data-value="${i}" ${(!cfg.valores || cfg.valores.has(i)) ? "checked" : ""}> ${esc(v)}</label>`).join("")}</div><button type="button" style="margin-top:8px;padding:4px 8px;background:#007bff;color:#fff;border:none;border-radius:3px;cursor:pointer;width:100%;font-size:.85em;">Aplicar</button>`;
-  const rect = ancla.getBoundingClientRect();
-  menu.style.top = (rect.bottom + 5) + "px";
-  menu.style.left = rect.left + "px";
-  menu.hidden = false;
-  menu.querySelector(".filter-menu-close").onclick = () => {
-    menu.hidden = true;
-  };
-  menu.querySelector("button:last-child").onclick = () => {
-    const checked = new Set();
-    menu.querySelectorAll("input:checked").forEach(cb => {
-      checked.add(+cb.dataset.value);
-    });
-    t.filtros[ci] = checked.size === vals.length ? null : { valores: checked };
-    renderTabla(id, t.filas, t.columnas);
-    menu.hidden = true;
-  };
-}
-
-function limpiar(id) {
-  const t = tablas[id];
-  if (t) {
-    t.filtros = {};
-    renderTabla(id, t.filas, t.columnas);
-  }
-}
-
-function columnas(id, panel, list) {
-  const t = tablas[id];
-  $(list).innerHTML = t.columnas.map((c, i) => `<label class="filter-option"><input type="checkbox" data-column="${i}" ${t.ocultas.has(i) ? "" : "checked"}> ${esc(c.label)}</label>`).join("");
-  const panelEl = $(panel);
-  panelEl.hidden = false;
-  panelEl.querySelectorAll("input[type='checkbox']").forEach(cb => {
-    cb.onchange = () => {
-      const col = +cb.dataset.column;
-      if (cb.checked) {
-        t.ocultas.delete(col);
-      } else {
-        t.ocultas.add(col);
-      }
-    };
-  });
-  panelEl.querySelectorAll("[data-show-all]").forEach(btn => {
-    btn.onclick = () => {
-      t.ocultas.clear();
-      columnas(id, panel, list);
-    };
-  });
-  panelEl.querySelectorAll("[data-close]").forEach(btn => {
-    btn.onclick = () => {
-      renderTabla(id, t.filas, t.columnas);
-      panelEl.hidden = true;
-    };
-  });
-}
-
-function selectMes(id, d) {
-  $(id).innerHTML = MESES.map((m, i) => `<option value="${i}" ${i === d.getMonth() ? "selected" : ""}>${m}</option>`).join("");
-}
-
-function selectAnio(id, d) {
-  $(id).innerHTML = Array.from({ length: 9 }, (_, i) => d.getFullYear() - 4 + i).map(y => `<option ${y === d.getFullYear() ? "selected" : ""}>${y}</option>`).join("");
-}
-
-function iso(d) {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
-function fecha(v) {
-  if (!v) return null;
-  const d = new Date(`${v}T00:00:00`);
-  return Number.isNaN(d.getTime()) ? null : d;
-}
-
-function colorManual(m) {
-  const paleta = ["#FF6C0C", "#E63946", "#2A9D8F", "#3A86FF", "#8338EC", "#F4A261", "#00A896", "#D62828", "#6A994E", "#4D908E", "#F72585", "#4361EE"];
-  const k = String(m.id || m.codigo || m.titulo || "");
-  let hash = 0;
-  for (let i = 0; i < k.length; i++) {
-    hash = ((hash << 5) - hash) + k.charCodeAt(i);
-    hash |= 0;
-  }
-  return paleta[Math.abs(hash) % paleta.length];
-}
-
-function posicion(m, f) {
-  const a = fecha(m.fechaInicio);
-  const b = fecha(m.fechaFinalizacion || m.fechaPublicado || m.fechaInicio);
-  const x = fecha(f);
-  if (!a || !b || !x || x < a || x > b) return "";
-  if (a.getTime() === b.getTime()) return "unico";
-  if (x.getTime() === a.getTime()) return "inicio";
-  if (x.getTime() === b.getTime()) return "fin";
-  return "medio";
-}
-
-function horasManual(m) {
-  return datos.bitacora.filter(b => b.manualId === m.id || b.manual === m.titulo || b.codigo === m.codigo || norm(b.manual).includes(norm(m.codigo))).reduce((a, b) => a + Number(b.horas || 0), 0);
-}
-
-function tooltipManual(m) {
-  const h = horasManual(m);
-  return `Manual: ${m.codigo || ""} - ${m.titulo || ""}\nTipo: ${m.tipo || ""}\nFecha inicio: ${m.fechaInicio || ""}\nFecha finalización: ${m.fechaFinalizacion || ""}\nHoras: ${h}`;
-}
-
-function rejilla(id, d, eventos, titulo) {
-  const bit = titulo.includes("Bitácora");
-  selectMes(bit ? "selectorMesBitacora" : "selectorMesCalendario", d);
-  selectAnio(bit ? "selectorAnioBitacora" : "selectorAnioCalendario", d);
-  const primerDia = new Date(d.getFullYear(), d.getMonth(), 1);
-  const ultimoDia = new Date(d.getFullYear(), d.getMonth() + 1, 0);
-  const diaInicio = (primerDia.getDay() + 6) % 7;
-  const diasMes = ultimoDia.getDate();
-  const filas = [];
-  let fila = Array(diaInicio).fill("");
-  for (let dia = 1; dia <= diasMes; dia++) {
-    const f = new Date(d.getFullYear(), d.getMonth(), dia);
-    fila.push(`<div class="dia-calendario" data-fecha="${iso(f)}"><span class="dia-numero">${dia}</span><div class="dia-eventos">${eventos(f).join("")}</div></div>`);
-    if (fila.length === 7) {
-      filas.push(fila);
-      fila = [];
-    }
-  }
-  if (fila.length > 0) {
-    while (fila.length < 7) fila.push("");
-    filas.push(fila);
-  }
-  const html = `<div class="calendario"><div class="calendario-header">${DIAS.map(d => `<div class="dia-semana">${d}</div>`).join("")}</div><div class="calendario-cuerpo">${filas.map(f => `<div class="fila-calendario">${f.join("")}</div>`).join("")}</div></div>`;
-  $(id).innerHTML = html;
-}
-
-function renderCalendarios() {
-  rejilla(
-    "calendarioManuales",
-    fechaManual,
-    f => datos.manuales.map(m => ({ m, p: posicion(m, f) })).filter(x => x.p).map(({ m, p }) => `<div class="evento-calendario ${p}" style="--evento-color:${colorManual(m)}" title="${tooltipManual(m)}">${esc((m.codigo || "").substring(0, 3))}</div>`),
-    "Calendario"
-  );
-  rejilla(
-    "calendarioBitacora",
-    fechaBitacora,
-    f => {
-      const dia = iso(f);
-      return datos.bitacora.filter(b => b.fecha === dia).map(b => `<div class="evento-calendario bitacora" title="${esc(b.manual || "")} - ${b.horas}h">${b.horas}h</div>`);
-    },
-    "Bitácora"
-  );
-}
-
-function barras(id, mapa, suf = "") {
-  const e = Object.entries(mapa).sort((a, b) => b[1] - a[1]);
-  const max = Math.max(1, ...e.map(x => x[1]));
-  $(id).innerHTML = e.map(([k, v]) => `<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${esc(k)}</div><div class="dashboard-cycle-bar"><div class="dashboard-cycle-fill" style="width:${(v / max) * 100}%"></div><span class="dashboard-cycle-value">${v}${suf}</span></div></div>`).join("");
-}
-
-function renderDashboard() {
-  selectMes("selectorMesDashboard", fechaDash);
-  $("selectorAnioDashboard").value = fechaDash.getFullYear();
-  const horas = datos.bitacora.reduce((a, b) => a + Number(b.horas || 0), 0);
-  const pub = datos.manuales.filter(m => m.fechaPublicado || m.fechaPublicadoGestor).length;
-  $("kpiCards").innerHTML = `<div class="kpi-card"><div class="kpi-valor">${horas}</div><div class="kpi-label">Horas totales</div></div><div class="kpi-card"><div class="kpi-valor">${datos.manuales.length}</div><div class="kpi-label">Manuales</div></div><div class="kpi-card"><div class="kpi-valor">${pub}</div><div class="kpi-label">Publicados</div></div>`;
-  const tiposMapa = {};
-  datos.bitacora.forEach(b => {
-    tiposMapa[b.tipo || "Sin clasificar"] = (tiposMapa[b.tipo || "Sin clasificar"] || 0) + Number(b.horas || 0);
-  });
-  barras("graficoTiposMes", tiposMapa, "h");
-  const manualesMes = {};
-  datos.manuales.forEach(m => {
-    if (m.fechaInicio || m.fechaFinalizacion || m.fechaPublicado) {
-      manualesMes[m.codigo || m.titulo || "Sin código"] = horasManual(m);
-    }
-  });
-  const top10 = Object.entries(manualesMes).sort((a, b) => b[1] - a[1]).slice(0, 10).reduce((o, [k, v]) => ({ ...o, [k]: v }), {});
-  barras("manualesMes", top10, "h");
-  const estrategia = {};
-  const ahora = new Date();
-  const inicioSemana = new Date(ahora.setDate(ahora.getDate() - ahora.getDay() + 1));
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(inicioSemana);
-    d.setDate(d.getDate() + i);
-    const diaIso = iso(d);
-    const horasDia = datos.bitacora.filter(b => b.fecha === diaIso).reduce((a, b) => a + Number(b.horas || 0), 0);
-    estrategia[DIAS[(d.getDay() + 6) % 7]] = horasDia;
-  }
-  barras("estrategiaSemanal", estrategia, "h");
-  const analisisMapa = {};
-  datos.manuales.forEach(m => {
-    const tipo = m.tipo || "Sin clasificar";
-    analisisMapa[tipo] = (analisisMapa[tipo] || 0) + 1;
-  });
-  barras("analisisTipos", analisisMapa);
-  const cicloMapa = {};
-  datos.ciclo.forEach(c => {
-    cicloMapa[c.nombre || c.codigo || "Sin nombre"] = c.diasCiclo || 0;
-  });
-  barras("graficoCiclo", cicloMapa, " días");
-}
-
-function renderVersiones() {
-  renderTabla("tablaVersiones", datos.versiones, CV);
-  const ingles = datos.versiones.filter(v => norm(v.idioma) === "ingles").length;
-  const espanol = datos.versiones.filter(v => norm(v.idioma) === "espanol").length;
-}
-
-/**
- * CORREGIDO: Abre modal de detalle sin perder foco en inputs
- * Mantiene tabla estable, solo filtra sin reconstruir
- */
-function abrirDetalleProduccion() {
-  if (!datos.ciclo.length) return alert("No hay detalle de producción publicado");
-  
-  const rows = datos.ciclo.map(x => x.original || x);
-  const headers = [...new Set(rows.flatMap(Object.keys))];
-  
-  // Modal backdrop
-  const modal = document.createElement("div");
-  modal.className = "detalle-produccion-modal";
-  modal.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px;";
-  
-  const contenedor = document.createElement("div");
-  contenedor.style.cssText = "background:#fff;border-radius:6px;padding:20px;max-width:95vw;max-height:95vh;overflow:auto;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.3);";
-  
-  // Header
-  const header = document.createElement("div");
-  header.style.cssText = "display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:20px;";
-  const titulo = document.createElement("h3");
-  titulo.textContent = "Detalle de Producción";
-  titulo.style.cssText = "margin:0;font-size:1.3em;";
-  const btnCerrar = document.createElement("button");
-  btnCerrar.textContent = "Cerrar";
-  btnCerrar.style.cssText = "background:#999;color:#fff;border:none;padding:8px 16px;border-radius:3px;cursor:pointer;font-size:.9em;";
-  btnCerrar.onclick = () => modal.remove();
-  header.appendChild(titulo);
-  header.appendChild(btnCerrar);
-  contenedor.appendChild(header);
-  
-  // Búsqueda global
-  const busquedaDiv = document.createElement("div");
-  busquedaDiv.style.cssText = "margin-bottom:15px;";
-  const labelBusqueda = document.createElement("label");
-  labelBusqueda.textContent = "Buscar en todas las columnas: ";
-  labelBusqueda.style.cssText = "display:block;margin-bottom:5px;font-size:.9em;";
-  const inputBusqueda = document.createElement("input");
-  inputBusqueda.type = "text";
-  inputBusqueda.placeholder = "Escribe para filtrar...";
-  inputBusqueda.style.cssText = "width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:3px;font-size:.9em;box-sizing:border-box;";
-  busquedaDiv.appendChild(labelBusqueda);
-  busquedaDiv.appendChild(inputBusqueda);
-  contenedor.appendChild(busquedaDiv);
-  
-  // Stats
-  const statsDiv = document.createElement("div");
-  statsDiv.style.cssText = "font-size:.85em;color:#666;margin-bottom:10px;";
-  statsDiv.id = "detalleStats";
-  contenedor.appendChild(statsDiv);
-  
-  // Tabla con scroll
-  const tablaContenedor = document.createElement("div");
-  tablaContenedor.style.cssText = "overflow-x:auto;border:1px solid #ddd;border-radius:3px;";
-  
-  const tabla = document.createElement("table");
-  tabla.style.cssText = "width:100%;border-collapse:collapse;font-size:.9em;";
-  
-  // Headers
-  const thead = document.createElement("thead");
-  const tr = document.createElement("tr");
-  headers.forEach(h => {
-    const th = document.createElement("th");
-    th.textContent = String(h || "");
-    th.style.cssText = "background:#f5f5f5;padding:10px;font-weight:bold;border-bottom:2px solid #666;text-align:left;position:sticky;top:0;";
-    tr.appendChild(th);
-  });
-  thead.appendChild(tr);
-  tabla.appendChild(thead);
-  
-  // Body (inicialmente vacío)
-  const tbody = document.createElement("tbody");
-  tabla.appendChild(tbody);
-  
-  tablaContenedor.appendChild(tabla);
-  contenedor.appendChild(tablaContenedor);
-  modal.appendChild(contenedor);
-  document.body.appendChild(modal);
-  
-  // Función para renderizar sin tocar inputs
-  function renderFiltrado(filtroGlobal = "") {
-    tbody.innerHTML = "";
-    let conteo = 0;
-    
-    rows.forEach(row => {
-      // Filtro global
-      if (filtroGlobal) {
-        const textoFila = headers
-          .map(h => String(row[h] ?? "").toLowerCase())
-          .join(" ");
-        if (!textoFila.includes(filtroGlobal.toLowerCase())) return;
-      }
-      
-      // Crear fila
-      const tr = document.createElement("tr");
-      headers.forEach(h => {
-        const td = document.createElement("td");
-        td.textContent = String(row[h] ?? "");
-        td.style.cssText = "padding:8px 10px;border-bottom:1px solid #ddd;word-break:break-word;";
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-      conteo++;
-    });
-    
-    statsDiv.textContent = `Registros mostrados: ${conteo} de ${rows.length}`;
-  }
-  
-  // Event listener (mantiene foco)
-  inputBusqueda.oninput = () => {
-    renderFiltrado(inputBusqueda.value);
-  };
-  
-  // Render inicial
-  renderFiltrado("");
-}
-
-function renderTodo() {
-  renderTabla("tablaManuales", datos.manuales, CM);
-  renderTabla("tablaTramites", datos.tramites, CT);
-  renderVersiones();
-  renderCalendarios();
-  renderDashboard();
-}
-
-// Navegación tabs
-document.querySelectorAll(".tab-btn").forEach(b => {
-  b.onclick = () => {
-    document.querySelectorAll(".tab-btn,.tab-content").forEach(x => x.classList.remove("active"));
-    document.querySelectorAll(".tab-btn").forEach(x => x.removeAttribute("aria-selected"));
-    b.classList.add("active");
-    b.setAttribute("aria-selected", "true");
-    $(b.dataset.tab).classList.add("active");
-  };
-});
-
-// Botones de columnas
-$("btnColumnasM").onclick = () => columnas("tablaManuales", "columnsPanelManuales", "columnsListManuales");
-$("btnColumnasT").onclick = () => columnas("tablaTramites", "columnsPanelTramites", "columnsListTramites");
-
-// Botones limpiar
-document.querySelectorAll("[data-clear]").forEach(btn => {
-  btn.onclick = () => limpiar(btn.dataset.clear);
-});
-
-// Navegación calendario
-$("btnCalendarioAnterior").onclick = () => { fechaManual.setMonth(fechaManual.getMonth() - 1); renderCalendarios(); $("tituloCalendarioManuales").textContent = `${MESES[fechaManual.getMonth()]} ${fechaManual.getFullYear()}`; };
-$("btnCalendarioSiguiente").onclick = () => { fechaManual.setMonth(fechaManual.getMonth() + 1); renderCalendarios(); $("tituloCalendarioManuales").textContent = `${MESES[fechaManual.getMonth()]} ${fechaManual.getFullYear()}`; };
-$("btnBitacoraAnterior").onclick = () => { fechaBitacora.setMonth(fechaBitacora.getMonth() - 1); renderCalendarios(); $("tituloBitacora").textContent = `${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`; };
-$("btnBitacoraSiguiente").onclick = () => { fechaBitacora.setMonth(fechaBitacora.getMonth() + 1); renderCalendarios(); $("tituloBitacora").textContent = `${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`; };
-
-// Selectores calendario
-$("selectorMesCalendario").onchange = () => { fechaManual.setMonth(+$("selectorMesCalendario").value); renderCalendarios(); $("tituloCalendarioManuales").textContent = `${MESES[fechaManual.getMonth()]} ${fechaManual.getFullYear()}`; };
-$("selectorAnioCalendario").onchange = () => { fechaManual.setFullYear(+$("selectorAnioCalendario").value); renderCalendarios(); $("tituloCalendarioManuales").textContent = `${MESES[fechaManual.getMonth()]} ${fechaManual.getFullYear()}`; };
-$("selectorMesBitacora").onchange = () => { fechaBitacora.setMonth(+$("selectorMesBitacora").value); renderCalendarios(); $("tituloBitacora").textContent = `${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`; };
-$("selectorAnioBitacora").onchange = () => { fechaBitacora.setFullYear(+$("selectorAnioBitacora").value); renderCalendarios(); $("tituloBitacora").textContent = `${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`; };
-
-// Selectores dashboard
-$("selectorMesDashboard").onchange = () => { fechaDash.setMonth(+$("selectorMesDashboard").value); renderDashboard(); };
-$("selectorAnioDashboard").onchange = () => { fechaDash.setFullYear(+$("selectorAnioDashboard").value); renderDashboard(); };
-
-// Detalle producción
-$("btnDetalleProduccion").onclick = abrirDetalleProduccion;
-
-// Exportar dashboard
-$("btnExportarDashboard").onclick = () => {
-  const contenido = {
-    fechaExportacion: new Date().toISOString(),
-    manuales: datos.manuales,
-    bitacora: datos.bitacora,
-    tramites: datos.tramites,
-    versiones: datos.versiones,
-    ciclo: datos.ciclo
-  };
-  const blob = new Blob([JSON.stringify(contenido, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `dashboard-${new Date().toISOString().split("T")[0]}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-};
-
-// Cargar
-cargar();
-</script>
-</body>
-</html>
+<!DOCTYPE html>  
+ 
+<html lang="es">  
+<head>  
+<meta charset="utf-8"/>  
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>  
+<title>Repositorio de Manuales KIRIS V2 | Visor</title>  
+<link href="css/estilos.css" rel="stylesheet"/>  
+<style>    
+/* Solo complementa estilos del editor. La apariencia principal procede del mismo css/estilos.css. */    
+.viewer-meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}.viewer-meta span{white-space:nowrap}.filter-menu{position:fixed;z-index:9999;width:270px;max-height:410px;padding:10px;background:#fff;color:#222;border:1px solid #cfcfcf;border-radius:10px;box-shadow:0 14px 34px rgba(0,0,0,.24)}.filter-search{width:100%;padding:8px 9px;margin-bottom:8px;border:1px solid #bbb;border-radius:6px}.filter-values{max-height:245px;overflow:auto;border:1px solid #e1e1e1;border-radius:6px;padding:5px}.filter-option{display:flex;gap:7px;align-items:flex-start;padding:5px 4px;font-size:12px;cursor:pointer}.filter-option:hover{background:#f4f4f4}.filter-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:9px}.filter-actions button{border:0;border-radius:6px;padding:7px 10px;font-weight:700;cursor:pointer}.filter-apply{background:#ff6c0c;color:#fff}.filter-clear{background:#eee;color:#333}.filter-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;border:0;background:transparent;color:inherit;font:inherit;font-weight:inherit;text-align:left;cursor:pointer}.filter-head.filtered .filter-arrow{color:#ff6c0c}.viewer-empty{padding:35px;text-align:center;color:#777}.viewer-table table{width:max-content;min-width:100%}.viewer-table th{white-space:nowrap}.viewer-calendar-note{font-size:11px;color:#666}.viewer-event{cursor:help}.viewer-only .editor-only{display:none!important}@media(max-width:800px){.viewer-meta{align-items:flex-start;flex-direction:column}.filter-menu{width:min(270px,calc(100vw - 20px))}}    
+ 
+.viewer-only .editor-only,.viewer-only .btn-danger,.viewer-only [data-edit],.viewer-only [data-delete]{display:none!important}   
+.viewer-table th{position:sticky;top:0;background:var(--gris,#666);color:#fff;overflow:visible}.viewer-table td{white-space:normal;overflow-wrap:anywhere;word-break:break-word}.viewer-table col{width:150px}.viewer-th{display:flex;align-items:center;gap:6px;min-height:27px}.viewer-th-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.viewer-resize{flex:0 0 8px;align-self:stretch;cursor:col-resize;position:relative}.viewer-resize:after{content:"";position:absolute;top:-6px;right:2px;bottom:-6px;width:2px;background:rgba(255,255,255,.45)}.viewer-filter-row th{top:43px;background:#f7f7f7;color:#333}.viewer-filter-combo{display:grid;grid-template-columns:minmax(80px,1fr) 28px;border:1px solid #bbb;border-radius:5px;overflow:hidden;background:#fff}.viewer-filter-input{width:100%;min-width:0;padding:6px 7px;border:0;outline:0}.viewer-filter-arrow{border:0;border-left:1px solid #bbb;background:#eef1f4;cursor:pointer}.viewer-dragging{opacity:.5}.viewer-drop-target{box-shadow:inset 4px 0 0 #ff6c0c}.evento-calendario{position:relative;display:block;margin:0 -7px 3px;padding:4px 9px;background:var(--evento-color,#ff6c0c);color:white;border-radius:0;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:help}.evento-calendario.inicio{margin-left:0;border-radius:9px 0 0 9px}.evento-calendario.continuacion{border-radius:0}.evento-calendario.final{margin-right:0;border-radius:0 9px 9px 0}.evento-calendario.unico{margin:0 0 3px;border-radius:9px}.calendario-dia-nombre{padding:10px;background:#666;color:#fff;border-radius:10px;font-weight:700;text-align:center}.viewer-detail-table{table-layout:fixed}.columns-panel .form-acciones{position:sticky;bottom:-16px;margin:12px -16px -16px;padding:12px 16px;background:#fff;border-top:1px solid #ddd}.modo-badge-visitante{background:#666}.viewer-note{color:#666;font-size:12px}   
+</style>  
+</head>  
+<body class="viewer-only">  
+<main class="app" id="app">  
+<header class="app-header">  
+<div><h1>Repositorio de Manuales</h1><div class="header-subtitle">Bitácora, seguimiento y respaldo de información · <span class="modo-badge-visitante">Visor</span></div></div>  
+<div class="backup-timer"><strong>Última publicación:</strong> <span id="ultimaCopiaTexto">Cargando...</span><div class="small-note" id="estadoSincronizacion">Leyendo data.json</div></div>  
+<div class="header-actions viewer-meta"><span id="versionPublicada">Versión: -</span><span id="publicadoPor">Publicado por: -</span></div>  
+</header>  
+<div class="layout">  
+<nav class="tabs">  
+<button aria-selected="true" class="tab-btn active" data-tab="tabManuales" type="button">Avance de Manuales</button>  
+<button class="tab-btn" data-tab="tabCalendario" type="button">Calendario</button>  
+<button class="tab-btn" data-tab="tabBitacora" type="button">Bitácora</button>  
+<button class="tab-btn" data-tab="tabDashboard" type="button">Dashboard de Producción</button>  
+<button class="tab-btn" data-tab="tabTramites" type="button">Trámites y Requerimientos</button>  
+<button class="tab-btn" data-tab="tabVersiones" type="button">Control de Versiones</button>  
+</nav>  
+<section class="tab-content active" id="tabManuales"><div class="panel" id="panelManuales"><div class="panel-header"><div><h2>Bitácora de Manuales</h2><div class="small-note">Consulta, filtros y columnas ajustables.</div></div><div class="toolbar"><button class="btn btn-light" id="btnColumnasManuales">Columnas</button><button class="btn btn-light" data-clear="tablaManuales">Limpiar filtros</button><button class="btn btn-light" id="btnPantallaCompleta">⛶</button></div></div><div class="table-wrapper viewer-table" id="tablaManuales"></div></div></section>  
+<section class="tab-content" id="tabCalendario"><div class="panel"><div class="panel-header"><div class="navegacion-mes"><button class="btn btn-light" id="btnCalendarioAnterior">◀</button><h2 id="tituloCalendario">Calendario</h2><button class="btn btn-light" id="btnCalendarioSiguiente">▶</button></div><div class="toolbar"><select id="selectorMesCalendario"></select><select id="selectorAnioCalendario"></select><button class="btn btn-primary" id="btnCalendarioHoy">Hoy</button></div></div><div class="calendario-grid" id="calendarioManuales"></div></div></section>  
+<section class="tab-content" id="tabBitacora"><div class="panel"><div class="panel-header"><div class="navegacion-mes"><button class="btn btn-light" id="btnBitacoraAnterior">◀</button><h2 id="tituloBitacora">Bitácora</h2><button class="btn btn-light" id="btnBitacoraSiguiente">▶</button></div><div class="toolbar"><select id="selectorMesBitacora"></select><select id="selectorAnioBitacora"></select></div></div><div class="calendario-grid" id="calendarioBitacora"></div></div></section>  
+<section class="tab-content" id="tabDashboard">  
+<div class="panel dashboard-header-panel"><div class="panel-header"><div><h2>Dashboard de Producción</h2><div class="small-note">Indicadores, horas y tiempos de ciclo.</div></div><div class="toolbar"><button class="btn btn-success" id="btnExportarDashboard">📤 Exportar Dashboard</button></div></div></div>  
+<div class="kpi-grid" id="kpiCards"></div>  
+<div class="dashboard-grid"><div class="panel"><h3>📈 Horas por tipo</h3><div id="graficoTiposMes"></div></div><div class="panel"><div class="panel-header compacta"><h3>🏆 Manuales del mes</h3><div class="navegacion-mes"><button class="btn btn-light" id="btnDashboardMesAnterior">◀</button><select id="selectorMesDashboard"></select><input id="selectorAnioDashboard" type="number"/><button class="btn btn-light" id="btnDashboardMesSiguiente">▶</button></div></div><div id="topManualesHoras"></div></div></div>  
+<div class="dashboard-grid"><div class="panel"><h3>📅 Estrategia Semanal</h3><div id="estrategiaSemanal"></div></div><div class="panel"><h3>📚 Análisis por tipo</h3><div id="analisisTipos"></div></div></div>  
+<div class="panel panel-ciclo"><div class="panel-header"><div><h3>⏱️ Tiempo total de ciclo</h3><div class="small-note">Días calendario desde inicio hasta finalización.</div></div><button class="btn btn-light" id="btnVerDetalleCiclo">Ver detalle</button></div><div class="dashboard-cycle-summary" id="resumenDashboardCiclo"></div><div class="dashboard-cycle-chart" id="graficoDashboardCiclo"></div></div>  
+</section>  
+<section class="tab-content" id="tabTramites"><div class="panel"><div class="panel-header"><div><h2>Trámites y Requerimientos</h2></div><div class="toolbar"><button class="btn btn-light" id="btnColumnasTramites">Columnas</button><button class="btn btn-light" data-clear="tablaTramites">Limpiar filtros</button></div></div><div class="table-wrapper viewer-table" id="tablaTramites"></div></div></section>  
+<section class="tab-content" id="tabVersiones"><div class="panel"><div class="panel-header"><div><h2>Control de Versiones</h2></div><div class="toolbar"><button class="btn btn-light" data-clear="tablaVersiones">Limpiar filtros</button></div></div><div class="kpi-grid resumen-versiones" id="resumenVersiones"></div><div class="table-wrapper viewer-table" id="tablaVersiones"></div></div></section>  
+</div>  
+</main>  
+<aside class="columns-panel" hidden="" id="columnsPanelManuales"><h3>Columnas de Manuales</h3><div id="columnsListManuales"></div><div class="form-acciones"><button class="btn btn-light" data-show-all="tablaManuales">Mostrar todas</button><button class="btn btn-light" data-hide-all="tablaManuales">Quitar todas</button><button class="btn btn-primary" data-close-columns="">Cerrar</button></div></aside>  
+<aside class="columns-panel" hidden="" id="columnsPanelTramites"><h3>Columnas de Trámites</h3><div id="columnsListTramites"></div><div class="form-acciones"><button class="btn btn-light" data-show-all="tablaTramites">Mostrar todas</button><button class="btn btn-light" data-hide-all="tablaTramites">Quitar todas</button><button class="btn btn-primary" data-close-columns="">Cerrar</button></div></aside>  
+<div class="filter-menu" hidden="" id="filterMenu"></div><div class="toast" hidden="" id="toast"></div>  
+<script>   
+"use strict";   
+const $=id=>document.getElementById(id);   
+const MESES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];   
+const DIAS=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];   
+const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");   
+const norm=v=>String(v??"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""); 
+function normalizarListo(v){return String(v??"").trim().replace(/AMBOS\s*[ÍI]\s*IDIOMAS/gi,"AMBOS IDIOMAS")} 
+function claseListo(v){const n=norm(normalizarListo(v));if(n.startsWith("pendiente"))return"listo-pendiente";if(n==="ambos idiomas")return"listo-ambos";if(n.startsWith("solo espanol"))return"listo-espanol";return""}   
+let datos={manuales:[],bitacora:[],tramites:[],versiones:[],ciclo:[]},fechaManual=new Date(),fechaBitacora=new Date(),fechaDash=new Date(),tablas={};   
+function estadoManual(m){if(m.fechaPublicado||m.fechaPublicadoGestor)return"Publicado";if(m.fechaFinalizacion)return"Completado";if(m.fechaInicio)return"En proceso";return"No iniciado"}   
+function adaptar(raw){const r=raw?.datos||raw?.data||raw||{},meta=raw?.metadata||raw?.publicacion||r.metadata||{},manuales=(r.manuales||[]).map(m=>({...m,fechaPublicado:m.fechaPublicado??m.fechaPublicadoGestor??""})),byId=new Map(manuales.map(m=>[m.id,m])),bitacora=(r.bitacora||[]).map(b=>({...b,manual:b.manual??b.codigo??byId.get(b.manualId)?.titulo??"",horas:Number(b.horas||0)})),versiones=(r.versiones||r.controlVersiones||[]).map(v=>({...v,numero:v.numero??v.version??"",fecha:v.fecha??v.fechaVersion??""})),ciclo=(r.ciclo||r.dashboardCicloCambios||[]).map(c=>{const o=c.original||c;return{...o,...c,original:o,dias:c.dias??c.diasCiclo??"",tipo:c.tipo??c.changeCategory??o["Change Category"]??"Sin categoría"}});return{manuales,bitacora,tramites:(r.tramites||[]).map(t=>({...t,listo:normalizarListo(t.listo)})),versiones,ciclo,fechaPublicacion:meta.fechaPublicacion||raw.fechaPublicacion||raw.fechaExportacion||raw.fecha||r.ultimaCopia||"",publicadoPor:meta.publicadoPor||raw.publicadoPor||r.publicadoPor||"",versionPublicada:meta.versionPublicada||meta.version||raw.versionPublicada||raw.version||r.versionPublicada||""}}   
+async function cargar(){try{const res=await fetch(`./data.json?v=${Date.now()}`,{cache:"no-store"});if(!res.ok)throw new Error(`HTTP ${res.status}`);datos=adaptar(await res.json());const d=new Date(datos.fechaPublicacion);$("ultimaCopiaTexto").textContent=datos.fechaPublicacion&&!Number.isNaN(d.getTime())?d.toLocaleString("es-CR"):datos.fechaPublicacion||"No indicada";$("estadoSincronizacion").textContent="Última versión publicada cargada";$("versionPublicada").textContent=`Versión: ${datos.versionPublicada||"No indicada"}`;$("publicadoPor").textContent=`Publicado por: ${datos.publicadoPor||"No indicado"}`;renderTodo()}catch(e){$("ultimaCopiaTexto").textContent="No disponible";$("estadoSincronizacion").textContent=`No se pudo cargar data.json (${e.message})`;console.error(e)}}   
+const CM=[{key:"orden",label:"#",width:60},{key:"codigo",label:"Código"},{key:"titulo",label:"Título"},{key:"idioma",label:"Idioma"},{key:"archivoElectronico",label:"Archivo electrónico"},{key:"ocRelacionado",label:"OC relacionado"},{key:"prioridad",label:"Prioridad"},{key:"tipo",label:"Tipo"},{key:"paginas",label:"Páginas"},{key:"diasEsfuerzo",label:"Días esfuerzo"},{key:"fechaInicio",label:"Fecha inicio"},{key:"fechaFinalizacion",label:"Fecha finalización"},{key:"fechaPublicado",label:"Fecha publicado"},{key:"horasEsfuerzo",label:"Horas esfuerzo"},{key:"estado",label:"Estado",value:estadoManual,html:m=>`<span class="estado estado-${norm(estadoManual(m)).replace(/\s+/g,"-")}">${esc(estadoManual(m))}</span>`}];   
+const CT=[{key:"requerimiento",label:"Requerimiento"},{key:"detalle",label:"Detalle"},{key:"fechaIngreso",label:"Fecha ingreso"},{key:"fechaInicio",label:"Fecha inicio"},{key:"manualActualizar",label:"Manual a actualizar"},{key:"temaGeneral",label:"Tema general"},{key:"baAsignado",label:"BA asignado"},{key:"consultas",label:"Consultas / comentarios"},{key:"respuestaConsulta",label:"Respuesta a consulta"},{key:"justificacionGestor",label:"Justificación en Gestor"},{key:"fechaPublicado",label:"Fecha publicado"},{key:"versionTraducir",label:"Versión para traducir agregada"},{key:"justificacionIngles",label:"Justificación Gestor Inglés"},{key:"listo",label:"Listo",value:f=>normalizarListo(f.listo),html:f=>`<span class="estado-listo ${claseListo(f.listo)}">${esc(normalizarListo(f.listo))}</span>`}];   
+const CV=[{key:"sistema",label:"Sistema"},{key:"codigo",label:"Código"},{key:"manual",label:"Manual"},{key:"idioma",label:"Idioma"},{key:"numero",label:"Versión disponible"},{key:"ubicacionEService",label:"Ubicación en E-service"},{key:"fecha",label:"Fecha de versión"},{key:"estado",label:"Estado"},{key:"observaciones",label:"Observaciones"}];   
+function valor(f,c){return String(c.value?c.value(f):f[c.key]??"")}   
+function estadoTabla(id,filas,columnas){const p=tablas[id]||{};return tablas[id]={filas,columnas,orden:p.orden||columnas.map((_,i)=>i),filtros:p.filtros||{},ocultas:p.ocultas||new Set(),anchos:p.anchos||{}}}   
+function cumpleFila(t,f){return Object.entries(t.filtros).every(([i,cfg])=>{if(!cfg)return true;const v=valor(f,t.columnas[+i]),mostrar=v.trim()||"(Vacío)";return(!cfg.texto||norm(v).includes(norm(cfg.texto)))&&(!cfg.valores?.length||cfg.valores.includes(mostrar))})}   
+function renderTabla(id,filas,columnas){const t=estadoTabla(id,filas,columnas),vis=t.orden.filter(i=>!t.ocultas.has(i));const html=filas.length?`<table><colgroup>${vis.map(i=>`<col data-ci="${i}" style="width:${t.anchos[i]||columnas[i].width||150}px">`).join("")}</colgroup><thead><tr>${vis.map(i=>`<th draggable="true" data-ci="${i}"><div class="viewer-th"><span class="viewer-th-label">${esc(columnas[i].label)}</span><span class="viewer-resize" data-ci="${i}"></span></div></th>`).join("")}</tr><tr class="viewer-filter-row">${vis.map(i=>{const cfg=t.filtros[i]||{},activo=cfg.texto||cfg.valores?.length;return`<th><div class="viewer-filter-combo"><input class="viewer-filter-input ${activo?"filtro-activo":""}" data-ci="${i}" value="${esc(cfg.texto||"")}" placeholder="Buscar o filtrar"><button class="viewer-filter-arrow" data-open-filter="${i}" type="button">▼</button></div></th>`}).join("")}</tr></thead><tbody>${filas.map((f,ri)=>`<tr data-ri="${ri}" ${cumpleFila(t,f)?"":"hidden"}>${vis.map(i=>`<td>${columnas[i].key==="orden"?datos.manuales.findIndex(m=>m.id===f.id)+1:(columnas[i].html?columnas[i].html(f):esc(valor(f,columnas[i])))}</td>`).join("")}</tr>`).join("")}</tbody></table>`:'<div class="viewer-empty">Sin información publicada.</div>';$(id).innerHTML=html;enlazarTabla(id)}   
+function abrirFiltroInline(evento,id,ci,input){evento.stopPropagation();input.focus();document.querySelectorAll(".viewer-inline-filter").forEach(p=>p.remove());const t=tablas[id],cfg=t.filtros[ci]||{},textoActual=input.value||"",valores=[...new Set(t.filas.map(f=>{const v=valor(f,t.columnas[ci]);return v.trim()||"(Vacío)"}))].sort((a,b)=>a.localeCompare(b,"es",{numeric:true})).filter(v=>!textoActual||norm(v).includes(norm(textoActual)));const panel=document.createElement("div");panel.className="viewer-inline-filter";panel.innerHTML=`<div class="viewer-inline-list">${valores.map(v=>`<label class="viewer-inline-option"><input type="checkbox" value="${esc(v)}" ${!cfg.valores?.length||cfg.valores.includes(v)?"checked":""}><span>${esc(v)}</span></label>`).join("")}</div><div class="viewer-inline-actions"><button class="viewer-inline-clear" type="button">Limpiar</button><button class="viewer-inline-apply" type="button">Aplicar</button></div>`;input.closest("th").appendChild(panel);panel.onclick=e=>e.stopPropagation();panel.querySelector(".viewer-inline-clear").onclick=()=>{delete t.filtros[ci];renderTabla(id,t.filas,t.columnas)};panel.querySelector(".viewer-inline-apply").onclick=()=>{const s=[...panel.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value);t.filtros[ci]={texto:input.value,valores:s.length===valores.length?[]:s};renderTabla(id,t.filas,t.columnas)}} 
+function enlazarTabla(id){const t=tablas[id],box=$(id);box.querySelectorAll(".viewer-filter-input").forEach(input=>{input.onclick=e=>abrirFiltroInline(e,id,+input.dataset.ci,input);input.oninput=()=>{const ci=+input.dataset.ci,texto=input.value,cfg=t.filtros[ci]||{valores:[]};t.filtros[ci]={texto,valores:cfg.valores||[]};renderTabla(id,t.filas,t.columnas);const nuevo=$(id).querySelector(`.viewer-filter-input[data-ci="${ci}"]`);if(nuevo){nuevo.focus();nuevo.setSelectionRange(nuevo.value.length,nuevo.value.length);abrirFiltroInline({stopPropagation(){}},id,ci,nuevo)}};input.onkeydown=e=>{if(e.key!=="Enter")return;e.preventDefault();const cfg=t.filtros[input.dataset.ci]||{valores:[]};t.filtros[input.dataset.ci]={texto:input.value,valores:cfg.valores||[]};renderTabla(id,t.filas,t.columnas)}});box.querySelectorAll("[data-open-filter]").forEach(b=>b.onclick=e=>abrirFiltro(e,id,+b.dataset.openFilter,b));box.querySelectorAll(".viewer-resize").forEach(h=>h.onpointerdown=e=>{e.stopPropagation();const ci=+h.dataset.ci,x=e.clientX,w=box.querySelector(`col[data-ci="${ci}"]`)?.getBoundingClientRect().width||150;const move=ev=>{const nw=Math.max(60,w+ev.clientX-x);t.anchos[ci]=nw;const col=box.querySelector(`col[data-ci="${ci}"]`);if(col)col.style.width=nw+"px"};const up=()=>{document.removeEventListener("pointermove",move);document.removeEventListener("pointerup",up)};document.addEventListener("pointermove",move);document.addEventListener("pointerup",up)});box.querySelectorAll('thead tr:first-child th[draggable="true"]').forEach(th=>{th.ondragstart=e=>{e.dataTransfer.setData("text/plain",th.dataset.ci);th.classList.add("viewer-dragging")};th.ondragend=()=>th.classList.remove("viewer-dragging");th.ondragover=e=>{e.preventDefault();th.classList.add("viewer-drop-target")};th.ondragleave=()=>th.classList.remove("viewer-drop-target");th.ondrop=e=>{e.preventDefault();th.classList.remove("viewer-drop-target");const a=+e.dataTransfer.getData("text/plain"),b=+th.dataset.ci,ia=t.orden.indexOf(a),ib=t.orden.indexOf(b);if(ia>=0&&ib>=0&&ia!==ib){t.orden.splice(ib,0,t.orden.splice(ia,1)[0]);renderTabla(id,t.filas,t.columnas)}}})}   
+function abrirFiltro(event,id,ci,ancla){event.stopPropagation();const t=tablas[id],c=t.columnas[ci],vals=[...new Set(t.filas.map(f=>valor(f,c).trim()||"(Vacío)"))].sort((a,b)=>a.localeCompare(b,"es",{numeric:true})),cfg=t.filtros[ci]||{texto:"",valores:[]},sel=new Set(cfg.valores?.length?cfg.valores:vals),m=$("filterMenu");m.innerHTML=`<div class="excel-filter-title">${esc(c.label)}</div><input class="filter-search" placeholder="Buscar valores"><div class="filter-values"><label class="filter-option"><input data-all type="checkbox" ${sel.size===vals.length?"checked":""}><strong>Seleccionar todo</strong></label><div data-options>${vals.map((v,i)=>`<label class="filter-option" data-search="${esc(norm(v))}"><input data-i="${i}" type="checkbox" ${sel.has(v)?"checked":""}><span>${esc(v)}</span></label>`).join("")}</div></div><div class="filter-actions"><button class="filter-clear" data-clear-one>Limpiar</button><button class="filter-apply" data-apply>Aplicar</button></div>`;const r=ancla.getBoundingClientRect();m.style.left=Math.max(10,Math.min(r.left,innerWidth-290))+"px";m.style.top=Math.max(10,Math.min(r.bottom+4,innerHeight-430))+"px";m.hidden=false;m.querySelector(".filter-search").oninput=e=>m.querySelectorAll("[data-search]").forEach(x=>x.hidden=!x.dataset.search.includes(norm(e.target.value)));m.querySelectorAll("[data-i]").forEach(x=>x.onchange=()=>x.checked?sel.add(vals[+x.dataset.i]):sel.delete(vals[+x.dataset.i]));m.querySelector("[data-all]").onchange=e=>m.querySelectorAll('[data-i]').forEach(x=>{x.checked=e.target.checked;e.target.checked?sel.add(vals[+x.dataset.i]):sel.delete(vals[+x.dataset.i])});m.querySelector("[data-apply]").onclick=()=>{t.filtros[ci]={texto:cfg.texto||"",valores:sel.size===vals.length?[]:[...sel]};m.hidden=true;renderTabla(id,t.filas,t.columnas)};m.querySelector("[data-clear-one]").onclick=()=>{delete t.filtros[ci];m.hidden=true;renderTabla(id,t.filas,t.columnas)}}   
+function limpiar(id){const t=tablas[id];if(t){t.filtros={};renderTabla(id,t.filas,t.columnas)}}   
+function columnas(id,panel,list){const t=tablas[id];$(list).innerHTML=t.columnas.map((c,i)=>`<label class="filter-option"><input type="checkbox" data-column="${i}" ${t.ocultas.has(i)?"":"checked"}>${esc(c.label)}</label>`).join("");$(list).querySelectorAll("[data-column]").forEach(x=>x.onchange=()=>{x.checked?t.ocultas.delete(+x.dataset.column):t.ocultas.add(+x.dataset.column);renderTabla(id,t.filas,t.columnas)});$(panel).hidden=false}   
+function selectMes(id,d){$(id).innerHTML=MESES.map((m,i)=>`<option value="${i}" ${i===d.getMonth()?"selected":""}>${m}</option>`).join("")}   
+function selectAnio(id,d){$(id).innerHTML=Array.from({length:9},(_,i)=>d.getFullYear()-4+i).map(y=>`<option ${y===d.getFullYear()?"selected":""}>${y}</option>`).join("")}   
+function iso(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}   
+function fecha(v){if(!v)return null;const d=new Date(`${v}T00:00:00`);return Number.isNaN(d.getTime())?null:d}   
+function colorManual(m){const paleta=["#FF6C0C","#E63946","#2A9D8F","#3A86FF","#8338EC","#F4A261","#00A896","#D62828","#6A994E","#4D908E","#F72585","#4361EE"],k=String(m.id||m.codigo||m.titulo||"");let h=0;for(let i=0;i<k.length;i++)h=((h<<5)-h)+k.charCodeAt(i);return paleta[Math.abs(h)%paleta.length]}   
+function posicion(m,f){const a=fecha(m.fechaInicio),b=fecha(m.fechaFinalizacion||m.fechaPublicado||m.fechaInicio),x=fecha(f);if(!a||!b||!x||x<a||x>b)return"";if(a.getTime()===b.getTime())return"unico";if(x.getTime()===a.getTime())return"inicio";if(x.getTime()===b.getTime())return"final";return"continuacion"}   
+function horasManual(m){return datos.bitacora.filter(b=>b.manualId===m.id||b.manual===m.titulo||b.codigo===m.codigo||norm(b.manual).includes(norm(m.codigo))).reduce((a,b)=>a+Number(b.horas||0),0)}   
+function tooltipManual(m){const h=horasManual(m);return`Manual: ${m.codigo||""} - ${m.titulo||""}\nTipo: ${m.tipo||""}\nFecha inicio: ${m.fechaInicio||""}\nFecha finalización: ${m.fechaFinalizacion||m.fechaPublicado||""}\nTiempo invertido: ${h.toFixed(2)} h\nTotal horas registradas: ${h.toFixed(2)} h`}   
+function rejilla(id,d,eventos,titulo){const bit=titulo.includes("Bitácora");selectMes(bit?"selectorMesBitacora":"selectorMesCalendario",d);selectAnio(bit?"selectorAnioBitacora":"selectorAnioCalendario",d);$(bit?"tituloBitacora":"tituloCalendario").textContent=`${titulo} · ${MESES[d.getMonth()]} ${d.getFullYear()}`;const first=new Date(d.getFullYear(),d.getMonth(),1),off=(first.getDay()+6)%7,start=new Date(d.getFullYear(),d.getMonth(),1-off);let h=DIAS.map(x=>`<div class="calendario-dia-nombre">${x}</div>`).join("");for(let i=0;i<42;i++){const x=new Date(start.getFullYear(),start.getMonth(),start.getDate()+i),f=iso(x);h+=`<div class="calendario-dia ${x.getMonth()!==d.getMonth()?"fuera-mes":""}"><div class="calendario-numero">${x.getDate()}</div>${eventos(f)}</div>`}$(id).innerHTML=h}   
+function renderCalendarios(){rejilla("calendarioManuales",fechaManual,f=>datos.manuales.map(m=>({m,p:posicion(m,f)})).filter(x=>x.p).map(({m,p})=>`<div class="evento-calendario ${p}" style="--evento-color:${colorManual(m)}" title="${esc(tooltipManual(m))}">${esc(m.codigo||m.titulo)}</div>`).join(""),"Calendario");rejilla("calendarioBitacora",fechaBitacora,f=>datos.bitacora.filter(b=>b.fecha===f).map(b=>`<div class="evento-calendario unico" style="--evento-color:#FF6C0C" title="${esc(`Manual: ${b.manual||""}\nTipo: ${b.tipo||""}\nHoras: ${b.horas||0}\nPáginas: ${b.paginas||0}\nDetalle: ${b.detalle||""}`)}">${esc(b.manual)} · ${Number(b.horas||0).toFixed(2)} h</div>`).join(""),"Bitácora")}   
+function barras(id,mapa,suf=""){const e=Object.entries(mapa).sort((a,b)=>b[1]-a[1]),max=Math.max(1,...e.map(x=>x[1]));$(id).innerHTML=e.map(([k,v])=>`<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${esc(k||"Sin dato")}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${v/max*100}%"></div></div><div class="dashboard-cycle-meta">${Number(v).toFixed(suf===" h"?2:1)}${suf}</div></div>`).join("")||'<div class="viewer-empty">Sin datos.</div>'}   
+function renderDashboard(){selectMes("selectorMesDashboard",fechaDash);$("selectorAnioDashboard").value=fechaDash.getFullYear();const horas=datos.bitacora.reduce((a,b)=>a+Number(b.horas||0),0),pub=datos.manuales.filter(m=>estadoManual(m)==="Publicado").length;$("kpiCards").innerHTML=[["Total de manuales",datos.manuales.length],["Publicados",pub],["Trámites",datos.tramites.length],["Versiones",datos.versiones.length],["Horas registradas",horas.toFixed(2)]].map(([l,v])=>`<div class="kpi-card"><div class="label">${l}</div><div class="value">${v}</div></div>`).join("");const pt={},top={},tipos={};datos.bitacora.forEach(b=>{pt[b.tipo||"Sin tipo"]=(pt[b.tipo||"Sin tipo"]||0)+Number(b.horas||0);const d=new Date(`${b.fecha}T00:00:00`);if(d.getMonth()===fechaDash.getMonth()&&d.getFullYear()===fechaDash.getFullYear())top[b.manual||"Sin manual"]=(top[b.manual||"Sin manual"]||0)+Number(b.horas||0)});datos.manuales.forEach(m=>tipos[m.tipo||"Sin tipo"]=(tipos[m.tipo||"Sin tipo"]||0)+1);barras("graficoTiposMes",pt," h");barras("topManualesHoras",top," h");barras("analisisTipos",tipos);$("estrategiaSemanal").innerHTML='<div class="small-note">Resumen calculado a partir de la información publicada.</div>';const ciclos={};datos.ciclo.forEach(c=>{const v=Number(c.dias);if(Number.isFinite(v))(ciclos[c.tipo||"Sin categoría"]??=[]).push(v)});const prom={};Object.entries(ciclos).forEach(([k,v])=>prom[k]=v.reduce((a,b)=>a+b,0)/v.length);$("resumenDashboardCiclo").innerHTML=`<div class="small-note">${datos.ciclo.length} registros publicados</div>`;barras("graficoDashboardCiclo",prom," días")}   
+function renderVersiones(){renderTabla("tablaVersiones",datos.versiones,CV);const ingles=datos.versiones.filter(v=>norm(v.idioma)==="ingles").length,espanol=datos.versiones.filter(v=>norm(v.idioma)==="espanol").length,spi=datos.versiones.filter(v=>norm(v.sistema).includes("siscard+")&&norm(v.idioma)==="ingles").length,spe=datos.versiones.filter(v=>norm(v.sistema).includes("siscard+")&&norm(v.idioma)==="espanol").length;$("resumenVersiones").innerHTML=[["Total en Inglés",ingles],["Total en Español",espanol],["Total siscard+ Inglés",spi],["Total siscard+ Español",spe]].map(([l,v])=>`<div class="kpi-card"><div class="label">${l}</div><div class="value">${v}</div></div>`).join("")}   
+function abrirDetalleProduccion(){if(!datos.ciclo.length)return alert("No hay detalle de producción publicado");const rows=datos.ciclo.map(x=>x.original||x),headers=[...new Set(rows.flatMap(Object.keys))],data=JSON.stringify({headers,rows}).replace(/</g,"\\u003c");const html=`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Detalle de producción</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:white;padding:16px 22px}.bar{display:flex;gap:8px;padding:14px;align-items:center;position:sticky;top:0;background:#f3f3f3;z-index:5}.bar input{min-width:320px;padding:9px;border:1px solid #ccc;border-radius:8px}.wrap{margin:0 14px 14px;overflow:auto;max-height:calc(100vh - 100px);background:white}table{border-collapse:collapse;width:max-content;min-width:100%;table-layout:fixed}th,td{border:1px solid #ddd;padding:7px;font-size:12px;vertical-align:top;white-space:normal;overflow-wrap:anywhere;word-break:break-word;min-width:150px;max-width:280px;line-height:1.4}thead tr:first-child th{position:sticky;top:0;background:#666;color:white}.filtros th{position:sticky;top:33px;background:#f7f7f7}.filtros input{width:100%;box-sizing:border-box;padding:6px}</style></head><body><header><h2>Detalle de producción</h2></header><div class="bar"><input id="global" placeholder="Buscar en toda la réplica"><button onclick="limpiar()">Limpiar filtros</button><span id="count"></span></div><div class="wrap"><table id="tabla"></table></div><script>const DATA=${data};function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}function render(){const g=global.value.toLowerCase(),fs=[...document.querySelectorAll('.f')].map(x=>x.value.toLowerCase()),r=DATA.rows.filter(o=>DATA.headers.some(h=>String(o[h]??'').toLowerCase().includes(g))&&DATA.headers.every((h,i)=>!fs[i]||String(o[h]??'').toLowerCase().includes(fs[i])));tabla.innerHTML='<thead><tr>'+DATA.headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr><tr class="filtros">'+DATA.headers.map((h,i)=>'<th><input class="f" placeholder="Buscar o filtrar" value="'+esc(fs[i]||'')+'"></th>').join('')+'</tr></thead><tbody>'+r.map(o=>'<tr>'+DATA.headers.map(h=>'<td>'+esc(o[h])+'</td>').join('')+'</tr>').join('')+'</tbody>';count.textContent=r.length+' de '+DATA.rows.length+' registros';document.querySelectorAll('.f').forEach(x=>x.oninput=render)}function limpiar(){global.value='';document.querySelectorAll('.f').forEach(x=>x.value='');render()}global.oninput=render;render();<\/script></body></html>`;const w=open("","_blank");if(!w)return alert("Permita ventanas emergentes para ver el detalle");w.document.write(html);w.document.close()}   
+function renderTodo(){renderTabla("tablaManuales",datos.manuales,CM);renderTabla("tablaTramites",datos.tramites,CT);renderVersiones();renderCalendarios();renderDashboard()}   
+document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab-btn,.tab-content").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-btn").forEach(x=>x.setAttribute("aria-selected","false"));b.classList.add("active");b.setAttribute("aria-selected","true");$(b.dataset.tab).classList.add("active")});document.querySelectorAll("[data-clear]").forEach(b=>b.onclick=()=>limpiar(b.dataset.clear));$("btnColumnasManuales").onclick=e=>{e.stopPropagation();columnas("tablaManuales","columnsPanelManuales","columnsListManuales")};$("btnColumnasTramites").onclick=e=>{e.stopPropagation();columnas("tablaTramites","columnsPanelTramites","columnsListTramites")};document.querySelectorAll("[data-close-columns]").forEach(b=>b.onclick=()=>b.closest("aside").hidden=true);document.querySelectorAll("[data-show-all]").forEach(b=>b.onclick=()=>{const t=tablas[b.dataset.showAll];t.ocultas.clear();renderTabla(b.dataset.showAll,t.filas,t.columnas)});document.querySelectorAll("[data-hide-all]").forEach(b=>b.onclick=()=>{const t=tablas[b.dataset.hideAll];t.columnas.forEach((_,i)=>t.ocultas.add(i));renderTabla(b.dataset.hideAll,t.filas,t.columnas)});document.addEventListener("click",e=>{document.querySelectorAll(".viewer-inline-filter").forEach(p=>p.remove());if(!$("filterMenu").hidden&&!$("filterMenu").contains(e.target)&&!e.target.closest(".viewer-filter-combo"))$("filterMenu").hidden=true;document.querySelectorAll(".columns-panel:not([hidden])").forEach(p=>{if(!p.contains(e.target)&&!e.target.closest("#btnColumnasManuales,#btnColumnasTramites"))p.hidden=true})});$("btnPantallaCompleta").onclick=()=>document.fullscreenElement?document.exitFullscreen():$("panelManuales").requestFullscreen();$("btnCalendarioAnterior").onclick=()=>{fechaManual.setMonth(fechaManual.getMonth()-1);renderCalendarios()};$("btnCalendarioSiguiente").onclick=()=>{fechaManual.setMonth(fechaManual.getMonth()+1);renderCalendarios()};$("btnCalendarioHoy").onclick=()=>{fechaManual=new Date();renderCalendarios()};$("selectorMesCalendario").onchange=e=>{fechaManual.setMonth(+e.target.value);renderCalendarios()};$("selectorAnioCalendario").onchange=e=>{fechaManual.setFullYear(+e.target.value);renderCalendarios()};$("btnBitacoraAnterior").onclick=()=>{fechaBitacora.setMonth(fechaBitacora.getMonth()-1);renderCalendarios()};$("btnBitacoraSiguiente").onclick=()=>{fechaBitacora.setMonth(fechaBitacora.getMonth()+1);renderCalendarios()};$("selectorMesBitacora").onchange=e=>{fechaBitacora.setMonth(+e.target.value);renderCalendarios()};$("selectorAnioBitacora").onchange=e=>{fechaBitacora.setFullYear(+e.target.value);renderCalendarios()};$("btnDashboardMesAnterior").onclick=()=>{fechaDash.setMonth(fechaDash.getMonth()-1);renderDashboard()};$("btnDashboardMesSiguiente").onclick=()=>{fechaDash.setMonth(fechaDash.getMonth()+1);renderDashboard()};$("selectorMesDashboard").onchange=e=>{fechaDash.setMonth(+e.target.value);renderDashboard()};$("selectorAnioDashboard").onchange=e=>{fechaDash.setFullYear(+e.target.value);renderDashboard()};$("btnVerDetalleCiclo").onclick=abrirDetalleProduccion;  
+$("btnExportarDashboard").onclick=()=>{const contenido={fechaExportacion:new Date().toISOString(),manuales:datos.manuales,bitacora:datos.bitacora,tramites:datos.tramites,versiones:datos.versiones,ciclo:datos.ciclo};const blob=new Blob([JSON.stringify(contenido,null,2)],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=`Dashboard_KIRIS_${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url)};  
+cargar();   
+</script>  
+</body>  
+</html>  
+ 
+ 
