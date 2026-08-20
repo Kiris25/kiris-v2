@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-20T19:03:48.857Z",
+  "fechaPublicacion": "2026-08-20T19:09:42.524Z",
   "manuales": [
     {
       "id": "manual_1783711643192_509e1c34f88b08",
@@ -8,15 +8,15 @@
       "titulo": "siscard+ Manual Proceso generación de embozado (TRMBEPR0)",
       "idioma": "Español",
       "archivoElectronico": "No",
-      "ocRelacionado": "",
+      "ocRelacionado": "2920625",
       "prioridad": "Alta",
       "tipo": "N",
-      "paginas": "15",
-      "diasEsfuerzo": "",
+      "paginas": 22,
+      "diasEsfuerzo": 1,
       "fechaInicio": "2026-08-20",
-      "fechaFinalizacion": "",
+      "fechaFinalizacion": "2026-08-20",
       "fechaPublicadoGestor": "",
-      "horasEsfuerzo": "",
+      "horasEsfuerzo": 7,
       "color": "",
       "estado": "No iniciado",
       "colorCalendario": "#4361EE"
@@ -2501,6 +2501,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1787252727453_2e5c93afa9ba4",
+      "fecha": "2026-08-20",
+      "manual": "UEO-CAP-MU-133 - siscard+ Manual Proceso generación de embozado (TRMBEPR0)",
+      "manualId": "manual_1783711643192_509e1c34f88b08",
+      "tipo": "N",
+      "horaInicio": "06:00",
+      "horaFin": "13:00",
+      "horas": 7,
+      "paginas": 22,
+      "detalle": "Creación de nuevo manual siscard+ apartir de la versión regular. Actualmente el programa solo es visible en Desarrollo"
+    },
     {
       "id": "bitacora_1787084540253_9c6680159541e8",
       "fecha": "2026-08-18",
