@@ -491,7 +491,29 @@ function enlazarEdicionTabla(contenedor) {
   contenedor 
     .querySelectorAll(".cell-input,.cell-select,.cell-textarea") 
     .forEach((campo) => 
-      campo.addEventListener("change", () => { 
+      const guardarCampo = () => {
+
+    const coleccion = estado[campo.dataset.entidad];
+
+    const registro = coleccion.find(
+        item => item.id === campo.dataset.id
+    );
+
+    if (!registro) return;
+
+    registro[campo.dataset.key] =
+        campo.type === "number"
+            ? Number(campo.value || 0)
+            : campo.dataset.key === "listo"
+                ? normalizarEstadoListo(campo.value)
+                : campo.value;
+
+    guardarEstado("");
+
+};
+
+campo.addEventListener("input", guardarCampo);
+campo.addEventListener("change", guardarCampo); 
         const coleccion = estado[campo.dataset.entidad]; 
         const registro = coleccion.find((item) => item.id === campo.dataset.id); 
         if (!registro) return; 
