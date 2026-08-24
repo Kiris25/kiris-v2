@@ -1313,6 +1313,146 @@ function exportarVersionesExcel() {
  
  
  
+
+function ajustarHojaReporte(hoja, datos) {
+  const filas = Array.isArray(datos) ? datos : [];
+  const encabezados = filas.length ? Object.keys(filas[0]) : [];
+  hoja["!cols"] = encabezados.map((encabezado) => {
+    const maximo = Math.max(
+      String(encabezado).length,
+      ...filas.map((fila) => String(fila[encabezado] ?? "").length),
+    );
+    return { wch: Math.min(Math.max(maximo + 2, 12), 45) };
+  });
+  if (hoja["!ref"]) hoja["!autofilter"] = { ref: hoja["!ref"] };
+}
+
+function agregarHojaReporte(libro, nombre, datos) {
+  const filas = datos.length ? datos : [{ Información: "Sin registros" }];
+  const hoja = XLSX.utils.json_to_sheet(filas);
+  ajustarHojaReporte(hoja, filas);
+  XLSX.utils.book_append_sheet(libro, hoja, nombre);
+}
+
+function generarReporteCompletoExcel() {
+  try {
+    if (typeof XLSX === "undefined") {
+      throw new Error("No se cargó la librería de Excel");
+    }
+
+    const libro = XLSX.utils.book_new();
+    const manuales = (estado.manuales || []).map((manual, indice) => ({
+      "#": indice + 1,
+      Código: manual.codigo ?? "",
+      Título: manual.titulo ?? "",
+      Idioma: manual.idioma ?? "",
+      "Archivo electrónico": manual.archivoElectronico ?? "",
+      "OC relacionado": manual.ocRelacionado ?? "",
+      Prioridad: manual.prioridad ?? "",
+      Tipo: manual.tipo ?? "",
+      Páginas: Number(manual.paginas || 0),
+      "Días esfuerzo": Number(manual.diasEsfuerzo || 0),
+      "Horas esfuerzo": Number(manual.horasEsfuerzo || 0),
+      "Tiempo invertido": Number(horasBitacoraManual(manual).toFixed(2)),
+      "Fecha inicio": manual.fechaInicio ?? "",
+      "Fecha finalización": manual.fechaFinalizacion ?? "",
+      "Fecha publicado": manual.fechaPublicado ?? "",
+      Estado: calcularEstadoManual(manual),
+    }));
+
+    const calendario = (estado.manuales || []).map((manual) => ({
+      Código: manual.codigo ?? "",
+      Manual: manual.titulo ?? "",
+      Tipo: manual.tipo ?? "",
+      "Fecha inicio": manual.fechaInicio ?? "",
+      "Fecha finalización": manual.fechaFinalizacion ?? "",
+      "Fecha publicación": manual.fechaPublicado ?? "",
+      Estado: calcularEstadoManual(manual),
+      "Horas registradas": Number(horasBitacoraManual(manual).toFixed(2)),
+    }));
+
+    const bitacora = (estado.bitacora || []).map((registro) => ({
+      Fecha: registro.fecha ?? "",
+      Manual: registro.manual ?? "",
+      Tipo: registro.tipo ?? "",
+      "Hora inicio": registro.horaInicio ?? "",
+      "Hora fin": registro.horaFin ?? "",
+      Horas: Number(registro.horas || 0),
+      Páginas: Number(registro.paginas || 0),
+      "Datos adicionales": registro.detalle ?? "",
+    }));
+
+    const totalHoras = (estado.bitacora || []).reduce(
+      (total, registro) => total + Number(registro.horas || 0),
+      0,
+    );
+    const dashboard = [
+      { Indicador: "Total de manuales", Valor: (estado.manuales || []).length },
+      {
+        Indicador: "Publicados",
+        Valor: (estado.manuales || []).filter(
+          (manual) => calcularEstadoManual(manual) === "Publicado",
+        ).length,
+      },
+      {
+        Indicador: "En proceso",
+        Valor: (estado.manuales || []).filter(
+          (manual) => calcularEstadoManual(manual) === "En proceso",
+        ).length,
+      },
+      {
+        Indicador: "Prioridad alta",
+        Valor: (estado.manuales || []).filter(
+          (manual) => manual.prioridad === "Alta",
+        ).length,
+      },
+      { Indicador: "Horas registradas", Valor: Number(totalHoras.toFixed(2)) },
+      ...["N", "T", "A", "R"].map((tipo) => ({
+        Indicador: `Horas tipo ${tipo}`,
+        Valor: Number(
+          (estado.bitacora || [])
+            .filter((registro) => registro.tipo === tipo)
+            .reduce((total, registro) => total + Number(registro.horas || 0), 0)
+            .toFixed(2),
+        ),
+      })),
+    ];
+
+    const tramites = (estado.tramites || []).map((tramite) => {
+      const fila = {};
+      COLUMNAS_TRAMITES.filter(
+        (columna) => !columna.especial && !columna.calculado,
+      ).forEach((columna) => {
+        fila[columna.label] = tramite[columna.key] ?? "";
+      });
+      return fila;
+    });
+
+    const versiones = (estado.versiones || []).map((version) => {
+      const fila = {};
+      COLUMNAS_VERSIONES.filter(
+        (columna) => !columna.especial && !columna.calculado,
+      ).forEach((columna) => {
+        fila[columna.label] = version[columna.key] ?? "";
+      });
+      return fila;
+    });
+
+    agregarHojaReporte(libro, "Avance Manuales", manuales);
+    agregarHojaReporte(libro, "Calendario", calendario);
+    agregarHojaReporte(libro, "Bitácora", bitacora);
+    agregarHojaReporte(libro, "Dashboard", dashboard);
+    agregarHojaReporte(libro, "Trámites", tramites);
+    agregarHojaReporte(libro, "Control Versiones", versiones);
+
+    XLSX.writeFile(libro, `Reporte_KIRIS_${fechaISOHoy()}.xlsx`);
+    mostrarToast("Reporte completo de KIRIS generado");
+  } catch (error) {
+    console.error("No fue posible generar el reporte completo.", error);
+    mostrarToast(`No fue posible generar el reporte: ${error.message}`);
+  }
+}
+
 function configurarCalendarios() {  
   $("btnCalendarioAnterior").addEventListener("click", () => {  
     fechaCalendario.setMonth(fechaCalendario.getMonth() - 1);  
@@ -1671,7 +1811,12 @@ $("btnExportarTramites").addEventListener(
   $("btnGuardarNube").addEventListener("click", () =>  
     guardarEstado("Información guardada"),  
   );  
-  $("btnPublicarCambios").addEventListener("click", publicarCambios);  
+  $("btnPublicarCambios").addEventListener("click", publicarCambios);
+  $("btnGenerarReporte")?.addEventListener(
+    "click",
+    generarReporteCompletoExcel,
+  );
+  
   $("btnPantallaCompleta").addEventListener("click", () => {  
     const panel = $("panelManuales");  
     if (!document.fullscreenElement) panel.requestFullscreen?.();  
