@@ -1728,9 +1728,10 @@ $("btnExportarTramites").addEventListener(
     "click",
     exportarTramitesExcel
 );
-$("btnExportarVersiones").addEventListener(
-    "click",
-    exportarVersionesExcel
+$("btnExportarVersiones").onclick = function () {
+
+    alert("BOTON VERSIONES");
+
 );
   $("btnColumnasManuales").addEventListener("click", () => 
     abrirColumnas("manuales"), 
