@@ -1728,9 +1728,10 @@ $("btnExportarTramites").addEventListener(
     "click",
     exportarTramitesExcel
 );
-  $("btnExportarVersiones").addEventListener("click", () => 
-    exportarCSV("versiones"), 
-  ); 
+$("btnExportarVersiones").addEventListener(
+    "click",
+    exportarVersionesExcel
+);
   $("btnColumnasManuales").addEventListener("click", () => 
     abrirColumnas("manuales"), 
   ); 
@@ -2737,6 +2738,45 @@ document.addEventListener("DOMContentLoaded", () => {
       } 
     }); 
   } 
+
+ function exportarVersionesExcel() {
+
+    const columnas = COLUMNAS_VERSIONES
+        .filter(columna => !columna.especial && !columna.calculado);
+
+    const datos = estado.versiones.map(version => {
+
+        const fila = {};
+
+        columnas.forEach(columna => {
+
+            fila[columna.label] =
+                version[columna.key] ?? "";
+
+        });
+
+        return fila;
+
+    });
+
+    const hoja =
+        XLSX.utils.json_to_sheet(datos);
+
+    const libro =
+        XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(
+        libro,
+        hoja,
+        "ControlVersiones"
+    );
+
+    XLSX.writeFile(
+        libro,
+        `Control_Versiones_${fechaISOHoy()}.xlsx`
+    );
+
+}
  
   function actualizarControles() { 
     agregarFlechasOrden(); 
