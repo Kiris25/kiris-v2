@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-24T20:06:45.284Z",
+  "fechaPublicacion": "2026-08-24T20:22:50.335Z",
   "manuales": [
     {
       "id": "manual_1787598499528_75b71799c05578",
@@ -33,10 +33,11 @@
       "fechaInicio": "2026-08-20",
       "fechaFinalizacion": "2026-08-20",
       "fechaPublicadoGestor": "",
-      "horasEsfuerzo": 7,
+      "horasEsfuerzo": 16.5,
       "color": "",
       "estado": "No iniciado",
-      "colorCalendario": "#4361EE"
+      "colorCalendario": "#4361EE",
+      "fechaPublicado": "2026-08-24"
     },
     {
       "id": "manual_1787599860390_3e710c249e5548",
@@ -2553,6 +2554,18 @@
   ],
   "bitacora": [
     {
+      "id": "bitacora_1787602814753_37f75e889e27f",
+      "fecha": "2026-08-21",
+      "manual": "UEO-CAP-MU-133 - siscard+ Manual Proceso generación de embozado (TRMBEPR0)",
+      "manualId": "manual_1783711643192_509e1c34f88b08",
+      "tipo": "N",
+      "horaInicio": "06:00",
+      "horaFin": "15:30",
+      "horas": 9.5,
+      "paginas": 22,
+      "detalle": ""
+    },
+    {
       "id": "bitacora_1787252727453_2e5c93afa9ba4",
       "fecha": "2026-08-20",
       "manual": "UEO-CAP-MU-133 - siscard+ Manual Proceso generación de embozado (TRMBEPR0)",
@@ -2776,23 +2789,6 @@
       "listo": "PENDIENTE"
     },
     {
-      "id": "tramite_1787254351401_9aa9adff71a898",
-      "requerimiento": "2921143",
-      "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
-      "fechaIngreso": "2026-08-19",
-      "fechaInicio": "",
-      "manualActualizar": "CLICK TO PAY",
-      "temaGeneral": "",
-      "baAsignado": "",
-      "consultas": "",
-      "respuestaConsulta": "",
-      "justificacionGestor": "",
-      "fechaPublicado": "",
-      "versionTraducir": "",
-      "justificacionIngles": "",
-      "listo": ""
-    },
-    {
       "id": "tramite_1787239953045_8d136c07cce068",
       "requerimiento": "2920625",
       "detalle": "Nuevo manual MBEMBO siscard+",
@@ -2804,10 +2800,10 @@
       "consultas": "",
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-08-24",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1787159181371_54ff4c01e1d4e",
