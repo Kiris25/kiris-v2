@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-26T20:42:47.978Z",
+  "fechaPublicacion": "2026-08-26T20:46:02.537Z",
   "manuales": [
     {
       "id": "manual_1787758481052_72edc0c769bdb",
@@ -4952,7 +4952,7 @@
       "codigo": "UEO-CAP-MU-046",
       "manual": "Manual de Adquirencia Web",
       "idioma": "Español",
-      "numero": "5",
+      "numero": "6",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -5180,7 +5180,7 @@
       "codigo": "UEO-CAP-MU-065",
       "manual": "Manual Adquirencia Web Procedimiento creación de comercio",
       "idioma": "Español",
-      "numero": "3",
+      "numero": "4",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
