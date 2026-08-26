@@ -1331,3 +1331,24 @@ select.estado-listo { min-width: 210px; }
     background: var(--naranja-oscuro);
 
 } 
+/* ========================================= */
+/* BOTON COPIAR REGISTRO */
+/* ========================================= */
+
+.btn-icon[data-copiar-manual],
+.btn-icon[data-copiar-tramite],
+.btn-icon[data-copiar-version] {
+
+    background: #EAF3FF;
+    border-color: #BFDBFE;
+
+}
+
+.btn-icon[data-copiar-manual]:hover,
+.btn-icon[data-copiar-tramite]:hover,
+.btn-icon[data-copiar-version]:hover {
+
+    background: #DBEAFE;
+    border-color: #93C5FD;
+
+}
