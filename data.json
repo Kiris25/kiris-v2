@@ -1,7 +1,24 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-26T20:54:24.184Z",
+  "fechaPublicacion": "2026-08-26T21:04:37.903Z",
   "manuales": [
+    {
+      "id": "manual_1787778264101_c34e331e6ebcd8",
+      "codigo": "N/A",
+      "titulo": "Nuevo manual de tipos de cliente masivo",
+      "idioma": "Español",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2554698",
+      "prioridad": "Alta",
+      "tipo": "N",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
     {
       "id": "manual_1787758481052_72edc0c769bdb",
       "codigo": "UEO-CAP-MU-065",
@@ -170,11 +187,12 @@
       "tipo": "N",
       "paginas": 0,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
+      "fechaInicio": "2026-08-24",
       "fechaFinalizacion": "",
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "color": "#FF6C0C",
+      "colorCalendario": "#D62828"
     },
     {
       "id": "manual_1783711643192_509e1c34f88b08",
@@ -2981,7 +2999,7 @@
       "requerimiento": "2921143",
       "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
       "fechaIngreso": "2026-08-19",
-      "fechaInicio": "",
+      "fechaInicio": "2026-08-24",
       "manualActualizar": "NUEVO MANUAL CLICK TO PAY",
       "temaGeneral": "CLICK TO PAY",
       "baAsignado": "",
