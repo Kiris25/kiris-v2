@@ -1,7 +1,25 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-26T13:30:06.495Z",
+  "fechaPublicacion": "2026-08-26T13:48:27.505Z",
   "manuales": [
+    {
+      "id": "manual_1787752058567_96261e66cf3d68",
+      "codigo": "UEO-CAP-MU-061",
+      "titulo": "Manual Parámetros del emisor",
+      "idioma": "Español",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2824283",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "2026-08-26",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C",
+      "colorCalendario": "#3A86FF"
+    },
     {
       "id": "manual_1787696676487_b54e4febd00c8",
       "codigo": "UEO-CAP-MI-086",
@@ -3854,7 +3872,7 @@
       "requerimiento": "2813324",
       "detalle": "basados en solicitud de BRD 2780808 adjunto el documento firmado Nueva subopción en parámetro 45 Trabajar con Cargos Vence Pago por TC",
       "fechaIngreso": "2026-07-30",
-      "fechaInicio": "",
+      "fechaInicio": "2026-08-26",
       "manualActualizar": "Manual Parámetros del emisor",
       "temaGeneral": "ParámetrosíEmisor",
       "baAsignado": "",
