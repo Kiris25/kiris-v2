@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-25T22:24:43.830Z",
+  "fechaPublicacion": "2026-08-26T13:25:05.001Z",
   "manuales": [
     {
       "id": "manual_1787696676487_b54e4febd00c8",
@@ -2621,6 +2621,30 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1787750698037_1b9af0df91351",
+      "fecha": "2026-08-25",
+      "manual": "N/A - CLICK TO PAY",
+      "manualId": "manual_1787598499528_75b71799c05578",
+      "tipo": "N",
+      "horaInicio": "08:00",
+      "horaFin": "17:30",
+      "horas": 9.5,
+      "paginas": 22,
+      "detalle": "Modificación de borrador y búsqueda de pantallas para siscard as400"
+    },
+    {
+      "id": "bitacora_1787750660691_745c40a1b15dd",
+      "fecha": "2026-08-24",
+      "manual": "N/A - CLICK TO PAY",
+      "manualId": "manual_1787598499528_75b71799c05578",
+      "tipo": "N",
+      "horaInicio": "08:00",
+      "horaFin": "17:30",
+      "horas": 9.5,
+      "paginas": 22,
+      "detalle": "Creación de borrador"
+    },
     {
       "id": "bitacora_1787602814753_37f75e889e27f",
       "fecha": "2026-08-21",
