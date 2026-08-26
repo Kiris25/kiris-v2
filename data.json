@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-26T20:16:34.275Z",
+  "fechaPublicacion": "2026-08-26T20:42:47.978Z",
   "manuales": [
     {
       "id": "manual_1787758481052_72edc0c769bdb",
@@ -15,7 +15,7 @@
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-08-26",
       "fechaFinalizacion": "2026-08-26",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-08-26",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#4361EE"
@@ -32,8 +32,8 @@
       "paginas": 0,
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-08-26",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
+      "fechaFinalizacion": "2026-08-26",
+      "fechaPublicado": "2026-08-26",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#FF6C0C"
@@ -47,13 +47,14 @@
       "ocRelacionado": "2827611",
       "prioridad": "Alta",
       "tipo": "R",
-      "paginas": 0,
+      "paginas": 107,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
+      "fechaInicio": "2026-08-26",
+      "fechaFinalizacion": "2026-08-26",
+      "fechaPublicado": "2026-08-26",
       "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "color": "#FF6C0C",
+      "colorCalendario": "#2A9D8F"
     },
     {
       "id": "manual_1787756802585_0951708f5cc92",
@@ -64,7 +65,7 @@
       "ocRelacionado": "2722420",
       "prioridad": "Alta",
       "tipo": "R",
-      "paginas": 0,
+      "paginas": 107,
       "diasEsfuerzo": 0,
       "fechaInicio": "",
       "fechaFinalizacion": "",
@@ -3021,27 +3022,27 @@
       "consultas": "Nuevo campo Tipos de Comercio en editar/Crear Sucursal solo para BX",
       "respuestaConsulta": "",
       "justificacionGestor": "NO",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-08-26",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLÉS"
     },
     {
       "id": "tramite_1787771727732_4f683e07f14798",
       "requerimiento": "2827611",
       "detalle": "Buenas tardes,  Se requiere se haga una mejora para que el reporte “Maestros de afiliado” pueda mostrar correctamente la segmentación de loa sucursales según el tipo de comercio definido.",
       "fechaIngreso": "2026-08-18",
-      "fechaInicio": "",
-      "manualActualizar": "Manual de Adquirencia Web",
+      "fechaInicio": "2026-08-26",
+      "manualActualizar": "UEO-CAP-MU-046 Manual de Adquirencia Web",
       "temaGeneral": "Adquirencia Web",
       "baAsignado": "",
-      "consultas": "Reporte en Afiliado Sucursal \nNueva opción Tipos de Comercio en el menú principal solo para BX",
+      "consultas": "Nueva opción Tipos de Comercio en el menú principal solo para BX",
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-08-26",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLÉS"
     },
     {
       "id": "tramite_1787158629272_fd9a7b8bb353a",
@@ -3056,9 +3057,9 @@
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
       "fechaPublicado": "",
-      "versionTraducir": "NO",
-      "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "versionTraducir": "NO APLICA",
+      "justificacionIngles": "NO APLICA",
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLÉS"
     },
     {
       "id": "tramite_1787158436298_8dc0ea364c3fc",
@@ -3098,7 +3099,7 @@
       "id": "tramite_1787239544094_2c16e95fe2a118",
       "requerimiento": "2722420",
       "detalle": "\"Mantenimiento de usuarios ADQ WEB.  Crear un mantenimiento de usuarios y aplicación de roles dentro de Adquirencia Web\"",
-      "fechaIngreso": "2026-08-04",
+      "fechaIngreso": "",
       "fechaInicio": "",
       "manualActualizar": "UEO-CAP-MU-046  Manual de Adquirencia Web",
       "temaGeneral": "Adquirencia Web",
