@@ -2057,39 +2057,182 @@ function opcionesFiltroInline(tipo, columna) {
     ),  
   ].sort((a, b) => a.localeCompare(b, "es", { numeric: true }));  
 }  
-function abrirFiltroInlineKiris(evento, tipo, columna, input) {  
-  evento.stopPropagation();  
-  input.focus();  
-  document  
-    .querySelectorAll(".inline-filter-options")  
-    .forEach((panel) => panel.remove());  
-  const cfg = filtros[tipo][columna.key];  
-  const seleccionados = typeof cfg === "object" ? cfg.valores || [] : [];  
-  const textoActual = input.value || "";  
-  const valores = opcionesFiltroInline(tipo, columna).filter(  
-    (valor) =>  
-      !textoActual || normalizar(valor).includes(normalizar(textoActual)),  
-  );  
-  const panel = document.createElement("div");  
-  panel.className = "inline-filter-options";  
-  panel.innerHTML = `<div class="inline-filter-list">${valores.map((valor) => `<label class="inline-filter-option"><input type="checkbox" value="${escaparHTML(valor)}" ${!seleccionados.length || seleccionados.includes(valor) ? "checked" : ""}><span>${escaparHTML(valor)}</span></label>`).join("")}</div><div class="inline-filter-actions"><button type="button" class="btn-inline-clear">Limpiar</button><button type="button" class="btn-inline-apply">Aplicar</button></div>`;  
-  input.closest("th").appendChild(panel);  
-  panel.onclick = (e) => e.stopPropagation();  
-  panel.querySelector(".btn-inline-clear").onclick = () => {  
-    delete filtros[tipo][columna.key];  
-    renderEntidad(tipo);  
-  };  
-  panel.querySelector(".btn-inline-apply").onclick = () => {  
-    const elegidos = [  
-      ...panel.querySelectorAll('input[type="checkbox"]:checked'),  
-    ].map((c) => c.value);  
-    filtros[tipo][columna.key] = {  
-      texto: input.value,  
-      valores: elegidos.length === valores.length ? [] : elegidos,  
-    };  
-    renderEntidad(tipo);  
-  };  
-}  
+function abrirFiltroInlineKiris(
+    evento,
+    tipo,
+    columna,
+    input
+) {
+
+    evento.stopPropagation();
+
+    input.focus();
+
+    document
+        .querySelectorAll(".inline-filter-options")
+        .forEach(panel => panel.remove());
+
+    const cfg = filtros[tipo][columna.key];
+
+    const seleccionados =
+        typeof cfg === "object"
+            ? cfg.valores || []
+            : [];
+
+    const textoActual =
+        input.value || "";
+
+    const valores =
+        opcionesFiltroInline(tipo, columna)
+            .filter(valor =>
+                !textoActual ||
+                normalizar(valor)
+                    .includes(
+                        normalizar(textoActual)
+                    )
+            );
+
+    const panel =
+        document.createElement("div");
+
+    panel.className =
+        "inline-filter-options";
+
+    panel.innerHTML = `
+
+        <div class="inline-filter-list">
+
+            ${valores
+                .map(valor => `
+
+                    <label
+                        class="inline-filter-option"
+                    >
+
+                        <input
+                            type="checkbox"
+                            value="${escaparHTML(valor)}"
+
+                            ${
+                                !seleccionados.length ||
+                                seleccionados.includes(valor)
+                                    ? "checked"
+                                    : ""
+                            }
+                        >
+
+                        <span>
+                            ${escaparHTML(valor)}
+                        </span>
+
+                    </label>
+
+                `)
+                .join("")}
+
+        </div>
+
+        <div class="inline-filter-actions">
+
+            <button
+                type="button"
+                class="btn-inline-none"
+            >
+                Desmarcar todo
+            </button>
+
+            <button
+                type="button"
+                class="btn-inline-all"
+            >
+                Seleccionar todo
+            </button>
+
+            <button
+                type="button"
+                class="btn-inline-clear"
+            >
+                Limpiar
+            </button>
+
+            <button
+                type="button"
+                class="btn-inline-apply"
+            >
+                Aplicar
+            </button>
+
+        </div>
+
+    `;
+
+    input
+        .closest("th")
+        .appendChild(panel);
+
+    panel.onclick = e =>
+        e.stopPropagation();
+
+    panel
+        .querySelector(".btn-inline-none")
+        .onclick = () => {
+
+            panel
+                .querySelectorAll(
+                    'input[type="checkbox"]'
+                )
+                .forEach(check => {
+                    check.checked = false;
+                });
+
+        };
+
+    panel
+        .querySelector(".btn-inline-all")
+        .onclick = () => {
+
+            panel
+                .querySelectorAll(
+                    'input[type="checkbox"]'
+                )
+                .forEach(check => {
+                    check.checked = true;
+                });
+
+        };
+
+    panel
+        .querySelector(".btn-inline-clear")
+        .onclick = () => {
+
+            delete filtros[tipo][columna.key];
+
+            renderEntidad(tipo);
+
+        };
+
+    panel
+        .querySelector(".btn-inline-apply")
+        .onclick = () => {
+
+            const elegidos = [
+
+                ...panel.querySelectorAll(
+                    'input[type="checkbox"]:checked'
+                )
+
+            ].map(c => c.value);
+
+            filtros[tipo][columna.key] = {
+                texto: input.value,
+                valores: elegidos
+            };
+
+            renderEntidad(tipo);
+
+        };
+
+} 
 function crearEncabezado(elemento, columnas, tipo, ocultas = []) {  
   const titulos = columnas  
     .map((c) => {  
