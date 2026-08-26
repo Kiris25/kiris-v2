@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-26T13:48:27.505Z",
+  "fechaPublicacion": "2026-08-26T14:31:06.321Z",
   "manuales": [
     {
       "id": "manual_1787752058567_96261e66cf3d68",
@@ -14,8 +14,8 @@
       "paginas": 0,
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-08-26",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
+      "fechaFinalizacion": "2026-08-26",
+      "fechaPublicado": "2026-08-26",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#3A86FF"
@@ -2640,6 +2640,18 @@
   ],
   "bitacora": [
     {
+      "id": "bitacora_1787754616806_0a33e705bfdb5",
+      "fecha": "2026-08-26",
+      "manual": "UEO-CAP-MU-061 - Manual Parámetros del emisor",
+      "manualId": "manual_1787752058567_96261e66cf3d68",
+      "tipo": "R",
+      "horaInicio": "07:45",
+      "horaFin": "08:30",
+      "horas": 0.75,
+      "paginas": 1,
+      "detalle": ""
+    },
+    {
       "id": "bitacora_1787750698037_1b9af0df91351",
       "fecha": "2026-08-25",
       "manual": "N/A - CLICK TO PAY",
@@ -3878,11 +3890,11 @@
       "baAsignado": "",
       "consultas": "",
       "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
-      "versionTraducir": "NO",
-      "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "justificacionGestor": "SÍ",
+      "fechaPublicado": "2026-08-26",
+      "versionTraducir": "SÍ",
+      "justificacionIngles": "AÚN NO SE HA TRADUCIDO",
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1787239544094_2c16e95fe2a118",
@@ -5037,7 +5049,7 @@
       "codigo": "UEO-CAP-MU-061",
       "manual": "Manual Parámetros del emisor",
       "idioma": "Español",
-      "numero": "6",
+      "numero": "7",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
