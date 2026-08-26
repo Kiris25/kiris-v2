@@ -493,6 +493,56 @@ function enlazarEdicionTabla(contenedor) {
  
 } 
  
+function copiarRegistro(tipoEntidad, registroId) {
+  const coleccion = estado[tipoEntidad];
+
+  if (!Array.isArray(coleccion)) {
+    mostrarToast("No fue posible localizar la colección.");
+    return;
+  }
+
+  const indiceOriginal = coleccion.findIndex(
+    (registro) => registro.id === registroId,
+  );
+
+  if (indiceOriginal === -1) {
+    mostrarToast("No fue posible localizar el registro.");
+    return;
+  }
+
+  const prefijos = {
+    manuales: "manual",
+    tramites: "tramite",
+    versiones: "version",
+  };
+
+  const registroOriginal = coleccion[indiceOriginal];
+  const registroCopiado = {
+    ...registroOriginal,
+    id: id(prefijos[tipoEntidad]),
+  };
+
+  coleccion.splice(indiceOriginal + 1, 0, registroCopiado);
+  guardarEstado("Registro copiado y guardado");
+
+  if (tipoEntidad === "manuales") {
+    renderManuales();
+    abrirManual(registroCopiado.id);
+    return;
+  }
+
+  if (tipoEntidad === "tramites") {
+    renderTramites();
+    abrirTramite(registroCopiado.id);
+    return;
+  }
+
+  if (tipoEntidad === "versiones") {
+    renderVersiones();
+    abrirVersion(registroCopiado.id);
+  }
+}
+
 function renderManuales() {  
   const ocultas = estado.columnasOcultasManuales || [];  
   crearColgroup(  
@@ -518,7 +568,7 @@ function renderManuales() {
               if (columna.especial === "orden")  
                 return `<td class="numero-manual" style="${oculto}"><span class="numero-manual-valor">${estado.manuales.findIndex((item) => item.id === manual.id) + 1}</span><button class="drag-handle drag-manual" type="button" draggable="true" data-id="${manual.id}" title="Arrastrar para reordenar" aria-label="Mover fila ${estado.manuales.findIndex((item) => item.id === manual.id) + 1}">⋮⋮</button></td>`;  
               if (columna.especial === "acciones")  
-                return `<td style="${oculto}"><button class="btn-icon editor-only" data-editar-manual="${manual.id}" title="Editar">✏️</button></td>`;  
+                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-manual="${manual.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-manual="${manual.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
               return `<td style="${oculto}">${campoCelda(manual, columna, "manuales")}</td>`;  
             }).join("")}</tr>`,  
         )  
@@ -530,10 +580,19 @@ function renderManuales() {
       c.checked = e.target.checked;  
     }),  
   );  
-  document  
-    .querySelectorAll("[data-editar-manual]")  
-    .forEach((b) =>  
-      b.addEventListener("click", () => abrirManual(b.dataset.editarManual)),  
+  document
+    .querySelectorAll("[data-editar-manual]")
+    .forEach((boton) =>
+      boton.addEventListener("click", () =>
+        abrirManual(boton.dataset.editarManual),
+      ),
+    );
+  document
+    .querySelectorAll("[data-copiar-manual]")
+    .forEach((boton) =>
+      boton.addEventListener("click", () =>
+        copiarRegistro("manuales", boton.dataset.copiarManual),
+      ),
     );  
   habilitarReordenamientoManuales();  
   habilitarRedimensionamiento();  
@@ -562,7 +621,7 @@ function renderTramites() {
               if (columna.especial === "seleccion")  
                 return `<td style="${oculto}"><input class="seleccion-tramite" type="checkbox" data-id="${tramite.id}"></td>`;  
               if (columna.especial === "acciones")  
-                return `<td style="${oculto}"><button class="btn-icon editor-only" data-editar-tramite="${tramite.id}" title="Editar">✏️</button></td>`;  
+                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-tramite="${tramite.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-tramite="${tramite.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
               return `<td style="${oculto}">${campoCelda(tramite, columna, "tramites")}</td>`;  
             }).join("")}</tr>`,  
         )  
@@ -574,10 +633,19 @@ function renderTramites() {
       c.checked = e.target.checked;  
     }),  
   );  
-  document  
-    .querySelectorAll("[data-editar-tramite]")  
-    .forEach((b) =>  
-      b.addEventListener("click", () => abrirTramite(b.dataset.editarTramite)),  
+  document
+    .querySelectorAll("[data-editar-tramite]")
+    .forEach((boton) =>
+      boton.addEventListener("click", () =>
+        abrirTramite(boton.dataset.editarTramite),
+      ),
+    );
+  document
+    .querySelectorAll("[data-copiar-tramite]")
+    .forEach((boton) =>
+      boton.addEventListener("click", () =>
+        copiarRegistro("tramites", boton.dataset.copiarTramite),
+      ),
     );  
   habilitarRedimensionamiento();  
 }  
@@ -600,7 +668,7 @@ function renderVersiones() {
               if (columna.especial === "seleccion")  
                 return `<td><input class="seleccion-version" type="checkbox" data-id="${version.id}"></td>`;  
               if (columna.especial === "acciones")  
-                return `<td><button class="btn-icon editor-only" data-editar-version="${version.id}" title="Editar">✏️</button></td>`;  
+                return `<td style="white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-version="${version.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-version="${version.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
               return `<td>${campoCelda(version, columna, "versiones")}</td>`;  
             }).join("")}</tr>`,  
         )  
@@ -612,10 +680,19 @@ function renderVersiones() {
       c.checked = e.target.checked;  
     }),  
   );  
-  document  
-    .querySelectorAll("[data-editar-version]")  
-    .forEach((b) =>  
-      b.addEventListener("click", () => abrirVersion(b.dataset.editarVersion)),  
+  document
+    .querySelectorAll("[data-editar-version]")
+    .forEach((boton) =>
+      boton.addEventListener("click", () =>
+        abrirVersion(boton.dataset.editarVersion),
+      ),
+    );
+  document
+    .querySelectorAll("[data-copiar-version]")
+    .forEach((boton) =>
+      boton.addEventListener("click", () =>
+        copiarRegistro("versiones", boton.dataset.copiarVersion),
+      ),
     );  
   renderResumenVersiones();  
   habilitarRedimensionamiento();  
