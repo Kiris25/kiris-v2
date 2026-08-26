@@ -1240,4 +1240,94 @@ select.estado-listo { min-width: 210px; }
 .sort-menu-kiris > button:hover { background: #FFD1B3; } 
 .numero-manual { min-width: 95px; } 
  
- 
+/* ========================================= */
+/* FILTROS EXCEL */
+/* ========================================= */
+
+.inline-filter-actions {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 7px;
+
+}
+
+.inline-filter-actions button,
+.viewer-inline-actions button {
+
+    border: 0;
+    border-radius: 7px;
+    padding: 7px 10px;
+    font-weight: 700;
+    cursor: pointer;
+
+}
+
+/* =========================== */
+/* DESMARCAR TODO */
+/* =========================== */
+
+.btn-inline-none {
+
+    background: #E2E8F0;
+    color: #0F172A;
+
+}
+
+.btn-inline-none:hover {
+
+    background: #CBD5E1;
+
+}
+
+/* =========================== */
+/* SELECCIONAR TODO */
+/* =========================== */
+
+.btn-inline-all {
+
+    background: #E2E8F0;
+    color: #0F172A;
+
+}
+
+.btn-inline-all:hover {
+
+    background: #CBD5E1;
+
+}
+
+/* =========================== */
+/* LIMPIAR */
+/* =========================== */
+
+.btn-inline-clear {
+
+    background: #E2E8F0;
+    color: #0F172A;
+
+}
+
+.btn-inline-clear:hover {
+
+    background: #CBD5E1;
+
+}
+
+/* =========================== */
+/* APLICAR */
+/* =========================== */
+
+.btn-inline-apply {
+
+    background: var(--naranja);
+    color: #FFFFFF;
+
+}
+
+.btn-inline-apply:hover {
+
+    background: var(--naranja-oscuro);
+
+} 
