@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-28T12:41:54.987Z",
+  "fechaPublicacion": "2026-08-28T13:07:06.441Z",
   "manuales": [
     {
       "id": "manual_1787779590906_23d979c2b59768",
@@ -6561,7 +6561,7 @@
   ],
   "ciclo": [
     {
-      "id": "ciclo_1787778776944_771fc8158456d",
+      "id": "ciclo_1787922422132_aa33dc9adaf168",
       "tipo": "CR.Capacitacion.Solicitud de Traducción",
       "dias": 8,
       "diasCiclo": 8,
@@ -6591,7 +6591,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_42da70054d1098",
+      "id": "ciclo_1787922422132_991dbfafcf02b",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": null,
@@ -6621,7 +6621,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_d67c6057639978",
+      "id": "ciclo_1787922422132_dd40398562e8e8",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 1,
       "diasCiclo": 1,
@@ -6651,7 +6651,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_8ef485239365a",
+      "id": "ciclo_1787922422132_2c3a209b69b478",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 42,
       "diasCiclo": 42,
@@ -6681,7 +6681,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_eca7beb4c2664",
+      "id": "ciclo_1787922422132_8cd4244aaed0e8",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 17,
       "diasCiclo": 17,
@@ -6711,7 +6711,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_b37cccb53b315",
+      "id": "ciclo_1787922422132_2a3ce99ee2f",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 5,
       "diasCiclo": 5,
@@ -6741,7 +6741,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_c9740c2fe22eb8",
+      "id": "ciclo_1787922422132_c417a1fdc8bb2",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": 0,
@@ -6771,7 +6771,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_ec59caa6d78da",
+      "id": "ciclo_1787922422132_4a69fb20ab893",
       "tipo": "CR.Capacitacion.Emision",
       "dias": 0,
       "diasCiclo": 0,
@@ -6801,7 +6801,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_ec40db9729ea7",
+      "id": "ciclo_1787922422132_852e14abf10408",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": 0,
@@ -6831,7 +6831,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776944_84f9a6f43e9fd8",
+      "id": "ciclo_1787922422132_aa9a7ab183df88",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": 0,
@@ -6861,7 +6861,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_650fb68e5cd3f",
+      "id": "ciclo_1787922422132_4b63d8df27909",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 7,
       "diasCiclo": 7,
@@ -6891,7 +6891,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_563557eda0172",
+      "id": "ciclo_1787922422132_8a3f44d82e2f7",
       "tipo": "CR.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": 0,
@@ -6921,7 +6921,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_19f2757db94ef8",
+      "id": "ciclo_1787922422132_cf48661d80f6",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": 0,
@@ -6951,7 +6951,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_bced2a85cd81e",
+      "id": "ciclo_1787922422132_50e26b2e843c18",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": 0,
@@ -6981,7 +6981,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_623dd9eb8e7ba8",
+      "id": "ciclo_1787922422132_94d9e7fc8dd18",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": 0,
@@ -7011,7 +7011,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_61e686700034c",
+      "id": "ciclo_1787922422132_bcb9ab26b63438",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 9,
       "diasCiclo": 9,
@@ -7041,7 +7041,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_0defc83bc26a4",
+      "id": "ciclo_1787922422132_280484a9421848",
       "tipo": "CR.Capacitacion.Actualizar o Crear Manual",
       "dias": 0,
       "diasCiclo": null,
@@ -7071,7 +7071,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6408e48c64ccb",
+      "id": "ciclo_1787922422132_97ee1b404001d",
       "tipo": "CR.Actualizar o Crear Manual",
       "dias": 25,
       "diasCiclo": 25,
@@ -7101,7 +7101,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_783a2798b799",
+      "id": "ciclo_1787922422132_fb88610244716",
       "tipo": "CR.Capacitacion.Emision",
       "dias": 7,
       "diasCiclo": 7,
@@ -7131,7 +7131,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_de2339b324187",
+      "id": "ciclo_1787922422132_c37a64bbd9917",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -7161,7 +7161,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_a24c2fbd079e5",
+      "id": "ciclo_1787922422132_44dc7fdecd8ef",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7191,7 +7191,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ad7efecb43f2e",
+      "id": "ciclo_1787922422132_d74d098b6315b",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7221,7 +7221,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ebae9d2219ef5",
+      "id": "ciclo_1787922422132_53ef60639e8728",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7251,7 +7251,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_a80d42c13e65f",
+      "id": "ciclo_1787922422132_3ed1ec71ed0ab8",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 8,
       "diasCiclo": 8,
@@ -7281,7 +7281,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6af18f476d223",
+      "id": "ciclo_1787922422132_38afacdb1da9",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7311,7 +7311,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_24409ce68c6c9",
+      "id": "ciclo_1787922422132_2ae813bf60b608",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 0,
       "diasCiclo": 0,
@@ -7341,7 +7341,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5d2469172b6308",
+      "id": "ciclo_1787922422132_62a95824532f98",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -7371,7 +7371,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_bba9c2ba23c7d",
+      "id": "ciclo_1787922422132_1751f50e1b052",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7401,7 +7401,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_cc3aca551424d8",
+      "id": "ciclo_1787922422132_e16351c66774c",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -7431,7 +7431,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2ba262f40cf82",
+      "id": "ciclo_1787922422132_3f05af2f878a1",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7461,7 +7461,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_8a21d79784adb8",
+      "id": "ciclo_1787922422132_fc66b5b5829e",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7491,7 +7491,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d8b528836827e8",
+      "id": "ciclo_1787922422132_25ad0d117344f",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -7521,7 +7521,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3adc6a03d26d",
+      "id": "ciclo_1787922422132_0406d5367c047",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7551,7 +7551,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_9ff396796bf2e8",
+      "id": "ciclo_1787922422132_658e53d61e553",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 0,
       "diasCiclo": 0,
@@ -7581,7 +7581,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_634d95c33f2d88",
+      "id": "ciclo_1787922422132_d74948a4f5d23",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 5,
       "diasCiclo": 5,
@@ -7611,7 +7611,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_800ff2e2cf28f8",
+      "id": "ciclo_1787922422132_54ca99758826e",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 14,
       "diasCiclo": 14,
@@ -7641,7 +7641,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3b22a57c4bf6c",
+      "id": "ciclo_1787922422132_d1fbf82e0f3a4",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 0,
       "diasCiclo": 0,
@@ -7671,7 +7671,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4979d02887576",
+      "id": "ciclo_1787922422132_42758aecee1188",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -7701,7 +7701,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_cc2d6666230598",
+      "id": "ciclo_1787922422132_d77133480ecf58",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 8,
       "diasCiclo": 8,
@@ -7731,7 +7731,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_66efbe9441f38",
+      "id": "ciclo_1787922422132_0d624410f19c38",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 0,
       "diasCiclo": 0,
@@ -7761,7 +7761,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4d8fce18f8e23",
+      "id": "ciclo_1787922422132_91f8d6ebdd9868",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -7791,7 +7791,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_c03e905e9e7418",
+      "id": "ciclo_1787922422132_8c1f5c0832a7a",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 7,
       "diasCiclo": 7,
@@ -7821,7 +7821,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6732ded12268f",
+      "id": "ciclo_1787922422132_5bf560fc90c64",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -7851,7 +7851,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b6433f17a50398",
+      "id": "ciclo_1787922422132_c3afb51a0a5a8",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 5,
       "diasCiclo": 5,
@@ -7881,7 +7881,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f7854b406f034",
+      "id": "ciclo_1787922422132_e9f2cc99cb8f1",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 11,
       "diasCiclo": 11,
@@ -7911,7 +7911,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_c4747758572e6",
+      "id": "ciclo_1787922422132_a94629aad7f2c",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 5,
       "diasCiclo": 5,
@@ -7941,7 +7941,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2ca86dd6b6dd68",
+      "id": "ciclo_1787922422132_843a1215bbe6d8",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 2,
       "diasCiclo": 2,
@@ -7971,7 +7971,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_145998f201ed1",
+      "id": "ciclo_1787922422132_2e801ee05e8cc",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 34,
       "diasCiclo": 34,
@@ -8001,7 +8001,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f484cd3c72829",
+      "id": "ciclo_1787922422132_a468176b30fcb",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 5,
       "diasCiclo": 5,
@@ -8031,7 +8031,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_572a0c6605c4a",
+      "id": "ciclo_1787922422132_05f8c97597062",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 2,
       "diasCiclo": 2,
@@ -8061,7 +8061,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f66fcf1609be",
+      "id": "ciclo_1787922422132_a82869208e729",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -8091,7 +8091,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_704311e972898",
+      "id": "ciclo_1787922422132_e77702fda15178",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 0,
       "diasCiclo": 0,
@@ -8121,7 +8121,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_eec82234aa0bc8",
+      "id": "ciclo_1787922422132_ef8d5676c5d1a8",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 11,
       "diasCiclo": 11,
@@ -8151,7 +8151,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6bcb8747e4a8c",
+      "id": "ciclo_1787922422132_86672925b52c6",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -8181,7 +8181,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2a587a22dbf5b8",
+      "id": "ciclo_1787922422132_5bbcd6b1cea58",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -8211,7 +8211,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5a5b6e7bbd1f48",
+      "id": "ciclo_1787922422132_6af49ca45dcc38",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 2,
       "diasCiclo": 2,
@@ -8241,7 +8241,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4161064b4caf",
+      "id": "ciclo_1787922422132_b05f7c6df2baf8",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 5,
       "diasCiclo": 5,
@@ -8271,7 +8271,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2ce9390611dbd8",
+      "id": "ciclo_1787922422132_537c3827b1a08",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 2,
       "diasCiclo": 2,
@@ -8301,7 +8301,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_91a3b311338b18",
+      "id": "ciclo_1787922422132_4e1b21df98cfe",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -8331,7 +8331,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_dfc34d3cbeae48",
+      "id": "ciclo_1787922422132_8e7fb9b7bef118",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 2,
       "diasCiclo": 2,
@@ -8361,7 +8361,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_c679d52694957",
+      "id": "ciclo_1787922422132_30986cde7cae08",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 28,
       "diasCiclo": 28,
@@ -8391,7 +8391,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_7d570f733fe6a",
+      "id": "ciclo_1787922422132_45f83d20f843b",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 6,
       "diasCiclo": 6,
@@ -8421,7 +8421,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2aa4b73670b69",
+      "id": "ciclo_1787922422132_2620f798405998",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 5,
       "diasCiclo": 5,
@@ -8451,7 +8451,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_deedb0a5fe30a",
+      "id": "ciclo_1787922422132_4fa4afd2deded8",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -8481,7 +8481,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5900d1c9d4f428",
+      "id": "ciclo_1787922422132_7da3a1fc8fa428",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 5,
       "diasCiclo": 5,
@@ -8511,7 +8511,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ad1672ab1407f8",
+      "id": "ciclo_1787922422132_37ef42e1ecd2d",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 7,
       "diasCiclo": 7,
@@ -8541,7 +8541,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_68fff8c982a08",
+      "id": "ciclo_1787922422132_ba83b18593067",
       "tipo": "CR.Mejora de Servicio",
       "dias": 2,
       "diasCiclo": 2,
@@ -8571,7 +8571,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_525f754fe1af3",
+      "id": "ciclo_1787922422132_13a2f05427d938",
       "tipo": "CR.Mejora de Servicio",
       "dias": 16,
       "diasCiclo": 16,
@@ -8601,7 +8601,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4b9d50e629f5a",
+      "id": "ciclo_1787922422132_971a7df889e138",
       "tipo": "CR.Mejora de Servicio",
       "dias": 2,
       "diasCiclo": 2,
@@ -8631,7 +8631,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_c14eb8c421b4e8",
+      "id": "ciclo_1787922422132_6d53d24058fd88",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -8661,7 +8661,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_029a54639b209",
+      "id": "ciclo_1787922422132_d38c788d57d3d",
       "tipo": "CR.Mejora de Servicio",
       "dias": 0,
       "diasCiclo": 0,
@@ -8691,7 +8691,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e358c156c32828",
+      "id": "ciclo_1787922422132_872cc55659b74",
       "tipo": "CR.Mejora de Servicio",
       "dias": 39,
       "diasCiclo": 39,
@@ -8721,7 +8721,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f28ae60837881",
+      "id": "ciclo_1787922422132_7ad4511d836998",
       "tipo": "CR.Requerimiento Vía Rápida",
       "dias": 1,
       "diasCiclo": 1,
@@ -8751,7 +8751,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_82ce57788842d8",
+      "id": "ciclo_1787922422132_3f123e492901e8",
       "tipo": "CR.Requerimiento",
       "dias": 8,
       "diasCiclo": 8,
@@ -8781,7 +8781,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_846734b346205",
+      "id": "ciclo_1787922422132_337d569f7b62e8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -8811,7 +8811,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_45649f4dfc345",
+      "id": "ciclo_1787922422132_d0df85f1459c98",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -8841,7 +8841,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e290845fc5a0d8",
+      "id": "ciclo_1787922422132_6da42dee53165",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -8871,7 +8871,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_342c636a218e2",
+      "id": "ciclo_1787922422132_a859f6d45fdb4",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -8901,7 +8901,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4180b94b9c7cc",
+      "id": "ciclo_1787922422132_335d0235ebc6f",
       "tipo": "CR.Requerimiento",
       "dias": 5,
       "diasCiclo": 5,
@@ -8931,7 +8931,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_da44da222eb9d8",
+      "id": "ciclo_1787922422132_fc9315ae57c7b8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -8961,7 +8961,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_446e2e29d4f988",
+      "id": "ciclo_1787922422132_b810838fdead68",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -8991,7 +8991,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5930cdac9bbbd8",
+      "id": "ciclo_1787922422132_d691750c66307",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -9021,7 +9021,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_496db6f21c8148",
+      "id": "ciclo_1787922422132_f67128da8ebc5",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -9051,7 +9051,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_870b74b2490718",
+      "id": "ciclo_1787922422132_a5af037882b46",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -9081,7 +9081,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_be8bea03f315b",
+      "id": "ciclo_1787922422132_0be472980cc988",
       "tipo": "CR.Requerimiento",
       "dias": 14,
       "diasCiclo": 14,
@@ -9111,7 +9111,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_da64e8be5c1628",
+      "id": "ciclo_1787922422132_a276ecd5972a4",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9141,7 +9141,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_1de095bff6787",
+      "id": "ciclo_1787922422132_52a03ce8688828",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9171,7 +9171,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_200dc2bd332108",
+      "id": "ciclo_1787922422132_0add92955c6318",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -9201,7 +9201,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6231ca571a643",
+      "id": "ciclo_1787922422132_2bf1691dc86b",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -9231,7 +9231,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_a07dba37f692e",
+      "id": "ciclo_1787922422132_ae49e5f96db648",
       "tipo": "CR.Requerimiento",
       "dias": 86,
       "diasCiclo": 86,
@@ -9261,7 +9261,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_51be66690110d8",
+      "id": "ciclo_1787922422132_534499cacb7718",
       "tipo": "CR.Requerimiento",
       "dias": 14,
       "diasCiclo": 14,
@@ -9291,7 +9291,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b54848a0404b",
+      "id": "ciclo_1787922422132_a8c3ed9a32d2f8",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -9321,7 +9321,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b70937e755a1a8",
+      "id": "ciclo_1787922422132_a31912a13a1308",
       "tipo": "CR.Requerimiento",
       "dias": 8,
       "diasCiclo": 8,
@@ -9351,7 +9351,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_31a0fe02369618",
+      "id": "ciclo_1787922422132_26f79c8fa172f",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9381,7 +9381,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_1eeef0df5be71",
+      "id": "ciclo_1787922422132_d541ae6882d9e8",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -9411,7 +9411,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ee7897d07e9f38",
+      "id": "ciclo_1787922422132_56798cf79fddf8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9441,7 +9441,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3c2b9877407348",
+      "id": "ciclo_1787922422132_357afaf54a223",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9471,7 +9471,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e572bd4ab5d0e8",
+      "id": "ciclo_1787922422132_5bd1700763094",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -9501,7 +9501,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_9da7aa883ce528",
+      "id": "ciclo_1787922422132_a153a0f47489e",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -9531,7 +9531,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4dc9fd1f210e88",
+      "id": "ciclo_1787922422132_6a7398cf688de8",
       "tipo": "CR.Requerimiento",
       "dias": 48,
       "diasCiclo": 48,
@@ -9561,7 +9561,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ec401a59af2bd8",
+      "id": "ciclo_1787922422132_434a495c5cd2",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9591,7 +9591,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_26e586795c8a58",
+      "id": "ciclo_1787922422132_7fd2cdd7a73578",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -9621,7 +9621,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6ffb09aa49f55",
+      "id": "ciclo_1787922422132_8efaf1fda4e8a8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9651,7 +9651,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_8c670f12e8c2e",
+      "id": "ciclo_1787922422132_e2fc55779a334",
       "tipo": "CR.Requerimiento",
       "dias": 5,
       "diasCiclo": 5,
@@ -9681,7 +9681,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2e94f8bf552038",
+      "id": "ciclo_1787922422132_52ce1f33794a88",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -9711,7 +9711,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3bd21150f7eb98",
+      "id": "ciclo_1787922422132_aba49cc779a978",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -9741,7 +9741,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_361689c1419fa",
+      "id": "ciclo_1787922422132_f69afd4402009",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -9771,7 +9771,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_a1e06c793fc96",
+      "id": "ciclo_1787922422132_aeb1ef4f0f0c",
       "tipo": "CR.Requerimiento",
       "dias": 27,
       "diasCiclo": 27,
@@ -9801,7 +9801,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4c6a97a75c1578",
+      "id": "ciclo_1787922422132_5a160b0d5f267",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9831,7 +9831,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6629812c27e8b8",
+      "id": "ciclo_1787922422132_d36ca7f95aa1c8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9861,7 +9861,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4e0ce04d1c26d",
+      "id": "ciclo_1787922422132_f4863f2becee98",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -9891,7 +9891,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5dcf4312f05e58",
+      "id": "ciclo_1787922422132_0dc078bb2ae28",
       "tipo": "CR.Requerimiento",
       "dias": 8,
       "diasCiclo": 8,
@@ -9921,7 +9921,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3654658fd8f738",
+      "id": "ciclo_1787922422132_2ac3819112439",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -9951,7 +9951,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_afad0e6a940388",
+      "id": "ciclo_1787922422132_bc6902945bc67",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -9981,7 +9981,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_9349f669b12498",
+      "id": "ciclo_1787922422132_3a2c246529f3f8",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -10011,7 +10011,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_98eef3825ecc78",
+      "id": "ciclo_1787922422132_aff4b7c27d3ec",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -10041,7 +10041,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b06c92b63b169",
+      "id": "ciclo_1787922422132_e31db8eb487",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10071,7 +10071,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d6ad511ecefe08",
+      "id": "ciclo_1787922422132_13e5e81f6f9",
       "tipo": "CR.Requerimiento",
       "dias": 43,
       "diasCiclo": 43,
@@ -10101,7 +10101,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_dd5d4880513b38",
+      "id": "ciclo_1787922422132_a36b5eca231098",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -10131,7 +10131,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_7c06a7343516",
+      "id": "ciclo_1787922422132_c12d316d86786",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10161,7 +10161,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5ed20c5a1ee628",
+      "id": "ciclo_1787922422132_b6d36cb99bb43",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -10191,7 +10191,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_7cccd921d145a",
+      "id": "ciclo_1787922422132_2e7b42717abce",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10221,7 +10221,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e90991140ee858",
+      "id": "ciclo_1787922422132_56f5946b7f6ed",
       "tipo": "CR.Requerimiento",
       "dias": 11,
       "diasCiclo": 11,
@@ -10251,7 +10251,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_fd3538e2d935f",
+      "id": "ciclo_1787922422132_81bbe21d9af828",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10281,7 +10281,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_8671cf7ac93458",
+      "id": "ciclo_1787922422132_f886caba361368",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": null,
@@ -10311,7 +10311,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f2a7c1bc190dc",
+      "id": "ciclo_1787922422132_7e0d233ed5be5",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -10341,7 +10341,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_a960def129b2f",
+      "id": "ciclo_1787922422132_3089432ef2dc5",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10371,7 +10371,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_94ac89f4c34d1",
+      "id": "ciclo_1787922422132_13564e9536db1",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -10401,7 +10401,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_62dff881d2a92",
+      "id": "ciclo_1787922422132_6e2430fd6ef908",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10431,7 +10431,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d391d81fab2aa",
+      "id": "ciclo_1787922422132_24331ad1b208e8",
       "tipo": "CR.Requerimiento",
       "dias": 8,
       "diasCiclo": 8,
@@ -10461,7 +10461,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_af98a133a81ce",
+      "id": "ciclo_1787922422132_37026ae39fe408",
       "tipo": "CR.Requerimiento",
       "dias": 14,
       "diasCiclo": 14,
@@ -10491,7 +10491,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2bec17a1f044d8",
+      "id": "ciclo_1787922422132_7bf61aa2a1da38",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -10521,7 +10521,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_621784dd5ac1f",
+      "id": "ciclo_1787922422132_d2c36c480189f",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10551,7 +10551,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e5240d0da6bde",
+      "id": "ciclo_1787922422132_477ca898550258",
       "tipo": "CR.Requerimiento",
       "dias": 12,
       "diasCiclo": 12,
@@ -10581,7 +10581,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d17f1f3eb2c4a",
+      "id": "ciclo_1787922422132_50b572b685ad",
       "tipo": "CR.Requerimiento",
       "dias": 43,
       "diasCiclo": 43,
@@ -10611,7 +10611,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_8287d8bfd55d6",
+      "id": "ciclo_1787922422132_3d1d4d244a665",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -10641,7 +10641,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_0e9e25d826fb08",
+      "id": "ciclo_1787922422132_97a51bb4fce87",
       "tipo": "CR.Requerimiento",
       "dias": 15,
       "diasCiclo": 15,
@@ -10671,7 +10671,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2c302efb2b9798",
+      "id": "ciclo_1787922422132_88a7fa01e00728",
       "tipo": "CR.Requerimiento",
       "dias": 32,
       "diasCiclo": 32,
@@ -10701,7 +10701,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_199ea22460a52",
+      "id": "ciclo_1787922422132_0794a362e81ea8",
       "tipo": "CR.Requerimiento",
       "dias": 8,
       "diasCiclo": 8,
@@ -10731,7 +10731,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6114836da749b8",
+      "id": "ciclo_1787922422132_7fdcf8715d0d6",
       "tipo": "CR.Requerimiento",
       "dias": 14,
       "diasCiclo": 14,
@@ -10761,7 +10761,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_7946bfc2c0cc4",
+      "id": "ciclo_1787922422132_c6d42101833278",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10791,7 +10791,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6f3fa6444e998",
+      "id": "ciclo_1787922422132_80a109dd8d1b5",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10821,7 +10821,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d398d6d130eeb8",
+      "id": "ciclo_1787922422132_380af6652fb88",
       "tipo": "CR.Requerimiento",
       "dias": 36,
       "diasCiclo": 36,
@@ -10851,7 +10851,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ca047a254ce028",
+      "id": "ciclo_1787922422132_c8b116b3d20008",
       "tipo": "CR.Requerimiento",
       "dias": 13,
       "diasCiclo": 13,
@@ -10881,7 +10881,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_9dd4347432cb08",
+      "id": "ciclo_1787922422132_cc2e004377144",
       "tipo": "CR.Requerimiento",
       "dias": 13,
       "diasCiclo": 13,
@@ -10911,7 +10911,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e5893ea44b5a48",
+      "id": "ciclo_1787922422132_a167c8236ceec",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -10941,7 +10941,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_918d7cd1ce5d98",
+      "id": "ciclo_1787922422132_727f39f8fe4638",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -10971,7 +10971,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3e2a4d005831",
+      "id": "ciclo_1787922422132_dc652c61c4e82",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11001,7 +11001,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4444860019f7a",
+      "id": "ciclo_1787922422132_666060342f00a",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11031,7 +11031,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_85e66ea7f9af1",
+      "id": "ciclo_1787922422132_38d9fcb32dd7c",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -11061,7 +11061,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_41970aab79f1b8",
+      "id": "ciclo_1787922422132_bca25d23ceb73",
       "tipo": "CR.Requerimiento",
       "dias": 20,
       "diasCiclo": 20,
@@ -11091,7 +11091,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_dfb455b2aa99b",
+      "id": "ciclo_1787922422132_a56168c4c7f1d",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11121,7 +11121,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_47d7febe628ea8",
+      "id": "ciclo_1787922422132_7297a6218682e8",
       "tipo": "CR.Requerimiento",
       "dias": 49,
       "diasCiclo": 49,
@@ -11151,7 +11151,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_be5e57baf4dfd8",
+      "id": "ciclo_1787922422132_6e0a429dc78f88",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -11181,7 +11181,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_97983df8dd3558",
+      "id": "ciclo_1787922422132_0abfa0e4a0ae7",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11211,7 +11211,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f6af25a72d6dd",
+      "id": "ciclo_1787922422132_47d204a55a7dd",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -11241,7 +11241,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d386af7c684558",
+      "id": "ciclo_1787922422132_49a227ab3bdc7",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -11271,7 +11271,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ac70e06b3ab048",
+      "id": "ciclo_1787922422132_d31f27ccedb0f",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -11301,7 +11301,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_1396d1a350627",
+      "id": "ciclo_1787922422132_be1afb8da5e278",
       "tipo": "CR.Requerimiento",
       "dias": 43,
       "diasCiclo": 43,
@@ -11331,7 +11331,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3d39ce47577ed",
+      "id": "ciclo_1787922422132_80830a2fc284d",
       "tipo": "CR.Requerimiento",
       "dias": 35,
       "diasCiclo": 35,
@@ -11361,7 +11361,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_577b0f2a2a763",
+      "id": "ciclo_1787922422132_f97b1bf80b8e68",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -11391,7 +11391,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_768df228ab6cf8",
+      "id": "ciclo_1787922422132_7118a287388d9",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11421,7 +11421,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ac16003ccefb68",
+      "id": "ciclo_1787922422132_a397e693e58038",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11451,7 +11451,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_493a6678774338",
+      "id": "ciclo_1787922422132_76119b47f6f3b",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -11481,7 +11481,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_fbc0096af76c88",
+      "id": "ciclo_1787922422132_2c8f20d714f738",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -11511,7 +11511,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6dc9ff4d2a2018",
+      "id": "ciclo_1787922422132_5a602448d00278",
       "tipo": "CR.Requerimiento",
       "dias": 9,
       "diasCiclo": 9,
@@ -11541,7 +11541,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e07a8392246f28",
+      "id": "ciclo_1787922422132_99469fece8185",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -11571,7 +11571,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_0b25aa5450c4c8",
+      "id": "ciclo_1787922422132_654ea2dd9ef38",
       "tipo": "CR.Requerimiento",
       "dias": 5,
       "diasCiclo": 5,
@@ -11601,7 +11601,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_735d332f608a28",
+      "id": "ciclo_1787922422132_a473e19c88225",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11631,7 +11631,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_869fe2e2a8b1f",
+      "id": "ciclo_1787922422132_8d2e0c9b3de978",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -11661,7 +11661,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_7ab2fac7d322",
+      "id": "ciclo_1787922422132_b6f63288fea828",
       "tipo": "CR.Requerimiento",
       "dias": 8,
       "diasCiclo": 8,
@@ -11691,7 +11691,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_857f4b5d110a2",
+      "id": "ciclo_1787922422132_6e28dc66a5d15",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -11721,7 +11721,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_aee2ee5e941c8",
+      "id": "ciclo_1787922422132_f2b13f09fc0b9",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -11751,7 +11751,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_db112e0c47d888",
+      "id": "ciclo_1787922422132_b8555a01e9698",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -11781,7 +11781,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_1ac04dce919fd",
+      "id": "ciclo_1787922422132_40a1c08e570a9",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -11811,7 +11811,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_418ac6a15dc0b",
+      "id": "ciclo_1787922422132_8757f55204f0b",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -11841,7 +11841,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4c13bd640e6bb8",
+      "id": "ciclo_1787922422132_8e5ace7d3c06",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": null,
@@ -11871,7 +11871,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5a3a8f728ab968",
+      "id": "ciclo_1787922422132_9a055b2d6965f8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -11901,7 +11901,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_c7efbf0e5158d",
+      "id": "ciclo_1787922422132_4d04e92b9cdae",
       "tipo": "CR.Requerimiento",
       "dias": 44,
       "diasCiclo": 44,
@@ -11931,7 +11931,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_347a9c6fba8c8",
+      "id": "ciclo_1787922422132_1a52e0905283c",
       "tipo": "CR.Requerimiento",
       "dias": 10,
       "diasCiclo": 10,
@@ -11961,7 +11961,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e475c93915ca5",
+      "id": "ciclo_1787922422132_229cd70aea16a",
       "tipo": "CR.Requerimiento",
       "dias": 11,
       "diasCiclo": 11,
@@ -11991,7 +11991,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_77d9d4a9ecdd1",
+      "id": "ciclo_1787922422132_806165f19a66d8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12021,7 +12021,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f7ecd2c1c9ef7",
+      "id": "ciclo_1787922422132_e31198e8d22f7",
       "tipo": "CR.Requerimiento",
       "dias": 44,
       "diasCiclo": 44,
@@ -12051,7 +12051,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_1b8862654fa158",
+      "id": "ciclo_1787922422132_2763ad646ba7a",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12081,7 +12081,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_84b87add52cc2",
+      "id": "ciclo_1787922422132_fcf8d196c77348",
       "tipo": "CR.Requerimiento",
       "dias": 5,
       "diasCiclo": 5,
@@ -12111,7 +12111,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_35f81f27389878",
+      "id": "ciclo_1787922422132_275ae4b0c5d33",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12141,7 +12141,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e68645dc5387f",
+      "id": "ciclo_1787922422132_4f3688d8e51f",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -12171,7 +12171,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_1fe1d758efca88",
+      "id": "ciclo_1787922422132_8ffc2e4378b43",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12201,7 +12201,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_0b864fcd9eb498",
+      "id": "ciclo_1787922422132_b44ade328ceaf8",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12231,7 +12231,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_a81c93368f5da",
+      "id": "ciclo_1787922422132_818c427e88e05",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -12261,7 +12261,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6587a9cab27bf",
+      "id": "ciclo_1787922422132_c791bfd2d64ba8",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": null,
@@ -12291,7 +12291,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_db2284bce127d",
+      "id": "ciclo_1787922422132_8648d46ef6c5f",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12321,7 +12321,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_61c5d47e8f2ad",
+      "id": "ciclo_1787922422132_c821bfe4ea9f18",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": null,
@@ -12351,7 +12351,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ec16fe38ec0138",
+      "id": "ciclo_1787922422132_7a51fb2e8be6a8",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -12381,7 +12381,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4979c64a7d32c",
+      "id": "ciclo_1787922422132_c7a33001f7fae8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12411,7 +12411,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3fdcc4bf91b438",
+      "id": "ciclo_1787922422132_a513145fd84ab",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12441,7 +12441,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_4fa55d898e2c98",
+      "id": "ciclo_1787922422132_de6c3d1a735648",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12471,7 +12471,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b0012e8139b",
+      "id": "ciclo_1787922422132_0985637befea7",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12501,7 +12501,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_9b92b10b5cbc98",
+      "id": "ciclo_1787922422132_80cfc8a6340ca8",
       "tipo": "CR.Requerimiento",
       "dias": 29,
       "diasCiclo": 29,
@@ -12531,7 +12531,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ac32524ab8fb6",
+      "id": "ciclo_1787922422132_bd52ac4cea8aa8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12561,7 +12561,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_9371d185fe7478",
+      "id": "ciclo_1787922422132_cfdcf53ca09258",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12591,7 +12591,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_0d82a803bc5318",
+      "id": "ciclo_1787922422132_491744540a7a5",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12621,7 +12621,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b90fe695db612",
+      "id": "ciclo_1787922422132_192afded46f1f8",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12651,7 +12651,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ad6f29efd9564",
+      "id": "ciclo_1787922422132_da18190ef113a",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12681,7 +12681,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d27386404bfbc8",
+      "id": "ciclo_1787922422132_c6396dee24b5f8",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -12711,7 +12711,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2e310b9d33fcc8",
+      "id": "ciclo_1787922422132_d399da0184658",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12741,7 +12741,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_7bd7706b27b16",
+      "id": "ciclo_1787922422132_165225b5d7c26",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -12771,7 +12771,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_9f0061d9bc085",
+      "id": "ciclo_1787922422132_44f9d5da06096",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -12801,7 +12801,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_ed9501557c2b68",
+      "id": "ciclo_1787922422132_5993a4a561212",
       "tipo": "CR.Requerimiento",
       "dias": 6,
       "diasCiclo": 6,
@@ -12831,7 +12831,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3b7a6d22d3fd68",
+      "id": "ciclo_1787922422132_039f1d22d7fe18",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -12861,7 +12861,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_191f74d6734598",
+      "id": "ciclo_1787922422132_5e9b154847009",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12891,7 +12891,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_8ffb31598aee5",
+      "id": "ciclo_1787922422132_eccfbe62c0a55",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -12921,7 +12921,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_0ba453bab02478",
+      "id": "ciclo_1787922422132_b2517cdd64cc3",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -12951,7 +12951,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_e78bbbbff4022",
+      "id": "ciclo_1787922422132_f8e1fa6aad337",
       "tipo": "CR.Requerimiento",
       "dias": 43,
       "diasCiclo": 43,
@@ -12981,7 +12981,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3e8f82d3da3a7",
+      "id": "ciclo_1787922422132_d721ea3ed9ed2",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -13011,7 +13011,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f709b4181b2ea",
+      "id": "ciclo_1787922422132_14e59ae61c63e",
       "tipo": "CR.Requerimiento",
       "dias": 4,
       "diasCiclo": 4,
@@ -13041,7 +13041,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_6288a1d30b37e8",
+      "id": "ciclo_1787922422132_5e7858a80ba99",
       "tipo": "CR.Requerimiento",
       "dias": 35,
       "diasCiclo": 35,
@@ -13071,7 +13071,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_5f6f5f6eaf72d8",
+      "id": "ciclo_1787922422132_d68513bd1fe438",
       "tipo": "CR.Requerimiento",
       "dias": 30,
       "diasCiclo": 30,
@@ -13101,7 +13101,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_d681ef2acb47a8",
+      "id": "ciclo_1787922422132_03ff6713a8715",
       "tipo": "CR.Requerimiento",
       "dias": 43,
       "diasCiclo": 43,
@@ -13131,7 +13131,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b3ba860e4c68d8",
+      "id": "ciclo_1787922422132_66ea0df9ca1cf8",
       "tipo": "CR.Requerimiento",
       "dias": 14,
       "diasCiclo": 14,
@@ -13161,7 +13161,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_405681a33e35d8",
+      "id": "ciclo_1787922422132_e8be1aad2d463",
       "tipo": "CR.Requerimiento",
       "dias": 8,
       "diasCiclo": 8,
@@ -13191,7 +13191,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_83c28a953f5ae",
+      "id": "ciclo_1787922422132_7ef14f2e6cfb9",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -13221,7 +13221,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_78d11b7bf05ed8",
+      "id": "ciclo_1787922422132_3d9778620da88",
       "tipo": "CR.Requerimiento",
       "dias": 39,
       "diasCiclo": 39,
@@ -13251,7 +13251,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_b76ebf1b034b78",
+      "id": "ciclo_1787922422132_a55e334b58ff28",
       "tipo": "CR.Requerimiento",
       "dias": 7,
       "diasCiclo": 7,
@@ -13281,7 +13281,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f105b26a4d26f8",
+      "id": "ciclo_1787922422132_38c1d86c6c1378",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -13311,7 +13311,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_c6157ef6c055e8",
+      "id": "ciclo_1787922422132_31371e3e8f383",
       "tipo": "CR.Requerimiento",
       "dias": 0,
       "diasCiclo": 0,
@@ -13341,7 +13341,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_1fd62d10e32428",
+      "id": "ciclo_1787922422132_26db470011ad18",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -13371,7 +13371,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_df20a3a0776428",
+      "id": "ciclo_1787922422132_13ec5550fe50d8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -13401,7 +13401,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_7717f063855b88",
+      "id": "ciclo_1787922422132_6d10243d5eccc8",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -13431,7 +13431,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_67ac07250497c",
+      "id": "ciclo_1787922422132_b2a521bca2a3a8",
       "tipo": "CR.Requerimiento",
       "dias": 5,
       "diasCiclo": 5,
@@ -13461,7 +13461,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_3f5980cd686ba8",
+      "id": "ciclo_1787922422132_a2637df53d3d48",
       "tipo": "CR.Requerimiento",
       "dias": 2,
       "diasCiclo": 2,
@@ -13491,7 +13491,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_c627f647e9d978",
+      "id": "ciclo_1787922422132_ce35b4434e00a8",
       "tipo": "CR.Requerimiento",
       "dias": 10,
       "diasCiclo": 10,
@@ -13521,7 +13521,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_2f7a1bbf5257c8",
+      "id": "ciclo_1787922422132_2e6ffb1e5ffbe8",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
@@ -13551,7 +13551,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_fd65213f01b95",
+      "id": "ciclo_1787922422132_7f534f3abe4db",
       "tipo": "CR.Requerimiento",
       "dias": 5,
       "diasCiclo": 5,
@@ -13581,7 +13581,7 @@
       }
     },
     {
-      "id": "ciclo_1787778776945_f1b42728868df",
+      "id": "ciclo_1787922422132_c3b338b6fce92",
       "tipo": "CR.Requerimiento",
       "dias": 1,
       "diasCiclo": 1,
