@@ -1,7 +1,24 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-28T13:14:03.041Z",
+  "fechaPublicacion": "2026-08-28T17:32:13.364Z",
   "manuales": [
+    {
+      "id": "manual_1787938330141_7ea283f373d2c8",
+      "codigo": "TEST",
+      "titulo": "TEST",
+      "idioma": "Español",
+      "archivoElectronico": "",
+      "ocRelacionado": "",
+      "prioridad": "",
+      "tipo": "",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
     {
       "id": "manual_1787779590906_23d979c2b59768",
       "codigo": "UEO-CAP-MU-008",
