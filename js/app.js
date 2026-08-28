@@ -1802,29 +1802,49 @@ async function importarRespaldoCompleto(archivo) {
     mostrarToast(`No fue posible restaurar: ${error.message}`);  
   }  
 }  
-async function publicarCambios() {  
-  const paquete = {  
-    version: 1,  
-    fechaPublicacion: new Date().toISOString(),  
-    manuales: estado.manuales,  
-    bitacora: estado.bitacora,  
-    tramites: estado.tramites,  
-    versiones: estado.versiones,  
-    ciclo: estado.ciclo,  
-  };  
-  try {  
-    if (window.KirisStorage?.publicar) {  
-      await window.KirisStorage.publicar(paquete);  
-      localStorage.setItem(PUBLISHED_KEY, JSON.stringify(paquete));  
-      mostrarToast("Cambios publicados en GitHub");  
-    } else {  
-      throw new Error("El módulo storage.js no está disponible");  
-    }  
-  } catch (error) {  
-    console.error(error);  
-    mostrarToast(error.message || "No fue posible publicar");  
-  }  
-}  
+function crearPaquetePublicado() {
+  return {
+    version: 1,
+    fechaPublicacion: new Date().toISOString(),
+    manuales: estado.manuales,
+    bitacora: estado.bitacora,
+    tramites: estado.tramites,
+    versiones: estado.versiones,
+    ciclo: estado.ciclo,
+  };
+}
+
+async function guardarYPublicarCambios() {
+  const boton = $("btnGuardarNube");
+  const textoOriginal = boton?.textContent || "💾 Guardar y publicar";
+
+  try {
+    if (boton) {
+      boton.disabled = true;
+      boton.textContent = "Guardando y publicando...";
+    }
+
+    guardarEstado("");
+
+    if (!window.KirisStorage?.publicar) {
+      throw new Error("El módulo storage.js no está disponible");
+    }
+
+    const paquete = crearPaquetePublicado();
+    await window.KirisStorage.publicar(paquete);
+    localStorage.setItem(PUBLISHED_KEY, JSON.stringify(paquete));
+    mostrarToast("Información guardada y publicada en el visor");
+  } catch (error) {
+    console.error(error);
+    mostrarToast(error.message || "No fue posible guardar y publicar");
+  } finally {
+    if (boton) {
+      boton.disabled = false;
+      boton.textContent = textoOriginal;
+    }
+  }
+}
+
 function configurarBotones() {  
   $("btnAgregarManual").addEventListener("click", () => abrirManual());  
   $("btnAgregarTramite").addEventListener("click", () => abrirTramite());  
@@ -1884,11 +1904,8 @@ $("btnExportarTramites").addEventListener(
     guardarEstado("");  
     renderTramites();  
     abrirColumnas("tramites");  
-  });  
-  $("btnGuardarNube").addEventListener("click", () =>  
-    guardarEstado("Información guardada"),  
-  );  
-  $("btnPublicarCambios").addEventListener("click", publicarCambios);
+  });
+  $("btnGuardarNube").addEventListener("click", guardarYPublicarCambios);
   $("btnGenerarReporte")?.addEventListener(
     "click",
     generarReporteCompletoExcel,
