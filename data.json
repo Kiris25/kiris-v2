@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-26T21:30:00.284Z",
+  "fechaPublicacion": "2026-08-28T12:41:54.987Z",
   "manuales": [
     {
       "id": "manual_1787779590906_23d979c2b59768",
@@ -2932,9 +2932,9 @@
       "manual": "UEO-CAP-MU-132 - siscard+ Manual Trabajar con servicios",
       "manualId": "manual_1783711643188_c23f0eac04ec68",
       "tipo": "N",
-      "horaInicio": "20:00",
+      "horaInicio": "08:00",
       "horaFin": "17:30",
-      "horas": 21.5,
+      "horas": 9.5,
       "paginas": 22,
       "detalle": "Debido a que se borraron datos, coloqué este registro general."
     },
