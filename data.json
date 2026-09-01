@@ -1,7 +1,44 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-08-28T17:34:43.283Z",
+  "fechaPublicacion": "2026-09-01T19:25:18.446Z",
   "manuales": [
+    {
+      "id": "manual_1783711643188_c23f0eac04ec68",
+      "codigo": "UEO-CAP-MU-132",
+      "titulo": "siscard+ Manual Trabajar con servicios",
+      "idioma": "Español",
+      "archivoElectronico": "No",
+      "ocRelacionado": "",
+      "prioridad": "Alta",
+      "tipo": "N",
+      "paginas": "220",
+      "diasEsfuerzo": "44",
+      "fechaInicio": "2026-08-10",
+      "fechaFinalizacion": "",
+      "fechaPublicadoGestor": "",
+      "horasEsfuerzo": "",
+      "color": "",
+      "estado": "No iniciado",
+      "colorCalendario": "#F4A261"
+    },
+    {
+      "id": "manual_1787598499528_75b71799c05578",
+      "codigo": "N/A",
+      "titulo": "CLICK TO PAY",
+      "idioma": "Español",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2921143",
+      "prioridad": "Alta",
+      "tipo": "N",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "2026-08-24",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C",
+      "colorCalendario": "#D62828"
+    },
     {
       "id": "manual_1787779590906_23d979c2b59768",
       "codigo": "UEO-CAP-MU-008",
@@ -86,43 +123,6 @@
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C"
-    },
-    {
-      "id": "manual_1787598499528_75b71799c05578",
-      "codigo": "N/A",
-      "titulo": "CLICK TO PAY",
-      "idioma": "Español",
-      "archivoElectronico": "No",
-      "ocRelacionado": "2921143",
-      "prioridad": "Alta",
-      "tipo": "N",
-      "paginas": 0,
-      "diasEsfuerzo": 0,
-      "fechaInicio": "2026-08-24",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
-      "horasEsfuerzo": 0,
-      "color": "#FF6C0C",
-      "colorCalendario": "#D62828"
-    },
-    {
-      "id": "manual_1783711643188_c23f0eac04ec68",
-      "codigo": "UEO-CAP-MU-132",
-      "titulo": "siscard+ Manual Trabajar con servicios",
-      "idioma": "Español",
-      "archivoElectronico": "No",
-      "ocRelacionado": "",
-      "prioridad": "Alta",
-      "tipo": "N",
-      "paginas": "220",
-      "diasEsfuerzo": "44",
-      "fechaInicio": "2026-08-10",
-      "fechaFinalizacion": "",
-      "fechaPublicadoGestor": "",
-      "horasEsfuerzo": "",
-      "color": "",
-      "estado": "No iniciado",
-      "colorCalendario": "#F4A261"
     },
     {
       "id": "manual_1787778264101_c34e331e6ebcd8",
@@ -1120,24 +1120,6 @@
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C"
-    },
-    {
-      "id": "manual_1783711643196_8b4abad93d78e",
-      "codigo": "UEO-CAP-MI-133",
-      "titulo": "siscard+ Embossing Generation Process Manual (TRMBEPR0)",
-      "idioma": "Inglés",
-      "archivoElectronico": "No",
-      "ocRelacionado": "",
-      "prioridad": "Media",
-      "tipo": "T",
-      "paginas": "15",
-      "diasEsfuerzo": "2.142857142857143",
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicadoGestor": "",
-      "horasEsfuerzo": "",
-      "color": "",
-      "estado": "No iniciado"
     },
     {
       "id": "manual_1783711643192_ecf62f52bfc598",
@@ -2830,6 +2812,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1788290715827_336b7023e1a1d",
+      "fecha": "2026-09-01",
+      "manual": "UEO-CAP-MI-133 - siscard+ Embossing Generation Process Manual (TRMBEPR0)",
+      "manualId": "manual_1787599860390_3e710c249e5548",
+      "tipo": "T",
+      "horaInicio": "08:00",
+      "horaFin": "14:30",
+      "horas": 6.5,
+      "paginas": 22,
+      "detalle": "Traducción del documento"
+    },
     {
       "id": "bitacora_1787771858963_06cf937541fba8",
       "fecha": "2026-08-26",
