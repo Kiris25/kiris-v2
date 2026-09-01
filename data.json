@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-01T19:25:18.446Z",
+  "fechaPublicacion": "2026-09-01T21:08:00.034Z",
   "manuales": [
     {
       "id": "manual_1783711643188_c23f0eac04ec68",
@@ -303,11 +303,12 @@
       "tipo": "T",
       "paginas": 22,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
+      "fechaInicio": "2026-09-01",
+      "fechaFinalizacion": "2026-09-01",
+      "fechaPublicado": "2026-09-01",
       "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "color": "#FF6C0C",
+      "colorCalendario": "#F4A261"
     },
     {
       "id": "manual_1783711643188_d98154bef40d3",
@@ -3325,8 +3326,8 @@
       "justificacionGestor": "SÍ",
       "fechaPublicado": "2026-08-24",
       "versionTraducir": "SÍ",
-      "justificacionIngles": "NO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "justificacionIngles": "SÍ",
+      "listo": "AMBOS IDIOMAS"
     },
     {
       "id": "tramite_56_1787259543876",
@@ -6140,7 +6141,7 @@
       "idioma": "Inglés",
       "numero": "0",
       "ubicacionEService": "siscard+ Issuer User Manuals",
-      "fecha": "",
+      "fecha": "2026-09-01",
       "estado": "Pendiente",
       "observaciones": ""
     },
