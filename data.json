@@ -1,7 +1,41 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-02T17:14:14.151Z",
+  "fechaPublicacion": "2026-09-02T17:19:15.955Z",
   "manuales": [
+    {
+      "id": "manual_1788369543670_5ae0d186646238",
+      "codigo": "UEO-CAP-MI-065",
+      "titulo": "Manual for the Procedure to Create Web Acquiring Merchants",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2842839",
+      "prioridad": "Alta",
+      "tipo": "T",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
+      "id": "manual_1788369422239_59d02da1ae10e8",
+      "codigo": "UEO-CAP-MU-065",
+      "titulo": "Manual Procedimiento Creación de Comercios (Adquirencia Web)",
+      "idioma": "Español",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2842839",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
     {
       "id": "manual_1788369217266_edfb6e53a5d1a8",
       "codigo": "UEO-CAP-MU-020",
@@ -3125,6 +3159,23 @@
     }
   ],
   "tramites": [
+    {
+      "id": "tramite_1788369378218_6ddce51dea739",
+      "requerimiento": "2842839",
+      "detalle": "Se requiere exista mayor proactividad a la hora de dar de alta un comercio, por ejemplo, simplificar ciertos campos en el alta de una sucursal:  Seguimiento del CO 2782083",
+      "fechaIngreso": "",
+      "fechaInicio": "",
+      "manualActualizar": "Manual Procedimiento Creación de Comercios (Adquirencia Web)",
+      "temaGeneral": "Adquirencia Web",
+      "baAsignado": "",
+      "consultas": "Hay cambios en las opciones para abrir sucursales y otras cosas.",
+      "respuestaConsulta": "",
+      "justificacionGestor": "NO",
+      "fechaPublicado": "",
+      "versionTraducir": "SÍ",
+      "justificacionIngles": "NO",
+      "listo": "PENDIENTE"
+    },
     {
       "id": "tramite_1788369167242_5159b42576c748",
       "requerimiento": "2830311",
