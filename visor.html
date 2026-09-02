@@ -55,7 +55,7 @@
 <div class="kpi-grid" id="kpiCards"></div>
 <div class="dashboard-grid"><div class="panel"><div class="panel-header compacta"><h3>📈 Horas por tipo</h3><button class="btn btn-light" id="btnVerDetalleHoras">Ver detalle</button></div><div id="graficoTiposMes"></div></div><div class="panel"><div class="panel-header compacta"><h3>🏆 Manuales del mes</h3><div class="navegacion-mes"><button class="btn btn-light" id="btnDashboardMesAnterior">◀</button><select id="selectorMesDashboard"></select><input id="selectorAnioDashboard" type="number"/><button class="btn btn-light" id="btnDashboardMesSiguiente">▶</button></div></div><div class="dashboard-scroll" id="topManualesHoras"></div></div></div>
 <div class="dashboard-grid"><div class="panel"><h3>📅 Estrategia Semanal</h3><div id="estrategiaSemanal"></div></div><div class="panel"><div class="panel-header compacta"><h3>📚 Manuales por estado</h3><button class="btn btn-light" id="btnVerDetalleEstados">Ver detalle</button></div><div class="dashboard-state-grid" id="manualesPorEstado"></div></div></div>
-<div class="panel panel-ciclo"><div class="panel-header"><div><h3>📌 Requerimientos y Trámites</h3><div class="small-note">Promedio de días por categoría.</div></div><div class="toolbar"><button class="btn btn-light" id="btnDiasPorTarea">Días por tarea</button><button class="btn btn-light" id="btnVerDetalleCiclo">Ver detalle</button></div></div><div class="pending-tasks-card"><span>Pending Tasks:</span><strong id="pendingTasksCount">0</strong></div><div class="dashboard-cycle-summary" id="resumenDashboardCiclo"></div><div class="dashboard-scroll"><div class="dashboard-cycle-chart" id="graficoDashboardCiclo"></div></div><div class="dashboard-method-note">El gráfico calcula, para cada <strong>Change Category</strong>, los días transcurridos entre <strong>Start Date</strong> y <strong>Comp Date</strong>. Solo se incluyen registros que contienen ambas fechas válidas; luego se muestra el promedio de esos días por categoría.</div></div>
+<div class="panel panel-ciclo"><div class="panel-header"><div><h3>📌 Requerimientos y Trámites</h3><div class="small-note">Promedio de días hábiles por categoría.</div></div><div class="toolbar"><button class="btn btn-light" id="btnDiasPorTarea">Días hábiles por tarea</button><button class="btn btn-light" id="btnVerDetalleCiclo">Ver detalle</button></div></div><div class="pending-tasks-card"><span>Pending Tasks:</span><strong id="pendingTasksCount">0</strong></div><div class="dashboard-cycle-summary" id="resumenDashboardCiclo"></div><div class="dashboard-scroll"><div class="dashboard-cycle-chart" id="graficoDashboardCiclo"></div></div><div class="dashboard-method-note">El gráfico calcula, para cada <strong>Change Category</strong>, los días hábiles transcurridos entre <strong>Start Date</strong> y <strong>Comp Date</strong>, excluyendo sábados y domingos. Solo se incluyen registros que contienen ambas fechas válidas; luego se muestra el promedio de días hábiles por categoría.</div></div>
 </section>  
 <section class="tab-content" id="tabTramites"><div class="panel"><div class="panel-header"><div><h2>Trámites y Requerimientos</h2></div><div class="toolbar"><button class="btn btn-light" id="btnColumnasTramites">Columnas</button><button class="btn btn-light" data-clear="tablaTramites">Limpiar filtros</button></div></div><div class="table-wrapper viewer-table" id="tablaTramites"></div></div></section>  
 <section class="tab-content" id="tabVersiones"><div class="panel"><div class="panel-header"><div><h2>Control de Versiones</h2></div><div class="toolbar"><button class="btn btn-light" data-clear="tablaVersiones">Limpiar filtros</button></div></div><div class="kpi-grid resumen-versiones" id="resumenVersiones"></div><div class="table-wrapper viewer-table" id="tablaVersiones"></div></div></section>  
@@ -105,11 +105,71 @@ function nombreCompletoManual(m){return [m.codigo,m.titulo].filter(Boolean).join
 function valorCiclo(o,nombres){const ks=Object.keys(o||{});for(const n of nombres){const k=ks.find(x=>norm(x).replace(/[^a-z0-9]/g,"")===norm(n).replace(/[^a-z0-9]/g,""));if(k!==undefined)return o[k]}return""}
 function fechaCiclo(v){if(v===""||v==null)return null;if(v instanceof Date)return Number.isNaN(v.getTime())?null:v;if(typeof v==="number"){const d=new Date(Math.round((v-25569)*86400*1000));return Number.isNaN(d.getTime())?null:d}const d=new Date(v);return Number.isNaN(d.getTime())?null:d}
 function fechaHoraCiclo(v){if(v===""||v==null)return"";if(typeof v==="number"){const d=fechaCiclo(v);return d?`${String(d.getUTCDate()).padStart(2,"0")}/${String(d.getUTCMonth()+1).padStart(2,"0")}/${d.getUTCFullYear()} ${String(d.getUTCHours()).padStart(2,"0")}:${String(d.getUTCMinutes()).padStart(2,"0")}:${String(d.getUTCSeconds()).padStart(2,"0")}`:String(v)}const texto=String(v).trim(),iso=texto.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);if(iso)return`${iso[3]}/${iso[2]}/${iso[1]} ${iso[4]}:${iso[5]}:${iso[6]}`;const d=fechaCiclo(texto);return d?`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}:${String(d.getSeconds()).padStart(2,"0")}`:texto}
-function diasIndividualesCiclo(o){const a=fechaCiclo(valorCiclo(o,["Start Date"])),b=fechaCiclo(valorCiclo(o,["Comp Date"]));return a&&b&&b>=a?Number(((b-a)/86400000).toFixed(2)):""}
+function diasHabilesEntre(inicio, fin) {
+    if (!inicio || !fin || fin < inicio) {
+        return 0;
+    }
+
+    const fechaActual = new Date(
+        inicio.getFullYear(),
+        inicio.getMonth(),
+        inicio.getDate()
+    );
+
+    const fechaFinal = new Date(
+        fin.getFullYear(),
+        fin.getMonth(),
+        fin.getDate()
+    );
+
+    let diasHabiles = 0;
+
+    while (fechaActual < fechaFinal) {
+        fechaActual.setDate(
+            fechaActual.getDate() + 1
+        );
+
+        const diaSemana = fechaActual.getDay();
+        const esSabado = diaSemana === 6;
+        const esDomingo = diaSemana === 0;
+
+        if (!esSabado && !esDomingo) {
+            diasHabiles++;
+        }
+    }
+
+    return diasHabiles;
+}
+
+function diasIndividualesCiclo(o) {
+    const inicio = fechaCiclo(
+        valorCiclo(
+            o,
+            ["Start Date"]
+        )
+    );
+
+    const fin = fechaCiclo(
+        valorCiclo(
+            o,
+            ["Comp Date"]
+        )
+    );
+
+    if (!inicio || !fin || fin < inicio) {
+        return "";
+    }
+
+    return diasHabilesEntre(
+        inicio,
+        fin
+    );
+}
+
 const CAMPOS_CICLO=["Change #","Seq","Task","Company","Affected End User","Assignee","Start Date","Task Status","Change Category","Comp Date","Task Description","Task Comments","Change Description","Order Comments"];
 function filasCicloDetalle(){return datos.ciclo.map(x=>x.original||x).map(o=>Object.fromEntries(CAMPOS_CICLO.map(c=>[c,valorCiclo(o,[c])])))}
 function filasDiasPorTarea(){return datos.ciclo.map(x=>x.original||x).map(o=>({"Días":diasIndividualesCiclo(o),"Change #":valorCiclo(o,["Change #"]),"Change Category":valorCiclo(o,["Change Category"]),"Seq":valorCiclo(o,["Seq"]),"Task Status":valorCiclo(o,["Task Status"]),"Start Date":valorCiclo(o,["Start Date"]),"Comp Date":valorCiclo(o,["Comp Date"])})).filter(f=>f["Días"]!=="").sort((a,b)=>b["Días"]-a["Días"])}
-function abrirDiasPorTarea(){abrirDetalleDashboard("Días por tarea",[{label:"Días",key:"Días"},{label:"Change #",key:"Change #"},{label:"Change Category",key:"Change Category"},{label:"Seq",key:"Seq"},{label:"Task Status",key:"Task Status"},{label:"Start Date",key:"Start Date"},{label:"Comp Date",key:"Comp Date"}],filasDiasPorTarea())}
+function abrirDiasPorTarea(){abrirDetalleDashboard("Días hábiles por tarea",[{label:"Días",key:"Días"},{label:"Change #",key:"Change #"},{label:"Change Category",key:"Change Category"},{label:"Seq",key:"Seq"},{label:"Task Status",key:"Task Status"},{label:"Start Date",key:"Start Date"},{label:"Comp Date",key:"Comp Date"}],filasDiasPorTarea())}
 function esTaskPendiente(o){return norm(valorCiclo(o,["Task Status"])).includes("pending")}
 function abrirDetalleDashboard(titulo,columnas,filas){
     $("dashboardDetalleTitulo").textContent=titulo;
@@ -126,9 +186,81 @@ function cerrarDetalleDashboard(){$("dashboardDetalleModal").hidden=true}
 function abrirDetalleHoras(){const f=[...datos.bitacora].sort((a,b)=>String(a.tipo||"").localeCompare(String(b.tipo||""),"es")||String(a.fecha||"").localeCompare(String(b.fecha||"")));abrirDetalleDashboard("Detalle de horas por tipo",[{label:"Tipo",key:"tipo"},{label:"Manual",key:"manual"},{label:"Fecha",key:"fecha"},{label:"Horas",value:r=>Number(r.horas||0).toFixed(2)}],f)}
 function abrirDetalleEstados(){const f=datos.manuales.map(m=>({manual:nombreCompletoManual(m),estado:estadoManual(m)})).sort((a,b)=>a.estado.localeCompare(b.estado,"es")||a.manual.localeCompare(b.manual,"es"));abrirDetalleDashboard("Detalle de manuales por estado",[{label:"Manual",key:"manual"},{label:"Estado",key:"estado"}],f)}
 function abrirDetalleProduccion(){const f=filasCicloDetalle();abrirDetalleDashboard("Detalle de Requerimientos y Trámites",CAMPOS_CICLO.map(k=>({label:k,key:k})),f)}
-function datosPromedioCiclo(){const g={};datos.ciclo.forEach(x=>{const o=x.original||x,a=fechaCiclo(valorCiclo(o,["Start Date"])),b=fechaCiclo(valorCiclo(o,["Comp Date"])),cat=String(valorCiclo(o,["Change Category"])||"Sin categoría");if(a&&b&&b>=a)(g[cat]??=[]).push((b-a)/86400000)});const p={};Object.entries(g).forEach(([k,v])=>p[k]=v.reduce((a,b)=>a+b,0)/v.length);return{grupos:g,promedios:p,total:Object.values(g).reduce((a,v)=>a+v.length,0)}}
+function datosPromedioCiclo() {
+    const grupos = {};
+
+    datos.ciclo.forEach(registro => {
+        const original = registro.original || registro;
+
+        const inicio = fechaCiclo(
+            valorCiclo(
+                original,
+                ["Start Date"]
+            )
+        );
+
+        const fin = fechaCiclo(
+            valorCiclo(
+                original,
+                ["Comp Date"]
+            )
+        );
+
+        const categoria = String(
+            valorCiclo(
+                original,
+                ["Change Category"]
+            ) || "Sin categoría"
+        );
+
+        if (
+            inicio &&
+            fin &&
+            fin >= inicio
+        ) {
+            const diasHabiles = diasHabilesEntre(
+                inicio,
+                fin
+            );
+
+            if (!grupos[categoria]) {
+                grupos[categoria] = [];
+            }
+
+            grupos[categoria].push(
+                diasHabiles
+            );
+        }
+    });
+
+    const promedios = {};
+
+    Object.entries(grupos).forEach(
+        ([categoria, valores]) => {
+            const totalDias = valores.reduce(
+                (acumulado, dias) => acumulado + dias,
+                0
+            );
+
+            promedios[categoria] =
+                totalDias / valores.length;
+        }
+    );
+
+    const total = Object.values(grupos).reduce(
+        (acumulado, valores) => acumulado + valores.length,
+        0
+    );
+
+    return {
+        grupos,
+        promedios,
+        total
+    };
+}
+
 function renderDashboard(){selectMes("selectorMesDashboard",fechaDash);$("selectorAnioDashboard").value=fechaDash.getFullYear();const horas=datos.bitacora.reduce((a,b)=>a+Number(b.horas||0),0),pub=datos.manuales.filter(m=>estadoManual(m)==="Publicado").length,enProceso=datos.manuales.filter(m=>estadoManual(m)==="En proceso").length;$("kpiCards").innerHTML=[["Total de manuales",datos.manuales.length],["Publicados",pub],["En proceso",enProceso],["Trámites",datos.tramites.length],["Horas registradas",horas.toFixed(2)]].map(([l,v])=>`<div class="kpi-card"><div class="label">${esc(l)}</div><div class="value">${esc(v)}</div></div>`).join("");const pt={},top={},estados={};datos.bitacora.forEach(b=>{pt[b.tipo||"Sin tipo"]=(pt[b.tipo||"Sin tipo"]||0)+Number(b.horas||0);const d=new Date(`${b.fecha}T00:00:00`);if(!Number.isNaN(d.getTime())&&d.getMonth()===fechaDash.getMonth()&&d.getFullYear()===fechaDash.getFullYear())top[b.manual||"Sin manual"]=(top[b.manual||"Sin manual"]||0)+Number(b.horas||0)});datos.manuales.forEach(m=>{const e=estadoManual(m);estados[e]=(estados[e]||0)+1});barrasDashboard("graficoTiposMes",pt," h");barrasDashboard("topManualesHoras",top," h");$("estrategiaSemanal").innerHTML='<p><strong>Lunes, martes y jueves:</strong> traducciones, actualizaciones y manuales nuevos.</p><p><strong>Miércoles:</strong> requerimientos.</p>';$("manualesPorEstado").innerHTML=Object.entries(estados).map(([e,c])=>`<div class="dashboard-state-card"><div class="dashboard-state-label">${esc(e)}</div><div class="dashboard-state-value">${c}</div></div>`).join("")||'<div class="viewer-empty">Sin manuales.</div>';const c=datosPromedioCiclo(),pendientes=datos.ciclo.map(x=>x.original||x).filter(esTaskPendiente).length;$("pendingTasksCount").textContent=pendientes;$("resumenDashboardCiclo").innerHTML=`<div class="small-note">${c.total} registros con Start Date y Comp Date válidos</div>`;barrasDashboard("graficoDashboardCiclo",c.promedios," días")}
-function exportarDashboardExcel(){if(typeof XLSX==="undefined")return alert("No se pudo cargar el generador de Excel. Actualice la página e intente nuevamente.");const wb=XLSX.utils.book_new(),c=datosPromedioCiclo();const resumen=[["Indicador","Valor"],["Total de manuales",datos.manuales.length],["Publicados",datos.manuales.filter(m=>estadoManual(m)==="Publicado").length],["En proceso",datos.manuales.filter(m=>estadoManual(m)==="En proceso").length],["Trámites",datos.tramites.length],["Horas registradas",datos.bitacora.reduce((a,b)=>a+Number(b.horas||0),0)],["Registros válidos para promedio",c.total],["Pending Tasks",datos.ciclo.map(x=>x.original||x).filter(esTaskPendiente).length]];XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(resumen),"Resumen");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(datos.bitacora.map(b=>({Tipo:b.tipo||"",Manual:b.manual||"",Fecha:b.fecha||"",Horas:Number(b.horas||0)}))),"Detalle horas");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(datos.manuales.map(m=>({Manual:nombreCompletoManual(m),Estado:estadoManual(m)}))),"Manuales por estado");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(Object.entries(c.promedios).map(([k,v])=>({"Change Category":k,"Promedio de días":Number(v.toFixed(1)),"Cantidad de registros":c.grupos[k].length}))),"Promedio por categoría");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(filasCicloDetalle(),{header:CAMPOS_CICLO}),"Requerimientos");XLSX.writeFile(wb,`Dashboard_KIRIS_${new Date().toISOString().slice(0,10)}.xlsx`)}
+function exportarDashboardExcel(){if(typeof XLSX==="undefined")return alert("No se pudo cargar el generador de Excel. Actualice la página e intente nuevamente.");const wb=XLSX.utils.book_new(),c=datosPromedioCiclo();const resumen=[["Indicador","Valor"],["Total de manuales",datos.manuales.length],["Publicados",datos.manuales.filter(m=>estadoManual(m)==="Publicado").length],["En proceso",datos.manuales.filter(m=>estadoManual(m)==="En proceso").length],["Trámites",datos.tramites.length],["Horas registradas",datos.bitacora.reduce((a,b)=>a+Number(b.horas||0),0)],["Registros válidos para promedio",c.total],["Pending Tasks",datos.ciclo.map(x=>x.original||x).filter(esTaskPendiente).length]];XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(resumen),"Resumen");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(datos.bitacora.map(b=>({Tipo:b.tipo||"",Manual:b.manual||"",Fecha:b.fecha||"",Horas:Number(b.horas||0)}))),"Detalle horas");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(datos.manuales.map(m=>({Manual:nombreCompletoManual(m),Estado:estadoManual(m)}))),"Manuales por estado");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(Object.entries(c.promedios).map(([k,v])=>({"Change Category":k,"Promedio de días hábiles":Number(v.toFixed(1)),"Cantidad de registros":c.grupos[k].length}))),"Promedio por categoría");XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(filasCicloDetalle(),{header:CAMPOS_CICLO}),"Requerimientos");XLSX.writeFile(wb,`Dashboard_KIRIS_${new Date().toISOString().slice(0,10)}.xlsx`)}
 function renderVersiones(){renderTabla("tablaVersiones",datos.versiones,CV);const ingles=datos.versiones.filter(v=>norm(v.idioma)==="ingles").length,espanol=datos.versiones.filter(v=>norm(v.idioma)==="espanol").length,spi=datos.versiones.filter(v=>norm(v.sistema).includes("siscard+")&&norm(v.idioma)==="ingles").length,spe=datos.versiones.filter(v=>norm(v.sistema).includes("siscard+")&&norm(v.idioma)==="espanol").length;$("resumenVersiones").innerHTML=[["Total en Inglés",ingles],["Total en Español",espanol],["Total siscard+ Inglés",spi],["Total siscard+ Español",spe]].map(([l,v])=>`<div class="kpi-card"><div class="label">${l}</div><div class="value">${v}</div></div>`).join("")}   
 function renderTodo(){renderTabla("tablaManuales",datos.manuales,CM);renderTabla("tablaTramites",datos.tramites,CT);renderVersiones();renderCalendarios();renderDashboard()}   
 document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab-btn,.tab-content").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-btn").forEach(x=>x.setAttribute("aria-selected","false"));b.classList.add("active");b.setAttribute("aria-selected","true");$(b.dataset.tab).classList.add("active")});document.querySelectorAll("[data-clear]").forEach(b=>b.onclick=()=>limpiar(b.dataset.clear));$("btnColumnasManuales").onclick=e=>{e.stopPropagation();columnas("tablaManuales","columnsPanelManuales","columnsListManuales")};$("btnColumnasTramites").onclick=e=>{e.stopPropagation();columnas("tablaTramites","columnsPanelTramites","columnsListTramites")};document.querySelectorAll("[data-close-columns]").forEach(b=>b.onclick=()=>b.closest("aside").hidden=true);document.querySelectorAll("[data-show-all]").forEach(b=>b.onclick=()=>{const t=tablas[b.dataset.showAll];t.ocultas.clear();renderTabla(b.dataset.showAll,t.filas,t.columnas)});document.querySelectorAll("[data-hide-all]").forEach(b=>b.onclick=()=>{const t=tablas[b.dataset.hideAll];t.columnas.forEach((_,i)=>t.ocultas.add(i));renderTabla(b.dataset.hideAll,t.filas,t.columnas)});document.addEventListener("click",e=>{document.querySelectorAll(".viewer-inline-filter").forEach(p=>p.remove());if(!$("filterMenu").hidden&&!$("filterMenu").contains(e.target)&&!e.target.closest(".viewer-filter-combo"))$("filterMenu").hidden=true;document.querySelectorAll(".columns-panel:not([hidden])").forEach(p=>{if(!p.contains(e.target)&&!e.target.closest("#btnColumnasManuales,#btnColumnasTramites"))p.hidden=true})});$("btnPantallaCompleta").onclick=()=>document.fullscreenElement?document.exitFullscreen():$("panelManuales").requestFullscreen();$("btnCalendarioAnterior").onclick=()=>{fechaManual.setMonth(fechaManual.getMonth()-1);renderCalendarios()};$("btnCalendarioSiguiente").onclick=()=>{fechaManual.setMonth(fechaManual.getMonth()+1);renderCalendarios()};$("btnCalendarioHoy").onclick=()=>{fechaManual=new Date();renderCalendarios()};$("selectorMesCalendario").onchange=e=>{fechaManual.setMonth(+e.target.value);renderCalendarios()};$("selectorAnioCalendario").onchange=e=>{fechaManual.setFullYear(+e.target.value);renderCalendarios()};$("btnBitacoraAnterior").onclick=()=>{fechaBitacora.setMonth(fechaBitacora.getMonth()-1);renderCalendarios()};$("btnBitacoraSiguiente").onclick=()=>{fechaBitacora.setMonth(fechaBitacora.getMonth()+1);renderCalendarios()};$("selectorMesBitacora").onchange=e=>{fechaBitacora.setMonth(+e.target.value);renderCalendarios()};$("selectorAnioBitacora").onchange=e=>{fechaBitacora.setFullYear(+e.target.value);renderCalendarios()};$("btnDashboardMesAnterior").onclick=()=>{fechaDash.setMonth(fechaDash.getMonth()-1);renderDashboard()};$("btnDashboardMesSiguiente").onclick=()=>{fechaDash.setMonth(fechaDash.getMonth()+1);renderDashboard()};$("selectorMesDashboard").onchange=e=>{fechaDash.setMonth(+e.target.value);renderDashboard()};$("selectorAnioDashboard").onchange=e=>{fechaDash.setFullYear(+e.target.value);renderDashboard()};$("btnVerDetalleHoras").onclick=abrirDetalleHoras;$("btnVerDetalleEstados").onclick=abrirDetalleEstados;$("btnDiasPorTarea").onclick=abrirDiasPorTarea;$("btnVerDetalleCiclo").onclick=abrirDetalleProduccion;$("btnCerrarDashboardDetalle").onclick=cerrarDetalleDashboard;$("dashboardDetalleModal").onclick=e=>{if(e.target===$("dashboardDetalleModal"))cerrarDetalleDashboard()};  
