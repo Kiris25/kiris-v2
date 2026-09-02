@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-02T20:15:20.840Z",
+  "fechaPublicacion": "2026-09-02T20:21:33.643Z",
   "manuales": [
     {
       "id": "manual_1788369543670_5ae0d186646238",
@@ -170,8 +170,8 @@
       "paginas": 0,
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-02",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
+      "fechaFinalizacion": "2026-09-02",
+      "fechaPublicado": "2026-09-02",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#F4A261"
@@ -2889,8 +2889,8 @@
       "manualId": "manual_1787779134902_57ce9583af27a8",
       "tipo": "R",
       "horaInicio": "11:19",
-      "horaFin": "15:30",
-      "horas": 4.183333333333334,
+      "horaFin": "14:20",
+      "horas": 3.0166666666666666,
       "paginas": 0,
       "detalle": ""
     },
@@ -4204,10 +4204,10 @@
       "consultas": "",
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-02",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1787779446191_64fa2a70b263e",
@@ -4593,7 +4593,7 @@
       "manual": "Security Module Manual",
       "idioma": "Inglés",
       "numero": "0",
-      "fecha": "",
+      "fecha": "2026-09-02",
       "estado": "Disponible",
       "observaciones": ""
     },
