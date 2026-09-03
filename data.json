@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-03T20:20:32.297Z",
+  "fechaPublicacion": "2026-09-03T20:23:35.188Z",
   "manuales": [
     {
       "id": "manual_1788369543670_5ae0d186646238",
@@ -4243,13 +4243,13 @@
       "manualActualizar": "siscard+ Manual Módulo de seguridad",
       "temaGeneral": "Seguridad",
       "baAsignado": "",
-      "consultas": "",
+      "consultas": "Me falta una pantalla de los reportes. ",
       "respuestaConsulta": "",
       "justificacionGestor": "NO",
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE / NO SE VE EL CAMBIO"
     },
     {
       "id": "tramite_1787158629272_fd9a7b8bb353a",
