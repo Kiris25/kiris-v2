@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-03T16:40:16.606Z",
+  "fechaPublicacion": "2026-09-03T20:20:32.297Z",
   "manuales": [
     {
       "id": "manual_1788369543670_5ae0d186646238",
@@ -2892,8 +2892,8 @@
       "horaInicio": "08:00",
       "horaFin": "15:30",
       "horas": 7.5,
-      "paginas": 0,
-      "detalle": ""
+      "paginas": 62,
+      "detalle": "Me falta una pantalla que no pude conseguir todavía."
     },
     {
       "id": "bitacora_1788381124120_4735ff783d43f",
