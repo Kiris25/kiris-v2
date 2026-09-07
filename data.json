@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-07T20:12:36.162Z",
+  "fechaPublicacion": "2026-09-07T20:17:49.434Z",
   "manuales": [
     {
       "id": "manual_1788811794153_3df0df0d213ae8",
       "codigo": "UEO-CAP-MI-134",
-      "titulo": "Manual del Módulo de Autogestión Click to Pay",
+      "titulo": " Click to Pay Self-Service Module Manual",
       "idioma": "Inglés",
       "archivoElectronico": "No",
       "ocRelacionado": "2921143",
@@ -123,6 +123,23 @@
       "horasEsfuerzo": 6,
       "color": "#FF6C0C",
       "colorCalendario": "#D62828"
+    },
+    {
+      "id": "manual_1788812221838_af1c3ff91a3d88",
+      "codigo": "UEO-CAP-MU-135",
+      "titulo": "siscard+ Manual del Módulo de Autogestión Click to Pay",
+      "idioma": "Español",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2921143",
+      "prioridad": "Media",
+      "tipo": "N",
+      "paginas": 23,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
     },
     {
       "id": "manual_1787779590906_23d979c2b59768",
@@ -4465,6 +4482,30 @@
     }
   ],
   "versiones": [
+    {
+      "id": "version_1788812056488_cb8dafc6c61658",
+      "sistema": "siscard+",
+      "codigo": "UEO-CAP-MU-135",
+      "manual": "siscard+ Manual del Módulo de Autogestión Click to Pay",
+      "idioma": "Español",
+      "numero": "0",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
+      "fecha": "",
+      "estado": "Pendiente",
+      "observaciones": ""
+    },
+    {
+      "id": "version_1788812063336_620713adba3838",
+      "sistema": "siscard+",
+      "codigo": "UEO-CAP-MI-135",
+      "manual": "siscard+ Click to Pay Self-Service Module Manual",
+      "idioma": "Inglés",
+      "numero": "0",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
+      "fecha": "",
+      "estado": "Pendiente",
+      "observaciones": ""
+    },
     {
       "ubicacionEService": "Manual uso Eservice clientes Evertec",
       "id": "version_1786998835544_0ee8887457ee7",
