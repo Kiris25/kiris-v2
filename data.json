@@ -1,7 +1,24 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-07T19:19:07.552Z",
+  "fechaPublicacion": "2026-09-07T20:12:36.162Z",
   "manuales": [
+    {
+      "id": "manual_1788811794153_3df0df0d213ae8",
+      "codigo": "UEO-CAP-MI-134",
+      "titulo": "Manual del Módulo de Autogestión Click to Pay",
+      "idioma": "Inglés",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2921143",
+      "prioridad": "Media",
+      "tipo": "T",
+      "paginas": 23,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
     {
       "id": "manual_1788369543670_5ae0d186646238",
       "codigo": "UEO-CAP-MI-065",
@@ -91,19 +108,19 @@
     },
     {
       "id": "manual_1787598499528_75b71799c05578",
-      "codigo": "N/A",
-      "titulo": "CLICK TO PAY",
+      "codigo": "UEO-CAP-MU-134",
+      "titulo": "Manual del Módulo de Autogestión Click to Pay",
       "idioma": "Español",
       "archivoElectronico": "No",
       "ocRelacionado": "2921143",
       "prioridad": "Alta",
       "tipo": "N",
-      "paginas": 0,
-      "diasEsfuerzo": 0,
+      "paginas": 23,
+      "diasEsfuerzo": 2,
       "fechaInicio": "2026-08-24",
-      "fechaFinalizacion": "",
+      "fechaFinalizacion": "2026-09-07",
       "fechaPublicado": "",
-      "horasEsfuerzo": 0,
+      "horasEsfuerzo": 6,
       "color": "#FF6C0C",
       "colorCalendario": "#D62828"
     },
@@ -2891,9 +2908,9 @@
       "manualId": "manual_1787598499528_75b71799c05578",
       "tipo": "N",
       "horaInicio": "08:00",
-      "horaFin": "15:00",
-      "horas": 7,
-      "paginas": 0,
+      "horaFin": "14:00",
+      "horas": 6,
+      "paginas": 23,
       "detalle": ""
     },
     {
@@ -4350,10 +4367,27 @@
       "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
       "fechaIngreso": "2026-08-19",
       "fechaInicio": "2026-08-24",
-      "manualActualizar": "NUEVO MANUAL CLICK TO PAY",
+      "manualActualizar": "UEO-CAP-MU-134\tManual del Módulo de Autogestión Click to Pay",
       "temaGeneral": "CLICK TO PAY",
       "baAsignado": "",
       "consultas": "Se debe agregar además las actualizaciones de Click to Pay en la opcion 20 Tarjetas del TRT28SN3 Trabajar con una cuenta. ",
+      "respuestaConsulta": "",
+      "justificacionGestor": "SÍ",
+      "fechaPublicado": "",
+      "versionTraducir": "SÍ",
+      "justificacionIngles": "NO",
+      "listo": "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN"
+    },
+    {
+      "id": "tramite_1788811805125_700cffc504f1d8",
+      "requerimiento": "2921143",
+      "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
+      "fechaIngreso": "2026-08-19",
+      "fechaInicio": "",
+      "manualActualizar": "CLICK TO PAY SISCARD+",
+      "temaGeneral": "CLICK TO PAY",
+      "baAsignado": "",
+      "consultas": "Se debe agregar además las actualizaciones de Click to Pay en la opcion 20 Tarjetas del TRT28SN3 Trabajar con una cuenta.",
       "respuestaConsulta": "",
       "justificacionGestor": "NO",
       "fechaPublicado": "",
@@ -4431,30 +4465,6 @@
     }
   ],
   "versiones": [
-    {
-      "id": "version_1788808581361_b8a752173c16b8",
-      "sistema": "SISCARD",
-      "codigo": "UEO-CAP-MU-134",
-      "manual": "Manual del Módulo de Autogestión Click to Pay",
-      "idioma": "Español",
-      "numero": "0",
-      "ubicacionEService": "Siscard Emisor Manuales de usuario",
-      "fecha": "",
-      "estado": "Pendiente",
-      "observaciones": ""
-    },
-    {
-      "id": "version_1788808716248_ea6a43bef2dd3",
-      "sistema": "SISCARD",
-      "codigo": "UEO-CAP-MI-134",
-      "manual": "Click to Pay Self-Service Module Manual",
-      "idioma": "Inglés",
-      "numero": "0",
-      "ubicacionEService": "Siscard Issuer User Manuals",
-      "fecha": "",
-      "estado": "Pendiente",
-      "observaciones": ""
-    },
     {
       "ubicacionEService": "Manual uso Eservice clientes Evertec",
       "id": "version_1786998835544_0ee8887457ee7",
@@ -4741,6 +4751,18 @@
       "numero": "1",
       "fecha": "",
       "estado": "Disponible",
+      "observaciones": ""
+    },
+    {
+      "id": "version_1788808716248_ea6a43bef2dd3",
+      "sistema": "SISCARD",
+      "codigo": "UEO-CAP-MI-134",
+      "manual": "Click to Pay Self-Service Module Manual",
+      "idioma": "Inglés",
+      "numero": "0",
+      "ubicacionEService": "Siscard Issuer User Manuals",
+      "fecha": "",
+      "estado": "Pendiente",
       "observaciones": ""
     },
     {
@@ -5929,6 +5951,18 @@
       "numero": "0",
       "fecha": "",
       "estado": "Disponible",
+      "observaciones": ""
+    },
+    {
+      "id": "version_1788808581361_b8a752173c16b8",
+      "sistema": "SISCARD",
+      "codigo": "UEO-CAP-MU-134",
+      "manual": "Manual del Módulo de Autogestión Click to Pay",
+      "idioma": "Español",
+      "numero": "0",
+      "ubicacionEService": "Siscard Emisor Manuales de usuario",
+      "fecha": "",
+      "estado": "Pendiente",
       "observaciones": ""
     },
     {
