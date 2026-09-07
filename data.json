@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-07T18:25:12.857Z",
+  "fechaPublicacion": "2026-09-07T19:19:07.552Z",
   "manuales": [
     {
       "id": "manual_1788369543670_5ae0d186646238",
@@ -4431,6 +4431,30 @@
     }
   ],
   "versiones": [
+    {
+      "id": "version_1788808581361_b8a752173c16b8",
+      "sistema": "SISCARD",
+      "codigo": "UEO-CAP-MU-134",
+      "manual": "Manual del Módulo de Autogestión Click to Pay",
+      "idioma": "Español",
+      "numero": "0",
+      "ubicacionEService": "Siscard Emisor Manuales de usuario",
+      "fecha": "",
+      "estado": "Pendiente",
+      "observaciones": ""
+    },
+    {
+      "id": "version_1788808716248_ea6a43bef2dd3",
+      "sistema": "SISCARD",
+      "codigo": "UEO-CAP-MI-134",
+      "manual": "Click to Pay Self-Service Module Manual",
+      "idioma": "Inglés",
+      "numero": "0",
+      "ubicacionEService": "Siscard Issuer User Manuals",
+      "fecha": "",
+      "estado": "Pendiente",
+      "observaciones": ""
+    },
     {
       "ubicacionEService": "Manual uso Eservice clientes Evertec",
       "id": "version_1786998835544_0ee8887457ee7",
