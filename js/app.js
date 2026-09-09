@@ -272,25 +272,61 @@ function estadoInicial() {
   };  
 }  
  
-function cargarEstado() {  
-  try {  
-    const guardado = JSON.parse(localStorage.getItem(STORAGE_KEY));  
-    return guardado && typeof guardado === "object"  
-      ? { ...estadoInicial(), ...guardado }  
-      : estadoInicial();  
-  } catch (error) {  
-    console.error("No fue posible cargar los datos locales.", error);  
-    return estadoInicial();  
-  }  
-}  
- 
-let estado = cargarEstado(); 
- 
-estado.tramites = (estado.tramites || []).map((tramite) => ({ 
-  id: tramite.id || id("tramite"), 
-  ...tramite, 
-  listo: normalizarEstadoListo(tramite.listo), 
-})); 
+function normalizarEstadoCargado(datos) {
+  const base = estadoInicial();
+  const origen = datos?.datos || datos?.data || datos || {};
+  const configuracion = origen.configuracion || {};
+  return {
+    ...base,
+    ...origen,
+    manuales: Array.isArray(origen.manuales) ? origen.manuales : (Array.isArray(origen.calendario) ? origen.calendario : []),
+    tramites: Array.isArray(origen.tramites) ? origen.tramites : [],
+    bitacora: Array.isArray(origen.bitacora) ? origen.bitacora : [],
+    versiones: Array.isArray(origen.versiones) ? origen.versiones : (Array.isArray(origen.controlVersiones) ? origen.controlVersiones : []),
+    ciclo: Array.isArray(origen.ciclo) ? origen.ciclo : (Array.isArray(origen.dashboardProduccion) ? origen.dashboardProduccion : []),
+    comentarios: Array.isArray(origen.comentarios) ? origen.comentarios : [],
+    ultimaCopia: configuracion.ultimaCopia || origen.ultimaCopia || origen.fechaPublicacion || "",
+    columnasOcultasManuales: configuracion.columnasOcultasManuales || origen.columnasOcultasManuales || [],
+    columnasOcultasTramites: configuracion.columnasOcultasTramites || origen.columnasOcultasTramites || [],
+    anchosManuales: configuracion.anchosManuales || origen.anchosManuales || {},
+    anchosTramites: configuracion.anchosTramites || origen.anchosTramites || {},
+    anchosVersiones: configuracion.anchosVersiones || origen.anchosVersiones || {},
+    modo: "editor",
+  };
+}
+
+async function cargarEstado() {
+  try {
+    if (!window.KirisStorage?.cargarPublicado) {
+      throw new Error("El módulo storage.js no está disponible.");
+    }
+    const publicado = await window.KirisStorage.cargarPublicado();
+    const estadoPublicado = normalizarEstadoCargado(publicado);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(estadoPublicado));
+    return estadoPublicado;
+  } catch (errorPublicado) {
+    console.error("No fue posible cargar data.json. Se intentará recuperar la copia local.", errorPublicado);
+    try {
+      const guardado = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (guardado && typeof guardado === "object") {
+        return normalizarEstadoCargado(guardado);
+      }
+    } catch (errorLocal) {
+      console.error("No fue posible recuperar la copia local.", errorLocal);
+    }
+    return estadoInicial();
+  }
+}
+
+let estado = estadoInicial();
+
+function normalizarTramitesCargados() {
+  estado.tramites = (estado.tramites || []).map((tramite) => ({
+    id: tramite.id || id("tramite"),
+    ...tramite,
+    listo: normalizarEstadoListo(tramite.listo),
+  }));
+}
 let filtros = { manuales: {}, tramites: {}, versiones: {} };  
 let fechaCalendario = new Date();  
 let fechaBitacora = new Date();  
@@ -379,7 +415,9 @@ function actualizarEstadoGuardado() {
     texto.textContent = estado.ultimaCopia  
       ? new Date(estado.ultimaCopia).toLocaleString("es-CR")  
       : "Sin guardado registrado";  
-  if (estadoTexto) estadoTexto.textContent = "Guardado local en este navegador";  
+  if (estadoTexto) {
+    estadoTexto.textContent = "Fuente oficial: data.json · copia local de recuperación activa";
+  }  
 }  
  
 function entrar() {  
@@ -2088,13 +2126,15 @@ function renderTodo() {
   renderVersiones();  
 }  
  
-function inicializar() {  
-  configurarLogin();  
-  configurarTabs();  
-  configurarCalendarios();  
-  configurarFormularios();  
-  configurarBotones();  
-  actualizarEstadoGuardado();  
+async function inicializar() {
+  estado = await cargarEstado();
+  normalizarTramitesCargados();
+  configurarLogin();
+  configurarTabs();
+  configurarCalendarios();
+  configurarFormularios();
+  configurarBotones();
+  actualizarEstadoGuardado();
 }  
  
 document.addEventListener("DOMContentLoaded", inicializar);  
