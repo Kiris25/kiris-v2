@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-08T16:04:34.777Z",
+  "fechaPublicacion": "2026-09-09T15:16:30.602Z",
   "manuales": [
     {
       "id": "manual_1788368470721_492c23bedc27c",
@@ -2879,18 +2879,6 @@
   ],
   "bitacora": [
     {
-      "id": "bitacora_1788883428736_3a2c6dde8b978",
-      "fecha": "2026-09-08",
-      "manual": "UEO-CAP-MI-012 - Manual to Work with Services",
-      "manualId": "manual_1783711643188_edb4cff5fc17c",
-      "tipo": "A",
-      "horaInicio": "08:00",
-      "horaFin": "15:30",
-      "horas": 7.5,
-      "paginas": 0,
-      "detalle": "Actualización de traducción"
-    },
-    {
       "id": "bitacora_1788805508591_5851f1d439eb3",
       "fecha": "2026-09-07",
       "manual": "N/A - CLICK TO PAY",
@@ -4212,7 +4200,8 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE / NO SE VE EL CAMBIO"
+      "listo": "PENDIENTE / NO SE VE EL CAMBIO",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_1787239634639_89598707a0253",
@@ -4246,7 +4235,8 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE / NO SE VE EL CAMBIO"
+      "listo": "PENDIENTE / NO SE VE EL CAMBIO",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_1787239459908_56b08b67f67c18",
@@ -4280,7 +4270,8 @@
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE / NO SE VE EL CAMBIO"
+      "listo": "PENDIENTE / NO SE VE EL CAMBIO",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_1787158629272_fd9a7b8bb353a",
@@ -4314,7 +4305,8 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_1787159181371_54ff4c01e1d4e",
@@ -4365,7 +4357,8 @@
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN"
+      "listo": "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_1788811805125_700cffc504f1d8",
@@ -4382,7 +4375,8 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_1787239953045_8d136c07cce068",
@@ -4416,7 +4410,8 @@
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_1788368417527_b9d5e784371628",
@@ -4433,7 +4428,8 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_1788369378218_6ddce51dea739",
@@ -4450,7 +4446,8 @@
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE",
+      "tipoGestion": "R"
     }
   ],
   "versiones": [
