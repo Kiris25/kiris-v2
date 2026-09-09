@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-09T17:55:41.979Z",
+  "fechaPublicacion": "2026-09-09T18:03:59.339Z",
   "manuales": [
     {
       "id": "manual_1788368470721_492c23bedc27c",
@@ -4259,19 +4259,19 @@
       "id": "tramite_1787779446191_64fa2a70b263e",
       "requerimiento": "2750695",
       "detalle": "Buen día, agradezco su apoyo con el BRD adjunto - Usuarios aprobadores iniciativa Landing Page, visto con Juan Bautista G",
+      "tipoGestion": "R",
       "fechaIngreso": "2026-08-12",
-      "fechaInicio": "",
+      "fechaInicio": "2026-09-02",
       "manualActualizar": "siscard+ Manual Módulo de seguridad",
       "temaGeneral": "Seguridad",
       "baAsignado": "",
-      "consultas": "Me falta una pantalla de los reportes. ",
-      "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
+      "consultas": "Me falta una pantalla de los reportes.",
+      "respuestaConsulta": "YA ESTÁ",
+      "justificacionGestor": "SÍ",
+      "fechaPublicado": "2026-09-09",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE / NO SE VE EL CAMBIO",
-      "tipoGestion": "R"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1787158629272_fd9a7b8bb353a",
