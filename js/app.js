@@ -1097,12 +1097,19 @@ function renderBitacora() {
         () => editorActivo && abrirBitacora("", celda.dataset.bitacoraFecha),  
       ),  
     );  
-  document.querySelectorAll("[data-registro-id]").forEach((evento) =>  
-    evento.addEventListener("click", (e) => {  
-      e.stopPropagation();  
-      if (editorActivo) abrirBitacora(evento.dataset.registroId);  
-    }),  
-  );  
+  document.querySelectorAll("[data-registro-id]").forEach((evento) => {
+    evento.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (editorActivo) abrirBitacora(evento.dataset.registroId);
+    });
+    evento.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (editorActivo) {
+        abrirMenuRegistroBitacora(e, evento.dataset.registroId);
+      }
+    });
+  });
 }  
  
 function renderDashboard() {  
@@ -2141,10 +2148,11 @@ document.addEventListener("DOMContentLoaded", inicializar);
  
 /* ===== KIRIS V3: mejoras funcionales solicitadas ===== */  
 let eliminacionPendiente = null;  
-function renderEntidad(tipo) {  
-  if (tipo === "manuales") renderManuales();  
-  else if (tipo === "tramites") renderTramites();  
-  else renderVersiones();  
+function renderEntidad(tipo) {
+  if (tipo === "manuales") renderManuales();
+  else if (tipo === "tramites") renderTramites();
+  else if (tipo === "bitacora") renderTodo();
+  else renderVersiones();
 }  
 function mostrarDeshacerEliminacion(tipo, eliminados, indices) {  
   document.getElementById("undoToastKiris")?.remove();  
@@ -3210,3 +3218,100 @@ document.addEventListener("DOMContentLoaded", () => {
 })();  
  
  
+
+
+/* ===== KIRIS: eliminar un registro específico de Bitácora ===== */
+function cerrarMenuRegistroBitacora() {
+  document.getElementById("menuRegistroBitacoraKiris")?.remove();
+}
+
+function eliminarRegistroBitacora(registroId) {
+  const indice = estado.bitacora.findIndex(
+    (registro) => registro.id === registroId,
+  );
+  if (indice < 0) {
+    mostrarToast("No fue posible localizar el registro.");
+    return;
+  }
+
+  const eliminado = { ...estado.bitacora[indice] };
+  estado.bitacora.splice(indice, 1);
+  guardarEstado("");
+  renderTodo();
+  mostrarDeshacerEliminacion(
+    "bitacora",
+    [eliminado],
+    [indice],
+  );
+}
+
+function abrirMenuRegistroBitacora(evento, registroId) {
+  cerrarMenuRegistroBitacora();
+
+  const registro = estado.bitacora.find(
+    (item) => item.id === registroId,
+  );
+  if (!registro) return;
+
+  const menu = document.createElement("div");
+  menu.id = "menuRegistroBitacoraKiris";
+  menu.innerHTML = `
+    <div style="padding:6px 10px 8px;color:#FF6C0C;font-size:13px;font-weight:800;">
+      Opciones del registro
+    </div>
+    <button type="button" data-accion="editar">✏️ Editar registro</button>
+    <button type="button" data-accion="eliminar">🗑️ Eliminar registro</button>
+  `;
+
+  Object.assign(menu.style, {
+    position: "fixed",
+    zIndex: "2800",
+    width: "230px",
+    padding: "8px",
+    background: "#FFFFFF",
+    color: "#333333",
+    border: "1px solid #D9D9D9",
+    borderTop: "4px solid #FF6C0C",
+    borderRadius: "12px",
+    boxShadow: "0 12px 34px rgba(0,0,0,.25)",
+  });
+
+  menu.querySelectorAll("button").forEach((boton) => {
+    Object.assign(boton.style, {
+      display: "block",
+      width: "100%",
+      margin: "0",
+      padding: "10px 11px",
+      background: "#FFFFFF",
+      color: "#333333",
+      border: "0",
+      borderRadius: "8px",
+      fontWeight: "700",
+      textAlign: "left",
+      cursor: "pointer",
+    });
+    boton.addEventListener("mouseenter", () => {
+      boton.style.background = "#FFF0E6";
+    });
+    boton.addEventListener("mouseleave", () => {
+      boton.style.background = "#FFFFFF";
+    });
+  });
+
+  document.body.appendChild(menu);
+  menu.style.left = `${Math.max(8, Math.min(evento.clientX + 4, innerWidth - menu.offsetWidth - 8))}px`;
+  menu.style.top = `${Math.max(8, Math.min(evento.clientY + 4, innerHeight - menu.offsetHeight - 8))}px`;
+
+  menu.addEventListener("click", (e) => e.stopPropagation());
+  menu.querySelector('[data-accion="editar"]').addEventListener("click", () => {
+    cerrarMenuRegistroBitacora();
+    abrirBitacora(registroId);
+  });
+  menu.querySelector('[data-accion="eliminar"]').addEventListener("click", () => {
+    cerrarMenuRegistroBitacora();
+    eliminarRegistroBitacora(registroId);
+  });
+}
+
+document.addEventListener("click", cerrarMenuRegistroBitacora);
+document.addEventListener("scroll", cerrarMenuRegistroBitacora, true);
