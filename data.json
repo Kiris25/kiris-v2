@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-09T19:34:38.871Z",
+  "fechaPublicacion": "2026-09-09T19:42:59.988Z",
   "manuales": [
     {
       "id": "manual_1788368470721_492c23bedc27c",
@@ -244,7 +244,8 @@
       "fechaFinalizacion": "",
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "color": "#FF6C0C",
+      "colorCalendario": "#00A896"
     },
     {
       "id": "manual_1787758150903_6b1b8372f14b78",
@@ -2879,10 +2880,22 @@
   ],
   "bitacora": [
     {
+      "id": "bitacora_1788982509751_b7cd69e365a338",
+      "fecha": "2026-09-09",
+      "manual": "UEO-CAP-MU-020 - Manual Archivos maestros para clientes",
+      "manualId": "manual_1788369217266_edfb6e53a5d1a8",
+      "tipo": "R",
+      "horaInicio": "13:30",
+      "horaFin": "15:30",
+      "horas": 2,
+      "paginas": 0,
+      "detalle": ""
+    },
+    {
       "id": "bitacora_1788805508591_5851f1d439eb3",
       "fecha": "2026-09-07",
       "manual": "N/A - CLICK TO PAY",
-      "manualId": "manual_1787598499528_75b71799c05578",
+      "manualId": "",
       "tipo": "N",
       "horaInicio": "08:00",
       "horaFin": "14:00",
@@ -3978,8 +3991,8 @@
       "manualActualizar": "Manual Archivos maestros para clientes",
       "temaGeneral": "Maestro",
       "baAsignado": "",
-      "consultas": "",
-      "respuestaConsulta": "",
+      "consultas": "Pregunté en chat el 9/9/26 a Manual y JuanBa. ",
+      "respuestaConsulta": "Manuel dijo que me podía basar en el MU-038",
       "justificacionGestor": "NO",
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
