@@ -78,7 +78,33 @@ const COLUMNAS_TRAMITES = [
   { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
   { key: "requerimiento", label: "Requerimiento", width: 135 },  
   { key: "detalle", label: "Detalle", width: 230 },  
+  {
+    key: "tipoGestion",
+    label: "Tipo T / R",
+    width: 120,
+    tipo: "select",
+    opciones: ["", "T", "R"],
+  },
   { key: "fechaIngreso", label: "Fecha ingreso", width: 130, tipo: "date" },  
+  {
+    key: "tiempoEstimado",
+    label: "Tiempo estimado de entrega",
+    width: 190,
+    calculado: true,
+  },
+  {
+    key: "fechaLimite",
+    label: "Fecha límite",
+    width: 135,
+    tipo: "date",
+    calculado: true,
+  },
+  {
+    key: "cumplimiento",
+    label: "Cumplimiento",
+    width: 165,
+    calculado: true,
+  },
   { key: "fechaInicio", label: "Fecha inicio", width: 125, tipo: "date" },  
   { key: "manualActualizar", label: "Manual a actualizar", width: 220 },  
   { key: "temaGeneral", label: "Tema general", width: 170 },  
@@ -206,6 +232,7 @@ function estadoInicial() {
         id: id("tramite"),  
         requerimiento: "REQ001",  
         detalle: "Trámite de prueba",  
+        tipoGestion: "T",
         fechaIngreso: fechaISOHoy(),  
         fechaInicio: "",  
         manualActualizar: "Manual de prueba",  
@@ -245,87 +272,25 @@ function estadoInicial() {
   };  
 }  
  
-function normalizarEstadoCargado(datos) {
-  const base = estadoInicial();
-  const origen = datos?.datos || datos?.data || datos || {};
-  const configuracion = origen.configuracion || {};
-
-  return {
-    ...base,
-    ...origen,
-    manuales: Array.isArray(origen.manuales) ? origen.manuales : [],
-    tramites: Array.isArray(origen.tramites) ? origen.tramites : [],
-    bitacora: Array.isArray(origen.bitacora) ? origen.bitacora : [],
-    versiones: Array.isArray(origen.versiones)
-      ? origen.versiones
-      : Array.isArray(origen.controlVersiones)
-        ? origen.controlVersiones
-        : [],
-    ciclo: Array.isArray(origen.ciclo)
-      ? origen.ciclo
-      : Array.isArray(origen.dashboardProduccion)
-        ? origen.dashboardProduccion
-        : [],
-    comentarios: Array.isArray(origen.comentarios) ? origen.comentarios : [],
-    columnasOcultasManuales:
-      configuracion.columnasOcultasManuales ||
-      origen.columnasOcultasManuales ||
-      [],
-    columnasOcultasTramites:
-      configuracion.columnasOcultasTramites ||
-      origen.columnasOcultasTramites ||
-      [],
-    anchosManuales:
-      configuracion.anchosManuales || origen.anchosManuales || {},
-    anchosTramites:
-      configuracion.anchosTramites || origen.anchosTramites || {},
-    anchosVersiones:
-      configuracion.anchosVersiones || origen.anchosVersiones || {},
-    modo: "editor",
-  };
-}
-
-async function cargarEstado() {
-  try {
-    const publicado = window.KirisStorage?.cargarPublicado
-      ? await window.KirisStorage.cargarPublicado()
-      : await fetch(`./data.json?v=${Date.now()}`, {
-          cache: "no-store",
-        }).then((respuesta) => {
-          if (!respuesta.ok) {
-            throw new Error(`No fue posible leer data.json (${respuesta.status}).`);
-          }
-          return respuesta.json();
-        });
-
-    const estadoPublicado = normalizarEstadoCargado(publicado);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(estadoPublicado));
-    return estadoPublicado;
-  } catch (errorPublicado) {
-    console.error("No fue posible cargar data.json.", errorPublicado);
-
-    try {
-      const guardado = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if (guardado && typeof guardado === "object") {
-        return normalizarEstadoCargado(guardado);
-      }
-    } catch (errorLocal) {
-      console.error("No fue posible recuperar la copia local.", errorLocal);
-    }
-
-    return estadoInicial();
-  }
-}
-
-let estado = estadoInicial();
-
-function normalizarTramitesCargados() {
-  estado.tramites = (estado.tramites || []).map((tramite) => ({
-    id: tramite.id || id("tramite"),
-    ...tramite,
-    listo: normalizarEstadoListo(tramite.listo),
-  }));
-} 
+function cargarEstado() {  
+  try {  
+    const guardado = JSON.parse(localStorage.getItem(STORAGE_KEY));  
+    return guardado && typeof guardado === "object"  
+      ? { ...estadoInicial(), ...guardado }  
+      : estadoInicial();  
+  } catch (error) {  
+    console.error("No fue posible cargar los datos locales.", error);  
+    return estadoInicial();  
+  }  
+}  
+ 
+let estado = cargarEstado(); 
+ 
+estado.tramites = (estado.tramites || []).map((tramite) => ({ 
+  id: tramite.id || id("tramite"), 
+  ...tramite, 
+  listo: normalizarEstadoListo(tramite.listo), 
+})); 
 let filtros = { manuales: {}, tramites: {}, versiones: {} };  
 let fechaCalendario = new Date();  
 let fechaBitacora = new Date();  
@@ -414,10 +379,7 @@ function actualizarEstadoGuardado() {
     texto.textContent = estado.ultimaCopia  
       ? new Date(estado.ultimaCopia).toLocaleString("es-CR")  
       : "Sin guardado registrado";  
-  if (estadoTexto) {
-    estadoTexto.textContent =
-      "Fuente oficial: data.json · copia temporal local activa";
-  }  
+  if (estadoTexto) estadoTexto.textContent = "Guardado local en este navegador";  
 }  
  
 function entrar() {  
@@ -463,7 +425,79 @@ function configurarTabs() {
     );  
 }  
  
+function fechaLocalDesdeISO(valor) {
+  if (!valor) return null;
+  const fecha = new Date(`${valor}T00:00:00`);
+  return Number.isNaN(fecha.getTime()) ? null : fecha;
+}
+function fechaISODesdeLocal(fecha) {
+  if (!(fecha instanceof Date) || Number.isNaN(fecha.getTime())) return "";
+  return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, "0")}-${String(fecha.getDate()).padStart(2, "0")}`;
+}
+function esDiaHabil(fecha) {
+  return fecha.getDay() !== 0 && fecha.getDay() !== 6;
+}
+function sumarDiasHabiles(fechaInicial, cantidad) {
+  const fecha = new Date(fechaInicial);
+  let agregados = 0;
+  while (agregados < cantidad) {
+    fecha.setDate(fecha.getDate() + 1);
+    if (esDiaHabil(fecha)) agregados += 1;
+  }
+  return fecha;
+}
+function contarDiasHabiles(desde, hasta) {
+  const inicio = new Date(desde);
+  const fin = new Date(hasta);
+  if (inicio.getTime() === fin.getTime()) return 0;
+  const sentido = inicio < fin ? 1 : -1;
+  let total = 0;
+  const cursor = new Date(inicio);
+  while ((sentido === 1 && cursor < fin) || (sentido === -1 && cursor > fin)) {
+    cursor.setDate(cursor.getDate() + sentido);
+    if (esDiaHabil(cursor)) total += sentido;
+  }
+  return total;
+}
+function diasEstimadosTramite(tramite) {
+  if (tramite.tipoGestion === "T") return 40;
+  if (tramite.tipoGestion === "R") return 15;
+  return 0;
+}
+function tiempoEstimadoTramite(tramite) {
+  if (tramite.tipoGestion === "T") return "2 meses (40 días hábiles)";
+  if (tramite.tipoGestion === "R") return "3 semanas (15 días hábiles)";
+  return "";
+}
+function fechaLimiteTramite(tramite) {
+  const ingreso = fechaLocalDesdeISO(tramite.fechaIngreso);
+  const dias = diasEstimadosTramite(tramite);
+  if (!ingreso || !dias) return "";
+  return fechaISODesdeLocal(sumarDiasHabiles(ingreso, dias));
+}
+function informacionCumplimientoTramite(tramite) {
+  const limiteISO = fechaLimiteTramite(tramite);
+  if (!limiteISO) return { texto: "Sin calcular", clase: "cumplimiento-sin-calcular" };
+  const limite = fechaLocalDesdeISO(limiteISO);
+  if (tramite.fechaPublicado) {
+    const publicado = fechaLocalDesdeISO(tramite.fechaPublicado);
+    if (publicado && publicado <= limite) return { texto: "Finalizado a tiempo", clase: "cumplimiento-finalizado" };
+    return { texto: "Finalizado tarde", clase: "cumplimiento-tarde" };
+  }
+  const hoy = fechaLocalDesdeISO(fechaISOHoy());
+  const restantes = contarDiasHabiles(hoy, limite);
+  if (hoy > limite) return { texto: "Tarde", clase: "cumplimiento-tarde" };
+  if (restantes <= 5) return {
+    texto: restantes === 0 ? "Vence hoy" : `Próximo · ${restantes} día(s) hábil(es)`,
+    clase: "cumplimiento-proximo",
+  };
+  return { texto: `En tiempo · ${restantes} día(s) hábil(es)`, clase: "cumplimiento-en-tiempo" };
+}
+
 function valorVisible(objeto, columna) {  
+  if (columna.key === "tiempoEstimado") return tiempoEstimadoTramite(objeto);
+  if (columna.key === "fechaLimite") return fechaLimiteTramite(objeto);
+  if (columna.key === "cumplimiento") return informacionCumplimientoTramite(objeto).texto;
   if (columna.key === "tiempoInvertido")  
     return horasBitacoraManual(objeto).toFixed(2);  
   if (columna.key === "estado" && objeto.codigo !== undefined)  
@@ -486,6 +520,12 @@ function crearColgroup(elemento, columnas, anchos, ocultas = []) {
 function campoCelda(objeto, columna, tipoEntidad) {  
   const valor = valorVisible(objeto, columna);  
   if (!editorActivo || columna.calculado) {  
+    if (columna.key === "cumplimiento") {
+      const info = informacionCumplimientoTramite(objeto);
+      return `<span class="cumplimiento-indicador ${info.clase}">${escaparHTML(info.texto)}</span>`;
+    }
+    if (columna.key === "fechaLimite") return `<span class="fecha-limite-tramite">${escaparHTML(valor)}</span>`;
+    if (columna.key === "tiempoEstimado") return `<span class="tiempo-estimado-tramite">${escaparHTML(valor)}</span>`;
     if (columna.key === "estado")  
       return `<span class="estado ${claseEstado(valor)}">${escaparHTML(valor)}</span>`;  
     if (columna.key === "listo")  
@@ -540,7 +580,10 @@ function enlazarEdicionTabla(contenedor) {
                             ) 
                             : campo.value; 
  
-                guardarEstado(""); 
+                guardarEstado("");
+                if (campo.dataset.entidad === "tramites" && ["tipoGestion", "fechaIngreso", "fechaPublicado"].includes(campo.dataset.key)) {
+                    renderTramites();
+                } 
  
             }; 
  
@@ -1204,6 +1247,7 @@ function abrirTramite(tramiteId = "") {
   const mapa = {  
     Requerimiento: "requerimiento",  
     Detalle: "detalle",  
+    TipoGestion: "tipoGestion",
     FechaIngreso: "fechaIngreso",  
     FechaInicio: "fechaInicio",  
     ManualActualizar: "manualActualizar",  
@@ -1230,6 +1274,7 @@ function guardarTramiteFormulario(evento) {
     id: existenteId || id("tramite"),  
     requerimiento: $("tramiteRequerimiento").value.trim(),  
     detalle: $("tramiteDetalle").value.trim(),  
+    tipoGestion: $("tramiteTipoGestion").value,
     fechaIngreso: $("tramiteFechaIngreso").value,  
     fechaInicio: $("tramiteFechaInicio").value,  
     manualActualizar: $("tramiteManualActualizar").value.trim(),  
@@ -1389,7 +1434,7 @@ function exportarCSV(tipo) {
 function exportarTramitesExcel() { 
  
     const columnas = COLUMNAS_TRAMITES 
-        .filter(c => !c.especial && !c.calculado); 
+        .filter((c) => !c.especial); 
  
     const datos = estado.tramites.map(tramite => { 
  
@@ -1398,7 +1443,7 @@ function exportarTramitesExcel() {
         columnas.forEach(columna => { 
  
             fila[columna.label] = 
-                tramite[columna.key] ?? ""; 
+                valorVisible(tramite, columna); 
  
         }); 
  
@@ -1562,10 +1607,8 @@ function generarReporteCompletoExcel() {
 
     const tramites = (estado.tramites || []).map((tramite) => {
       const fila = {};
-      COLUMNAS_TRAMITES.filter(
-        (columna) => !columna.especial && !columna.calculado,
-      ).forEach((columna) => {
-        fila[columna.label] = tramite[columna.key] ?? "";
+      COLUMNAS_TRAMITES.filter((columna) => !columna.especial).forEach((columna) => {
+        fila[columna.label] = valorVisible(tramite, columna);
       });
       return fila;
     });
@@ -2045,15 +2088,13 @@ function renderTodo() {
   renderVersiones();  
 }  
  
-async function inicializar() {
-  estado = await cargarEstado();
-  normalizarTramitesCargados();
-  configurarLogin();
-  configurarTabs();
-  configurarCalendarios();
-  configurarFormularios();
-  configurarBotones();
-  actualizarEstadoGuardado();
+function inicializar() {  
+  configurarLogin();  
+  configurarTabs();  
+  configurarCalendarios();  
+  configurarFormularios();  
+  configurarBotones();  
+  actualizarEstadoGuardado();  
 }  
  
 document.addEventListener("DOMContentLoaded", inicializar);  
