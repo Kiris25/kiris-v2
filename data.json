@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-09T15:16:30.602Z",
+  "fechaPublicacion": "2026-09-09T17:55:41.979Z",
   "manuales": [
     {
       "id": "manual_1788368470721_492c23bedc27c",
@@ -4409,24 +4409,6 @@
       "justificacionGestor": "NO",
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
-      "justificacionIngles": "NO",
-      "listo": "PENDIENTE",
-      "tipoGestion": "R"
-    },
-    {
-      "id": "tramite_1788368417527_b9d5e784371628",
-      "requerimiento": "2927121",
-      "detalle": "Capital: solicitamos traducir por favor el manual adjunto a ingles para que los clientes puedan atenderlo. Gracias!",
-      "fechaIngreso": "2026-08-28",
-      "fechaInicio": "",
-      "manualActualizar": "TEC-SOP-IN-001 Manual de Instalación y Configuración del Client Access",
-      "temaGeneral": "Client Access",
-      "baAsignado": "",
-      "consultas": "",
-      "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
-      "versionTraducir": "NO",
       "justificacionIngles": "NO",
       "listo": "PENDIENTE",
       "tipoGestion": "R"
