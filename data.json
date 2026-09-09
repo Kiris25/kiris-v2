@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-09T18:23:09.166Z",
+  "fechaPublicacion": "2026-09-09T18:29:04.299Z",
   "manuales": [
     {
       "id": "manual_1788368470721_492c23bedc27c",
@@ -412,7 +412,7 @@
       "ocRelacionado": "2750695",
       "prioridad": "Alta",
       "tipo": "R",
-      "paginas": 0,
+      "paginas": 46,
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-02",
       "fechaFinalizacion": "2026-09-02",
@@ -430,12 +430,12 @@
       "ocRelacionado": "2750695",
       "prioridad": "Alta",
       "tipo": "R",
-      "paginas": 0,
+      "paginas": 63,
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-02",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
-      "horasEsfuerzo": 0,
+      "fechaFinalizacion": "2026-09-09",
+      "fechaPublicado": "2026-09-09",
+      "horasEsfuerzo": 7.5,
       "color": "#FF6C0C",
       "colorCalendario": "#6A994E"
     },
