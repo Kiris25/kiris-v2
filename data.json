@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-14T17:47:58.562Z",
+  "fechaPublicacion": "2026-09-14T21:30:13.567Z",
   "manuales": [
     {
       "id": "manual_1787598499528_75b71799c05578",
@@ -2852,8 +2852,8 @@
       "horaInicio": "08:00",
       "horaFin": "16:30",
       "horas": 8.5,
-      "paginas": 0,
-      "detalle": "De la 51 a donde termine hoy"
+      "paginas": 21,
+      "detalle": "Hice 21 páginas más"
     },
     {
       "id": "bitacora_1788805508591_5851f1d439eb3",
