@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-16T21:08:25.070Z",
+  "fechaPublicacion": "2026-09-16T21:11:32.330Z",
   "manuales": [
     {
       "id": "manual_1787598499528_75b71799c05578",
@@ -4868,8 +4868,8 @@
       "codigo": "UEO-CAP-MU-008",
       "manual": "Manual Sistema envío de mensajes (SEATH)",
       "idioma": "Español",
-      "numero": "1",
-      "fecha": "",
+      "numero": "2",
+      "fecha": "2026-09-16",
       "estado": "Disponible",
       "observaciones": ""
     },
