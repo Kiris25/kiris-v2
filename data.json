@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-16T21:11:32.330Z",
+  "fechaPublicacion": "2026-09-17T16:57:27.311Z",
   "manuales": [
     {
       "id": "manual_1787598499528_75b71799c05578",
@@ -3206,6 +3206,24 @@
     }
   ],
   "tramites": [
+    {
+      "id": "tramite_1789664245614_675789e1c478b",
+      "requerimiento": "2927121",
+      "detalle": "TRADUCCION CLIENT ACCESS",
+      "tipoGestion": "T",
+      "fechaIngreso": "2026-09-17",
+      "fechaInicio": "",
+      "manualActualizar": "CLIENT ACCESS",
+      "temaGeneral": "CLIENT ACCESS",
+      "baAsignado": "",
+      "consultas": "",
+      "respuestaConsulta": "",
+      "justificacionGestor": "NO APLICA",
+      "fechaPublicado": "",
+      "versionTraducir": "NO APLICA",
+      "justificacionIngles": "NO APLICA",
+      "listo": "PENDIENTE"
+    },
     {
       "id": "tramite_40_1787259543876",
       "requerimiento": 2671118,
