@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-21T15:32:05.053Z",
+  "fechaPublicacion": "2026-09-21T20:23:17.914Z",
   "manuales": [
     {
       "id": "manual_1790004634568_a611f3b6a0594",
@@ -12,11 +12,11 @@
       "prioridad": "Alta",
       "tipo": "T",
       "paginas": 43,
-      "diasEsfuerzo": 0,
+      "diasEsfuerzo": 1,
       "fechaInicio": "2026-09-21",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
-      "horasEsfuerzo": 0,
+      "fechaFinalizacion": "2026-09-21",
+      "fechaPublicado": "2026-09-21",
+      "horasEsfuerzo": 4.87,
       "color": "#FF6C0C",
       "colorCalendario": "#00A896"
     },
@@ -2819,9 +2819,9 @@
       "manualId": "manual_1790004634568_a611f3b6a0594",
       "tipo": "T",
       "horaInicio": "09:30",
-      "horaFin": "11:30",
-      "horas": 2,
-      "paginas": 0,
+      "horaFin": "14:22",
+      "horas": 4.866666666666666,
+      "paginas": 43,
       "detalle": ""
     },
     {
@@ -3205,16 +3205,16 @@
       "tipoGestion": "T",
       "fechaIngreso": "2026-09-17",
       "fechaInicio": "",
-      "manualActualizar": "CLIENT ACCESS",
+      "manualActualizar": "IN-SOP-IN-001 Manual de Instalación y Configuración del Client Access",
       "temaGeneral": "CLIENT ACCESS",
       "baAsignado": "",
       "consultas": "",
       "respuestaConsulta": "",
       "justificacionGestor": "NO APLICA",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-21",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
-      "listo": "PENDIENTE"
+      "listo": "SOLO INGLÉS"
     },
     {
       "id": "tramite_40_1787259543876",
