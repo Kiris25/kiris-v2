@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-21T21:22:44.653Z",
+  "fechaPublicacion": "2026-09-22T16:58:10.742Z",
   "manuales": [
     {
       "id": "manual_1790025713576_1bc15cc405e92",
@@ -2830,6 +2830,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1790096287132_1764f2cf59fa78",
+      "fecha": "2026-09-22",
+      "manual": "N/A - BOT BCR",
+      "manualId": "manual_1790025713576_1bc15cc405e92",
+      "tipo": "N",
+      "horaInicio": "08:00",
+      "horaFin": "16:00",
+      "horas": 8,
+      "paginas": 0,
+      "detalle": ""
+    },
     {
       "id": "bitacora_1790025734600_c553bf2a08fef",
       "fecha": "2026-09-21",
