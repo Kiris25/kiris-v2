@@ -368,11 +368,11 @@
      <div class="form-grid form-grid-3">
       <label>
        C&oacute;digo
-       <input id="manualCodigo" required>
+       <input id="manualCodigo" list="listaCodigosManuales" autocomplete="off" required>
       </label>
       <label>
        T&iacute;tulo
-       <input id="manualTitulo" required>
+       <input id="manualTitulo" list="listaTitulosManuales" autocomplete="off" required>
       </label>
       <label>
        Idioma
@@ -475,6 +475,8 @@
       </button>
      </div>
     </form>
+    <datalist id="listaCodigosManuales"></datalist>
+    <datalist id="listaTitulosManuales"></datalist>
    </div>
   </section>
   <section class="form-screen" hidden id="tramiteScreen">
@@ -869,5 +871,100 @@
   </script>
   <script src="js/app.js">
   </script>
+  <script>
+   // Autocompletado de Código y Título en Avance de Manuales.
+   // Las entradas siguen siendo editables para permitir manuales nuevos.
+   document.addEventListener("DOMContentLoaded", () => {
+    const codigoInput = document.getElementById("manualCodigo");
+    const tituloInput = document.getElementById("manualTitulo");
+    const listaCodigos = document.getElementById("listaCodigosManuales");
+    const listaTitulos = document.getElementById("listaTitulosManuales");
+    const tbody = document.getElementById("tbodyManuales");
+    const thead = document.getElementById("theadManuales");
+
+    if (!codigoInput || !tituloInput || !listaCodigos || !listaTitulos || !tbody) return;
+
+    let registros = [];
+    const normalizar = valor => String(valor || "").trim().toLocaleLowerCase("es");
+
+    function obtenerIndices() {
+     const encabezados = [...(thead?.querySelectorAll("th") || [])].map(th =>
+      normalizar(th.textContent).replace(/[^a-záéíóúüñ ]/gi, "").trim()
+     );
+     let codigo = encabezados.findIndex(t => t === "código" || t === "codigo");
+     let titulo = encabezados.findIndex(t => t === "título" || t === "titulo");
+
+     // Respaldo para la estructura actual: selección, código y título.
+     if (codigo < 0) codigo = 1;
+     if (titulo < 0) titulo = 2;
+     return { codigo, titulo };
+    }
+
+    function textoCelda(celda) {
+     if (!celda) return "";
+     const control = celda.querySelector("input, textarea, select");
+     return String(control ? control.value : celda.textContent).trim();
+    }
+
+    function actualizarListas() {
+     const indices = obtenerIndices();
+     const vistos = new Set();
+     registros = [...tbody.querySelectorAll("tr")].map(fila => {
+      const celdas = fila.querySelectorAll("td");
+      return {
+       codigo: textoCelda(celdas[indices.codigo]),
+       titulo: textoCelda(celdas[indices.titulo])
+      };
+     }).filter(item => {
+      if (!item.codigo && !item.titulo) return false;
+      const clave = `${normalizar(item.codigo)}|${normalizar(item.titulo)}`;
+      if (vistos.has(clave)) return false;
+      vistos.add(clave);
+      return true;
+     });
+
+     listaCodigos.replaceChildren(...registros
+      .filter(item => item.codigo)
+      .map(item => {
+       const option = document.createElement("option");
+       option.value = item.codigo;
+       option.label = item.titulo;
+       return option;
+      }));
+
+     listaTitulos.replaceChildren(...registros
+      .filter(item => item.titulo)
+      .map(item => {
+       const option = document.createElement("option");
+       option.value = item.titulo;
+       option.label = item.codigo;
+       return option;
+      }));
+    }
+
+    function completarDesdeCodigo() {
+     const coincidencia = registros.find(item => normalizar(item.codigo) === normalizar(codigoInput.value));
+     if (coincidencia) tituloInput.value = coincidencia.titulo;
+    }
+
+    function completarDesdeTitulo() {
+     const coincidencia = registros.find(item => normalizar(item.titulo) === normalizar(tituloInput.value));
+     if (coincidencia) codigoInput.value = coincidencia.codigo;
+    }
+
+    codigoInput.addEventListener("input", completarDesdeCodigo);
+    codigoInput.addEventListener("change", completarDesdeCodigo);
+    tituloInput.addEventListener("input", completarDesdeTitulo);
+    tituloInput.addEventListener("change", completarDesdeTitulo);
+
+    const observador = new MutationObserver(actualizarListas);
+    observador.observe(tbody, { childList: true, subtree: true, characterData: true });
+    if (thead) observador.observe(thead, { childList: true, subtree: true, characterData: true });
+
+    actualizarListas();
+    setTimeout(actualizarListas, 0);
+   });
+  </script>
+
  </body>
 </html>
