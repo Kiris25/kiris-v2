@@ -966,5 +966,130 @@
    });
   </script>
 
+ 
+  <style id="ajustes-avance-manuales">
+   .tipo-manual-referencia{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;margin-right:6px;border-radius:10px;background:#eef2ff;color:#3949ab;font-size:11px;font-weight:700;vertical-align:middle}
+  </style>
+  <script>
+   /* Ajustes de Avance de Manuales y Dashboard */
+   document.addEventListener("DOMContentLoaded", () => {
+    const normalizar = valor => String(valor ?? "").trim().toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const numero = valor => {
+     const n = Number(String(valor ?? "").replace(",", "."));
+     return Number.isFinite(n) ? n : 0;
+    };
+    const valorCelda = celda => {
+     const control = celda?.querySelector?.("input,select,textarea");
+     return String(control ? control.value : (celda?.textContent ?? "")).trim();
+    };
+    const asignarCelda = (celda, valor) => {
+     if (!celda) return;
+     const control = celda.querySelector("input,select,textarea");
+     if (control) {
+      control.value = valor;
+      control.dispatchEvent(new Event("change", { bubbles:true }));
+     } else celda.textContent = valor;
+    };
+    const encabezados = tabla => [...(tabla?.querySelectorAll("thead th") || [])].map(th => normalizar(th.textContent).replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g," ").trim());
+    const indice = (lista, nombres) => lista.findIndex(x => nombres.some(n => x === n || x.includes(n)));
+
+    function quitarTiempoInvertido(){
+     const tabla=document.getElementById("tablaManuales");
+     if(!tabla) return;
+     const hs=encabezados(tabla);
+     const i=indice(hs,["tiempo invertido"]);
+     if(i<0) return;
+     tabla.querySelectorAll("tr").forEach(fila=>fila.children[i]?.remove());
+     tabla.querySelector("colgroup")?.children[i]?.remove();
+    }
+
+    function extraerBitacora(){
+     const registros=[];
+     const vistos=new Set();
+     const visitar=(valor, profundidad=0)=>{
+      if(profundidad>7 || valor==null) return;
+      if(Array.isArray(valor)){ valor.forEach(v=>visitar(v,profundidad+1)); return; }
+      if(typeof valor!=="object") return;
+      const claves=Object.keys(valor);
+      const buscar=(terminos)=>claves.find(k=>terminos.some(t=>normalizar(k).includes(t)));
+      const kFecha=buscar(["fecha"]), kManual=buscar(["manual"]), kHoras=buscar(["horas","hora total","tiempo"]);
+      if(kFecha && kManual && kHoras){
+       const r={fecha:String(valor[kFecha]??"").slice(0,10),manual:String(valor[kManual]??""),horas:numero(valor[kHoras])};
+       const llave=`${r.fecha}|${normalizar(r.manual)}|${r.horas}`;
+       if(r.fecha && r.manual && !vistos.has(llave)){vistos.add(llave);registros.push(r);}
+      }
+      claves.forEach(k=>visitar(valor[k],profundidad+1));
+     };
+     try{
+      for(let i=0;i<localStorage.length;i++){
+       const clave=localStorage.key(i);
+       try{ visitar(JSON.parse(localStorage.getItem(clave))); }catch(e){}
+      }
+     }catch(e){}
+     return registros;
+    }
+
+    function actualizarEsfuerzos(){
+     const tabla=document.getElementById("tablaManuales");
+     if(!tabla) return;
+     const hs=encabezados(tabla);
+     const pos={
+      codigo:indice(hs,["codigo"]), titulo:indice(hs,["titulo","manual"]),
+      inicio:indice(hs,["fecha inicio"]), publicado:indice(hs,["fecha publicado","fecha publicacion"]),
+      horas:indice(hs,["horas esfuerzo","horas de esfuerzo"]), dias:indice(hs,["dias esfuerzo","dias de esfuerzo"])
+     };
+     if(pos.horas<0 && pos.dias<0) return;
+     const bitacora=extraerBitacora();
+     const firmaBitacora=JSON.stringify(bitacora);
+     tabla.querySelectorAll("tbody tr").forEach(fila=>{
+      const c=[...fila.children];
+      const codigo=valorCelda(c[pos.codigo]), titulo=valorCelda(c[pos.titulo]);
+      const inicio=valorCelda(c[pos.inicio]).slice(0,10), publicado=valorCelda(c[pos.publicado]).slice(0,10);
+      const firma=`${codigo}|${titulo}|${inicio}|${publicado}|${firmaBitacora}`;
+      if(fila.dataset.firmaCalculo===firma) return;
+      fila.dataset.firmaCalculo=firma;
+      const coincide=r=>{
+       const m=normalizar(r.manual), cod=normalizar(codigo), tit=normalizar(titulo);
+       return (cod && (m===cod || m.includes(cod))) || (tit && (m===tit || m.includes(tit)));
+      };
+      const dentro=r=>(!inicio || r.fecha>=inicio) && (!publicado || r.fecha<=publicado);
+      if(pos.horas>=0 && inicio && publicado){
+       const total=bitacora.filter(r=>coincide(r)&&dentro(r)).reduce((a,r)=>a+r.horas,0);
+       asignarCelda(c[pos.horas], Math.round(total*100)/100);
+      }
+      if(pos.dias>=0 && inicio && publicado){
+       const a=new Date(`${inicio}T00:00:00`), b=new Date(`${publicado}T00:00:00`);
+       if(!Number.isNaN(a.getTime())&&!Number.isNaN(b.getTime())&&b>=a){
+        asignarCelda(c[pos.dias], Math.round((b-a)/86400000));
+       }
+      }
+     });
+    }
+
+    function agregarTipoDashboard(){
+     const tabla=document.getElementById("tablaManuales"), panel=document.getElementById("topManualesHoras");
+     if(!tabla||!panel) return;
+     const hs=encabezados(tabla), pc=indice(hs,["codigo"]), pt=indice(hs,["titulo","manual"]), pTipo=indice(hs,["tipo"]);
+     if(pTipo<0) return;
+     const manuales=[...tabla.querySelectorAll("tbody tr")].map(f=>{const c=[...f.children];return{codigo:valorCelda(c[pc]),titulo:valorCelda(c[pt]),tipo:valorCelda(c[pTipo])};});
+     panel.querySelectorAll("li,.top-manual-item,.ranking-item,.manual-item,[class*='manual']").forEach(item=>{
+      if(item.querySelector(".tipo-manual-referencia")) return;
+      const texto=normalizar(item.textContent);
+      const m=manuales.find(x=>(x.codigo&&texto.includes(normalizar(x.codigo)))||(x.titulo&&texto.includes(normalizar(x.titulo))));
+      if(!m?.tipo) return;
+      const badge=document.createElement("span"); badge.className="tipo-manual-referencia"; badge.textContent=m.tipo;
+      item.prepend(badge);
+     });
+    }
+
+    let pendiente=false;
+    const ejecutar=()=>{if(pendiente)return;pendiente=true;requestAnimationFrame(()=>{pendiente=false;quitarTiempoInvertido();actualizarEsfuerzos();agregarTipoDashboard();});};
+    const observer=new MutationObserver(ejecutar);
+    observer.observe(document.body,{childList:true,subtree:true});
+    document.addEventListener("change",e=>{if(e.target.closest?.("#tablaManuales,#calendarioBitacora,#bitacoraForm")) setTimeout(ejecutar,0);});
+    ejecutar(); setTimeout(ejecutar,300); setTimeout(ejecutar,1200);
+   });
+  </script>
+
  </body>
 </html>
