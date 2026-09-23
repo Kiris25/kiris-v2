@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-23T19:18:41.015Z",
+  "fechaPublicacion": "2026-09-23T21:08:13.957Z",
   "manuales": [
     {
       "id": "manual_1790190152234_a6e646a7f4a978",
@@ -15,7 +15,7 @@
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-23",
       "fechaFinalizacion": "2026-09-23",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-23",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#E63946"
@@ -32,8 +32,8 @@
       "paginas": 44,
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-23",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
+      "fechaFinalizacion": "2026-09-23",
+      "fechaPublicado": "2026-09-23",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#E63946"
@@ -51,7 +51,7 @@
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-23",
       "fechaFinalizacion": "2026-09-23",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-23",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#F4A261"
@@ -280,7 +280,7 @@
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-23",
       "fechaFinalizacion": "2026-09-23",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-23",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#6A994E"
@@ -3385,11 +3385,11 @@
       "baAsignado": "",
       "consultas": "Revisar cambios",
       "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
+      "justificacionGestor": "SÍ",
+      "fechaPublicado": "2026-09-23",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLÉS"
     },
     {
       "id": "tramite_1789575184076_6b21b1badc7d8",
@@ -3404,10 +3404,10 @@
       "consultas": "Revisar los cambios.",
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-23",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1790190029460_90a00b22a606b8",
@@ -3422,10 +3422,10 @@
       "consultas": "Revisar los cambios.",
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-23",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1788369378218_6ddce51dea739",
@@ -3439,10 +3439,10 @@
       "consultas": "Hay cambios en las opciones para abrir sucursales y otras cosas.",
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
-      "fechaPublicado": "",
+      "fechaPublicado": "2026-09-23",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE",
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
       "tipoGestion": "R"
     },
     {
@@ -5475,7 +5475,7 @@
       "codigo": "UEO-CAP-MU-046",
       "manual": "Manual de Adquirencia Web",
       "idioma": "Español",
-      "numero": "6",
+      "numero": "7",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
@@ -5703,7 +5703,7 @@
       "codigo": "UEO-CAP-MU-065",
       "manual": "Manual Adquirencia Web Procedimiento creación de comercio",
       "idioma": "Español",
-      "numero": "4",
+      "numero": "5",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
