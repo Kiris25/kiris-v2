@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-23T19:04:00.090Z",
+  "fechaPublicacion": "2026-09-23T19:14:01.612Z",
   "manuales": [
     {
       "id": "manual_1790190152234_a6e646a7f4a978",
@@ -3362,7 +3362,7 @@
       "tipoGestion": "R",
       "fechaIngreso": "2026-09-09",
       "fechaInicio": "",
-      "manualActualizar": "adquirencia",
+      "manualActualizar": "Manual de Adquirencia Web",
       "temaGeneral": "Adquirencia Web",
       "baAsignado": "",
       "consultas": "Revisar cambios",
