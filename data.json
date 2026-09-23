@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-22T21:17:16.585Z",
+  "fechaPublicacion": "2026-09-23T17:38:39.447Z",
   "manuales": [
     {
       "id": "manual_1790025713576_1bc15cc405e92",
@@ -3268,7 +3268,7 @@
       "manualActualizar": "NUEVO MANUAL BOT BCR",
       "temaGeneral": "BOT BCR",
       "baAsignado": "",
-      "consultas": "",
+      "consultas": "El 23/9/2026 terminé la versión inicial y le envié un correo a Pablo Marín y a Ricardo Villalta para que me aclararan dudas y le dieran una revisión general al documento.  ",
       "respuestaConsulta": "",
       "justificacionGestor": "NO",
       "fechaPublicado": "",
