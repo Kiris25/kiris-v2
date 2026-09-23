@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-23T19:14:01.612Z",
+  "fechaPublicacion": "2026-09-23T19:18:41.015Z",
   "manuales": [
     {
       "id": "manual_1790190152234_a6e646a7f4a978",
@@ -15,6 +15,24 @@
       "diasEsfuerzo": 0,
       "fechaInicio": "2026-09-23",
       "fechaFinalizacion": "2026-09-23",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C",
+      "colorCalendario": "#E63946"
+    },
+    {
+      "id": "manual_1790191095152_6b1d26da24e9e",
+      "codigo": "UEO-CAP-MU-046",
+      "titulo": "Manual de Adquirencia Web",
+      "idioma": "Español",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2696734",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 44,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "2026-09-23",
+      "fechaFinalizacion": "",
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
@@ -3361,7 +3379,7 @@
       "detalle": "Reportes gráficos de indicadores de Remisiones, Comercios y Autorizaciones",
       "tipoGestion": "R",
       "fechaIngreso": "2026-09-09",
-      "fechaInicio": "",
+      "fechaInicio": "2026-09-23",
       "manualActualizar": "Manual de Adquirencia Web",
       "temaGeneral": "Adquirencia Web",
       "baAsignado": "",
