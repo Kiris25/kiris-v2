@@ -7,15 +7,7 @@
    Repositorio de Manuales KIRIS V2
   </title>
   <link href="css/estilos.css" rel="stylesheet">
- 
-<style id="dashboard-visor-y-filtros">
-#tabDashboard .dashboard-scroll{width:100%;overflow-x:auto;padding-bottom:6px}
-#tabDashboard .dashboard-scroll>.dashboard-cycle-chart{min-width:620px}
-#tabDashboard .pending-tasks-card{display:inline-flex;align-items:center;gap:5px;margin:0 0 8px;padding:5px 9px;background:#fff3cd;border:1px solid #ffe69c;border-left:3px solid #ffb300;border-radius:8px;color:#664d03;font-size:11px}#tabDashboard .pending-tasks-card strong{font-size:14px}
-#tabDashboard .dashboard-method-note{margin:12px 0 0;padding:10px 12px;background:#fff5ee;border-left:4px solid #ff6c0c;border-radius:8px;color:#555;font-size:12px;line-height:1.45}
-.btn-filtros-congelados{background:#dbeafe!important;border-color:#2563eb!important;color:#1d4ed8!important;font-weight:700}
-</style>
-</head>
+ </head>
  <body>
   <main class="app" id="app">
    <header class="app-header">
@@ -104,7 +96,6 @@
         <button class="btn btn-light" id="btnColumnasManuales">
          Columnas
         </button>
-        <button class="btn btn-light" id="btnCongelarFiltrosManuales" type="button">📌 Congelar filtros</button>
         <button class="btn btn-light" id="btnLimpiarFiltrosManuales">
          Limpiar filtros
         </button>
@@ -260,18 +251,21 @@
      <div class="panel panel-ciclo">
       <div class="panel-header">
        <div>
-        <h3>📌 Requerimientos y Trámites</h3>
-        <div class="small-note">Promedio de días hábiles por categoría.</div>
+        <h3>
+         ⏱️ Tiempo total de ciclo
+        </h3>
+        <div class="small-note">
+         D&iacute;as calendario desde inicio hasta finalizaci&oacute;n.
+        </div>
        </div>
-       <div class="toolbar">
-        <button class="btn btn-light" id="btnDiasPorTarea" type="button">Días hábiles por tarea</button>
-        <button class="btn btn-light" id="btnVerDetalleCiclo" type="button">Ver detalle</button>
-       </div>
+       <button class="btn btn-light" id="btnVerDetalleCiclo">
+        Ver detalle
+       </button>
       </div>
-      <div class="pending-tasks-card"><span>Pending Tasks:</span><strong id="pendingTasksCount">0</strong></div>
-      <div class="dashboard-cycle-summary" id="resumenDashboardCiclo"></div>
-      <div class="dashboard-scroll"><div class="dashboard-cycle-chart" id="graficoDashboardCiclo"></div></div>
-      <div class="dashboard-method-note">El gráfico calcula, para cada <strong>Change Category</strong>, los días hábiles transcurridos entre <strong>Start Date</strong> y <strong>Comp Date</strong>, excluyendo sábados y domingos. Solo se incluyen registros que contienen ambas fechas válidas; luego se muestra el promedio de días hábiles por categoría.</div>
+      <div class="dashboard-cycle-summary" id="resumenDashboardCiclo">
+      </div>
+      <div class="dashboard-cycle-chart" id="graficoDashboardCiclo">
+      </div>
      </div>
     </section>
     <section class="tab-content" id="tabTramites">
@@ -298,7 +292,6 @@
         <button class="btn btn-light" id="btnColumnasTramites">
          Columnas
         </button>
-        <button class="btn btn-light" id="btnCongelarFiltrosTramites" type="button">📌 Congelar filtros</button>
         <button class="btn btn-light" id="btnLimpiarFiltrosTramites">
          Limpiar filtros
         </button>
@@ -338,7 +331,6 @@
         <button class="btn btn-success" id="btnExportarVersiones">
          📤 Exportar EXCEL
         </button>
-        <button class="btn btn-light" id="btnCongelarFiltrosVersiones" type="button">📌 Congelar filtros</button>
         <button class="btn btn-light" id="btnLimpiarFiltrosVersiones">
          Limpiar filtros
         </button>
