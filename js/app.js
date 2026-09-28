@@ -327,20 +327,7 @@ function normalizarTramitesCargados() {
     listo: normalizarEstadoListo(tramite.listo),
   }));
 }
-const FILTROS_KEY = "kirisV2_filtros";
-const FILTROS_CONGELADOS_KEY = "kirisV2_filtros_congelados";
-let filtros = { manuales: {}, tramites: {}, versiones: {} };
-function filtrosCongelados(){ return localStorage.getItem(FILTROS_CONGELADOS_KEY) === "1"; }
-function guardarFiltrosPersistentes(){ if(filtrosCongelados()) localStorage.setItem(FILTROS_KEY, JSON.stringify(filtros)); }
-function cargarFiltrosPersistentes(){
-  if(!filtrosCongelados()) return;
-  try { const guardados=JSON.parse(localStorage.getItem(FILTROS_KEY)); if(guardados && typeof guardados === "object") filtros={manuales:guardados.manuales||{},tramites:guardados.tramites||{},versiones:guardados.versiones||{}}; } catch(e) { console.warn("No fue posible restaurar los filtros",e); }
-}
-function actualizarBotonesFiltros(){
-  ["Manuales","Tramites","Versiones"].forEach(s=>{const b=$("btnCongelarFiltros"+s);if(!b)return;b.classList.toggle("btn-filtros-congelados",filtrosCongelados());b.textContent=filtrosCongelados()?"📌 Filtros congelados":"📌 Congelar filtros";});
-}
-function alternarFiltrosCongelados(){ const activo=!filtrosCongelados();localStorage.setItem(FILTROS_CONGELADOS_KEY,activo?"1":"0");if(activo)guardarFiltrosPersistentes();else localStorage.removeItem(FILTROS_KEY);actualizarBotonesFiltros();mostrarToast(activo?"Los filtros se conservarán al refrescar":"Los filtros dejaron de estar congelados"); }
-  
+let filtros = { manuales: {}, tramites: {}, versiones: {} };  
 let fechaCalendario = new Date();  
 let fechaBitacora = new Date();  
 let fechaDashboard = new Date();  
@@ -1143,7 +1130,7 @@ function renderDashboard() {
     ["Total de manuales", estado.manuales.length],  
     ["Publicados", publicados],  
     ["En proceso", enProceso],  
-    ["No iniciados", noIniciados],  
+    ["Prioridad alta", prioridadAlta],  
     ["Horas registradas", totalHoras.toFixed(2)],  
   ]  
     .map(  
@@ -1201,53 +1188,35 @@ function renderDashboard() {
   renderCiclo();  
 }  
  
-function valorCiclo(registro, nombres) {
-  const original = registro?.original || registro || {};
-  const claves = Object.keys(original);
-  const limpia = v => normalizar(v).replace(/[^a-z0-9]/g, "");
-  for (const nombre of nombres) {
-    const clave = claves.find(k => limpia(k) === limpia(nombre));
-    if (clave !== undefined) return original[clave];
-  }
-  return "";
-}
-function fechaCiclo(valor) {
-  if (valor === "" || valor == null) return null;
-  if (valor instanceof Date) return Number.isNaN(valor.getTime()) ? null : valor;
-  if (typeof valor === "number") { const d=new Date(Math.round((valor-25569)*86400*1000)); return Number.isNaN(d.getTime())?null:d; }
-  const d=new Date(valor); return Number.isNaN(d.getTime())?null:d;
-}
-function diasHabilesCiclo(inicio, fin) {
-  if (!inicio || !fin || fin < inicio) return null;
-  const cursor=new Date(inicio.getFullYear(),inicio.getMonth(),inicio.getDate());
-  const limite=new Date(fin.getFullYear(),fin.getMonth(),fin.getDate());
-  let total=0;
-  while(cursor < limite){cursor.setDate(cursor.getDate()+1);if(cursor.getDay()!==0&&cursor.getDay()!==6)total++;}
-  return total;
-}
-function filasDiasPorTarea(){
-  return (estado.ciclo||[]).map(r=>{const i=fechaCiclo(valorCiclo(r,["Start Date"])),f=fechaCiclo(valorCiclo(r,["Comp Date"]));return {dias:diasHabilesCiclo(i,f),change:valorCiclo(r,["Change #"]),categoria:valorCiclo(r,["Change Category"]),seq:valorCiclo(r,["Seq"]),estado:valorCiclo(r,["Task Status"]),inicio:valorCiclo(r,["Start Date"]),fin:valorCiclo(r,["Comp Date"])};}).filter(x=>x.dias!==null).sort((a,b)=>b.dias-a.dias);
-}
-function abrirDiasPorTarea(){
-  const filas=filasDiasPorTarea();
-  const html=`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Días hábiles por tarea</title><style>body{font-family:Segoe UI;margin:20px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#666;color:#fff}</style></head><body><h2>Días hábiles por tarea</h2><table><thead><tr><th>Días</th><th>Change #</th><th>Change Category</th><th>Seq</th><th>Task Status</th><th>Start Date</th><th>Comp Date</th></tr></thead><tbody>${filas.map(x=>`<tr><td>${x.dias}</td><td>${escaparHTML(x.change)}</td><td>${escaparHTML(x.categoria)}</td><td>${escaparHTML(x.seq)}</td><td>${escaparHTML(x.estado)}</td><td>${escaparHTML(x.inicio)}</td><td>${escaparHTML(x.fin)}</td></tr>`).join("")}</tbody></table></body></html>`;
-  const w=open("","_blank");if(!w)return mostrarToast("Permita ventanas emergentes para ver el detalle");w.document.write(html);w.document.close();
-}
-function renderCiclo() {
-  const grupos={};let total=0,pendientes=0;
-  (estado.ciclo||[]).forEach(r=>{
-    const status=normalizar(valorCiclo(r,["Task Status"]));if(status.includes("pending"))pendientes++;
-    const inicio=fechaCiclo(valorCiclo(r,["Start Date"])),fin=fechaCiclo(valorCiclo(r,["Comp Date"]));
-    const dias=diasHabilesCiclo(inicio,fin);if(dias===null)return;
-    const categoria=String(valorCiclo(r,["Change Category"])||"Sin categoría");(grupos[categoria]||=[]).push(dias);total++;
-  });
-  const resumen=Object.entries(grupos).map(([tipo,valores])=>({tipo,promedio:valores.reduce((a,b)=>a+b,0)/valores.length,cantidad:valores.length}));
-  if($("pendingTasksCount")) $("pendingTasksCount").textContent=pendientes;
-  $("resumenDashboardCiclo").innerHTML=`<div class="small-note">${total} registros con Start Date y Comp Date válidos</div>`;
-  const max=Math.max(1,...resumen.map(x=>x.promedio));
-  $("graficoDashboardCiclo").innerHTML=resumen.map(x=>`<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${escaparHTML(x.tipo)}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${x.promedio/max*100}%"></div></div><div class="dashboard-cycle-meta">${x.promedio.toFixed(1)} días</div></div>`).join("")||`<div class="empty-state">Importe datos de ciclo para visualizar resultados.</div>`;
-}
-
+function renderCiclo() {  
+  const datos = estado.ciclo || [];  
+  const grupos = {};  
+  datos.forEach((d) => {  
+    const tipo = d.tipo || "Sin tipo";  
+    (grupos[tipo] ||= []).push(Number(d.dias || 0));  
+  });  
+  const resumen = Object.entries(grupos).map(([tipo, valores]) => ({  
+    tipo,  
+    promedio: valores.reduce((a, b) => a + b, 0) / valores.length,  
+    cantidad: valores.length,  
+  }));  
+  $("resumenDashboardCiclo").innerHTML =  
+    resumen  
+      .map(  
+        (x) =>  
+          `<div class="dashboard-cycle-card"><div class="label">${escaparHTML(x.tipo)}</div><div class="value">${x.promedio.toFixed(1)}</div><div class="small-note">${x.cantidad} caso(s)</div></div>`,  
+      )  
+      .join("") ||  
+    `<div class="empty-state">Importe datos de ciclo para visualizar resultados.</div>`;  
+  const max = Math.max(1, ...resumen.map((x) => x.promedio));  
+  $("graficoDashboardCiclo").innerHTML = resumen  
+    .map(  
+      (x) =>  
+        `<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${escaparHTML(x.tipo)}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${(x.promedio / max) * 100}%"></div></div><div class="dashboard-cycle-meta">${x.promedio.toFixed(1)} días</div></div>`,  
+    )  
+    .join("");  
+}  
+ 
 function abrirPantalla(idPantalla) {  
   $(idPantalla).hidden = false;  
 }  
@@ -2029,10 +1998,7 @@ async function guardarYPublicarCambios() {
   }
 }
 
-function configurarBotones() {
-  ["btnCongelarFiltrosManuales","btnCongelarFiltrosTramites","btnCongelarFiltrosVersiones"].forEach(id=>$(id)?.addEventListener("click",alternarFiltrosCongelados));
-  actualizarBotonesFiltros();
-  $("btnDiasPorTarea")?.addEventListener("click",abrirDiasPorTarea);  
+function configurarBotones() {  
   $("btnAgregarManual").addEventListener("click", () => abrirManual());  
   $("btnAgregarTramite").addEventListener("click", () => abrirTramite());  
   $("btnAgregarVersion").addEventListener("click", () => abrirVersion());  
@@ -2183,7 +2149,6 @@ document.addEventListener("DOMContentLoaded", inicializar);
 /* ===== KIRIS V3: mejoras funcionales solicitadas ===== */  
 let eliminacionPendiente = null;  
 function renderEntidad(tipo) {
-  guardarFiltrosPersistentes();
   if (tipo === "manuales") renderManuales();
   else if (tipo === "tramites") renderTramites();
   else if (tipo === "bitacora") renderTodo();
