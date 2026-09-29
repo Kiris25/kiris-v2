@@ -327,49 +327,64 @@ function normalizarTramitesCargados() {
     listo: normalizarEstadoListo(tramite.listo),
   }));
 }
-const FILTROS_GUARDADOS_KEY = "kirisV2_filtros_guardados";
-const FILTROS_CONGELADOS_KEY = "kirisV2_filtros_congelados";
+const VISTA_USUARIO_KEY = "kirisV2_vista_usuario";
 let filtros = { manuales: {}, tramites: {}, versiones: {} };
-function filtrosEstanCongelados() {
-  return localStorage.getItem(FILTROS_CONGELADOS_KEY) === "1";
-}
-function guardarFiltrosCongelados() {
-  if (filtrosEstanCongelados()) {
-    localStorage.setItem(FILTROS_GUARDADOS_KEY, JSON.stringify(filtros));
-  }
-}
-function restaurarFiltrosCongelados() {
-  if (!filtrosEstanCongelados()) return;
+let ordenamientosVista = { manuales: null, tramites: null, versiones: null };
+
+function leerVistaUsuario() {
   try {
-    const guardados = JSON.parse(localStorage.getItem(FILTROS_GUARDADOS_KEY));
-    if (guardados && typeof guardados === "object") {
-      filtros = {
-        manuales: guardados.manuales || {},
-        tramites: guardados.tramites || {},
-        versiones: guardados.versiones || {},
-      };
-    }
+    const vista = JSON.parse(localStorage.getItem(VISTA_USUARIO_KEY));
+    return vista && typeof vista === "object" ? vista : {};
   } catch (error) {
-    console.warn("No fue posible restaurar los filtros guardados.", error);
+    console.warn("No fue posible leer la vista guardada.", error);
+    return {};
   }
 }
-function actualizarBotonesCongelarFiltros() {
-  ["Manuales", "Tramites", "Versiones"].forEach((sufijo) => {
-    const boton = $("btnCongelarFiltros" + sufijo);
-    if (!boton) return;
-    const activo = filtrosEstanCongelados();
-    boton.classList.toggle("btn-filtros-congelados", activo);
-    boton.textContent = activo ? "📌 Filtros congelados" : "📌 Congelar filtros";
-  });
+
+function guardarVistaUsuario() {
+  try {
+    localStorage.setItem(
+      VISTA_USUARIO_KEY,
+      JSON.stringify({
+        filtros,
+        ordenamientos: ordenamientosVista,
+        ordenManuales: (estado.manuales || []).map((manual) => manual.id),
+      }),
+    );
+  } catch (error) {
+    console.warn("No fue posible guardar la vista del usuario.", error);
+  }
 }
-function alternarCongeladoFiltros() {
-  const activar = !filtrosEstanCongelados();
-  localStorage.setItem(FILTROS_CONGELADOS_KEY, activar ? "1" : "0");
-  if (activar) guardarFiltrosCongelados();
-  else localStorage.removeItem(FILTROS_GUARDADOS_KEY);
-  actualizarBotonesCongelarFiltros();
-  mostrarToast(activar ? "Los filtros se conservarán al refrescar" : "Los filtros dejaron de estar congelados");
-}  
+
+function aplicarOrdenGuardado(lista, ids) {
+  if (!Array.isArray(lista) || !Array.isArray(ids) || !ids.length) return lista;
+  const posiciones = new Map(ids.map((id, indice) => [id, indice]));
+  return lista
+    .map((item, indiceOriginal) => ({ item, indiceOriginal }))
+    .sort((a, b) => {
+      const pa = posiciones.has(a.item.id) ? posiciones.get(a.item.id) : Number.MAX_SAFE_INTEGER;
+      const pb = posiciones.has(b.item.id) ? posiciones.get(b.item.id) : Number.MAX_SAFE_INTEGER;
+      return pa - pb || a.indiceOriginal - b.indiceOriginal;
+    })
+    .map(({ item }) => item);
+}
+
+function restaurarVistaUsuario() {
+  const vista = leerVistaUsuario();
+  const guardados = vista.filtros || {};
+  filtros = {
+    manuales: guardados.manuales || {},
+    tramites: guardados.tramites || {},
+    versiones: guardados.versiones || {},
+  };
+  ordenamientosVista = {
+    manuales: vista.ordenamientos?.manuales || null,
+    tramites: vista.ordenamientos?.tramites || null,
+    versiones: vista.ordenamientos?.versiones || null,
+  };
+  estado.manuales = aplicarOrdenGuardado(estado.manuales, vista.ordenManuales);
+}
+
 let fechaCalendario = new Date();  
 let fechaBitacora = new Date();  
 let fechaDashboard = new Date();  
@@ -379,6 +394,7 @@ let editorActivo = true;
 function guardarEstado(mensaje = "Cambios guardados") {  
   estado.ultimaCopia = new Date().toISOString();  
   localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));  
+  guardarVistaUsuario();
   actualizarEstadoGuardado();  
   if (mensaje) mostrarToast(mensaje);  
 }  
@@ -2113,14 +2129,17 @@ function configurarBotones() {
   );  
   $("btnLimpiarFiltrosManuales").addEventListener("click", () => {  
     filtros.manuales = {};  
+    guardarVistaUsuario();
     renderManuales();  
   });  
   $("btnLimpiarFiltrosTramites").addEventListener("click", () => {  
     filtros.tramites = {};  
+    guardarVistaUsuario();
     renderTramites();  
   });  
   $("btnLimpiarFiltrosVersiones").addEventListener("click", () => {  
     filtros.versiones = {};  
+    guardarVistaUsuario();
     renderVersiones();  
   });  
   $("btnExportarManuales").addEventListener("click", () =>  
@@ -3040,6 +3059,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return resultado * sentido;  
     });  
  
+    ordenamientosVista[tipo] = { columna: columna.key, sentido };
     guardarEstado(`Orden actualizado por ${columna.label}`);  
     renderDe(tipo);  
   }  
