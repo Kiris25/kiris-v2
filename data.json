@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-09-29T15:03:25.264Z",
+  "fechaPublicacion": "2026-09-29T15:55:48.217Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -208,14 +208,14 @@
       "ocRelacionado": "",
       "prioridad": "Alta",
       "tipo": "T",
-      "paginas": "53",
-      "diasEsfuerzo": "5.3",
-      "fechaInicio": "",
+      "paginas": 53,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "2026-09-29",
       "fechaFinalizacion": "",
-      "fechaPublicadoGestor": "",
-      "horasEsfuerzo": "",
-      "color": "",
-      "estado": "No iniciado"
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C",
+      "colorCalendario": "#E63946"
     },
     {
       "id": "manual_1790025713576_1bc15cc405e92",
@@ -4689,7 +4689,7 @@
       "codigo": "UEO-CAP-MI-008",
       "manual": "Massages sending system manual (SEATH)",
       "idioma": "Inglés",
-      "numero": "0",
+      "numero": "1",
       "fecha": "",
       "estado": "Disponible",
       "observaciones": ""
