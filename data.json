@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-01T13:03:24.893Z",
+  "fechaPublicacion": "2026-10-01T13:19:58.363Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -3478,7 +3478,7 @@
       "tipoGestion": "R",
       "fechaIngreso": "2026-09-09",
       "fechaInicio": "",
-      "manualActualizar": "UEO-CAP-MU-122 Manual Adquirencia Web Proceso pagos manuales a comercios",
+      "manualActualizar": "UEO-CAP-MU-059 - Manual Sitio comercios Adquirencia Web",
       "temaGeneral": "Adquirencia Web",
       "baAsignado": "",
       "consultas": "",
