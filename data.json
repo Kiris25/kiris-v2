@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-01T13:19:58.363Z",
+  "fechaPublicacion": "2026-10-01T13:52:10.140Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -3470,24 +3470,6 @@
       "justificacionIngles": "NO",
       "listo": "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN",
       "tipoGestion": "T"
-    },
-    {
-      "id": "tramite_1789576083258_27a42ef1f44478",
-      "requerimiento": "2738853",
-      "detalle": "Se requiere realizar una mejora en el sitio web de comercios de adquirencia web para que el usuario pueda identificar si la transacción tuvo participación DCC",
-      "tipoGestion": "R",
-      "fechaIngreso": "2026-09-09",
-      "fechaInicio": "",
-      "manualActualizar": "UEO-CAP-MU-059 - Manual Sitio comercios Adquirencia Web",
-      "temaGeneral": "Adquirencia Web",
-      "baAsignado": "",
-      "consultas": "",
-      "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
-      "versionTraducir": "NO",
-      "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
     },
     {
       "id": "tramite_1789576488908_ae2bb182131808",
