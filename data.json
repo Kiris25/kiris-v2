@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-05T20:55:02.484Z",
+  "fechaPublicacion": "2026-10-05T21:27:51.051Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -213,7 +213,7 @@
       "fechaInicio": "2026-09-29",
       "fechaFinalizacion": "2026-10-05",
       "fechaPublicado": "2026-10-05",
-      "horasEsfuerzo": 12.5,
+      "horasEsfuerzo": 5,
       "color": "#FF6C0C",
       "colorCalendario": "#E63946"
     },
