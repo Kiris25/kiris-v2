@@ -2674,91 +2674,56 @@ function fechaXLSX(v) {
     ? ""  
     : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;  
 }  
-async function importarControlVersionesXLSX(archivo) {
-  if (!archivo) return;
-  try {
-    const wb = await leerLibroXLSX(archivo);
-    const nombreHoja = wb.SheetNames.includes("ControlVersiones")
-      ? "ControlVersiones"
-      : wb.SheetNames.find((nombre) =>
-          normalizar(nombre).replace(/[^a-z0-9]/g, "").includes("controlversiones"),
-        ) || wb.SheetNames[0];
-
-    if (!nombreHoja) throw new Error("El archivo no contiene hojas");
-
-    const filas = XLSX.utils.sheet_to_json(wb.Sheets[nombreHoja], {
-      defval: "",
-      raw: false,
-      dateNF: "yyyy-mm-dd",
-    });
-
-    const valorColumna = (fila, nombres) => {
-      const claves = Object.keys(fila || {});
-      const buscadas = nombres.map(normalizarEncabezado);
-      const clave = claves.find((item) =>
-        buscadas.includes(normalizarEncabezado(item)),
-      );
-      return clave === undefined ? "" : fila[clave];
-    };
-
-    const nuevos = filas
-      .map((fila) => {
-        const codigo = String(valorColumna(fila, ["Código", "Codigo"])).trim();
-        const manual = String(valorColumna(fila, ["Manual"])).trim();
-        if (!codigo && !manual) return null;
-
-        return {
-          id: id("version"),
-          sistema:
-            String(valorColumna(fila, ["Sistema"])).trim() || "SISCARD",
-          codigo,
-          manual,
-          idioma: String(valorColumna(fila, ["Idioma"])).trim() || "Español",
-          numero: String(
-            valorColumna(fila, ["Versión disponible", "Version disponible", "Versión", "Version"]),
-          ).trim(),
-          ubicacionEService: String(
-            valorColumna(fila, ["Ubicación en E-service", "Ubicacion en E-service", "Ubicación en Eservice", "Ubicacion en Eservice"]),
-          ).trim(),
-          fecha: fechaXLSX(
-            valorColumna(fila, ["Fecha de versión", "Fecha de version", "Fecha"]),
-          ),
-          estado:
-            String(valorColumna(fila, ["Estado"])).trim() || "Disponible",
-          observaciones: String(
-            valorColumna(fila, ["Observaciones"]),
-          ).trim(),
-        };
-      })
-      .filter(Boolean);
-
-    if (!nuevos.length) {
-      throw new Error(
-        "No se encontraron filas válidas. Use el Excel generado por Exportar EXCEL en Control de Versiones.",
-      );
-    }
-
-    nuevos.sort((a, b) =>
-      String(a.codigo || "").localeCompare(String(b.codigo || ""), "es", {
-        numeric: true,
-        sensitivity: "base",
-      }),
-    );
-
-    estado.versiones = nuevos;
-    filtros.versiones = {};
-    ordenamientosVista.versiones = { columna: "codigo", sentido: 1 };
-    guardarEstado(`${nuevos.length} versiones importadas y reemplazadas`);
-    renderVersiones();
-    mostrarToast(
-      `Control de Versiones reemplazado con ${nuevos.length} registro(s) del Excel`,
-    );
-  } catch (e) {
-    console.error(e);
-    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);
-  }
-}
-
+async function importarControlVersionesXLSX(archivo) {  
+  if (!archivo) return;  
+  try {  
+    const wb = await leerLibroXLSX(archivo),  
+      nuevos = [];  
+    wb.SheetNames.forEach((nombre) => {  
+      const idioma = normalizar(nombre).includes("ingles")  
+        ? "Inglés"  
+        : normalizar(nombre).includes("espanol")  
+          ? "Español"  
+          : "";  
+      if (!idioma) return;  
+      const filas = XLSX.utils.sheet_to_json(wb.Sheets[nombre], {  
+        header: 1,  
+        defval: "",  
+      });  
+      filas.slice(1).forEach((f) => {  
+        const codigo = String(f[0] || "").trim(),  
+          manual = String(f[1] || "").trim();  
+        if (!codigo.startsWith("UEO-") || !manual) return;  
+        nuevos.push({  
+          id: id("version"),  
+          sistema: /siscard\s*\+|siscardplus/i.test(manual)  
+            ? "siscard+"  
+            : "SISCARD",  
+          codigo,  
+          manual,  
+          idioma,  
+          numero: String(f[2] ?? "").trim() || "0",  
+          fecha: "",  
+          estado: "Disponible",  
+          observaciones: "",  
+        });  
+      });  
+    });  
+    if (!nuevos.length) throw new Error("No se encontraron filas válidas");  
+    if (  
+      confirm(  
+        "¿Reemplazar el Control de Versiones actual?\nAceptar = reemplazar. Cancelar = agregar.",  
+      )  
+    )  
+      estado.versiones = nuevos;  
+    else estado.versiones.push(...nuevos);  
+    guardarEstado(`${nuevos.length} versiones importadas`);  
+    renderVersiones();  
+  } catch (e) {  
+    console.error(e);  
+    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);  
+  }  
+}  
 async function importarDashboardProduccion(archivo) {  
   if (!archivo) return;  
   try {  
