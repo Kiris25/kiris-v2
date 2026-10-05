@@ -1,203 +1,207 @@
-"use strict";  
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>app.js modificado - Control de Versiones</title>
+<style>body{font-family:Segoe UI,Arial,sans-serif;margin:24px;background:#f5f5f5;color:#222}h1{color:#c64f00}.nota{background:#fff3e8;border-left:5px solid #ff6c0c;padding:12px;margin-bottom:16px}table{width:100%;border-collapse:collapse;background:white}td{border:1px solid #ddd;padding:0}pre{margin:0;padding:16px;white-space:pre;overflow:auto;font:13px/1.45 Consolas,monospace}</style></head>
+<body><h1>app.js modificado</h1><div class="nota">El importador de Control de Versiones acepta el mismo Excel generado por Exportar EXCEL y reemplaza todos los registros existentes.</div><table><tr><td><pre>&quot;use strict&quot;;  
  
-const $ = (id) => document.getElementById(id);  
-const STORAGE_KEY = "kirisV2_estado_maestro";  
-const PUBLISHED_KEY = "kirisV2_publicado";  
+const $ = (id) =&gt; document.getElementById(id);  
+const STORAGE_KEY = &quot;kirisV2_estado_maestro&quot;;  
+const PUBLISHED_KEY = &quot;kirisV2_publicado&quot;;  
 const MESES = [  
-  "Enero",  
-  "Febrero",  
-  "Marzo",  
-  "Abril",  
-  "Mayo",  
-  "Junio",  
-  "Julio",  
-  "Agosto",  
-  "Septiembre",  
-  "Octubre",  
-  "Noviembre",  
-  "Diciembre",  
+  &quot;Enero&quot;,  
+  &quot;Febrero&quot;,  
+  &quot;Marzo&quot;,  
+  &quot;Abril&quot;,  
+  &quot;Mayo&quot;,  
+  &quot;Junio&quot;,  
+  &quot;Julio&quot;,  
+  &quot;Agosto&quot;,  
+  &quot;Septiembre&quot;,  
+  &quot;Octubre&quot;,  
+  &quot;Noviembre&quot;,  
+  &quot;Diciembre&quot;,  
 ];  
-const DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];  
+const DIAS = [&quot;Lun&quot;, &quot;Mar&quot;, &quot;Mié&quot;, &quot;Jue&quot;, &quot;Vie&quot;, &quot;Sáb&quot;, &quot;Dom&quot;];  
  
 const COLUMNAS_MANUALES = [  
-  { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
-  { key: "orden", label: "#", width: 62, especial: "orden" },  
-  { key: "codigo", label: "Código", width: 120 },  
-  { key: "titulo", label: "Título", width: 280 },  
+  { key: &quot;seleccion&quot;, label: &quot;&quot;, width: 42, especial: &quot;seleccion&quot; },  
+  { key: &quot;orden&quot;, label: &quot;#&quot;, width: 62, especial: &quot;orden&quot; },  
+  { key: &quot;codigo&quot;, label: &quot;Código&quot;, width: 120 },  
+  { key: &quot;titulo&quot;, label: &quot;Título&quot;, width: 280 },  
   {  
-    key: "idioma",  
-    label: "Idioma",  
+    key: &quot;idioma&quot;,  
+    label: &quot;Idioma&quot;,  
     width: 110,  
-    tipo: "select",  
-    opciones: ["Español", "Inglés"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;Español&quot;, &quot;Inglés&quot;],  
   },  
   {  
-    key: "archivoElectronico",  
-    label: "Archivo electrónico",  
+    key: &quot;archivoElectronico&quot;,  
+    label: &quot;Archivo electrónico&quot;,  
     width: 145,  
-    tipo: "select",  
-    opciones: ["", "Sí", "No"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;&quot;, &quot;Sí&quot;, &quot;No&quot;],  
   },  
-  { key: "ocRelacionado", label: "OC relacionado", width: 135 },  
+  { key: &quot;ocRelacionado&quot;, label: &quot;OC relacionado&quot;, width: 135 },  
   {  
-    key: "prioridad",  
-    label: "Prioridad",  
+    key: &quot;prioridad&quot;,  
+    label: &quot;Prioridad&quot;,  
     width: 110,  
-    tipo: "select",  
-    opciones: ["", "Alta", "Media", "Baja"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;&quot;, &quot;Alta&quot;, &quot;Media&quot;, &quot;Baja&quot;],  
   },  
   {  
-    key: "tipo",  
-    label: "Tipo",  
+    key: &quot;tipo&quot;,  
+    label: &quot;Tipo&quot;,  
     width: 85,  
-    tipo: "select",  
-    opciones: ["", "N", "T", "A", "R"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;&quot;, &quot;N&quot;, &quot;T&quot;, &quot;A&quot;, &quot;R&quot;],  
   },  
-  { key: "paginas", label: "Páginas", width: 95, tipo: "number" },  
-  { key: "diasEsfuerzo", label: "Días esfuerzo", width: 120, tipo: "number" },  
-  { key: "horasEsfuerzo", label: "Horas esfuerzo", width: 125, tipo: "number" },  
+  { key: &quot;paginas&quot;, label: &quot;Páginas&quot;, width: 95, tipo: &quot;number&quot; },  
+  { key: &quot;diasEsfuerzo&quot;, label: &quot;Días esfuerzo&quot;, width: 120, tipo: &quot;number&quot; },  
+  { key: &quot;horasEsfuerzo&quot;, label: &quot;Horas esfuerzo&quot;, width: 125, tipo: &quot;number&quot; },  
   {  
-    key: "tiempoInvertido",  
-    label: "Tiempo invertido",  
+    key: &quot;tiempoInvertido&quot;,  
+    label: &quot;Tiempo invertido&quot;,  
     width: 125,  
     calculado: true,  
   },  
-  { key: "fechaInicio", label: "Fecha inicio", width: 130, tipo: "date" },  
+  { key: &quot;fechaInicio&quot;, label: &quot;Fecha inicio&quot;, width: 130, tipo: &quot;date&quot; },  
   {  
-    key: "fechaFinalizacion",  
-    label: "Fecha finalización",  
+    key: &quot;fechaFinalizacion&quot;,  
+    label: &quot;Fecha finalización&quot;,  
     width: 145,  
-    tipo: "date",  
+    tipo: &quot;date&quot;,  
   },  
-  { key: "fechaPublicado", label: "Fecha publicado", width: 140, tipo: "date" },  
-  { key: "estado", label: "Estado", width: 145, calculado: true },  
-  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
+  { key: &quot;fechaPublicado&quot;, label: &quot;Fecha publicado&quot;, width: 140, tipo: &quot;date&quot; },  
+  { key: &quot;estado&quot;, label: &quot;Estado&quot;, width: 145, calculado: true },  
+  { key: &quot;acciones&quot;, label: &quot;Acciones&quot;, width: 110, especial: &quot;acciones&quot; },  
 ];  
  
 const COLUMNAS_TRAMITES = [  
-  { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
-  { key: "requerimiento", label: "Requerimiento", width: 135 },  
-  { key: "detalle", label: "Detalle", width: 230 },  
+  { key: &quot;seleccion&quot;, label: &quot;&quot;, width: 42, especial: &quot;seleccion&quot; },  
+  { key: &quot;requerimiento&quot;, label: &quot;Requerimiento&quot;, width: 135 },  
+  { key: &quot;detalle&quot;, label: &quot;Detalle&quot;, width: 230 },  
   {
-    key: "tipoGestion",
-    label: "Tipo T / R",
+    key: &quot;tipoGestion&quot;,
+    label: &quot;Tipo T / R&quot;,
     width: 120,
-    tipo: "select",
-    opciones: ["", "T", "R"],
+    tipo: &quot;select&quot;,
+    opciones: [&quot;&quot;, &quot;T&quot;, &quot;R&quot;],
   },
-  { key: "fechaIngreso", label: "Fecha ingreso", width: 130, tipo: "date" },  
+  { key: &quot;fechaIngreso&quot;, label: &quot;Fecha ingreso&quot;, width: 130, tipo: &quot;date&quot; },  
   {
-    key: "tiempoEstimado",
-    label: "Tiempo estimado de entrega",
+    key: &quot;tiempoEstimado&quot;,
+    label: &quot;Tiempo estimado de entrega&quot;,
     width: 190,
     calculado: true,
   },
   {
-    key: "fechaLimite",
-    label: "Fecha límite",
+    key: &quot;fechaLimite&quot;,
+    label: &quot;Fecha límite&quot;,
     width: 135,
-    tipo: "date",
+    tipo: &quot;date&quot;,
     calculado: true,
   },
   {
-    key: "cumplimiento",
-    label: "Cumplimiento",
+    key: &quot;cumplimiento&quot;,
+    label: &quot;Cumplimiento&quot;,
     width: 165,
     calculado: true,
   },
-  { key: "fechaInicio", label: "Fecha inicio", width: 125, tipo: "date" },  
-  { key: "manualActualizar", label: "Manual a actualizar", width: 220 },  
-  { key: "temaGeneral", label: "Tema general", width: 170 },  
-  { key: "baAsignado", label: "BA asignado", width: 150 },  
+  { key: &quot;fechaInicio&quot;, label: &quot;Fecha inicio&quot;, width: 125, tipo: &quot;date&quot; },  
+  { key: &quot;manualActualizar&quot;, label: &quot;Manual a actualizar&quot;, width: 220 },  
+  { key: &quot;temaGeneral&quot;, label: &quot;Tema general&quot;, width: 170 },  
+  { key: &quot;baAsignado&quot;, label: &quot;BA asignado&quot;, width: 150 },  
   {  
-    key: "consultas",  
-    label: "Consultas / comentarios",  
+    key: &quot;consultas&quot;,  
+    label: &quot;Consultas / comentarios&quot;,  
     width: 260,  
-    tipo: "textarea",  
+    tipo: &quot;textarea&quot;,  
   },  
   {  
-    key: "respuestaConsulta",  
-    label: "Respuesta a consulta",  
+    key: &quot;respuestaConsulta&quot;,  
+    label: &quot;Respuesta a consulta&quot;,  
     width: 250,  
-    tipo: "textarea",  
+    tipo: &quot;textarea&quot;,  
   },  
   {  
-    key: "justificacionGestor",  
-    label: "Justificación en Gestor",  
+    key: &quot;justificacionGestor&quot;,  
+    label: &quot;Justificación en Gestor&quot;,  
     width: 180,  
-    tipo: "select",  
-    opciones: ["", "SÍ", "NO", "NO APLICA"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;&quot;, &quot;SÍ&quot;, &quot;NO&quot;, &quot;NO APLICA&quot;],  
   },  
-  { key: "fechaPublicado", label: "Fecha publicado", width: 130, tipo: "date" },  
+  { key: &quot;fechaPublicado&quot;, label: &quot;Fecha publicado&quot;, width: 130, tipo: &quot;date&quot; },  
   {  
-    key: "versionTraducir",  
-    label: "Versión para traducir agregada",  
+    key: &quot;versionTraducir&quot;,  
+    label: &quot;Versión para traducir agregada&quot;,  
     width: 210,  
-    tipo: "select",  
-    opciones: ["", "SÍ", "NO", "NO APLICA"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;&quot;, &quot;SÍ&quot;, &quot;NO&quot;, &quot;NO APLICA&quot;],  
   },  
   {  
-    key: "justificacionIngles",  
-    label: "Justificación Gestor Inglés",  
+    key: &quot;justificacionIngles&quot;,  
+    label: &quot;Justificación Gestor Inglés&quot;,  
     width: 200,  
-    tipo: "select",  
-    opciones: ["", "SÍ", "NO", "AÚN NO SE HA TRADUCIDO", "NO APLICA"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;&quot;, &quot;SÍ&quot;, &quot;NO&quot;, &quot;AÚN NO SE HA TRADUCIDO&quot;, &quot;NO APLICA&quot;],  
   },  
   {  
-    key: "listo",  
-    label: "Listo",  
+    key: &quot;listo&quot;,  
+    label: &quot;Listo&quot;,  
     width: 230,  
-    tipo: "select",  
+    tipo: &quot;select&quot;,  
     opciones: [  
-      "",  
-      "PENDIENTE",  
-      "PENDIENTE / NO SE VE EL CAMBIO",  
-      "PENDIENTE / FALTA INFORMACIÓN",  
-      "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN",  
-      "SOLO ESPAÑOL / NO APLICA INGLÉS",  
-      "SOLO ESPAÑOL / FALTA INGLÉS",  
-      "SOLO INGLÉS",  
-      "AMBOS IDIOMAS",  
+      &quot;&quot;,  
+      &quot;PENDIENTE&quot;,  
+      &quot;PENDIENTE / NO SE VE EL CAMBIO&quot;,  
+      &quot;PENDIENTE / FALTA INFORMACIÓN&quot;,  
+      &quot;PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN&quot;,  
+      &quot;SOLO ESPAÑOL / NO APLICA INGLÉS&quot;,  
+      &quot;SOLO ESPAÑOL / FALTA INGLÉS&quot;,  
+      &quot;SOLO INGLÉS&quot;,  
+      &quot;AMBOS IDIOMAS&quot;,  
     ],  
   },  
-  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
+  { key: &quot;acciones&quot;, label: &quot;Acciones&quot;, width: 110, especial: &quot;acciones&quot; },  
 ];  
  
 const COLUMNAS_VERSIONES = [  
-  { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
+  { key: &quot;seleccion&quot;, label: &quot;&quot;, width: 42, especial: &quot;seleccion&quot; },  
   {  
-    key: "sistema",  
-    label: "Sistema",  
+    key: &quot;sistema&quot;,  
+    label: &quot;Sistema&quot;,  
     width: 115,  
-    tipo: "select",  
-    opciones: ["SISCARD", "siscard+"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;SISCARD&quot;, &quot;siscard+&quot;],  
   },  
-  { key: "codigo", label: "Código", width: 125 },  
-  { key: "manual", label: "Manual", width: 280 },  
+  { key: &quot;codigo&quot;, label: &quot;Código&quot;, width: 125 },  
+  { key: &quot;manual&quot;, label: &quot;Manual&quot;, width: 280 },  
   {  
-    key: "idioma",  
-    label: "Idioma",  
+    key: &quot;idioma&quot;,  
+    label: &quot;Idioma&quot;,  
     width: 110,  
-    tipo: "select",  
-    opciones: ["Español", "Inglés"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;Español&quot;, &quot;Inglés&quot;],  
   },  
-  { key: "numero", label: "Versión disponible", width: 145 },  
-  { key: "ubicacionEService", label: "Ubicación en E-service", width: 190 },  
-  { key: "fecha", label: "Fecha de versión", width: 135, tipo: "date" },  
+  { key: &quot;numero&quot;, label: &quot;Versión disponible&quot;, width: 145 },  
+  { key: &quot;ubicacionEService&quot;, label: &quot;Ubicación en E-service&quot;, width: 190 },  
+  { key: &quot;fecha&quot;, label: &quot;Fecha de versión&quot;, width: 135, tipo: &quot;date&quot; },  
   {  
-    key: "estado",  
-    label: "Estado",  
+    key: &quot;estado&quot;,  
+    label: &quot;Estado&quot;,  
     width: 130,  
-    tipo: "select",  
-    opciones: ["Disponible", "Pendiente", "En revisión", "Obsoleta"],  
+    tipo: &quot;select&quot;,  
+    opciones: [&quot;Disponible&quot;, &quot;Pendiente&quot;, &quot;En revisión&quot;, &quot;Obsoleta&quot;],  
   },  
   {  
-    key: "observaciones",  
-    label: "Observaciones",  
+    key: &quot;observaciones&quot;,  
+    label: &quot;Observaciones&quot;,  
     width: 280,  
-    tipo: "textarea",  
+    tipo: &quot;textarea&quot;,  
   },  
-  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
+  { key: &quot;acciones&quot;, label: &quot;Acciones&quot;, width: 110, especial: &quot;acciones&quot; },  
 ];  
  
 function id(prefijo) {  
@@ -206,60 +210,60 @@ function id(prefijo) {
  
 function estadoInicial() {  
   return {  
-    modo: "editor",  
-    ultimaCopia: "",  
+    modo: &quot;editor&quot;,  
+    ultimaCopia: &quot;&quot;,  
     manuales: [  
       {  
-        id: id("manual"),  
-        codigo: "MAN001",  
-        titulo: "Manual de prueba",  
-        idioma: "Español",  
-        archivoElectronico: "Sí",  
-        ocRelacionado: "",  
-        prioridad: "Alta",  
-        tipo: "N",  
+        id: id(&quot;manual&quot;),  
+        codigo: &quot;MAN001&quot;,  
+        titulo: &quot;Manual de prueba&quot;,  
+        idioma: &quot;Español&quot;,  
+        archivoElectronico: &quot;Sí&quot;,  
+        ocRelacionado: &quot;&quot;,  
+        prioridad: &quot;Alta&quot;,  
+        tipo: &quot;N&quot;,  
         paginas: 20,  
         diasEsfuerzo: 3,  
         horasEsfuerzo: 8,  
         fechaInicio: fechaISOHoy(),  
-        fechaFinalizacion: "",  
-        fechaPublicado: "",  
-        color: "#FF6C0C",  
+        fechaFinalizacion: &quot;&quot;,  
+        fechaPublicado: &quot;&quot;,  
+        color: &quot;#FF6C0C&quot;,  
       },  
     ],  
     tramites: [  
       {  
-        id: id("tramite"),  
-        requerimiento: "REQ001",  
-        detalle: "Trámite de prueba",  
-        tipoGestion: "T",
+        id: id(&quot;tramite&quot;),  
+        requerimiento: &quot;REQ001&quot;,  
+        detalle: &quot;Trámite de prueba&quot;,  
+        tipoGestion: &quot;T&quot;,
         fechaIngreso: fechaISOHoy(),  
-        fechaInicio: "",  
-        manualActualizar: "Manual de prueba",  
-        temaGeneral: "Parámetros",  
-        baAsignado: "",  
-        consultas: "",  
-        respuestaConsulta: "",  
-        justificacionGestor: "",  
-        fechaPublicado: "",  
-        versionTraducir: "",  
-        justificacionIngles: "",  
-        listo: "PENDIENTE",  
+        fechaInicio: &quot;&quot;,  
+        manualActualizar: &quot;Manual de prueba&quot;,  
+        temaGeneral: &quot;Parámetros&quot;,  
+        baAsignado: &quot;&quot;,  
+        consultas: &quot;&quot;,  
+        respuestaConsulta: &quot;&quot;,  
+        justificacionGestor: &quot;&quot;,  
+        fechaPublicado: &quot;&quot;,  
+        versionTraducir: &quot;&quot;,  
+        justificacionIngles: &quot;&quot;,  
+        listo: &quot;PENDIENTE&quot;,  
       },  
     ],  
     bitacora: [],  
     versiones: [  
       {  
-        id: id("version"),  
-        sistema: "SISCARD",  
-        codigo: "MAN001",  
-        manual: "Manual de prueba",  
-        idioma: "Español",  
-        numero: "1.0",  
-        ubicacionEService: "",  
+        id: id(&quot;version&quot;),  
+        sistema: &quot;SISCARD&quot;,  
+        codigo: &quot;MAN001&quot;,  
+        manual: &quot;Manual de prueba&quot;,  
+        idioma: &quot;Español&quot;,  
+        numero: &quot;1.0&quot;,  
+        ubicacionEService: &quot;&quot;,  
         fecha: fechaISOHoy(),  
-        estado: "Disponible",  
-        observaciones: "",  
+        estado: &quot;Disponible&quot;,  
+        observaciones: &quot;&quot;,  
       },  
     ],  
     comentarios: [],  
@@ -285,34 +289,34 @@ function normalizarEstadoCargado(datos) {
     versiones: Array.isArray(origen.versiones) ? origen.versiones : (Array.isArray(origen.controlVersiones) ? origen.controlVersiones : []),
     ciclo: Array.isArray(origen.ciclo) ? origen.ciclo : (Array.isArray(origen.dashboardProduccion) ? origen.dashboardProduccion : []),
     comentarios: Array.isArray(origen.comentarios) ? origen.comentarios : [],
-    ultimaCopia: configuracion.ultimaCopia || origen.ultimaCopia || origen.fechaPublicacion || "",
+    ultimaCopia: configuracion.ultimaCopia || origen.ultimaCopia || origen.fechaPublicacion || &quot;&quot;,
     columnasOcultasManuales: configuracion.columnasOcultasManuales || origen.columnasOcultasManuales || [],
     columnasOcultasTramites: configuracion.columnasOcultasTramites || origen.columnasOcultasTramites || [],
     anchosManuales: configuracion.anchosManuales || origen.anchosManuales || {},
     anchosTramites: configuracion.anchosTramites || origen.anchosTramites || {},
     anchosVersiones: configuracion.anchosVersiones || origen.anchosVersiones || {},
-    modo: "editor",
+    modo: &quot;editor&quot;,
   };
 }
 
 async function cargarEstado() {
   try {
     if (!window.KirisStorage?.cargarPublicado) {
-      throw new Error("El módulo storage.js no está disponible.");
+      throw new Error(&quot;El módulo storage.js no está disponible.&quot;);
     }
     const publicado = await window.KirisStorage.cargarPublicado();
     const estadoPublicado = normalizarEstadoCargado(publicado);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(estadoPublicado));
     return estadoPublicado;
   } catch (errorPublicado) {
-    console.error("No fue posible cargar data.json. Se intentará recuperar la copia local.", errorPublicado);
+    console.error(&quot;No fue posible cargar data.json. Se intentará recuperar la copia local.&quot;, errorPublicado);
     try {
       const guardado = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if (guardado && typeof guardado === "object") {
+      if (guardado &amp;&amp; typeof guardado === &quot;object&quot;) {
         return normalizarEstadoCargado(guardado);
       }
     } catch (errorLocal) {
-      console.error("No fue posible recuperar la copia local.", errorLocal);
+      console.error(&quot;No fue posible recuperar la copia local.&quot;, errorLocal);
     }
     return estadoInicial();
   }
@@ -321,22 +325,22 @@ async function cargarEstado() {
 let estado = estadoInicial();
 
 function normalizarTramitesCargados() {
-  estado.tramites = (estado.tramites || []).map((tramite) => ({
-    id: tramite.id || id("tramite"),
+  estado.tramites = (estado.tramites || []).map((tramite) =&gt; ({
+    id: tramite.id || id(&quot;tramite&quot;),
     ...tramite,
     listo: normalizarEstadoListo(tramite.listo),
   }));
 }
-const VISTA_USUARIO_KEY = "kirisV2_vista_usuario";
+const VISTA_USUARIO_KEY = &quot;kirisV2_vista_usuario&quot;;
 let filtros = { manuales: {}, tramites: {}, versiones: {} };
 let ordenamientosVista = { manuales: null, tramites: null, versiones: null };
 
 function leerVistaUsuario() {
   try {
     const vista = JSON.parse(localStorage.getItem(VISTA_USUARIO_KEY));
-    return vista && typeof vista === "object" ? vista : {};
+    return vista &amp;&amp; typeof vista === &quot;object&quot; ? vista : {};
   } catch (error) {
-    console.warn("No fue posible leer la vista guardada.", error);
+    console.warn(&quot;No fue posible leer la vista guardada.&quot;, error);
     return {};
   }
 }
@@ -348,25 +352,25 @@ function guardarVistaUsuario() {
       JSON.stringify({
         filtros,
         ordenamientos: ordenamientosVista,
-        ordenManuales: (estado.manuales || []).map((manual) => manual.id),
+        ordenManuales: (estado.manuales || []).map((manual) =&gt; manual.id),
       }),
     );
   } catch (error) {
-    console.warn("No fue posible guardar la vista del usuario.", error);
+    console.warn(&quot;No fue posible guardar la vista del usuario.&quot;, error);
   }
 }
 
 function aplicarOrdenGuardado(lista, ids) {
   if (!Array.isArray(lista) || !Array.isArray(ids) || !ids.length) return lista;
-  const posiciones = new Map(ids.map((id, indice) => [id, indice]));
+  const posiciones = new Map(ids.map((id, indice) =&gt; [id, indice]));
   return lista
-    .map((item, indiceOriginal) => ({ item, indiceOriginal }))
-    .sort((a, b) => {
+    .map((item, indiceOriginal) =&gt; ({ item, indiceOriginal }))
+    .sort((a, b) =&gt; {
       const pa = posiciones.has(a.item.id) ? posiciones.get(a.item.id) : Number.MAX_SAFE_INTEGER;
       const pb = posiciones.has(b.item.id) ? posiciones.get(b.item.id) : Number.MAX_SAFE_INTEGER;
       return pa - pb || a.indiceOriginal - b.indiceOriginal;
     })
-    .map(({ item }) => item);
+    .map(({ item }) =&gt; item);
 }
 
 function restaurarVistaUsuario() {
@@ -391,7 +395,7 @@ let fechaDashboard = new Date();
 let fechasDestinoCopia = [];  
 let editorActivo = true;  
  
-function guardarEstado(mensaje = "Cambios guardados") {  
+function guardarEstado(mensaje = &quot;Cambios guardados&quot;) {  
   estado.ultimaCopia = new Date().toISOString();  
   localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));  
   guardarVistaUsuario();
@@ -401,93 +405,93 @@ function guardarEstado(mensaje = "Cambios guardados") {
  
 function fechaISOHoy() {  
   const d = new Date();  
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;  
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, &quot;0&quot;)}-${String(d.getDate()).padStart(2, &quot;0&quot;)}`;  
 }  
  
 function escaparHTML(valor) {  
-  return String(valor ?? "")  
-    .replaceAll("&", "&amp;")  
-    .replaceAll("<", "&lt;")  
-    .replaceAll(">", "&gt;")  
-    .replaceAll('"', "&quot;")  
-    .replaceAll("'", "&#039;");  
+  return String(valor ?? &quot;&quot;)  
+    .replaceAll(&quot;&amp;&quot;, &quot;&amp;amp;&quot;)  
+    .replaceAll(&quot;&lt;&quot;, &quot;&amp;lt;&quot;)  
+    .replaceAll(&quot;&gt;&quot;, &quot;&amp;gt;&quot;)  
+    .replaceAll(&#x27;&quot;&#x27;, &quot;&amp;quot;&quot;)  
+    .replaceAll(&quot;&#x27;&quot;, &quot;&amp;#039;&quot;);  
 }  
  
 function normalizar(valor) {  
-  return String(valor ?? "")  
+  return String(valor ?? &quot;&quot;)  
     .toLowerCase()  
-    .normalize("NFD")  
-    .replace(/[\u0300-\u036f]/g, "");  
+    .normalize(&quot;NFD&quot;)  
+    .replace(/[\u0300-\u036f]/g, &quot;&quot;);  
 }  
  
 function normalizarEstadoListo(valor) {  
-  const texto = String(valor ?? "")  
+  const texto = String(valor ?? &quot;&quot;)  
     .trim()  
-    .replace(/AMBOS\s*[ÍI]\s*IDIOMAS/gi, "AMBOS IDIOMAS");  
+    .replace(/AMBOS\s*[ÍI]\s*IDIOMAS/gi, &quot;AMBOS IDIOMAS&quot;);  
   return texto;  
 }  
  
 function claseListo(valor) {  
   const texto = normalizar(normalizarEstadoListo(valor));  
-  if (texto.startsWith("pendiente")) return "listo-pendiente";  
-  if (texto === "ambos idiomas") return "listo-ambos";  
-  if (texto.startsWith("solo espanol")) return "listo-espanol";  
-  return "";  
+  if (texto.startsWith(&quot;pendiente&quot;)) return &quot;listo-pendiente&quot;;  
+  if (texto === &quot;ambos idiomas&quot;) return &quot;listo-ambos&quot;;  
+  if (texto.startsWith(&quot;solo espanol&quot;)) return &quot;listo-espanol&quot;;  
+  return &quot;&quot;;  
 }  
  
 function claseEstado(valor) {  
-  return `estado-${normalizar(valor).replace(/\s+/g, "-")}`;  
+  return `estado-${normalizar(valor).replace(/\s+/g, &quot;-&quot;)}`;  
 }  
  
 function calcularEstadoManual(manual) {  
-  if (manual.fechaPublicado) return "Publicado";  
-  if (manual.fechaFinalizacion) return "Completado";  
-  if (manual.fechaInicio) return "En proceso";  
-  return "No iniciado";  
+  if (manual.fechaPublicado) return &quot;Publicado&quot;;  
+  if (manual.fechaFinalizacion) return &quot;Completado&quot;;  
+  if (manual.fechaInicio) return &quot;En proceso&quot;;  
+  return &quot;No iniciado&quot;;  
 }  
  
 function horasBitacoraManual(manual) {  
   return estado.bitacora  
     .filter(  
-      (registro) =>  
+      (registro) =&gt;  
         registro.manual === manual.titulo || registro.manual === manual.codigo,  
     )  
-    .reduce((total, registro) => total + Number(registro.horas || 0), 0);  
+    .reduce((total, registro) =&gt; total + Number(registro.horas || 0), 0);  
 }  
  
 function mostrarToast(texto) {  
-  const toast = $("toast");  
+  const toast = $(&quot;toast&quot;);  
   if (!toast) return;  
   toast.textContent = texto;  
   toast.hidden = false;  
   clearTimeout(mostrarToast.temporizador);  
-  mostrarToast.temporizador = setTimeout(() => {  
+  mostrarToast.temporizador = setTimeout(() =&gt; {  
     toast.hidden = true;  
   }, 2600);  
 }  
  
 function actualizarEstadoGuardado() {  
-  const texto = $("ultimaCopiaTexto");  
-  const estadoTexto = $("estadoSincronizacion");  
+  const texto = $(&quot;ultimaCopiaTexto&quot;);  
+  const estadoTexto = $(&quot;estadoSincronizacion&quot;);  
   if (texto)  
     texto.textContent = estado.ultimaCopia  
-      ? new Date(estado.ultimaCopia).toLocaleString("es-CR")  
-      : "Sin guardado registrado";  
+      ? new Date(estado.ultimaCopia).toLocaleString(&quot;es-CR&quot;)  
+      : &quot;Sin guardado registrado&quot;;  
   if (estadoTexto) {
-    estadoTexto.textContent = "Fuente oficial: data.json · copia local de recuperación activa";
+    estadoTexto.textContent = &quot;Fuente oficial: data.json · copia local de recuperación activa&quot;;
   }  
 }  
  
 function entrar() {  
-  estado.modo = "editor";  
+  estado.modo = &quot;editor&quot;;  
   editorActivo = true;  
-  document.body.classList.remove("modo-visitante");  
-  const app = $("app");  
+  document.body.classList.remove(&quot;modo-visitante&quot;);  
+  const app = $(&quot;app&quot;);  
   if (app) app.hidden = false;  
-  const badge = $("modoUsuarioBadge");  
+  const badge = $(&quot;modoUsuarioBadge&quot;);  
   if (badge) {  
-    badge.textContent = "Editor";  
-    badge.className = "modo-badge-editor";  
+    badge.textContent = &quot;Editor&quot;;  
+    badge.className = &quot;modo-badge-editor&quot;;  
   }  
   renderTodo();  
 }  
@@ -498,26 +502,26 @@ function configurarLogin() {
   entrar();  
 }  
 function activarTab(tabId) {  
-  document.querySelectorAll(".tab-btn").forEach((boton) => {  
+  document.querySelectorAll(&quot;.tab-btn&quot;).forEach((boton) =&gt; {  
     const activo = boton.dataset.tab === tabId;  
-    boton.classList.toggle("active", activo);  
-    boton.setAttribute("aria-selected", String(activo));  
+    boton.classList.toggle(&quot;active&quot;, activo);  
+    boton.setAttribute(&quot;aria-selected&quot;, String(activo));  
   });  
   document  
-    .querySelectorAll(".tab-content")  
-    .forEach((panel) => panel.classList.toggle("active", panel.id === tabId));  
-  if (tabId === "tabCalendario") renderCalendario();  
-  if (tabId === "tabBitacora") renderBitacora();  
-  if (tabId === "tabDashboard") renderDashboard();  
-  if (tabId === "tabTramites") renderTramites();  
-  if (tabId === "tabVersiones") renderVersiones();  
+    .querySelectorAll(&quot;.tab-content&quot;)  
+    .forEach((panel) =&gt; panel.classList.toggle(&quot;active&quot;, panel.id === tabId));  
+  if (tabId === &quot;tabCalendario&quot;) renderCalendario();  
+  if (tabId === &quot;tabBitacora&quot;) renderBitacora();  
+  if (tabId === &quot;tabDashboard&quot;) renderDashboard();  
+  if (tabId === &quot;tabTramites&quot;) renderTramites();  
+  if (tabId === &quot;tabVersiones&quot;) renderVersiones();  
 }  
  
 function configurarTabs() {  
   document  
-    .querySelectorAll(".tab-btn")  
-    .forEach((boton) =>  
-      boton.addEventListener("click", () => activarTab(boton.dataset.tab)),  
+    .querySelectorAll(&quot;.tab-btn&quot;)  
+    .forEach((boton) =&gt;  
+      boton.addEventListener(&quot;click&quot;, () =&gt; activarTab(boton.dataset.tab)),  
     );  
 }  
  
@@ -527,16 +531,16 @@ function fechaLocalDesdeISO(valor) {
   return Number.isNaN(fecha.getTime()) ? null : fecha;
 }
 function fechaISODesdeLocal(fecha) {
-  if (!(fecha instanceof Date) || Number.isNaN(fecha.getTime())) return "";
-  return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, "0")}-${String(fecha.getDate()).padStart(2, "0")}`;
+  if (!(fecha instanceof Date) || Number.isNaN(fecha.getTime())) return &quot;&quot;;
+  return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, &quot;0&quot;)}-${String(fecha.getDate()).padStart(2, &quot;0&quot;)}`;
 }
 function esDiaHabil(fecha) {
-  return fecha.getDay() !== 0 && fecha.getDay() !== 6;
+  return fecha.getDay() !== 0 &amp;&amp; fecha.getDay() !== 6;
 }
 function sumarDiasHabiles(fechaInicial, cantidad) {
   const fecha = new Date(fechaInicial);
   let agregados = 0;
-  while (agregados < cantidad) {
+  while (agregados &lt; cantidad) {
     fecha.setDate(fecha.getDate() + 1);
     if (esDiaHabil(fecha)) agregados += 1;
   }
@@ -546,150 +550,150 @@ function contarDiasHabiles(desde, hasta) {
   const inicio = new Date(desde);
   const fin = new Date(hasta);
   if (inicio.getTime() === fin.getTime()) return 0;
-  const sentido = inicio < fin ? 1 : -1;
+  const sentido = inicio &lt; fin ? 1 : -1;
   let total = 0;
   const cursor = new Date(inicio);
-  while ((sentido === 1 && cursor < fin) || (sentido === -1 && cursor > fin)) {
+  while ((sentido === 1 &amp;&amp; cursor &lt; fin) || (sentido === -1 &amp;&amp; cursor &gt; fin)) {
     cursor.setDate(cursor.getDate() + sentido);
     if (esDiaHabil(cursor)) total += sentido;
   }
   return total;
 }
 function diasEstimadosTramite(tramite) {
-  if (tramite.tipoGestion === "T") return 40;
-  if (tramite.tipoGestion === "R") return 15;
+  if (tramite.tipoGestion === &quot;T&quot;) return 40;
+  if (tramite.tipoGestion === &quot;R&quot;) return 15;
   return 0;
 }
 function tiempoEstimadoTramite(tramite) {
-  if (tramite.tipoGestion === "T") return "2 meses (40 días hábiles)";
-  if (tramite.tipoGestion === "R") return "3 semanas (15 días hábiles)";
-  return "";
+  if (tramite.tipoGestion === &quot;T&quot;) return &quot;2 meses (40 días hábiles)&quot;;
+  if (tramite.tipoGestion === &quot;R&quot;) return &quot;3 semanas (15 días hábiles)&quot;;
+  return &quot;&quot;;
 }
 function fechaLimiteTramite(tramite) {
   const ingreso = fechaLocalDesdeISO(tramite.fechaIngreso);
   const dias = diasEstimadosTramite(tramite);
-  if (!ingreso || !dias) return "";
+  if (!ingreso || !dias) return &quot;&quot;;
   return fechaISODesdeLocal(sumarDiasHabiles(ingreso, dias));
 }
 function informacionCumplimientoTramite(tramite) {
   const limiteISO = fechaLimiteTramite(tramite);
-  if (!limiteISO) return { texto: "Sin calcular", clase: "cumplimiento-sin-calcular" };
+  if (!limiteISO) return { texto: &quot;Sin calcular&quot;, clase: &quot;cumplimiento-sin-calcular&quot; };
   const limite = fechaLocalDesdeISO(limiteISO);
   if (tramite.fechaPublicado) {
     const publicado = fechaLocalDesdeISO(tramite.fechaPublicado);
-    if (publicado && publicado <= limite) return { texto: "Finalizado a tiempo", clase: "cumplimiento-finalizado" };
-    return { texto: "Finalizado tarde", clase: "cumplimiento-tarde" };
+    if (publicado &amp;&amp; publicado &lt;= limite) return { texto: &quot;Finalizado a tiempo&quot;, clase: &quot;cumplimiento-finalizado&quot; };
+    return { texto: &quot;Finalizado tarde&quot;, clase: &quot;cumplimiento-tarde&quot; };
   }
   const hoy = fechaLocalDesdeISO(fechaISOHoy());
   const restantes = contarDiasHabiles(hoy, limite);
-  if (hoy > limite) return { texto: "Tarde", clase: "cumplimiento-tarde" };
-  if (restantes <= 5) return {
-    texto: restantes === 0 ? "Vence hoy" : `Próximo · ${restantes} día(s) hábil(es)`,
-    clase: "cumplimiento-proximo",
+  if (hoy &gt; limite) return { texto: &quot;Tarde&quot;, clase: &quot;cumplimiento-tarde&quot; };
+  if (restantes &lt;= 5) return {
+    texto: restantes === 0 ? &quot;Vence hoy&quot; : `Próximo · ${restantes} día(s) hábil(es)`,
+    clase: &quot;cumplimiento-proximo&quot;,
   };
-  return { texto: `En tiempo · ${restantes} día(s) hábil(es)`, clase: "cumplimiento-en-tiempo" };
+  return { texto: `En tiempo · ${restantes} día(s) hábil(es)`, clase: &quot;cumplimiento-en-tiempo&quot; };
 }
 
 function valorVisible(objeto, columna) {  
-  if (columna.key === "tiempoEstimado") return tiempoEstimadoTramite(objeto);
-  if (columna.key === "fechaLimite") return fechaLimiteTramite(objeto);
-  if (columna.key === "cumplimiento") return informacionCumplimientoTramite(objeto).texto;
-  if (columna.key === "tiempoInvertido")  
+  if (columna.key === &quot;tiempoEstimado&quot;) return tiempoEstimadoTramite(objeto);
+  if (columna.key === &quot;fechaLimite&quot;) return fechaLimiteTramite(objeto);
+  if (columna.key === &quot;cumplimiento&quot;) return informacionCumplimientoTramite(objeto).texto;
+  if (columna.key === &quot;tiempoInvertido&quot;)  
     return horasBitacoraManual(objeto).toFixed(2);  
-  if (columna.key === "estado" && objeto.codigo !== undefined)  
+  if (columna.key === &quot;estado&quot; &amp;&amp; objeto.codigo !== undefined)  
     return calcularEstadoManual(objeto);  
-  return objeto[columna.key] ?? "";  
+  return objeto[columna.key] ?? &quot;&quot;;  
 }  
  
  
 function crearColgroup(elemento, columnas, anchos, ocultas = []) {  
   elemento.innerHTML = columnas  
-    .map((columna) => {  
-      const oculto = ocultas.includes(columna.key) ? "display:none" : "";  
+    .map((columna) =&gt; {  
+      const oculto = ocultas.includes(columna.key) ? &quot;display:none&quot; : &quot;&quot;;  
       const ancho = anchos[columna.key] || columna.width || 120;  
-      return `<col data-key="${columna.key}" style="width:${ancho}px;${oculto}">`;  
+      return `&lt;col data-key=&quot;${columna.key}&quot; style=&quot;width:${ancho}px;${oculto}&quot;&gt;`;  
     })  
-    .join("");  
+    .join(&quot;&quot;);  
 }  
  
  
 function campoCelda(objeto, columna, tipoEntidad) {  
   const valor = valorVisible(objeto, columna);  
   if (!editorActivo || columna.calculado) {  
-    if (columna.key === "cumplimiento") {
+    if (columna.key === &quot;cumplimiento&quot;) {
       const info = informacionCumplimientoTramite(objeto);
-      return `<span class="cumplimiento-indicador ${info.clase}">${escaparHTML(info.texto)}</span>`;
+      return `&lt;span class=&quot;cumplimiento-indicador ${info.clase}&quot;&gt;${escaparHTML(info.texto)}&lt;/span&gt;`;
     }
-    if (columna.key === "fechaLimite") return `<span class="fecha-limite-tramite">${escaparHTML(valor)}</span>`;
-    if (columna.key === "tiempoEstimado") return `<span class="tiempo-estimado-tramite">${escaparHTML(valor)}</span>`;
-    if (columna.key === "estado")  
-      return `<span class="estado ${claseEstado(valor)}">${escaparHTML(valor)}</span>`;  
-    if (columna.key === "listo")  
-      return `<span class="estado-listo ${claseListo(valor)}">${escaparHTML(normalizarEstadoListo(valor))}</span>`;  
+    if (columna.key === &quot;fechaLimite&quot;) return `&lt;span class=&quot;fecha-limite-tramite&quot;&gt;${escaparHTML(valor)}&lt;/span&gt;`;
+    if (columna.key === &quot;tiempoEstimado&quot;) return `&lt;span class=&quot;tiempo-estimado-tramite&quot;&gt;${escaparHTML(valor)}&lt;/span&gt;`;
+    if (columna.key === &quot;estado&quot;)  
+      return `&lt;span class=&quot;estado ${claseEstado(valor)}&quot;&gt;${escaparHTML(valor)}&lt;/span&gt;`;  
+    if (columna.key === &quot;listo&quot;)  
+      return `&lt;span class=&quot;estado-listo ${claseListo(valor)}&quot;&gt;${escaparHTML(normalizarEstadoListo(valor))}&lt;/span&gt;`;  
     return escaparHTML(valor);  
   }  
-  if (columna.tipo === "select") {  
+  if (columna.tipo === &quot;select&quot;) {  
     const valorSelect =  
-      columna.key === "listo" ? normalizarEstadoListo(valor) : valor;  
+      columna.key === &quot;listo&quot; ? normalizarEstadoListo(valor) : valor;  
     const opciones = columna.opciones  
       .map(  
-        (opcion) =>  
-          `<option ${String(opcion) === String(valorSelect) ? "selected" : ""}>${escaparHTML(opcion)}</option>`,  
+        (opcion) =&gt;  
+          `&lt;option ${String(opcion) === String(valorSelect) ? &quot;selected&quot; : &quot;&quot;}&gt;${escaparHTML(opcion)}&lt;/option&gt;`,  
       )  
-      .join("");  
+      .join(&quot;&quot;);  
     const claseExtra =  
-      columna.key === "listo" ? ` estado-listo ${claseListo(valorSelect)}` : "";  
-    return `<select class="cell-select${claseExtra}" data-entidad="${tipoEntidad}" data-id="${objeto.id}" data-key="${columna.key}">${opciones}</select>`;  
+      columna.key === &quot;listo&quot; ? ` estado-listo ${claseListo(valorSelect)}` : &quot;&quot;;  
+    return `&lt;select class=&quot;cell-select${claseExtra}&quot; data-entidad=&quot;${tipoEntidad}&quot; data-id=&quot;${objeto.id}&quot; data-key=&quot;${columna.key}&quot;&gt;${opciones}&lt;/select&gt;`;  
   }  
-  if (columna.tipo === "textarea")  
-    return `<textarea class="cell-textarea" data-entidad="${tipoEntidad}" data-id="${objeto.id}" data-key="${columna.key}">${escaparHTML(valor)}</textarea>`;  
-  return `<input class="cell-input" type="${columna.tipo || "text"}" data-entidad="${tipoEntidad}" data-id="${objeto.id}" data-key="${columna.key}" value="${escaparHTML(valor)}">`;  
+  if (columna.tipo === &quot;textarea&quot;)  
+    return `&lt;textarea class=&quot;cell-textarea&quot; data-entidad=&quot;${tipoEntidad}&quot; data-id=&quot;${objeto.id}&quot; data-key=&quot;${columna.key}&quot;&gt;${escaparHTML(valor)}&lt;/textarea&gt;`;  
+  return `&lt;input class=&quot;cell-input&quot; type=&quot;${columna.tipo || &quot;text&quot;}&quot; data-entidad=&quot;${tipoEntidad}&quot; data-id=&quot;${objeto.id}&quot; data-key=&quot;${columna.key}&quot; value=&quot;${escaparHTML(valor)}&quot;&gt;`;  
 }  
  
 function enlazarEdicionTabla(contenedor) { 
  
     contenedor 
         .querySelectorAll( 
-            ".cell-input,.cell-select,.cell-textarea" 
+            &quot;.cell-input,.cell-select,.cell-textarea&quot; 
         ) 
-        .forEach((campo) => { 
+        .forEach((campo) =&gt; { 
  
-            const guardarCampo = () => { 
+            const guardarCampo = () =&gt; { 
  
                 const coleccion = 
                     estado[campo.dataset.entidad]; 
  
                 const registro = 
                     coleccion.find( 
-                        item => 
+                        item =&gt; 
                             item.id === campo.dataset.id 
                     ); 
  
                 if (!registro) return; 
  
                 registro[campo.dataset.key] = 
-                    campo.type === "number" 
+                    campo.type === &quot;number&quot; 
                         ? Number(campo.value || 0) 
-                        : campo.dataset.key === "listo" 
+                        : campo.dataset.key === &quot;listo&quot; 
                             ? normalizarEstadoListo( 
                                 campo.value 
                             ) 
                             : campo.value; 
  
-                guardarEstado("");
-                if (campo.dataset.entidad === "tramites" && ["tipoGestion", "fechaIngreso", "fechaPublicado"].includes(campo.dataset.key)) {
+                guardarEstado(&quot;&quot;);
+                if (campo.dataset.entidad === &quot;tramites&quot; &amp;&amp; [&quot;tipoGestion&quot;, &quot;fechaIngreso&quot;, &quot;fechaPublicado&quot;].includes(campo.dataset.key)) {
                     renderTramites();
                 } 
  
             }; 
  
             campo.addEventListener( 
-                "input", 
+                &quot;input&quot;, 
                 guardarCampo 
             ); 
  
             campo.addEventListener( 
-                "change", 
+                &quot;change&quot;, 
                 guardarCampo 
             ); 
  
@@ -701,23 +705,23 @@ function copiarRegistro(tipoEntidad, registroId) {
   const coleccion = estado[tipoEntidad];
 
   if (!Array.isArray(coleccion)) {
-    mostrarToast("No fue posible localizar la colección.");
+    mostrarToast(&quot;No fue posible localizar la colección.&quot;);
     return;
   }
 
   const indiceOriginal = coleccion.findIndex(
-    (registro) => registro.id === registroId,
+    (registro) =&gt; registro.id === registroId,
   );
 
   if (indiceOriginal === -1) {
-    mostrarToast("No fue posible localizar el registro.");
+    mostrarToast(&quot;No fue posible localizar el registro.&quot;);
     return;
   }
 
   const prefijos = {
-    manuales: "manual",
-    tramites: "tramite",
-    versiones: "version",
+    manuales: &quot;manual&quot;,
+    tramites: &quot;tramite&quot;,
+    versiones: &quot;version&quot;,
   };
 
   const registroOriginal = coleccion[indiceOriginal];
@@ -727,21 +731,21 @@ function copiarRegistro(tipoEntidad, registroId) {
   };
 
   coleccion.splice(indiceOriginal + 1, 0, registroCopiado);
-  guardarEstado("Registro copiado y guardado");
+  guardarEstado(&quot;Registro copiado y guardado&quot;);
 
-  if (tipoEntidad === "manuales") {
+  if (tipoEntidad === &quot;manuales&quot;) {
     renderManuales();
     abrirManual(registroCopiado.id);
     return;
   }
 
-  if (tipoEntidad === "tramites") {
+  if (tipoEntidad === &quot;tramites&quot;) {
     renderTramites();
     abrirTramite(registroCopiado.id);
     return;
   }
 
-  if (tipoEntidad === "versiones") {
+  if (tipoEntidad === &quot;versiones&quot;) {
     renderVersiones();
     abrirVersion(registroCopiado.id);
   }
@@ -750,52 +754,52 @@ function copiarRegistro(tipoEntidad, registroId) {
 function renderManuales() {  
   const ocultas = estado.columnasOcultasManuales || [];  
   crearColgroup(  
-    $("colgroupManuales"),  
+    $(&quot;colgroupManuales&quot;),  
     COLUMNAS_MANUALES,  
     estado.anchosManuales || {},  
     ocultas,  
   );  
-  crearEncabezado($("theadManuales"), COLUMNAS_MANUALES, "manuales", ocultas);  
-  const lista = estado.manuales.filter((objeto) =>  
-    cumpleFiltros(objeto, "manuales", COLUMNAS_MANUALES),  
+  crearEncabezado($(&quot;theadManuales&quot;), COLUMNAS_MANUALES, &quot;manuales&quot;, ocultas);  
+  const lista = estado.manuales.filter((objeto) =&gt;  
+    cumpleFiltros(objeto, &quot;manuales&quot;, COLUMNAS_MANUALES),  
   );  
-  $("tbodyManuales").innerHTML = lista.length  
+  $(&quot;tbodyManuales&quot;).innerHTML = lista.length  
     ? lista  
         .map(  
-          (manual) =>  
-            `<tr data-id="${manual.id}">${COLUMNAS_MANUALES.map((columna) => {  
+          (manual) =&gt;  
+            `&lt;tr data-id=&quot;${manual.id}&quot;&gt;${COLUMNAS_MANUALES.map((columna) =&gt; {  
               const oculto = ocultas.includes(columna.key)  
-                ? "display:none"  
-                : "";  
-              if (columna.especial === "seleccion")  
-                return `<td style="${oculto}"><input class="seleccion-manual" type="checkbox" data-id="${manual.id}"></td>`;  
-              if (columna.especial === "orden")  
-                return `<td class="numero-manual" style="${oculto}"><span class="numero-manual-valor">${estado.manuales.findIndex((item) => item.id === manual.id) + 1}</span><button class="drag-handle drag-manual" type="button" draggable="true" data-id="${manual.id}" title="Arrastrar para reordenar" aria-label="Mover fila ${estado.manuales.findIndex((item) => item.id === manual.id) + 1}">⋮⋮</button></td>`;  
-              if (columna.especial === "acciones")  
-                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-manual="${manual.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-manual="${manual.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
-              return `<td style="${oculto}">${campoCelda(manual, columna, "manuales")}</td>`;  
-            }).join("")}</tr>`,  
+                ? &quot;display:none&quot;  
+                : &quot;&quot;;  
+              if (columna.especial === &quot;seleccion&quot;)  
+                return `&lt;td style=&quot;${oculto}&quot;&gt;&lt;input class=&quot;seleccion-manual&quot; type=&quot;checkbox&quot; data-id=&quot;${manual.id}&quot;&gt;&lt;/td&gt;`;  
+              if (columna.especial === &quot;orden&quot;)  
+                return `&lt;td class=&quot;numero-manual&quot; style=&quot;${oculto}&quot;&gt;&lt;span class=&quot;numero-manual-valor&quot;&gt;${estado.manuales.findIndex((item) =&gt; item.id === manual.id) + 1}&lt;/span&gt;&lt;button class=&quot;drag-handle drag-manual&quot; type=&quot;button&quot; draggable=&quot;true&quot; data-id=&quot;${manual.id}&quot; title=&quot;Arrastrar para reordenar&quot; aria-label=&quot;Mover fila ${estado.manuales.findIndex((item) =&gt; item.id === manual.id) + 1}&quot;&gt;⋮⋮&lt;/button&gt;&lt;/td&gt;`;  
+              if (columna.especial === &quot;acciones&quot;)  
+                return `&lt;td style=&quot;${oculto};white-space:nowrap&quot;&gt;&lt;button class=&quot;btn-icon editor-only&quot; type=&quot;button&quot; data-editar-manual=&quot;${manual.id}&quot; title=&quot;Editar registro&quot; aria-label=&quot;Editar registro&quot;&gt;✏️&lt;/button&gt; &lt;button class=&quot;btn-icon editor-only&quot; type=&quot;button&quot; data-copiar-manual=&quot;${manual.id}&quot; title=&quot;Copiar registro&quot; aria-label=&quot;Copiar registro&quot;&gt;📋&lt;/button&gt;&lt;/td&gt;`;  
+              return `&lt;td style=&quot;${oculto}&quot;&gt;${campoCelda(manual, columna, &quot;manuales&quot;)}&lt;/td&gt;`;  
+            }).join(&quot;&quot;)}&lt;/tr&gt;`,  
         )  
-        .join("")  
-    : `<tr><td class="empty-state" colspan="${COLUMNAS_MANUALES.length}">No se encontraron manuales que coincidan con la búsqueda.</td></tr>`;  
-  enlazarEdicionTabla($("tbodyManuales"));  
-  $("seleccionarTodos_manuales")?.addEventListener("change", (e) =>  
-    document.querySelectorAll(".seleccion-manual").forEach((c) => {  
+        .join(&quot;&quot;)  
+    : `&lt;tr&gt;&lt;td class=&quot;empty-state&quot; colspan=&quot;${COLUMNAS_MANUALES.length}&quot;&gt;No se encontraron manuales que coincidan con la búsqueda.&lt;/td&gt;&lt;/tr&gt;`;  
+  enlazarEdicionTabla($(&quot;tbodyManuales&quot;));  
+  $(&quot;seleccionarTodos_manuales&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
+    document.querySelectorAll(&quot;.seleccion-manual&quot;).forEach((c) =&gt; {  
       c.checked = e.target.checked;  
     }),  
   );  
   document
-    .querySelectorAll("[data-editar-manual]")
-    .forEach((boton) =>
-      boton.addEventListener("click", () =>
+    .querySelectorAll(&quot;[data-editar-manual]&quot;)
+    .forEach((boton) =&gt;
+      boton.addEventListener(&quot;click&quot;, () =&gt;
         abrirManual(boton.dataset.editarManual),
       ),
     );
   document
-    .querySelectorAll("[data-copiar-manual]")
-    .forEach((boton) =>
-      boton.addEventListener("click", () =>
-        copiarRegistro("manuales", boton.dataset.copiarManual),
+    .querySelectorAll(&quot;[data-copiar-manual]&quot;)
+    .forEach((boton) =&gt;
+      boton.addEventListener(&quot;click&quot;, () =&gt;
+        copiarRegistro(&quot;manuales&quot;, boton.dataset.copiarManual),
       ),
     );  
   habilitarReordenamientoManuales();  
@@ -805,50 +809,50 @@ function renderManuales() {
 function renderTramites() {  
   const ocultas = estado.columnasOcultasTramites || [];  
   crearColgroup(  
-    $("colgroupTramites"),  
+    $(&quot;colgroupTramites&quot;),  
     COLUMNAS_TRAMITES,  
     estado.anchosTramites || {},  
     ocultas,  
   );  
-  crearEncabezado($("theadTramites"), COLUMNAS_TRAMITES, "tramites", ocultas);  
-  const lista = estado.tramites.filter((objeto) =>  
-    cumpleFiltros(objeto, "tramites", COLUMNAS_TRAMITES),  
+  crearEncabezado($(&quot;theadTramites&quot;), COLUMNAS_TRAMITES, &quot;tramites&quot;, ocultas);  
+  const lista = estado.tramites.filter((objeto) =&gt;  
+    cumpleFiltros(objeto, &quot;tramites&quot;, COLUMNAS_TRAMITES),  
   );  
-  $("tbodyTramites").innerHTML = lista.length  
+  $(&quot;tbodyTramites&quot;).innerHTML = lista.length  
     ? lista  
         .map(  
-          (tramite) =>  
-            `<tr data-id="${tramite.id}">${COLUMNAS_TRAMITES.map((columna) => {  
+          (tramite) =&gt;  
+            `&lt;tr data-id=&quot;${tramite.id}&quot;&gt;${COLUMNAS_TRAMITES.map((columna) =&gt; {  
               const oculto = ocultas.includes(columna.key)  
-                ? "display:none"  
-                : "";  
-              if (columna.especial === "seleccion")  
-                return `<td style="${oculto}"><input class="seleccion-tramite" type="checkbox" data-id="${tramite.id}"></td>`;  
-              if (columna.especial === "acciones")  
-                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-tramite="${tramite.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-tramite="${tramite.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
-              return `<td style="${oculto}">${campoCelda(tramite, columna, "tramites")}</td>`;  
-            }).join("")}</tr>`,  
+                ? &quot;display:none&quot;  
+                : &quot;&quot;;  
+              if (columna.especial === &quot;seleccion&quot;)  
+                return `&lt;td style=&quot;${oculto}&quot;&gt;&lt;input class=&quot;seleccion-tramite&quot; type=&quot;checkbox&quot; data-id=&quot;${tramite.id}&quot;&gt;&lt;/td&gt;`;  
+              if (columna.especial === &quot;acciones&quot;)  
+                return `&lt;td style=&quot;${oculto};white-space:nowrap&quot;&gt;&lt;button class=&quot;btn-icon editor-only&quot; type=&quot;button&quot; data-editar-tramite=&quot;${tramite.id}&quot; title=&quot;Editar registro&quot; aria-label=&quot;Editar registro&quot;&gt;✏️&lt;/button&gt; &lt;button class=&quot;btn-icon editor-only&quot; type=&quot;button&quot; data-copiar-tramite=&quot;${tramite.id}&quot; title=&quot;Copiar registro&quot; aria-label=&quot;Copiar registro&quot;&gt;📋&lt;/button&gt;&lt;/td&gt;`;  
+              return `&lt;td style=&quot;${oculto}&quot;&gt;${campoCelda(tramite, columna, &quot;tramites&quot;)}&lt;/td&gt;`;  
+            }).join(&quot;&quot;)}&lt;/tr&gt;`,  
         )  
-        .join("")  
-    : `<tr><td class="empty-state" colspan="${COLUMNAS_TRAMITES.length}">No se encontraron trámites que coincidan con la búsqueda.</td></tr>`;  
-  enlazarEdicionTabla($("tbodyTramites"));  
-  $("seleccionarTodos_tramites")?.addEventListener("change", (e) =>  
-    document.querySelectorAll(".seleccion-tramite").forEach((c) => {  
+        .join(&quot;&quot;)  
+    : `&lt;tr&gt;&lt;td class=&quot;empty-state&quot; colspan=&quot;${COLUMNAS_TRAMITES.length}&quot;&gt;No se encontraron trámites que coincidan con la búsqueda.&lt;/td&gt;&lt;/tr&gt;`;  
+  enlazarEdicionTabla($(&quot;tbodyTramites&quot;));  
+  $(&quot;seleccionarTodos_tramites&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
+    document.querySelectorAll(&quot;.seleccion-tramite&quot;).forEach((c) =&gt; {  
       c.checked = e.target.checked;  
     }),  
   );  
   document
-    .querySelectorAll("[data-editar-tramite]")
-    .forEach((boton) =>
-      boton.addEventListener("click", () =>
+    .querySelectorAll(&quot;[data-editar-tramite]&quot;)
+    .forEach((boton) =&gt;
+      boton.addEventListener(&quot;click&quot;, () =&gt;
         abrirTramite(boton.dataset.editarTramite),
       ),
     );
   document
-    .querySelectorAll("[data-copiar-tramite]")
-    .forEach((boton) =>
-      boton.addEventListener("click", () =>
-        copiarRegistro("tramites", boton.dataset.copiarTramite),
+    .querySelectorAll(&quot;[data-copiar-tramite]&quot;)
+    .forEach((boton) =&gt;
+      boton.addEventListener(&quot;click&quot;, () =&gt;
+        copiarRegistro(&quot;tramites&quot;, boton.dataset.copiarTramite),
       ),
     );  
   habilitarRedimensionamiento();  
@@ -856,46 +860,46 @@ function renderTramites() {
  
 function renderVersiones() {  
   crearColgroup(  
-    $("colgroupVersiones"),  
+    $(&quot;colgroupVersiones&quot;),  
     COLUMNAS_VERSIONES,  
     estado.anchosVersiones || {},  
   );  
-  crearEncabezado($("theadVersiones"), COLUMNAS_VERSIONES, "versiones");  
-  const lista = estado.versiones.filter((objeto) =>  
-    cumpleFiltros(objeto, "versiones", COLUMNAS_VERSIONES),  
+  crearEncabezado($(&quot;theadVersiones&quot;), COLUMNAS_VERSIONES, &quot;versiones&quot;);  
+  const lista = estado.versiones.filter((objeto) =&gt;  
+    cumpleFiltros(objeto, &quot;versiones&quot;, COLUMNAS_VERSIONES),  
   );  
-  $("tbodyVersiones").innerHTML = lista.length  
+  $(&quot;tbodyVersiones&quot;).innerHTML = lista.length  
     ? lista  
         .map(  
-          (version) =>  
-            `<tr data-id="${version.id}">${COLUMNAS_VERSIONES.map((columna) => {  
-              if (columna.especial === "seleccion")  
-                return `<td><input class="seleccion-version" type="checkbox" data-id="${version.id}"></td>`;  
-              if (columna.especial === "acciones")  
-                return `<td style="white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-version="${version.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-version="${version.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
-              return `<td>${campoCelda(version, columna, "versiones")}</td>`;  
-            }).join("")}</tr>`,  
+          (version) =&gt;  
+            `&lt;tr data-id=&quot;${version.id}&quot;&gt;${COLUMNAS_VERSIONES.map((columna) =&gt; {  
+              if (columna.especial === &quot;seleccion&quot;)  
+                return `&lt;td&gt;&lt;input class=&quot;seleccion-version&quot; type=&quot;checkbox&quot; data-id=&quot;${version.id}&quot;&gt;&lt;/td&gt;`;  
+              if (columna.especial === &quot;acciones&quot;)  
+                return `&lt;td style=&quot;white-space:nowrap&quot;&gt;&lt;button class=&quot;btn-icon editor-only&quot; type=&quot;button&quot; data-editar-version=&quot;${version.id}&quot; title=&quot;Editar registro&quot; aria-label=&quot;Editar registro&quot;&gt;✏️&lt;/button&gt; &lt;button class=&quot;btn-icon editor-only&quot; type=&quot;button&quot; data-copiar-version=&quot;${version.id}&quot; title=&quot;Copiar registro&quot; aria-label=&quot;Copiar registro&quot;&gt;📋&lt;/button&gt;&lt;/td&gt;`;  
+              return `&lt;td&gt;${campoCelda(version, columna, &quot;versiones&quot;)}&lt;/td&gt;`;  
+            }).join(&quot;&quot;)}&lt;/tr&gt;`,  
         )  
-        .join("")  
-    : `<tr><td class="empty-state" colspan="${COLUMNAS_VERSIONES.length}">No se encontraron versiones que coincidan con la búsqueda.</td></tr>`;  
-  enlazarEdicionTabla($("tbodyVersiones"));  
-  $("seleccionarTodos_versiones")?.addEventListener("change", (e) =>  
-    document.querySelectorAll(".seleccion-version").forEach((c) => {  
+        .join(&quot;&quot;)  
+    : `&lt;tr&gt;&lt;td class=&quot;empty-state&quot; colspan=&quot;${COLUMNAS_VERSIONES.length}&quot;&gt;No se encontraron versiones que coincidan con la búsqueda.&lt;/td&gt;&lt;/tr&gt;`;  
+  enlazarEdicionTabla($(&quot;tbodyVersiones&quot;));  
+  $(&quot;seleccionarTodos_versiones&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
+    document.querySelectorAll(&quot;.seleccion-version&quot;).forEach((c) =&gt; {  
       c.checked = e.target.checked;  
     }),  
   );  
   document
-    .querySelectorAll("[data-editar-version]")
-    .forEach((boton) =>
-      boton.addEventListener("click", () =>
+    .querySelectorAll(&quot;[data-editar-version]&quot;)
+    .forEach((boton) =&gt;
+      boton.addEventListener(&quot;click&quot;, () =&gt;
         abrirVersion(boton.dataset.editarVersion),
       ),
     );
   document
-    .querySelectorAll("[data-copiar-version]")
-    .forEach((boton) =>
-      boton.addEventListener("click", () =>
-        copiarRegistro("versiones", boton.dataset.copiarVersion),
+    .querySelectorAll(&quot;[data-copiar-version]&quot;)
+    .forEach((boton) =&gt;
+      boton.addEventListener(&quot;click&quot;, () =&gt;
+        copiarRegistro(&quot;versiones&quot;, boton.dataset.copiarVersion),
       ),
     );  
   renderResumenVersiones();  
@@ -904,130 +908,130 @@ function renderVersiones() {
  
 function renderResumenVersiones() {  
   const ingles = estado.versiones.filter(  
-    (v) => normalizar(v.idioma) === "ingles",  
+    (v) =&gt; normalizar(v.idioma) === &quot;ingles&quot;,  
   ).length;  
   const espanol = estado.versiones.filter(  
-    (v) => normalizar(v.idioma) === "espanol",  
+    (v) =&gt; normalizar(v.idioma) === &quot;espanol&quot;,  
   ).length;  
   const siscardPlusIngles = estado.versiones.filter(  
-    (v) =>  
-      normalizar(v.sistema).includes("siscard+") &&  
-      normalizar(v.idioma) === "ingles",  
+    (v) =&gt;  
+      normalizar(v.sistema).includes(&quot;siscard+&quot;) &amp;&amp;  
+      normalizar(v.idioma) === &quot;ingles&quot;,  
   ).length;  
   const siscardPlusEspanol = estado.versiones.filter(  
-    (v) =>  
-      normalizar(v.sistema).includes("siscard+") &&  
-      normalizar(v.idioma) === "espanol",  
+    (v) =&gt;  
+      normalizar(v.sistema).includes(&quot;siscard+&quot;) &amp;&amp;  
+      normalizar(v.idioma) === &quot;espanol&quot;,  
   ).length;  
-  $("resumenVersiones").innerHTML = [  
-    ["Total en Inglés", ingles],  
-    ["Total en Español", espanol],  
-    ["Total siscard+ Inglés", siscardPlusIngles],  
-    ["Total siscard+ Español", siscardPlusEspanol],  
+  $(&quot;resumenVersiones&quot;).innerHTML = [  
+    [&quot;Total en Inglés&quot;, ingles],  
+    [&quot;Total en Español&quot;, espanol],  
+    [&quot;Total siscard+ Inglés&quot;, siscardPlusIngles],  
+    [&quot;Total siscard+ Español&quot;, siscardPlusEspanol],  
   ]  
     .map(  
-      ([label, value]) =>  
-        `<div class="kpi-card"><div class="label">${label}</div><div class="value">${value}</div></div>`,  
+      ([label, value]) =&gt;  
+        `&lt;div class=&quot;kpi-card&quot;&gt;&lt;div class=&quot;label&quot;&gt;${label}&lt;/div&gt;&lt;div class=&quot;value&quot;&gt;${value}&lt;/div&gt;&lt;/div&gt;`,  
     )  
-    .join("");  
+    .join(&quot;&quot;);  
 }  
  
-let manualArrastradoId = "";  
+let manualArrastradoId = &quot;&quot;;  
 function habilitarReordenamientoManuales() {  
-  const cuerpo = $("tbodyManuales");  
+  const cuerpo = $(&quot;tbodyManuales&quot;);  
   if (!cuerpo) return;  
-  cuerpo.querySelectorAll(".drag-manual").forEach((handle) => {  
-    handle.ondragstart = (evento) => {  
-      manualArrastradoId = handle.dataset.id || "";  
-      evento.dataTransfer.effectAllowed = "move";  
-      evento.dataTransfer.setData("text/plain", manualArrastradoId);  
-      handle.closest("tr")?.classList.add("dragging");  
+  cuerpo.querySelectorAll(&quot;.drag-manual&quot;).forEach((handle) =&gt; {  
+    handle.ondragstart = (evento) =&gt; {  
+      manualArrastradoId = handle.dataset.id || &quot;&quot;;  
+      evento.dataTransfer.effectAllowed = &quot;move&quot;;  
+      evento.dataTransfer.setData(&quot;text/plain&quot;, manualArrastradoId);  
+      handle.closest(&quot;tr&quot;)?.classList.add(&quot;dragging&quot;);  
     };  
-    handle.ondragend = () => {  
+    handle.ondragend = () =&gt; {  
       cuerpo  
-        .querySelectorAll("tr")  
-        .forEach((fila) => fila.classList.remove("dragging", "drop-target"));  
-      manualArrastradoId = "";  
+        .querySelectorAll(&quot;tr&quot;)  
+        .forEach((fila) =&gt; fila.classList.remove(&quot;dragging&quot;, &quot;drop-target&quot;));  
+      manualArrastradoId = &quot;&quot;;  
     };  
   });  
-  cuerpo.querySelectorAll("tr[data-id]").forEach((filaDestino) => {  
-    filaDestino.ondragover = (evento) => {  
+  cuerpo.querySelectorAll(&quot;tr[data-id]&quot;).forEach((filaDestino) =&gt; {  
+    filaDestino.ondragover = (evento) =&gt; {  
       if (!manualArrastradoId || manualArrastradoId === filaDestino.dataset.id)  
         return;  
       evento.preventDefault();  
-      evento.dataTransfer.dropEffect = "move";  
+      evento.dataTransfer.dropEffect = &quot;move&quot;;  
       cuerpo  
-        .querySelectorAll("tr.drop-target")  
-        .forEach((fila) => fila.classList.remove("drop-target"));  
-      filaDestino.classList.add("drop-target");  
+        .querySelectorAll(&quot;tr.drop-target&quot;)  
+        .forEach((fila) =&gt; fila.classList.remove(&quot;drop-target&quot;));  
+      filaDestino.classList.add(&quot;drop-target&quot;);  
     };  
-    filaDestino.ondragleave = () => filaDestino.classList.remove("drop-target");  
-    filaDestino.ondrop = (evento) => {  
+    filaDestino.ondragleave = () =&gt; filaDestino.classList.remove(&quot;drop-target&quot;);  
+    filaDestino.ondrop = (evento) =&gt; {  
       evento.preventDefault();  
       const origenId =  
-        evento.dataTransfer.getData("text/plain") || manualArrastradoId;  
+        evento.dataTransfer.getData(&quot;text/plain&quot;) || manualArrastradoId;  
       const destinoId = filaDestino.dataset.id;  
       const origen = estado.manuales.findIndex(  
-        (manual) => manual.id === origenId,  
+        (manual) =&gt; manual.id === origenId,  
       );  
       const destino = estado.manuales.findIndex(  
-        (manual) => manual.id === destinoId,  
+        (manual) =&gt; manual.id === destinoId,  
       );  
-      if (origen < 0 || destino < 0 || origen === destino) return;  
+      if (origen &lt; 0 || destino &lt; 0 || origen === destino) return;  
       const [movido] = estado.manuales.splice(origen, 1);  
       const posicionDestino = estado.manuales.findIndex(  
-        (manual) => manual.id === destinoId,  
+        (manual) =&gt; manual.id === destinoId,  
       );  
       estado.manuales.splice(posicionDestino, 0, movido);  
-      guardarEstado("Orden de manuales guardado");  
+      guardarEstado(&quot;Orden de manuales guardado&quot;);  
       renderManuales();  
     };  
   });  
 }  
  
 function habilitarRedimensionamiento() {  
-  document.querySelectorAll(".resize-handle").forEach((handle) => {  
-    handle.onpointerdown = (evento) => {  
-      const th = handle.closest("th");  
+  document.querySelectorAll(&quot;.resize-handle&quot;).forEach((handle) =&gt; {  
+    handle.onpointerdown = (evento) =&gt; {  
+      const th = handle.closest(&quot;th&quot;);  
       const inicioX = evento.clientX;  
       const inicioAncho = th.offsetWidth;  
       const tipo = handle.dataset.tipo;  
       const key = handle.dataset.key;  
-      const mover = (e) => {  
+      const mover = (e) =&gt; {  
         const ancho = Math.max(60, inicioAncho + e.clientX - inicioX);  
         const col = document.querySelector(  
-          `#colgroup${tipo[0].toUpperCase() + tipo.slice(1)} col[data-key="${key}"]`,  
+          `#colgroup${tipo[0].toUpperCase() + tipo.slice(1)} col[data-key=&quot;${key}&quot;]`,  
         );  
         if (col) col.style.width = `${ancho}px`;  
       };  
-      const terminar = (e) => {  
-        document.removeEventListener("pointermove", mover);  
-        document.removeEventListener("pointerup", terminar);  
+      const terminar = (e) =&gt; {  
+        document.removeEventListener(&quot;pointermove&quot;, mover);  
+        document.removeEventListener(&quot;pointerup&quot;, terminar);  
         const ancho = Math.max(60, inicioAncho + e.clientX - inicioX);  
         const destino =  
-          tipo === "manuales"  
+          tipo === &quot;manuales&quot;  
             ? estado.anchosManuales  
-            : tipo === "tramites"  
+            : tipo === &quot;tramites&quot;  
               ? estado.anchosTramites  
               : estado.anchosVersiones;  
         destino[key] = ancho;  
-        guardarEstado("");  
+        guardarEstado(&quot;&quot;);  
       };  
-      document.addEventListener("pointermove", mover);  
-      document.addEventListener("pointerup", terminar);  
+      document.addEventListener(&quot;pointermove&quot;, mover);  
+      document.addEventListener(&quot;pointerup&quot;, terminar);  
     };  
   });  
 }  
  
 function poblarSelectMesAnio(selectMes, selectAnio, fecha) {  
   selectMes.innerHTML = MESES.map(  
-    (mes, i) =>  
-      `<option value="${i}" ${i === fecha.getMonth() ? "selected" : ""}>${mes}</option>`,  
-  ).join("");  
+    (mes, i) =&gt;  
+      `&lt;option value=&quot;${i}&quot; ${i === fecha.getMonth() ? &quot;selected&quot; : &quot;&quot;}&gt;${mes}&lt;/option&gt;`,  
+  ).join(&quot;&quot;);  
   const anio = fecha.getFullYear();  
-  selectAnio.innerHTML = Array.from({ length: 11 }, (_, i) => anio - 5 + i)  
-    .map((a) => `<option ${a === anio ? "selected" : ""}>${a}</option>`)  
-    .join("");  
+  selectAnio.innerHTML = Array.from({ length: 11 }, (_, i) =&gt; anio - 5 + i)  
+    .map((a) =&gt; `&lt;option ${a === anio ? &quot;selected&quot; : &quot;&quot;}&gt;${a}&lt;/option&gt;`)  
+    .join(&quot;&quot;);  
 }  
  
 function matrizMes(fecha) {  
@@ -1040,7 +1044,7 @@ function matrizMes(fecha) {
   );  
   return Array.from(  
     { length: 42 },  
-    (_, i) =>  
+    (_, i) =&gt;  
       new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate() + i),  
   );  
 }  
@@ -1048,23 +1052,23 @@ function matrizMes(fecha) {
 function colorManualCalendario(manual) {  
   if (manual.colorCalendario) return manual.colorCalendario;  
   const paleta = [  
-    "#FF6C0C",  
-    "#E63946",  
-    "#2A9D8F",  
-    "#3A86FF",  
-    "#8338EC",  
-    "#F4A261",  
-    "#00A896",  
-    "#D62828",  
-    "#6A994E",  
-    "#4D908E",  
-    "#F72585",  
-    "#4361EE",  
+    &quot;#FF6C0C&quot;,  
+    &quot;#E63946&quot;,  
+    &quot;#2A9D8F&quot;,  
+    &quot;#3A86FF&quot;,  
+    &quot;#8338EC&quot;,  
+    &quot;#F4A261&quot;,  
+    &quot;#00A896&quot;,  
+    &quot;#D62828&quot;,  
+    &quot;#6A994E&quot;,  
+    &quot;#4D908E&quot;,  
+    &quot;#F72585&quot;,  
+    &quot;#4361EE&quot;,  
   ];  
-  const clave = String(manual.id || manual.codigo || manual.titulo || "manual");  
+  const clave = String(manual.id || manual.codigo || manual.titulo || &quot;manual&quot;);  
   let hash = 0;  
-  for (let i = 0; i < clave.length; i++)  
-    hash = (hash << 5) - hash + clave.charCodeAt(i);  
+  for (let i = 0; i &lt; clave.length; i++)  
+    hash = (hash &lt;&lt; 5) - hash + clave.charCodeAt(i);  
   manual.colorCalendario = paleta[Math.abs(hash) % paleta.length];  
   return manual.colorCalendario;  
 }  
@@ -1079,88 +1083,88 @@ function posicionEventoManual(manual, fechaISO) {
     manual.fechaFinalizacion || manual.fechaPublicado || manual.fechaInicio,  
   );  
   const actual = fechaValidaManual(fechaISO);  
-  if (!inicio || !fin || !actual || actual < inicio || actual > fin) return "";  
-  if (inicio.getTime() === fin.getTime()) return "unico";  
-  if (actual.getTime() === inicio.getTime()) return "inicio";  
-  if (actual.getTime() === fin.getTime()) return "final";  
-  return "continuacion";  
+  if (!inicio || !fin || !actual || actual &lt; inicio || actual &gt; fin) return &quot;&quot;;  
+  if (inicio.getTime() === fin.getTime()) return &quot;unico&quot;;  
+  if (actual.getTime() === inicio.getTime()) return &quot;inicio&quot;;  
+  if (actual.getTime() === fin.getTime()) return &quot;final&quot;;  
+  return &quot;continuacion&quot;;  
 }  
 function resumenCalendarioManual(manual) {  
   const horas = horasBitacoraManual(manual);  
   return [  
-    `Manual: ${manual.codigo || ""} - ${manual.titulo || ""}`,  
-    `Tipo: ${manual.tipo || ""}`,  
-    `Fecha de inicio: ${manual.fechaInicio || ""}`,  
-    `Fecha de finalización: ${manual.fechaFinalizacion || manual.fechaPublicado || ""}`,  
+    `Manual: ${manual.codigo || &quot;&quot;} - ${manual.titulo || &quot;&quot;}`,  
+    `Tipo: ${manual.tipo || &quot;&quot;}`,  
+    `Fecha de inicio: ${manual.fechaInicio || &quot;&quot;}`,  
+    `Fecha de finalización: ${manual.fechaFinalizacion || manual.fechaPublicado || &quot;&quot;}`,  
     `Tiempo invertido: ${horas.toFixed(2)} h`,  
     `Total de horas registradas: ${horas.toFixed(2)} h`,  
-  ].join("\n");  
+  ].join(&quot;\n&quot;);  
 }  
 function renderCalendario() {  
   poblarSelectMesAnio(  
-    $("selectorMesCalendario"),  
-    $("selectorAnioCalendario"),  
+    $(&quot;selectorMesCalendario&quot;),  
+    $(&quot;selectorAnioCalendario&quot;),  
     fechaCalendario,  
   );  
-  $("tituloCalendario").textContent =  
+  $(&quot;tituloCalendario&quot;).textContent =  
     `${MESES[fechaCalendario.getMonth()]} ${fechaCalendario.getFullYear()}`;  
   const hoy = fechaISOHoy();  
   const dias = matrizMes(fechaCalendario);  
   const encabezados = DIAS.map(  
-    (d) => `<div class="calendario-encabezado">${d}</div>`,  
-  ).join("");  
+    (d) =&gt; `&lt;div class=&quot;calendario-encabezado&quot;&gt;${d}&lt;/div&gt;`,  
+  ).join(&quot;&quot;);  
   const celdas = dias  
-    .map((dia) => {  
-      const iso = `${dia.getFullYear()}-${String(dia.getMonth() + 1).padStart(2, "0")}-${String(dia.getDate()).padStart(2, "0")}`;  
+    .map((dia) =&gt; {  
+      const iso = `${dia.getFullYear()}-${String(dia.getMonth() + 1).padStart(2, &quot;0&quot;)}-${String(dia.getDate()).padStart(2, &quot;0&quot;)}`;  
       const eventos = estado.manuales  
-        .map((m) => ({ manual: m, posicion: posicionEventoManual(m, iso) }))  
-        .filter((x) => x.posicion);  
-      return `<div class="calendario-dia ${dia.getMonth() !== fechaCalendario.getMonth() ? "fuera-mes" : ""} ${iso === hoy ? "hoy" : ""}" data-fecha="${iso}">     
-            <div class="calendario-numero">${dia.getDate()}</div>     
-            ${eventos.map(({ manual, posicion }) => `<div class="calendario-evento evento-${posicion}" style="--evento-color:${colorManualCalendario(manual)};background:${colorManualCalendario(manual)}" title="${escaparHTML(resumenCalendarioManual(manual))}">${escaparHTML(manual.codigo || manual.titulo)}</div>`).join("")}     
-        </div>`;  
+        .map((m) =&gt; ({ manual: m, posicion: posicionEventoManual(m, iso) }))  
+        .filter((x) =&gt; x.posicion);  
+      return `&lt;div class=&quot;calendario-dia ${dia.getMonth() !== fechaCalendario.getMonth() ? &quot;fuera-mes&quot; : &quot;&quot;} ${iso === hoy ? &quot;hoy&quot; : &quot;&quot;}&quot; data-fecha=&quot;${iso}&quot;&gt;     
+            &lt;div class=&quot;calendario-numero&quot;&gt;${dia.getDate()}&lt;/div&gt;     
+            ${eventos.map(({ manual, posicion }) =&gt; `&lt;div class=&quot;calendario-evento evento-${posicion}&quot; style=&quot;--evento-color:${colorManualCalendario(manual)};background:${colorManualCalendario(manual)}&quot; title=&quot;${escaparHTML(resumenCalendarioManual(manual))}&quot;&gt;${escaparHTML(manual.codigo || manual.titulo)}&lt;/div&gt;`).join(&quot;&quot;)}     
+        &lt;/div&gt;`;  
     })  
-    .join("");  
-  $("calendarioManuales").innerHTML = encabezados + celdas;  
+    .join(&quot;&quot;);  
+  $(&quot;calendarioManuales&quot;).innerHTML = encabezados + celdas;  
 }  
  
 function renderBitacora() {  
   poblarSelectMesAnio(  
-    $("selectorMesBitacora"),  
-    $("selectorAnioBitacora"),  
+    $(&quot;selectorMesBitacora&quot;),  
+    $(&quot;selectorAnioBitacora&quot;),  
     fechaBitacora,  
   );  
-  $("tituloBitacora").textContent =  
+  $(&quot;tituloBitacora&quot;).textContent =  
     `Bitácora · ${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`;  
   const dias = matrizMes(fechaBitacora);  
-  $("calendarioBitacora").innerHTML =  
-    DIAS.map((d) => `<div class="calendario-encabezado">${d}</div>`).join("") +  
+  $(&quot;calendarioBitacora&quot;).innerHTML =  
+    DIAS.map((d) =&gt; `&lt;div class=&quot;calendario-encabezado&quot;&gt;${d}&lt;/div&gt;`).join(&quot;&quot;) +  
     dias  
-      .map((dia) => {  
-        const iso = `${dia.getFullYear()}-${String(dia.getMonth() + 1).padStart(2, "0")}-${String(dia.getDate()).padStart(2, "0")}`;  
-        const registros = estado.bitacora.filter((r) => r.fecha === iso);  
-        const horas = registros.reduce((t, r) => t + Number(r.horas || 0), 0);  
-        return `<div class="calendario-dia ${dia.getMonth() !== fechaBitacora.getMonth() ? "fuera-mes" : ""}" data-bitacora-fecha="${iso}">       
-            <div class="calendario-numero">${dia.getDate()}</div>       
-            ${registros.map((r) => `<div class="calendario-evento tipo-${normalizar(r.tipo)}" data-registro-id="${r.id}" title="${escaparHTML(`Manual: ${r.manual || ""}\nTipo: ${r.tipo || ""}\nHora inicio: ${r.horaInicio || ""}\nHora fin: ${r.horaFin || ""}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPáginas: ${r.paginas ?? ""}\nDetalle: ${r.detalle || ""}`)}">${escaparHTML(r.manual)} · ${Number(r.horas || 0).toFixed(2)} h</div>`).join("")}       
-            <div class="bitacora-resumen-dia">${registros.length ? `${registros.length} registro(s) · ${horas.toFixed(2)} h` : ""}</div>       
-        </div>`;  
+      .map((dia) =&gt; {  
+        const iso = `${dia.getFullYear()}-${String(dia.getMonth() + 1).padStart(2, &quot;0&quot;)}-${String(dia.getDate()).padStart(2, &quot;0&quot;)}`;  
+        const registros = estado.bitacora.filter((r) =&gt; r.fecha === iso);  
+        const horas = registros.reduce((t, r) =&gt; t + Number(r.horas || 0), 0);  
+        return `&lt;div class=&quot;calendario-dia ${dia.getMonth() !== fechaBitacora.getMonth() ? &quot;fuera-mes&quot; : &quot;&quot;}&quot; data-bitacora-fecha=&quot;${iso}&quot;&gt;       
+            &lt;div class=&quot;calendario-numero&quot;&gt;${dia.getDate()}&lt;/div&gt;       
+            ${registros.map((r) =&gt; `&lt;div class=&quot;calendario-evento tipo-${normalizar(r.tipo)}&quot; data-registro-id=&quot;${r.id}&quot; title=&quot;${escaparHTML(`Manual: ${r.manual || &quot;&quot;}\nTipo: ${r.tipo || &quot;&quot;}\nHora inicio: ${r.horaInicio || &quot;&quot;}\nHora fin: ${r.horaFin || &quot;&quot;}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPáginas: ${r.paginas ?? &quot;&quot;}\nDetalle: ${r.detalle || &quot;&quot;}`)}&quot;&gt;${escaparHTML(r.manual)} · ${Number(r.horas || 0).toFixed(2)} h&lt;/div&gt;`).join(&quot;&quot;)}       
+            &lt;div class=&quot;bitacora-resumen-dia&quot;&gt;${registros.length ? `${registros.length} registro(s) · ${horas.toFixed(2)} h` : &quot;&quot;}&lt;/div&gt;       
+        &lt;/div&gt;`;  
       })  
-      .join("");  
+      .join(&quot;&quot;);  
   document  
-    .querySelectorAll("[data-bitacora-fecha]")  
-    .forEach((celda) =>  
+    .querySelectorAll(&quot;[data-bitacora-fecha]&quot;)  
+    .forEach((celda) =&gt;  
       celda.addEventListener(  
-        "dblclick",  
-        () => editorActivo && abrirBitacora("", celda.dataset.bitacoraFecha),  
+        &quot;dblclick&quot;,  
+        () =&gt; editorActivo &amp;&amp; abrirBitacora(&quot;&quot;, celda.dataset.bitacoraFecha),  
       ),  
     );  
-  document.querySelectorAll("[data-registro-id]").forEach((evento) => {
-    evento.addEventListener("click", (e) => {
+  document.querySelectorAll(&quot;[data-registro-id]&quot;).forEach((evento) =&gt; {
+    evento.addEventListener(&quot;click&quot;, (e) =&gt; {
       e.stopPropagation();
       if (editorActivo) abrirBitacora(evento.dataset.registroId);
     });
-    evento.addEventListener("contextmenu", (e) => {
+    evento.addEventListener(&quot;contextmenu&quot;, (e) =&gt; {
       e.preventDefault();
       e.stopPropagation();
       if (editorActivo) {
@@ -1172,98 +1176,98 @@ function renderBitacora() {
  
 function renderDashboard() {  
   const totalHoras = estado.bitacora.reduce(  
-    (t, r) => t + Number(r.horas || 0),  
+    (t, r) =&gt; t + Number(r.horas || 0),  
     0,  
   );  
   const publicados = estado.manuales.filter(  
-    (m) => calcularEstadoManual(m) === "Publicado",  
+    (m) =&gt; calcularEstadoManual(m) === &quot;Publicado&quot;,  
   ).length;  
   const enProceso = estado.manuales.filter(  
-    (m) => calcularEstadoManual(m) === "En proceso",  
+    (m) =&gt; calcularEstadoManual(m) === &quot;En proceso&quot;,  
   ).length;  
   const prioridadAlta = estado.manuales.filter(
-    (m) => m.prioridad === "Alta",
+    (m) =&gt; m.prioridad === &quot;Alta&quot;,
   ).length;
   const noIniciados = estado.manuales.filter(
-    (m) => calcularEstadoManual(m) === "No iniciado",
+    (m) =&gt; calcularEstadoManual(m) === &quot;No iniciado&quot;,
   ).length;  
-  $("kpiCards").innerHTML = [  
-    ["Total de manuales", estado.manuales.length],  
-    ["Publicados", publicados],  
-    ["En proceso", enProceso],  
-    ["No iniciados", noIniciados],
-    ["Prioridad alta", prioridadAlta],  
-    ["Horas registradas", totalHoras.toFixed(2)],  
+  $(&quot;kpiCards&quot;).innerHTML = [  
+    [&quot;Total de manuales&quot;, estado.manuales.length],  
+    [&quot;Publicados&quot;, publicados],  
+    [&quot;En proceso&quot;, enProceso],  
+    [&quot;No iniciados&quot;, noIniciados],
+    [&quot;Prioridad alta&quot;, prioridadAlta],  
+    [&quot;Horas registradas&quot;, totalHoras.toFixed(2)],  
   ]  
     .map(  
-      ([l, v]) =>  
-        `<div class="kpi-card"><div class="label">${l}</div><div class="value">${v}</div></div>`,  
+      ([l, v]) =&gt;  
+        `&lt;div class=&quot;kpi-card&quot;&gt;&lt;div class=&quot;label&quot;&gt;${l}&lt;/div&gt;&lt;div class=&quot;value&quot;&gt;${v}&lt;/div&gt;&lt;/div&gt;`,  
     )  
-    .join("");  
+    .join(&quot;&quot;);  
  
-  const porTipo = ["N", "T", "A", "R"].map((tipo) => ({  
+  const porTipo = [&quot;N&quot;, &quot;T&quot;, &quot;A&quot;, &quot;R&quot;].map((tipo) =&gt; ({  
     tipo,  
     horas: estado.bitacora  
-      .filter((r) => r.tipo === tipo)  
-      .reduce((t, r) => t + Number(r.horas || 0), 0),  
+      .filter((r) =&gt; r.tipo === tipo)  
+      .reduce((t, r) =&gt; t + Number(r.horas || 0), 0),  
   }));  
-  const max = Math.max(1, ...porTipo.map((x) => x.horas));  
-  $("graficoTiposMes").innerHTML = porTipo  
+  const max = Math.max(1, ...porTipo.map((x) =&gt; x.horas));  
+  $(&quot;graficoTiposMes&quot;).innerHTML = porTipo  
     .map(  
-      (x) =>  
-        `<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${x.tipo}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${(x.horas / max) * 100}%"></div></div><div class="dashboard-cycle-meta">${x.horas.toFixed(2)} h</div></div>`,  
+      (x) =&gt;  
+        `&lt;div class=&quot;dashboard-cycle-row&quot;&gt;&lt;div class=&quot;dashboard-cycle-label&quot;&gt;${x.tipo}&lt;/div&gt;&lt;div class=&quot;dashboard-cycle-bar-wrap&quot;&gt;&lt;div class=&quot;dashboard-cycle-bar&quot; style=&quot;width:${(x.horas / max) * 100}%&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;dashboard-cycle-meta&quot;&gt;${x.horas.toFixed(2)} h&lt;/div&gt;&lt;/div&gt;`,  
     )  
-    .join("");  
+    .join(&quot;&quot;);  
  
-  $("selectorMesDashboard").innerHTML = MESES.map(  
-    (m, i) =>  
-      `<option value="${i}" ${i === fechaDashboard.getMonth() ? "selected" : ""}>${m}</option>`,  
-  ).join("");  
-  $("selectorAnioDashboard").value = fechaDashboard.getFullYear();  
-  const registrosMes = estado.bitacora.filter((r) => {  
+  $(&quot;selectorMesDashboard&quot;).innerHTML = MESES.map(  
+    (m, i) =&gt;  
+      `&lt;option value=&quot;${i}&quot; ${i === fechaDashboard.getMonth() ? &quot;selected&quot; : &quot;&quot;}&gt;${m}&lt;/option&gt;`,  
+  ).join(&quot;&quot;);  
+  $(&quot;selectorAnioDashboard&quot;).value = fechaDashboard.getFullYear();  
+  const registrosMes = estado.bitacora.filter((r) =&gt; {  
     const d = new Date(`${r.fecha}T00:00:00`);  
     return (  
-      d.getMonth() === fechaDashboard.getMonth() &&  
+      d.getMonth() === fechaDashboard.getMonth() &amp;&amp;  
       d.getFullYear() === fechaDashboard.getFullYear()  
     );  
   });  
   const mapa = {};  
-  registrosMes.forEach((r) => {  
+  registrosMes.forEach((r) =&gt; {  
     mapa[r.manual] = (mapa[r.manual] || 0) + Number(r.horas || 0);  
   });  
-  $("topManualesHoras").innerHTML =  
+  $(&quot;topManualesHoras&quot;).innerHTML =  
     Object.entries(mapa)  
-      .sort((a, b) => b[1] - a[1])  
+      .sort((a, b) =&gt; b[1] - a[1])  
       .map(  
-        ([manual, horas]) =>  
-          `<div class="fecha-destino-item"><strong>${escaparHTML(manual)}</strong><span>${horas.toFixed(2)} h</span></div>`,  
+        ([manual, horas]) =&gt;  
+          `&lt;div class=&quot;fecha-destino-item&quot;&gt;&lt;strong&gt;${escaparHTML(manual)}&lt;/strong&gt;&lt;span&gt;${horas.toFixed(2)} h&lt;/span&gt;&lt;/div&gt;`,  
       )  
-      .join("") || `<div class="empty-state">Sin registros para el mes.</div>`;  
-  $("estrategiaSemanal").innerHTML =  
-    `<p><strong>Lunes, martes y jueves:</strong> traducciones, actualizaciones y manuales nuevos.</p><p><strong>Miércoles:</strong> requerimientos.</p>`;  
-  $("analisisTipos").innerHTML = ["N", "T", "A", "R"]  
+      .join(&quot;&quot;) || `&lt;div class=&quot;empty-state&quot;&gt;Sin registros para el mes.&lt;/div&gt;`;  
+  $(&quot;estrategiaSemanal&quot;).innerHTML =  
+    `&lt;p&gt;&lt;strong&gt;Lunes, martes y jueves:&lt;/strong&gt; traducciones, actualizaciones y manuales nuevos.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Miércoles:&lt;/strong&gt; requerimientos.&lt;/p&gt;`;  
+  $(&quot;analisisTipos&quot;).innerHTML = [&quot;N&quot;, &quot;T&quot;, &quot;A&quot;, &quot;R&quot;]  
     .map(  
-      (tipo) =>  
-        `<div class="fecha-destino-item"><strong>${tipo}</strong><span>${estado.manuales.filter((m) => m.tipo === tipo).length} manual(es)</span></div>`,  
+      (tipo) =&gt;  
+        `&lt;div class=&quot;fecha-destino-item&quot;&gt;&lt;strong&gt;${tipo}&lt;/strong&gt;&lt;span&gt;${estado.manuales.filter((m) =&gt; m.tipo === tipo).length} manual(es)&lt;/span&gt;&lt;/div&gt;`,  
     )  
-    .join("");  
+    .join(&quot;&quot;);  
   renderCiclo();  
 }  
  
 function valorCampoCiclo(registro, nombres) {
   const original = registro?.original || registro || {};
   const claves = Object.keys(original);
-  const limpiar = (valor) => normalizar(valor).replace(/[^a-z0-9]/g, "");
+  const limpiar = (valor) =&gt; normalizar(valor).replace(/[^a-z0-9]/g, &quot;&quot;);
   for (const nombre of nombres) {
-    const clave = claves.find((item) => limpiar(item) === limpiar(nombre));
+    const clave = claves.find((item) =&gt; limpiar(item) === limpiar(nombre));
     if (clave !== undefined) return original[clave];
   }
-  return "";
+  return &quot;&quot;;
 }
 function fechaCampoCiclo(valor) {
-  if (valor === "" || valor == null) return null;
+  if (valor === &quot;&quot; || valor == null) return null;
   if (valor instanceof Date) return Number.isNaN(valor.getTime()) ? null : valor;
-  if (typeof valor === "number") {
+  if (typeof valor === &quot;number&quot;) {
     const fecha = new Date(Math.round((valor - 25569) * 86400 * 1000));
     return Number.isNaN(fecha.getTime()) ? null : fecha;
   }
@@ -1271,38 +1275,38 @@ function fechaCampoCiclo(valor) {
   return Number.isNaN(fecha.getTime()) ? null : fecha;
 }
 function diasHabilesEntreCiclo(inicio, fin) {
-  if (!inicio || !fin || fin < inicio) return null;
+  if (!inicio || !fin || fin &lt; inicio) return null;
   const actual = new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate());
   const limite = new Date(fin.getFullYear(), fin.getMonth(), fin.getDate());
   let dias = 0;
-  while (actual < limite) {
+  while (actual &lt; limite) {
     actual.setDate(actual.getDate() + 1);
-    if (actual.getDay() !== 0 && actual.getDay() !== 6) dias += 1;
+    if (actual.getDay() !== 0 &amp;&amp; actual.getDay() !== 6) dias += 1;
   }
   return dias;
 }
 function filasDiasPorTarea() {
-  return (estado.ciclo || []).map((registro) => {
-    const inicio = fechaCampoCiclo(valorCampoCiclo(registro, ["Start Date"]));
-    const fin = fechaCampoCiclo(valorCampoCiclo(registro, ["Comp Date"]));
+  return (estado.ciclo || []).map((registro) =&gt; {
+    const inicio = fechaCampoCiclo(valorCampoCiclo(registro, [&quot;Start Date&quot;]));
+    const fin = fechaCampoCiclo(valorCampoCiclo(registro, [&quot;Comp Date&quot;]));
     return {
       dias: diasHabilesEntreCiclo(inicio, fin),
-      cambio: valorCampoCiclo(registro, ["Change #"]),
-      categoria: valorCampoCiclo(registro, ["Change Category"]),
-      secuencia: valorCampoCiclo(registro, ["Seq"]),
-      estadoTarea: valorCampoCiclo(registro, ["Task Status"]),
-      inicio: valorCampoCiclo(registro, ["Start Date"]),
-      fin: valorCampoCiclo(registro, ["Comp Date"]),
+      cambio: valorCampoCiclo(registro, [&quot;Change #&quot;]),
+      categoria: valorCampoCiclo(registro, [&quot;Change Category&quot;]),
+      secuencia: valorCampoCiclo(registro, [&quot;Seq&quot;]),
+      estadoTarea: valorCampoCiclo(registro, [&quot;Task Status&quot;]),
+      inicio: valorCampoCiclo(registro, [&quot;Start Date&quot;]),
+      fin: valorCampoCiclo(registro, [&quot;Comp Date&quot;]),
     };
-  }).filter((fila) => fila.dias !== null).sort((a, b) => b.dias - a.dias);
+  }).filter((fila) =&gt; fila.dias !== null).sort((a, b) =&gt; b.dias - a.dias);
 }
 function abrirDiasPorTarea() {
-  if (!(estado.ciclo || []).length) return mostrarToast("Primero importe export.xlsx");
+  if (!(estado.ciclo || []).length) return mostrarToast(&quot;Primero importe export.xlsx&quot;);
   const filas = filasDiasPorTarea();
-  const datos = JSON.stringify(filas).replace(/</g, "\\u003c");
-  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Días hábiles por tarea</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:#fff;padding:16px 22px}.wrap{margin:14px;overflow:auto;background:#fff}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:12px}th{background:#666;color:#fff;position:sticky;top:0}</style></head><body><header><h2>Días hábiles por tarea</h2></header><div class="wrap"><table><thead><tr><th>Días</th><th>Change #</th><th>Change Category</th><th>Seq</th><th>Task Status</th><th>Start Date</th><th>Comp Date</th></tr></thead><tbody id="body"></tbody></table></div><script>const filas=${datos};const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");body.innerHTML=filas.map(x=>` + "`" + `<tr><td>${x.dias}</td><td>${esc(x.cambio)}</td><td>${esc(x.categoria)}</td><td>${esc(x.secuencia)}</td><td>${esc(x.estadoTarea)}</td><td>${esc(x.inicio)}</td><td>${esc(x.fin)}</td></tr>` + "`" + `).join("");<\/script></body></html>`;
-  const ventana = open("", "_blank");
-  if (!ventana) return mostrarToast("Permita ventanas emergentes para ver el detalle");
+  const datos = JSON.stringify(filas).replace(/&lt;/g, &quot;\\u003c&quot;);
+  const html = `&lt;!doctype html&gt;&lt;html lang=&quot;es&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Días hábiles por tarea&lt;/title&gt;&lt;style&gt;body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:#fff;padding:16px 22px}.wrap{margin:14px;overflow:auto;background:#fff}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:12px}th{background:#666;color:#fff;position:sticky;top:0}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;header&gt;&lt;h2&gt;Días hábiles por tarea&lt;/h2&gt;&lt;/header&gt;&lt;div class=&quot;wrap&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Días&lt;/th&gt;&lt;th&gt;Change #&lt;/th&gt;&lt;th&gt;Change Category&lt;/th&gt;&lt;th&gt;Seq&lt;/th&gt;&lt;th&gt;Task Status&lt;/th&gt;&lt;th&gt;Start Date&lt;/th&gt;&lt;th&gt;Comp Date&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;body&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;script&gt;const filas=${datos};const esc=v=&gt;String(v??&quot;&quot;).replace(/&amp;/g,&quot;&amp;amp;&quot;).replace(/&lt;/g,&quot;&amp;lt;&quot;).replace(/&gt;/g,&quot;&amp;gt;&quot;);body.innerHTML=filas.map(x=&gt;` + &quot;`&quot; + `&lt;tr&gt;&lt;td&gt;${x.dias}&lt;/td&gt;&lt;td&gt;${esc(x.cambio)}&lt;/td&gt;&lt;td&gt;${esc(x.categoria)}&lt;/td&gt;&lt;td&gt;${esc(x.secuencia)}&lt;/td&gt;&lt;td&gt;${esc(x.estadoTarea)}&lt;/td&gt;&lt;td&gt;${esc(x.inicio)}&lt;/td&gt;&lt;td&gt;${esc(x.fin)}&lt;/td&gt;&lt;/tr&gt;` + &quot;`&quot; + `).join(&quot;&quot;);&lt;\/script&gt;&lt;/body&gt;&lt;/html&gt;`;
+  const ventana = open(&quot;&quot;, &quot;_blank&quot;);
+  if (!ventana) return mostrarToast(&quot;Permita ventanas emergentes para ver el detalle&quot;);
   ventana.document.write(html);
   ventana.document.close();
 }
@@ -1310,27 +1314,27 @@ function renderCiclo() {
   const grupos = {};
   let pendientes = 0;
   let totalValidos = 0;
-  (estado.ciclo || []).forEach((registro) => {
-    if (normalizar(valorCampoCiclo(registro, ["Task Status"])).includes("pending")) pendientes += 1;
-    const inicio = fechaCampoCiclo(valorCampoCiclo(registro, ["Start Date"]));
-    const fin = fechaCampoCiclo(valorCampoCiclo(registro, ["Comp Date"]));
+  (estado.ciclo || []).forEach((registro) =&gt; {
+    if (normalizar(valorCampoCiclo(registro, [&quot;Task Status&quot;])).includes(&quot;pending&quot;)) pendientes += 1;
+    const inicio = fechaCampoCiclo(valorCampoCiclo(registro, [&quot;Start Date&quot;]));
+    const fin = fechaCampoCiclo(valorCampoCiclo(registro, [&quot;Comp Date&quot;]));
     const dias = diasHabilesEntreCiclo(inicio, fin);
     if (dias === null) return;
-    const categoria = String(valorCampoCiclo(registro, ["Change Category"]) || "Sin categoría");
+    const categoria = String(valorCampoCiclo(registro, [&quot;Change Category&quot;]) || &quot;Sin categoría&quot;);
     (grupos[categoria] ||= []).push(dias);
     totalValidos += 1;
   });
-  const resumen = Object.entries(grupos).map(([tipo, valores]) => ({
+  const resumen = Object.entries(grupos).map(([tipo, valores]) =&gt; ({
     tipo,
-    promedio: valores.reduce((a, b) => a + b, 0) / valores.length,
+    promedio: valores.reduce((a, b) =&gt; a + b, 0) / valores.length,
     cantidad: valores.length,
   }));
-  if ($("pendingTasksCount")) $("pendingTasksCount").textContent = pendientes;
-  $("resumenDashboardCiclo").innerHTML = `<div class="small-note">${totalValidos} registros con Start Date y Comp Date válidos</div>`;
-  const max = Math.max(1, ...resumen.map((item) => item.promedio));
-  $("graficoDashboardCiclo").innerHTML = resumen.map((item) =>
-    `<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${escaparHTML(item.tipo)}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${(item.promedio / max) * 100}%"></div></div><div class="dashboard-cycle-meta">${item.promedio.toFixed(1)} días</div></div>`,
-  ).join("") || `<div class="empty-state">Importe datos de ciclo para visualizar resultados.</div>`;
+  if ($(&quot;pendingTasksCount&quot;)) $(&quot;pendingTasksCount&quot;).textContent = pendientes;
+  $(&quot;resumenDashboardCiclo&quot;).innerHTML = `&lt;div class=&quot;small-note&quot;&gt;${totalValidos} registros con Start Date y Comp Date válidos&lt;/div&gt;`;
+  const max = Math.max(1, ...resumen.map((item) =&gt; item.promedio));
+  $(&quot;graficoDashboardCiclo&quot;).innerHTML = resumen.map((item) =&gt;
+    `&lt;div class=&quot;dashboard-cycle-row&quot;&gt;&lt;div class=&quot;dashboard-cycle-label&quot;&gt;${escaparHTML(item.tipo)}&lt;/div&gt;&lt;div class=&quot;dashboard-cycle-bar-wrap&quot;&gt;&lt;div class=&quot;dashboard-cycle-bar&quot; style=&quot;width:${(item.promedio / max) * 100}%&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;dashboard-cycle-meta&quot;&gt;${item.promedio.toFixed(1)} días&lt;/div&gt;&lt;/div&gt;`,
+  ).join(&quot;&quot;) || `&lt;div class=&quot;empty-state&quot;&gt;Importe datos de ciclo para visualizar resultados.&lt;/div&gt;`;
 }
 
 function abrirPantalla(idPantalla) {  
@@ -1340,229 +1344,229 @@ function cerrarPantalla(idPantalla) {
   $(idPantalla).hidden = true;  
 }  
  
-function abrirManual(manualId = "") {  
-  const manual = estado.manuales.find((m) => m.id === manualId);  
-  $("manualForm").reset();  
-  $("manualId").value = manual?.id || "";  
-  $("manualFormTitle").textContent = manual  
-    ? "Editar manual"  
-    : "Agregar manual";  
+function abrirManual(manualId = &quot;&quot;) {  
+  const manual = estado.manuales.find((m) =&gt; m.id === manualId);  
+  $(&quot;manualForm&quot;).reset();  
+  $(&quot;manualId&quot;).value = manual?.id || &quot;&quot;;  
+  $(&quot;manualFormTitle&quot;).textContent = manual  
+    ? &quot;Editar manual&quot;  
+    : &quot;Agregar manual&quot;;  
   [  
-    "codigo",  
-    "titulo",  
-    "idioma",  
-    "archivoElectronico",  
-    "ocRelacionado",  
-    "prioridad",  
-    "tipo",  
-    "paginas",  
-    "diasEsfuerzo",  
-    "fechaInicio",  
-    "fechaFinalizacion",  
-    "fechaPublicado",  
-    "horasEsfuerzo",  
-  ].forEach((key) => {  
+    &quot;codigo&quot;,  
+    &quot;titulo&quot;,  
+    &quot;idioma&quot;,  
+    &quot;archivoElectronico&quot;,  
+    &quot;ocRelacionado&quot;,  
+    &quot;prioridad&quot;,  
+    &quot;tipo&quot;,  
+    &quot;paginas&quot;,  
+    &quot;diasEsfuerzo&quot;,  
+    &quot;fechaInicio&quot;,  
+    &quot;fechaFinalizacion&quot;,  
+    &quot;fechaPublicado&quot;,  
+    &quot;horasEsfuerzo&quot;,  
+  ].forEach((key) =&gt; {  
     const campo = $(`manual${key[0].toUpperCase()}${key.slice(1)}`);  
-    if (campo) campo.value = manual?.[key] ?? "";  
+    if (campo) campo.value = manual?.[key] ?? &quot;&quot;;  
   });  
-  $("manualEstado").value = manual  
+  $(&quot;manualEstado&quot;).value = manual  
     ? calcularEstadoManual(manual)  
-    : "No iniciado";  
-  abrirPantalla("manualScreen");  
+    : &quot;No iniciado&quot;;  
+  abrirPantalla(&quot;manualScreen&quot;);  
 }  
  
 function guardarManualFormulario(evento) {  
   evento.preventDefault();  
-  const existenteId = $("manualId").value;  
+  const existenteId = $(&quot;manualId&quot;).value;  
   const datos = {  
-    id: existenteId || id("manual"),  
-    codigo: $("manualCodigo").value.trim(),  
-    titulo: $("manualTitulo").value.trim(),  
-    idioma: $("manualIdioma").value,  
-    archivoElectronico: $("manualArchivoElectronico").value,  
-    ocRelacionado: $("manualOcRelacionado").value.trim(),  
-    prioridad: $("manualPrioridad").value,  
-    tipo: $("manualTipo").value,  
-    paginas: Number($("manualPaginas").value || 0),  
-    diasEsfuerzo: Number($("manualDiasEsfuerzo").value || 0),  
-    fechaInicio: $("manualFechaInicio").value,  
-    fechaFinalizacion: $("manualFechaFinalizacion").value,  
-    fechaPublicado: $("manualFechaPublicado").value,  
-    horasEsfuerzo: Number($("manualHorasEsfuerzo").value || 0),  
+    id: existenteId || id(&quot;manual&quot;),  
+    codigo: $(&quot;manualCodigo&quot;).value.trim(),  
+    titulo: $(&quot;manualTitulo&quot;).value.trim(),  
+    idioma: $(&quot;manualIdioma&quot;).value,  
+    archivoElectronico: $(&quot;manualArchivoElectronico&quot;).value,  
+    ocRelacionado: $(&quot;manualOcRelacionado&quot;).value.trim(),  
+    prioridad: $(&quot;manualPrioridad&quot;).value,  
+    tipo: $(&quot;manualTipo&quot;).value,  
+    paginas: Number($(&quot;manualPaginas&quot;).value || 0),  
+    diasEsfuerzo: Number($(&quot;manualDiasEsfuerzo&quot;).value || 0),  
+    fechaInicio: $(&quot;manualFechaInicio&quot;).value,  
+    fechaFinalizacion: $(&quot;manualFechaFinalizacion&quot;).value,  
+    fechaPublicado: $(&quot;manualFechaPublicado&quot;).value,  
+    horasEsfuerzo: Number($(&quot;manualHorasEsfuerzo&quot;).value || 0),  
     color:  
-      estado.manuales.find((m) => m.id === existenteId)?.color || "#FF6C0C",  
+      estado.manuales.find((m) =&gt; m.id === existenteId)?.color || &quot;#FF6C0C&quot;,  
   };  
-  const indice = estado.manuales.findIndex((m) => m.id === existenteId);  
-  if (indice >= 0) estado.manuales[indice] = datos;  
+  const indice = estado.manuales.findIndex((m) =&gt; m.id === existenteId);  
+  if (indice &gt;= 0) estado.manuales[indice] = datos;  
   else estado.manuales.unshift(datos);  
-  guardarEstado("Manual guardado");  
-  cerrarPantalla("manualScreen");  
+  guardarEstado(&quot;Manual guardado&quot;);  
+  cerrarPantalla(&quot;manualScreen&quot;);  
   renderTodo();  
 }  
  
-function abrirTramite(tramiteId = "") {  
-  const t = estado.tramites.find((x) => x.id === tramiteId);  
-  $("tramiteForm").reset();  
-  $("tramiteId").value = t?.id || "";  
-  $("tramiteFormTitle").textContent = t ? "Editar trámite" : "Nuevo trámite";  
+function abrirTramite(tramiteId = &quot;&quot;) {  
+  const t = estado.tramites.find((x) =&gt; x.id === tramiteId);  
+  $(&quot;tramiteForm&quot;).reset();  
+  $(&quot;tramiteId&quot;).value = t?.id || &quot;&quot;;  
+  $(&quot;tramiteFormTitle&quot;).textContent = t ? &quot;Editar trámite&quot; : &quot;Nuevo trámite&quot;;  
   const mapa = {  
-    Requerimiento: "requerimiento",  
-    Detalle: "detalle",  
-    TipoGestion: "tipoGestion",
-    FechaIngreso: "fechaIngreso",  
-    FechaInicio: "fechaInicio",  
-    ManualActualizar: "manualActualizar",  
-    TemaGeneral: "temaGeneral",  
-    BAAsignado: "baAsignado",  
-    Consultas: "consultas",  
-    RespuestaConsulta: "respuestaConsulta",  
-    JustificacionGestor: "justificacionGestor",  
-    FechaPublicado: "fechaPublicado",  
-    VersionTraducir: "versionTraducir",  
-    JustificacionIngles: "justificacionIngles",  
-    Listo: "listo",  
+    Requerimiento: &quot;requerimiento&quot;,  
+    Detalle: &quot;detalle&quot;,  
+    TipoGestion: &quot;tipoGestion&quot;,
+    FechaIngreso: &quot;fechaIngreso&quot;,  
+    FechaInicio: &quot;fechaInicio&quot;,  
+    ManualActualizar: &quot;manualActualizar&quot;,  
+    TemaGeneral: &quot;temaGeneral&quot;,  
+    BAAsignado: &quot;baAsignado&quot;,  
+    Consultas: &quot;consultas&quot;,  
+    RespuestaConsulta: &quot;respuestaConsulta&quot;,  
+    JustificacionGestor: &quot;justificacionGestor&quot;,  
+    FechaPublicado: &quot;fechaPublicado&quot;,  
+    VersionTraducir: &quot;versionTraducir&quot;,  
+    JustificacionIngles: &quot;justificacionIngles&quot;,  
+    Listo: &quot;listo&quot;,  
   };  
-  Object.entries(mapa).forEach(([sufijo, key]) => {  
-    $(`tramite${sufijo}`).value = t?.[key] ?? "";  
+  Object.entries(mapa).forEach(([sufijo, key]) =&gt; {  
+    $(`tramite${sufijo}`).value = t?.[key] ?? &quot;&quot;;  
   });  
-  abrirPantalla("tramiteScreen");  
+  abrirPantalla(&quot;tramiteScreen&quot;);  
 }  
  
 function guardarTramiteFormulario(evento) {  
   evento.preventDefault();  
-  const existenteId = $("tramiteId").value;  
+  const existenteId = $(&quot;tramiteId&quot;).value;  
   const datos = {  
-    id: existenteId || id("tramite"),  
-    requerimiento: $("tramiteRequerimiento").value.trim(),  
-    detalle: $("tramiteDetalle").value.trim(),  
-    tipoGestion: $("tramiteTipoGestion").value,
-    fechaIngreso: $("tramiteFechaIngreso").value,  
-    fechaInicio: $("tramiteFechaInicio").value,  
-    manualActualizar: $("tramiteManualActualizar").value.trim(),  
-    temaGeneral: $("tramiteTemaGeneral").value.trim(),  
-    baAsignado: $("tramiteBAAsignado").value.trim(),  
-    consultas: $("tramiteConsultas").value.trim(),  
-    respuestaConsulta: $("tramiteRespuestaConsulta").value.trim(),  
-    justificacionGestor: $("tramiteJustificacionGestor").value,  
-    fechaPublicado: $("tramiteFechaPublicado").value,  
-    versionTraducir: $("tramiteVersionTraducir").value,  
-    justificacionIngles: $("tramiteJustificacionIngles").value,  
-    listo: $("tramiteListo").value,  
+    id: existenteId || id(&quot;tramite&quot;),  
+    requerimiento: $(&quot;tramiteRequerimiento&quot;).value.trim(),  
+    detalle: $(&quot;tramiteDetalle&quot;).value.trim(),  
+    tipoGestion: $(&quot;tramiteTipoGestion&quot;).value,
+    fechaIngreso: $(&quot;tramiteFechaIngreso&quot;).value,  
+    fechaInicio: $(&quot;tramiteFechaInicio&quot;).value,  
+    manualActualizar: $(&quot;tramiteManualActualizar&quot;).value.trim(),  
+    temaGeneral: $(&quot;tramiteTemaGeneral&quot;).value.trim(),  
+    baAsignado: $(&quot;tramiteBAAsignado&quot;).value.trim(),  
+    consultas: $(&quot;tramiteConsultas&quot;).value.trim(),  
+    respuestaConsulta: $(&quot;tramiteRespuestaConsulta&quot;).value.trim(),  
+    justificacionGestor: $(&quot;tramiteJustificacionGestor&quot;).value,  
+    fechaPublicado: $(&quot;tramiteFechaPublicado&quot;).value,  
+    versionTraducir: $(&quot;tramiteVersionTraducir&quot;).value,  
+    justificacionIngles: $(&quot;tramiteJustificacionIngles&quot;).value,  
+    listo: $(&quot;tramiteListo&quot;).value,  
   };  
-  const indice = estado.tramites.findIndex((x) => x.id === existenteId);  
-  if (indice >= 0) estado.tramites[indice] = datos;  
+  const indice = estado.tramites.findIndex((x) =&gt; x.id === existenteId);  
+  if (indice &gt;= 0) estado.tramites[indice] = datos;  
   else estado.tramites.unshift(datos);  
-  guardarEstado("Trámite guardado");  
-  cerrarPantalla("tramiteScreen");  
+  guardarEstado(&quot;Trámite guardado&quot;);  
+  cerrarPantalla(&quot;tramiteScreen&quot;);  
   renderTramites();  
 }  
  
 function calcularHoras(inicio, fin) {  
   if (!inicio || !fin) return 0;  
-  const [hi, mi] = inicio.split(":").map(Number);  
-  const [hf, mf] = fin.split(":").map(Number);  
+  const [hi, mi] = inicio.split(&quot;:&quot;).map(Number);  
+  const [hf, mf] = fin.split(&quot;:&quot;).map(Number);  
   let minutos = hf * 60 + mf - (hi * 60 + mi);  
-  if (minutos < 0) minutos += 1440;  
+  if (minutos &lt; 0) minutos += 1440;  
   return minutos / 60;  
 }  
  
-function abrirBitacora(registroId = "", fecha = fechaISOHoy()) {  
-  const r = estado.bitacora.find((x) => x.id === registroId);  
-  $("bitacoraForm").reset();  
-  $("bitacoraId").value = r?.id || "";  
-  $("bitacoraFormTitle").textContent = r  
-    ? "Editar registro de Bitácora"  
-    : "Registro de Bitácora";  
-  $("bitacoraFecha").value = r?.fecha || fecha;  
-  $("bitacoraManual").value = r?.manual || "";  
-  $("bitacoraTipo").value = r?.tipo || "";  
-  $("bitacoraHoraInicio").value = r?.horaInicio || "";  
-  $("bitacoraHoraFin").value = r?.horaFin || "";  
-  $("bitacoraHoras").value = r?.horas || "";  
-  $("bitacoraPaginas").value = r?.paginas || "";  
-  $("bitacoraDetalle").value = r?.detalle || "";  
-  abrirPantalla("bitacoraScreen");  
+function abrirBitacora(registroId = &quot;&quot;, fecha = fechaISOHoy()) {  
+  const r = estado.bitacora.find((x) =&gt; x.id === registroId);  
+  $(&quot;bitacoraForm&quot;).reset();  
+  $(&quot;bitacoraId&quot;).value = r?.id || &quot;&quot;;  
+  $(&quot;bitacoraFormTitle&quot;).textContent = r  
+    ? &quot;Editar registro de Bitácora&quot;  
+    : &quot;Registro de Bitácora&quot;;  
+  $(&quot;bitacoraFecha&quot;).value = r?.fecha || fecha;  
+  $(&quot;bitacoraManual&quot;).value = r?.manual || &quot;&quot;;  
+  $(&quot;bitacoraTipo&quot;).value = r?.tipo || &quot;&quot;;  
+  $(&quot;bitacoraHoraInicio&quot;).value = r?.horaInicio || &quot;&quot;;  
+  $(&quot;bitacoraHoraFin&quot;).value = r?.horaFin || &quot;&quot;;  
+  $(&quot;bitacoraHoras&quot;).value = r?.horas || &quot;&quot;;  
+  $(&quot;bitacoraPaginas&quot;).value = r?.paginas || &quot;&quot;;  
+  $(&quot;bitacoraDetalle&quot;).value = r?.detalle || &quot;&quot;;  
+  abrirPantalla(&quot;bitacoraScreen&quot;);  
 }  
  
  
-function abrirVersion(versionId = "") {  
-  const v = estado.versiones.find((x) => x.id === versionId);  
-  $("versionForm").reset();  
-  $("versionId").value = v?.id || "";  
-  $("versionFormTitle").textContent = v ? "Editar versión" : "Agregar versión";  
-  $("versionSistema").value = v?.sistema || "SISCARD";  
-  $("versionCodigo").value = v?.codigo || "";  
-  $("versionManual").value = v?.manual || "";  
-  $("versionIdioma").value = v?.idioma || "Español";  
-  $("versionNumero").value = v?.numero || "";  
-  $("versionUbicacionEService").value = v?.ubicacionEService || "";  
-  $("versionFecha").value = v?.fecha || "";  
-  $("versionEstado").value = v?.estado || "Disponible";  
-  $("versionObservaciones").value = v?.observaciones || "";  
-  abrirPantalla("versionScreen");  
+function abrirVersion(versionId = &quot;&quot;) {  
+  const v = estado.versiones.find((x) =&gt; x.id === versionId);  
+  $(&quot;versionForm&quot;).reset();  
+  $(&quot;versionId&quot;).value = v?.id || &quot;&quot;;  
+  $(&quot;versionFormTitle&quot;).textContent = v ? &quot;Editar versión&quot; : &quot;Agregar versión&quot;;  
+  $(&quot;versionSistema&quot;).value = v?.sistema || &quot;SISCARD&quot;;  
+  $(&quot;versionCodigo&quot;).value = v?.codigo || &quot;&quot;;  
+  $(&quot;versionManual&quot;).value = v?.manual || &quot;&quot;;  
+  $(&quot;versionIdioma&quot;).value = v?.idioma || &quot;Español&quot;;  
+  $(&quot;versionNumero&quot;).value = v?.numero || &quot;&quot;;  
+  $(&quot;versionUbicacionEService&quot;).value = v?.ubicacionEService || &quot;&quot;;  
+  $(&quot;versionFecha&quot;).value = v?.fecha || &quot;&quot;;  
+  $(&quot;versionEstado&quot;).value = v?.estado || &quot;Disponible&quot;;  
+  $(&quot;versionObservaciones&quot;).value = v?.observaciones || &quot;&quot;;  
+  abrirPantalla(&quot;versionScreen&quot;);  
 }  
  
 function guardarVersionFormulario(evento) {  
   evento.preventDefault();  
-  const existenteId = $("versionId").value;  
+  const existenteId = $(&quot;versionId&quot;).value;  
   const datos = {  
-    id: existenteId || id("version"),  
-    sistema: $("versionSistema").value,  
-    codigo: $("versionCodigo").value.trim(),  
-    manual: $("versionManual").value.trim(),  
-    idioma: $("versionIdioma").value,  
-    numero: $("versionNumero").value.trim(),  
-    ubicacionEService: $("versionUbicacionEService").value.trim(),  
-    fecha: $("versionFecha").value,  
-    estado: $("versionEstado").value,  
-    observaciones: $("versionObservaciones").value.trim(),  
+    id: existenteId || id(&quot;version&quot;),  
+    sistema: $(&quot;versionSistema&quot;).value,  
+    codigo: $(&quot;versionCodigo&quot;).value.trim(),  
+    manual: $(&quot;versionManual&quot;).value.trim(),  
+    idioma: $(&quot;versionIdioma&quot;).value,  
+    numero: $(&quot;versionNumero&quot;).value.trim(),  
+    ubicacionEService: $(&quot;versionUbicacionEService&quot;).value.trim(),  
+    fecha: $(&quot;versionFecha&quot;).value,  
+    estado: $(&quot;versionEstado&quot;).value,  
+    observaciones: $(&quot;versionObservaciones&quot;).value.trim(),  
   };  
-  const indice = estado.versiones.findIndex((x) => x.id === existenteId);  
-  if (indice >= 0) estado.versiones[indice] = datos;  
+  const indice = estado.versiones.findIndex((x) =&gt; x.id === existenteId);  
+  if (indice &gt;= 0) estado.versiones[indice] = datos;  
   else estado.versiones.unshift(datos);  
-  guardarEstado("Versión guardada");  
-  cerrarPantalla("versionScreen");  
+  guardarEstado(&quot;Versión guardada&quot;);  
+  cerrarPantalla(&quot;versionScreen&quot;);  
   renderVersiones();  
 }  
  
  
  
 function abrirColumnas(tipo) {  
-  const esManual = tipo === "manuales";  
-  const panel = $(esManual ? "columnsPanelManuales" : "columnsPanelTramites");  
-  const lista = $(esManual ? "columnsListManuales" : "columnsListTramites");  
+  const esManual = tipo === &quot;manuales&quot;;  
+  const panel = $(esManual ? &quot;columnsPanelManuales&quot; : &quot;columnsPanelTramites&quot;);  
+  const lista = $(esManual ? &quot;columnsListManuales&quot; : &quot;columnsListTramites&quot;);  
   const columnas = esManual ? COLUMNAS_MANUALES : COLUMNAS_TRAMITES;  
   const ocultas = esManual  
     ? estado.columnasOcultasManuales  
     : estado.columnasOcultasTramites;  
   lista.innerHTML = columnas  
-    .filter((c) => !c.especial)  
+    .filter((c) =&gt; !c.especial)  
     .map(  
-      (c) =>  
-        `<label><input type="checkbox" data-columna="${c.key}" ${!ocultas.includes(c.key) ? "checked" : ""}>${escaparHTML(c.label)}</label>`,  
+      (c) =&gt;  
+        `&lt;label&gt;&lt;input type=&quot;checkbox&quot; data-columna=&quot;${c.key}&quot; ${!ocultas.includes(c.key) ? &quot;checked&quot; : &quot;&quot;}&gt;${escaparHTML(c.label)}&lt;/label&gt;`,  
     )  
-    .join("");  
-  lista.querySelectorAll("input").forEach((input) =>  
-    input.addEventListener("change", () => {  
+    .join(&quot;&quot;);  
+  lista.querySelectorAll(&quot;input&quot;).forEach((input) =&gt;  
+    input.addEventListener(&quot;change&quot;, () =&gt; {  
       const destino = esManual  
         ? estado.columnasOcultasManuales  
         : estado.columnasOcultasTramites;  
       if (input.checked)  
         estado[  
-          esManual ? "columnasOcultasManuales" : "columnasOcultasTramites"  
-        ] = destino.filter((x) => x !== input.dataset.columna);  
+          esManual ? &quot;columnasOcultasManuales&quot; : &quot;columnasOcultasTramites&quot;  
+        ] = destino.filter((x) =&gt; x !== input.dataset.columna);  
       else if (!destino.includes(input.dataset.columna))  
         destino.push(input.dataset.columna);  
-      guardarEstado("");  
+      guardarEstado(&quot;&quot;);  
       esManual ? renderManuales() : renderTramites();  
     }),  
   );  
   panel.hidden = false;  
 }  
  
-function descargar(nombre, contenido, tipo = "text/plain;charset=utf-8") {  
+function descargar(nombre, contenido, tipo = &quot;text/plain;charset=utf-8&quot;) {  
   const blob = new Blob([contenido], { type: tipo });  
-  const enlace = document.createElement("a");  
+  const enlace = document.createElement(&quot;a&quot;);  
   enlace.href = URL.createObjectURL(blob);  
   enlace.download = nombre;  
   enlace.click();  
@@ -1571,37 +1575,37 @@ function descargar(nombre, contenido, tipo = "text/plain;charset=utf-8") {
  
 function exportarCSV(tipo) {  
   const columnas =  
-    tipo === "manuales"  
+    tipo === &quot;manuales&quot;  
       ? COLUMNAS_MANUALES  
-      : tipo === "tramites"  
+      : tipo === &quot;tramites&quot;  
         ? COLUMNAS_TRAMITES  
         : COLUMNAS_VERSIONES;  
-  const utiles = columnas.filter((c) => !c.especial && !c.calculado);  
+  const utiles = columnas.filter((c) =&gt; !c.especial &amp;&amp; !c.calculado);  
   const filas = [  
-    utiles.map((c) => c.label),  
-    ...estado[tipo].map((item) => utiles.map((c) => item[c.key] ?? "")),  
+    utiles.map((c) =&gt; c.label),  
+    ...estado[tipo].map((item) =&gt; utiles.map((c) =&gt; item[c.key] ?? &quot;&quot;)),  
   ];  
   descargar(  
     `${tipo}.csv`,  
     filas  
-      .map((fila) =>  
-        fila.map((v) => `"${String(v).replaceAll('"', '""')}"`).join(","),  
+      .map((fila) =&gt;  
+        fila.map((v) =&gt; `&quot;${String(v).replaceAll(&#x27;&quot;&#x27;, &#x27;&quot;&quot;&#x27;)}&quot;`).join(&quot;,&quot;),  
       )  
-      .join("\n"),  
-    "text/csv;charset=utf-8",  
+      .join(&quot;\n&quot;),  
+    &quot;text/csv;charset=utf-8&quot;,  
   );  
 }  
  
 function exportarTramitesExcel() { 
  
     const columnas = COLUMNAS_TRAMITES 
-        .filter((c) => !c.especial); 
+        .filter((c) =&gt; !c.especial); 
  
-    const datos = estado.tramites.map(tramite => { 
+    const datos = estado.tramites.map(tramite =&gt; { 
  
         const fila = {}; 
  
-        columnas.forEach(columna => { 
+        columnas.forEach(columna =&gt; { 
  
             fila[columna.label] = 
                 valorVisible(tramite, columna); 
@@ -1619,42 +1623,42 @@ function exportarTramitesExcel() {
     XLSX.utils.book_append_sheet( 
         libro, 
         hoja, 
-        "Tramites" 
+        &quot;Tramites&quot; 
     ); 
  
     XLSX.writeFile( 
         libro, 
-        "Tramites_Requerimientos.xlsx" 
+        &quot;Tramites_Requerimientos.xlsx&quot; 
     ); 
  
 } 
  
 function exportarVersionesExcel() { 
   try { 
-    if (typeof XLSX === "undefined") { 
-      throw new Error("No se cargó la librería de Excel"); 
+    if (typeof XLSX === &quot;undefined&quot;) { 
+      throw new Error(&quot;No se cargó la librería de Excel&quot;); 
     } 
  
     const columnas = COLUMNAS_VERSIONES.filter( 
-      (columna) => !columna.especial && !columna.calculado, 
+      (columna) =&gt; !columna.especial &amp;&amp; !columna.calculado, 
     ); 
-    const datos = estado.versiones.map((version) => { 
+    const datos = estado.versiones.map((version) =&gt; { 
       const fila = {}; 
-      columnas.forEach((columna) => { 
-        fila[columna.label] = version[columna.key] ?? ""; 
+      columnas.forEach((columna) =&gt; { 
+        fila[columna.label] = version[columna.key] ?? &quot;&quot;; 
       }); 
       return fila; 
     }); 
     const hoja = XLSX.utils.json_to_sheet(datos); 
     const libro = XLSX.utils.book_new(); 
-    XLSX.utils.book_append_sheet(libro, hoja, "ControlVersiones"); 
+    XLSX.utils.book_append_sheet(libro, hoja, &quot;ControlVersiones&quot;); 
     XLSX.writeFile( 
       libro, 
       `Control_Versiones_${fechaISOHoy()}.xlsx`, 
     ); 
-    mostrarToast("Control de Versiones exportado a Excel"); 
+    mostrarToast(&quot;Control de Versiones exportado a Excel&quot;); 
   } catch (error) { 
-    console.error("No fue posible exportar Control de Versiones.", error); 
+    console.error(&quot;No fue posible exportar Control de Versiones.&quot;, error); 
     mostrarToast(`No fue posible exportar Excel: ${error.message}`); 
   } 
 } 
@@ -1665,18 +1669,18 @@ function exportarVersionesExcel() {
 function ajustarHojaReporte(hoja, datos) {
   const filas = Array.isArray(datos) ? datos : [];
   const encabezados = filas.length ? Object.keys(filas[0]) : [];
-  hoja["!cols"] = encabezados.map((encabezado) => {
+  hoja[&quot;!cols&quot;] = encabezados.map((encabezado) =&gt; {
     const maximo = Math.max(
       String(encabezado).length,
-      ...filas.map((fila) => String(fila[encabezado] ?? "").length),
+      ...filas.map((fila) =&gt; String(fila[encabezado] ?? &quot;&quot;).length),
     );
     return { wch: Math.min(Math.max(maximo + 2, 12), 45) };
   });
-  if (hoja["!ref"]) hoja["!autofilter"] = { ref: hoja["!ref"] };
+  if (hoja[&quot;!ref&quot;]) hoja[&quot;!autofilter&quot;] = { ref: hoja[&quot;!ref&quot;] };
 }
 
 function agregarHojaReporte(libro, nombre, datos) {
-  const filas = datos.length ? datos : [{ Información: "Sin registros" }];
+  const filas = datos.length ? datos : [{ Información: &quot;Sin registros&quot; }];
   const hoja = XLSX.utils.json_to_sheet(filas);
   ajustarHojaReporte(hoja, filas);
   XLSX.utils.book_append_sheet(libro, hoja, nombre);
@@ -1684,302 +1688,302 @@ function agregarHojaReporte(libro, nombre, datos) {
 
 function generarReporteCompletoExcel() {
   try {
-    if (typeof XLSX === "undefined") {
-      throw new Error("No se cargó la librería de Excel");
+    if (typeof XLSX === &quot;undefined&quot;) {
+      throw new Error(&quot;No se cargó la librería de Excel&quot;);
     }
 
     const libro = XLSX.utils.book_new();
-    const manuales = (estado.manuales || []).map((manual, indice) => ({
-      "#": indice + 1,
-      Código: manual.codigo ?? "",
-      Título: manual.titulo ?? "",
-      Idioma: manual.idioma ?? "",
-      "Archivo electrónico": manual.archivoElectronico ?? "",
-      "OC relacionado": manual.ocRelacionado ?? "",
-      Prioridad: manual.prioridad ?? "",
-      Tipo: manual.tipo ?? "",
+    const manuales = (estado.manuales || []).map((manual, indice) =&gt; ({
+      &quot;#&quot;: indice + 1,
+      Código: manual.codigo ?? &quot;&quot;,
+      Título: manual.titulo ?? &quot;&quot;,
+      Idioma: manual.idioma ?? &quot;&quot;,
+      &quot;Archivo electrónico&quot;: manual.archivoElectronico ?? &quot;&quot;,
+      &quot;OC relacionado&quot;: manual.ocRelacionado ?? &quot;&quot;,
+      Prioridad: manual.prioridad ?? &quot;&quot;,
+      Tipo: manual.tipo ?? &quot;&quot;,
       Páginas: Number(manual.paginas || 0),
-      "Días esfuerzo": Number(manual.diasEsfuerzo || 0),
-      "Horas esfuerzo": Number(manual.horasEsfuerzo || 0),
-      "Tiempo invertido": Number(horasBitacoraManual(manual).toFixed(2)),
-      "Fecha inicio": manual.fechaInicio ?? "",
-      "Fecha finalización": manual.fechaFinalizacion ?? "",
-      "Fecha publicado": manual.fechaPublicado ?? "",
+      &quot;Días esfuerzo&quot;: Number(manual.diasEsfuerzo || 0),
+      &quot;Horas esfuerzo&quot;: Number(manual.horasEsfuerzo || 0),
+      &quot;Tiempo invertido&quot;: Number(horasBitacoraManual(manual).toFixed(2)),
+      &quot;Fecha inicio&quot;: manual.fechaInicio ?? &quot;&quot;,
+      &quot;Fecha finalización&quot;: manual.fechaFinalizacion ?? &quot;&quot;,
+      &quot;Fecha publicado&quot;: manual.fechaPublicado ?? &quot;&quot;,
       Estado: calcularEstadoManual(manual),
     }));
 
-    const calendario = (estado.manuales || []).map((manual) => ({
-      Código: manual.codigo ?? "",
-      Manual: manual.titulo ?? "",
-      Tipo: manual.tipo ?? "",
-      "Fecha inicio": manual.fechaInicio ?? "",
-      "Fecha finalización": manual.fechaFinalizacion ?? "",
-      "Fecha publicación": manual.fechaPublicado ?? "",
+    const calendario = (estado.manuales || []).map((manual) =&gt; ({
+      Código: manual.codigo ?? &quot;&quot;,
+      Manual: manual.titulo ?? &quot;&quot;,
+      Tipo: manual.tipo ?? &quot;&quot;,
+      &quot;Fecha inicio&quot;: manual.fechaInicio ?? &quot;&quot;,
+      &quot;Fecha finalización&quot;: manual.fechaFinalizacion ?? &quot;&quot;,
+      &quot;Fecha publicación&quot;: manual.fechaPublicado ?? &quot;&quot;,
       Estado: calcularEstadoManual(manual),
-      "Horas registradas": Number(horasBitacoraManual(manual).toFixed(2)),
+      &quot;Horas registradas&quot;: Number(horasBitacoraManual(manual).toFixed(2)),
     }));
 
-    const bitacora = (estado.bitacora || []).map((registro) => ({
-      Fecha: registro.fecha ?? "",
-      Manual: registro.manual ?? "",
-      Tipo: registro.tipo ?? "",
-      "Hora inicio": registro.horaInicio ?? "",
-      "Hora fin": registro.horaFin ?? "",
+    const bitacora = (estado.bitacora || []).map((registro) =&gt; ({
+      Fecha: registro.fecha ?? &quot;&quot;,
+      Manual: registro.manual ?? &quot;&quot;,
+      Tipo: registro.tipo ?? &quot;&quot;,
+      &quot;Hora inicio&quot;: registro.horaInicio ?? &quot;&quot;,
+      &quot;Hora fin&quot;: registro.horaFin ?? &quot;&quot;,
       Horas: Number(registro.horas || 0),
       Páginas: Number(registro.paginas || 0),
-      "Datos adicionales": registro.detalle ?? "",
+      &quot;Datos adicionales&quot;: registro.detalle ?? &quot;&quot;,
     }));
 
     const totalHoras = (estado.bitacora || []).reduce(
-      (total, registro) => total + Number(registro.horas || 0),
+      (total, registro) =&gt; total + Number(registro.horas || 0),
       0,
     );
     const dashboard = [
-      { Indicador: "Total de manuales", Valor: (estado.manuales || []).length },
+      { Indicador: &quot;Total de manuales&quot;, Valor: (estado.manuales || []).length },
       {
-        Indicador: "Publicados",
+        Indicador: &quot;Publicados&quot;,
         Valor: (estado.manuales || []).filter(
-          (manual) => calcularEstadoManual(manual) === "Publicado",
+          (manual) =&gt; calcularEstadoManual(manual) === &quot;Publicado&quot;,
         ).length,
       },
       {
-        Indicador: "En proceso",
+        Indicador: &quot;En proceso&quot;,
         Valor: (estado.manuales || []).filter(
-          (manual) => calcularEstadoManual(manual) === "En proceso",
+          (manual) =&gt; calcularEstadoManual(manual) === &quot;En proceso&quot;,
         ).length,
       },
       {
-        Indicador: "Prioridad alta",
+        Indicador: &quot;Prioridad alta&quot;,
         Valor: (estado.manuales || []).filter(
-          (manual) => manual.prioridad === "Alta",
+          (manual) =&gt; manual.prioridad === &quot;Alta&quot;,
         ).length,
       },
-      { Indicador: "Horas registradas", Valor: Number(totalHoras.toFixed(2)) },
-      ...["N", "T", "A", "R"].map((tipo) => ({
+      { Indicador: &quot;Horas registradas&quot;, Valor: Number(totalHoras.toFixed(2)) },
+      ...[&quot;N&quot;, &quot;T&quot;, &quot;A&quot;, &quot;R&quot;].map((tipo) =&gt; ({
         Indicador: `Horas tipo ${tipo}`,
         Valor: Number(
           (estado.bitacora || [])
-            .filter((registro) => registro.tipo === tipo)
-            .reduce((total, registro) => total + Number(registro.horas || 0), 0)
+            .filter((registro) =&gt; registro.tipo === tipo)
+            .reduce((total, registro) =&gt; total + Number(registro.horas || 0), 0)
             .toFixed(2),
         ),
       })),
     ];
 
-    const tramites = (estado.tramites || []).map((tramite) => {
+    const tramites = (estado.tramites || []).map((tramite) =&gt; {
       const fila = {};
-      COLUMNAS_TRAMITES.filter((columna) => !columna.especial).forEach((columna) => {
+      COLUMNAS_TRAMITES.filter((columna) =&gt; !columna.especial).forEach((columna) =&gt; {
         fila[columna.label] = valorVisible(tramite, columna);
       });
       return fila;
     });
 
-    const versiones = (estado.versiones || []).map((version) => {
+    const versiones = (estado.versiones || []).map((version) =&gt; {
       const fila = {};
       COLUMNAS_VERSIONES.filter(
-        (columna) => !columna.especial && !columna.calculado,
-      ).forEach((columna) => {
-        fila[columna.label] = version[columna.key] ?? "";
+        (columna) =&gt; !columna.especial &amp;&amp; !columna.calculado,
+      ).forEach((columna) =&gt; {
+        fila[columna.label] = version[columna.key] ?? &quot;&quot;;
       });
       return fila;
     });
 
-    agregarHojaReporte(libro, "Avance Manuales", manuales);
-    agregarHojaReporte(libro, "Calendario", calendario);
-    agregarHojaReporte(libro, "Bitácora", bitacora);
-    agregarHojaReporte(libro, "Dashboard", dashboard);
-    agregarHojaReporte(libro, "Trámites", tramites);
-    agregarHojaReporte(libro, "Control Versiones", versiones);
+    agregarHojaReporte(libro, &quot;Avance Manuales&quot;, manuales);
+    agregarHojaReporte(libro, &quot;Calendario&quot;, calendario);
+    agregarHojaReporte(libro, &quot;Bitácora&quot;, bitacora);
+    agregarHojaReporte(libro, &quot;Dashboard&quot;, dashboard);
+    agregarHojaReporte(libro, &quot;Trámites&quot;, tramites);
+    agregarHojaReporte(libro, &quot;Control Versiones&quot;, versiones);
 
     XLSX.writeFile(libro, `Reporte_KIRIS_${fechaISOHoy()}.xlsx`);
-    mostrarToast("Reporte completo de KIRIS generado");
+    mostrarToast(&quot;Reporte completo de KIRIS generado&quot;);
   } catch (error) {
-    console.error("No fue posible generar el reporte completo.", error);
+    console.error(&quot;No fue posible generar el reporte completo.&quot;, error);
     mostrarToast(`No fue posible generar el reporte: ${error.message}`);
   }
 }
 
 function configurarCalendarios() {  
-  $("btnCalendarioAnterior").addEventListener("click", () => {  
+  $(&quot;btnCalendarioAnterior&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     fechaCalendario.setMonth(fechaCalendario.getMonth() - 1);  
     renderCalendario();  
   });  
-  $("btnCalendarioSiguiente").addEventListener("click", () => {  
+  $(&quot;btnCalendarioSiguiente&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     fechaCalendario.setMonth(fechaCalendario.getMonth() + 1);  
     renderCalendario();  
   });  
-  $("btnCalendarioHoy").addEventListener("click", () => {  
+  $(&quot;btnCalendarioHoy&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     fechaCalendario = new Date();  
     renderCalendario();  
   });  
-  $("selectorMesCalendario").addEventListener("change", (e) => {  
+  $(&quot;selectorMesCalendario&quot;).addEventListener(&quot;change&quot;, (e) =&gt; {  
     fechaCalendario.setMonth(Number(e.target.value));  
     renderCalendario();  
   });  
-  $("selectorAnioCalendario").addEventListener("change", (e) => {  
+  $(&quot;selectorAnioCalendario&quot;).addEventListener(&quot;change&quot;, (e) =&gt; {  
     fechaCalendario.setFullYear(Number(e.target.value));  
     renderCalendario();  
   });  
-  $("btnBitacoraAnterior").addEventListener("click", () => {  
+  $(&quot;btnBitacoraAnterior&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     fechaBitacora.setMonth(fechaBitacora.getMonth() - 1);  
     renderBitacora();  
   });  
-  $("btnBitacoraSiguiente").addEventListener("click", () => {  
+  $(&quot;btnBitacoraSiguiente&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     fechaBitacora.setMonth(fechaBitacora.getMonth() + 1);  
     renderBitacora();  
   });  
-  $("selectorMesBitacora").addEventListener("change", (e) => {  
+  $(&quot;selectorMesBitacora&quot;).addEventListener(&quot;change&quot;, (e) =&gt; {  
     fechaBitacora.setMonth(Number(e.target.value));  
     renderBitacora();  
   });  
-  $("selectorAnioBitacora").addEventListener("change", (e) => {  
+  $(&quot;selectorAnioBitacora&quot;).addEventListener(&quot;change&quot;, (e) =&gt; {  
     fechaBitacora.setFullYear(Number(e.target.value));  
     renderBitacora();  
   });  
-  $("btnDashboardMesAnterior").addEventListener("click", () => {  
+  $(&quot;btnDashboardMesAnterior&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     fechaDashboard.setMonth(fechaDashboard.getMonth() - 1);  
     renderDashboard();  
   });  
-  $("btnDashboardMesSiguiente").addEventListener("click", () => {  
+  $(&quot;btnDashboardMesSiguiente&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     fechaDashboard.setMonth(fechaDashboard.getMonth() + 1);  
     renderDashboard();  
   });  
-  $("selectorMesDashboard").addEventListener("change", (e) => {  
+  $(&quot;selectorMesDashboard&quot;).addEventListener(&quot;change&quot;, (e) =&gt; {  
     fechaDashboard.setMonth(Number(e.target.value));  
     renderDashboard();  
   });  
-  $("selectorAnioDashboard").addEventListener("change", (e) => {  
+  $(&quot;selectorAnioDashboard&quot;).addEventListener(&quot;change&quot;, (e) =&gt; {  
     fechaDashboard.setFullYear(Number(e.target.value));  
     renderDashboard();  
   });  
 }  
  
 function configurarComentarios() {  
-  $("feedbackFloatingBtn").addEventListener("click", () => {  
-    $("feedbackPanel").hidden = !$("feedbackPanel").hidden;  
+  $(&quot;feedbackFloatingBtn&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
+    $(&quot;feedbackPanel&quot;).hidden = !$(&quot;feedbackPanel&quot;).hidden;  
     renderComentarios();  
   });  
-  $("btnCerrarFeedback").addEventListener("click", () => {  
-    $("feedbackPanel").hidden = true;  
+  $(&quot;btnCerrarFeedback&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
+    $(&quot;feedbackPanel&quot;).hidden = true;  
   });  
-  $("feedbackForm").addEventListener("submit", (e) => {  
+  $(&quot;feedbackForm&quot;).addEventListener(&quot;submit&quot;, (e) =&gt; {  
     e.preventDefault();  
     estado.comentarios.unshift({  
-      id: id("comentario"),  
-      nombre: $("feedbackNombre").value.trim(),  
-      seccion: $("feedbackSeccion").value,  
-      comentario: $("feedbackComentario").value.trim(),  
+      id: id(&quot;comentario&quot;),  
+      nombre: $(&quot;feedbackNombre&quot;).value.trim(),  
+      seccion: $(&quot;feedbackSeccion&quot;).value,  
+      comentario: $(&quot;feedbackComentario&quot;).value.trim(),  
       fecha: new Date().toISOString(),  
     });  
-    guardarEstado("Comentario guardado");  
+    guardarEstado(&quot;Comentario guardado&quot;);  
     e.target.reset();  
     renderComentarios();  
   });  
 }  
  
 function renderComentarios() {  
-  $("feedbackList").innerHTML =  
+  $(&quot;feedbackList&quot;).innerHTML =  
     estado.comentarios  
       .map(  
-        (c) =>  
-          `<article class="feedback-card"><div class="feedback-card-title">${escaparHTML(c.seccion)}</div><div class="feedback-card-meta">${escaparHTML(c.nombre)} · ${new Date(c.fecha).toLocaleString("es-CR")}</div><div>${escaparHTML(c.comentario)}</div></article>`,  
+        (c) =&gt;  
+          `&lt;article class=&quot;feedback-card&quot;&gt;&lt;div class=&quot;feedback-card-title&quot;&gt;${escaparHTML(c.seccion)}&lt;/div&gt;&lt;div class=&quot;feedback-card-meta&quot;&gt;${escaparHTML(c.nombre)} · ${new Date(c.fecha).toLocaleString(&quot;es-CR&quot;)}&lt;/div&gt;&lt;div&gt;${escaparHTML(c.comentario)}&lt;/div&gt;&lt;/article&gt;`,  
       )  
-      .join("") || `<div class="empty-state">Sin comentarios.</div>`;  
+      .join(&quot;&quot;) || `&lt;div class=&quot;empty-state&quot;&gt;Sin comentarios.&lt;/div&gt;`;  
 }  
  
 function configurarFormularios() {  
-  $("manualForm").addEventListener("submit", guardarManualFormulario);  
-  $("tramiteForm").addEventListener("submit", guardarTramiteFormulario);  
-  $("bitacoraForm").addEventListener("submit", guardarBitacoraFormulario);  
-  $("versionForm").addEventListener("submit", guardarVersionFormulario);  
+  $(&quot;manualForm&quot;).addEventListener(&quot;submit&quot;, guardarManualFormulario);  
+  $(&quot;tramiteForm&quot;).addEventListener(&quot;submit&quot;, guardarTramiteFormulario);  
+  $(&quot;bitacoraForm&quot;).addEventListener(&quot;submit&quot;, guardarBitacoraFormulario);  
+  $(&quot;versionForm&quot;).addEventListener(&quot;submit&quot;, guardarVersionFormulario);  
   [  
-    ["btnCerrarManual", "manualScreen"],  
-    ["btnCancelarManual", "manualScreen"],  
-    ["btnCerrarTramite", "tramiteScreen"],  
-    ["btnCancelarTramite", "tramiteScreen"],  
-    ["btnCerrarBitacora", "bitacoraScreen"],  
-    ["btnCancelarBitacora", "bitacoraScreen"],  
-    ["btnCerrarVersion", "versionScreen"],  
-    ["btnCancelarVersion", "versionScreen"],  
-  ].forEach(([boton, pantalla]) =>  
-    $(boton).addEventListener("click", () => cerrarPantalla(pantalla)),  
+    [&quot;btnCerrarManual&quot;, &quot;manualScreen&quot;],  
+    [&quot;btnCancelarManual&quot;, &quot;manualScreen&quot;],  
+    [&quot;btnCerrarTramite&quot;, &quot;tramiteScreen&quot;],  
+    [&quot;btnCancelarTramite&quot;, &quot;tramiteScreen&quot;],  
+    [&quot;btnCerrarBitacora&quot;, &quot;bitacoraScreen&quot;],  
+    [&quot;btnCancelarBitacora&quot;, &quot;bitacoraScreen&quot;],  
+    [&quot;btnCerrarVersion&quot;, &quot;versionScreen&quot;],  
+    [&quot;btnCancelarVersion&quot;, &quot;versionScreen&quot;],  
+  ].forEach(([boton, pantalla]) =&gt;  
+    $(boton).addEventListener(&quot;click&quot;, () =&gt; cerrarPantalla(pantalla)),  
   );  
-  ["bitacoraHoraInicio", "bitacoraHoraFin"].forEach((campo) =>  
-    $(campo).addEventListener("change", () => {  
-      $("bitacoraHoras").value = calcularHoras(  
-        $("bitacoraHoraInicio").value,  
-        $("bitacoraHoraFin").value,  
+  [&quot;bitacoraHoraInicio&quot;, &quot;bitacoraHoraFin&quot;].forEach((campo) =&gt;  
+    $(campo).addEventListener(&quot;change&quot;, () =&gt; {  
+      $(&quot;bitacoraHoras&quot;).value = calcularHoras(  
+        $(&quot;bitacoraHoraInicio&quot;).value,  
+        $(&quot;bitacoraHoraFin&quot;).value,  
       ).toFixed(2);  
     }),  
   );  
-  $("bitacoraManual").addEventListener("change", () => {  
+  $(&quot;bitacoraManual&quot;).addEventListener(&quot;change&quot;, () =&gt; {  
     const m = estado.manuales.find(  
-      (x) =>  
-        x.titulo === $("bitacoraManual").value ||  
-        x.codigo === $("bitacoraManual").value,  
+      (x) =&gt;  
+        x.titulo === $(&quot;bitacoraManual&quot;).value ||  
+        x.codigo === $(&quot;bitacoraManual&quot;).value,  
     );  
-    $("bitacoraTipo").value = m?.tipo || "";  
+    $(&quot;bitacoraTipo&quot;).value = m?.tipo || &quot;&quot;;  
   });  
 }  
  
 function parsearCSV(texto) {  
   const filas = [];  
   let fila = [],  
-    campo = "",  
+    campo = &quot;&quot;,  
     comillas = false;  
-  for (let i = 0; i < texto.length; i++) {  
+  for (let i = 0; i &lt; texto.length; i++) {  
     const ch = texto[i],  
       sig = texto[i + 1];  
-    if (ch === '"' && comillas && sig === '"') {  
-      campo += '"';  
+    if (ch === &#x27;&quot;&#x27; &amp;&amp; comillas &amp;&amp; sig === &#x27;&quot;&#x27;) {  
+      campo += &#x27;&quot;&#x27;;  
       i++;  
-    } else if (ch === '"') {  
+    } else if (ch === &#x27;&quot;&#x27;) {  
       comillas = !comillas;  
-    } else if (ch === "," && !comillas) {  
+    } else if (ch === &quot;,&quot; &amp;&amp; !comillas) {  
       fila.push(campo);  
-      campo = "";  
-    } else if ((ch === "\n" || ch === "\r") && !comillas) {  
-      if (ch === "\r" && sig === "\n") i++;  
+      campo = &quot;&quot;;  
+    } else if ((ch === &quot;\n&quot; || ch === &quot;\r&quot;) &amp;&amp; !comillas) {  
+      if (ch === &quot;\r&quot; &amp;&amp; sig === &quot;\n&quot;) i++;  
       fila.push(campo);  
-      if (fila.some((v) => String(v).trim() !== "")) filas.push(fila);  
+      if (fila.some((v) =&gt; String(v).trim() !== &quot;&quot;)) filas.push(fila);  
       fila = [];  
-      campo = "";  
+      campo = &quot;&quot;;  
     } else {  
       campo += ch;  
     }  
   }  
   fila.push(campo);  
-  if (fila.some((v) => String(v).trim() !== "")) filas.push(fila);  
+  if (fila.some((v) =&gt; String(v).trim() !== &quot;&quot;)) filas.push(fila);  
   return filas;  
 }  
 function normalizarEncabezado(v) {  
-  return normalizar(v).replace(/[^a-z0-9]/g, "");  
+  return normalizar(v).replace(/[^a-z0-9]/g, &quot;&quot;);  
 }  
 async function importarCSV(tipo, archivo) {  
   if (!archivo) return;  
   try {  
     const matriz = parsearCSV(await archivo.text());  
-    if (matriz.length < 2) throw new Error("El archivo no contiene registros");  
+    if (matriz.length &lt; 2) throw new Error(&quot;El archivo no contiene registros&quot;);  
     const columnas =  
-      tipo === "manuales"  
+      tipo === &quot;manuales&quot;  
         ? COLUMNAS_MANUALES  
-        : tipo === "tramites"  
+        : tipo === &quot;tramites&quot;  
           ? COLUMNAS_TRAMITES  
           : COLUMNAS_VERSIONES;  
-    const utiles = columnas.filter((c) => !c.especial && !c.calculado),  
+    const utiles = columnas.filter((c) =&gt; !c.especial &amp;&amp; !c.calculado),  
       headers = matriz[0].map(normalizarEncabezado);  
     const nuevos = matriz  
       .slice(1)  
-      .map((fila) => {  
+      .map((fila) =&gt; {  
         const obj = { id: id(tipo.slice(0, -1)) };  
-        utiles.forEach((c) => {  
+        utiles.forEach((c) =&gt; {  
           const ix = headers.findIndex(  
-            (h) =>  
+            (h) =&gt;  
               h === normalizarEncabezado(c.label) ||  
               h === normalizarEncabezado(c.key),  
           );  
-          let v = ix >= 0 ? (fila[ix] ?? "") : "";  
-          if (c.tipo === "number") v = Number(v || 0);  
+          let v = ix &gt;= 0 ? (fila[ix] ?? &quot;&quot;) : &quot;&quot;;  
+          if (c.tipo === &quot;number&quot;) v = Number(v || 0);  
           obj[c.key] = v;  
         });  
        if (!obj.id) { 
@@ -1987,8 +1991,8 @@ async function importarCSV(tipo, archivo) {
 } 
         return obj;  
       })  
-      .filter((o) => utiles.some((c) => String(o[c.key] ?? "").trim() !== ""));  
-    if (!nuevos.length) throw new Error("No se encontraron filas válidas");  
+      .filter((o) =&gt; utiles.some((c) =&gt; String(o[c.key] ?? &quot;&quot;).trim() !== &quot;&quot;));  
+    if (!nuevos.length) throw new Error(&quot;No se encontraron filas válidas&quot;);  
     if (  
       confirm(  
         `¿Reemplazar los registros de ${tipo}?\nAceptar = reemplazar. Cancelar = agregar.`,  
@@ -2005,7 +2009,7 @@ async function importarCSV(tipo, archivo) {
 }  
 function exportarRespaldoCompleto() {  
   const respaldo = {  
-    tipo: "KIRIS_V2_RESPALDO_COMPLETO",  
+    tipo: &quot;KIRIS_V2_RESPALDO_COMPLETO&quot;,  
     version: 2,  
     fechaExportacion: new Date().toISOString(),  
     datos: {  
@@ -2017,7 +2021,7 @@ function exportarRespaldoCompleto() {
       controlVersiones: estado.versiones || [],  
       comentarios: estado.comentarios || [],  
       configuracion: {  
-        ultimaCopia: estado.ultimaCopia || "",  
+        ultimaCopia: estado.ultimaCopia || &quot;&quot;,  
         columnasOcultasManuales: estado.columnasOcultasManuales || [],  
         columnasOcultasTramites: estado.columnasOcultasTramites || [],  
         anchosManuales: estado.anchosManuales || {},  
@@ -2029,20 +2033,20 @@ function exportarRespaldoCompleto() {
   descargar(  
     `KIRIS_RESPALDO_COMPLETO_${fechaISOHoy()}.json`,  
     JSON.stringify(respaldo, null, 2),  
-    "application/json;charset=utf-8",  
+    &quot;application/json;charset=utf-8&quot;,  
   );  
-  mostrarToast("Copia de seguridad completa generada");  
+  mostrarToast(&quot;Copia de seguridad completa generada&quot;);  
 }  
 async function importarRespaldoCompleto(archivo) {  
   if (!archivo) return;  
   try {  
     const respaldo = JSON.parse(await archivo.text());  
     const origen =  
-      respaldo?.tipo === "KIRIS_V2_RESPALDO_COMPLETO"  
+      respaldo?.tipo === &quot;KIRIS_V2_RESPALDO_COMPLETO&quot;  
         ? respaldo.datos  
         : respaldo;  
-    if (!origen || typeof origen !== "object") throw new Error("JSON inválido");  
-    if (!confirm("¿Reemplazar toda la información actual con este respaldo?"))  
+    if (!origen || typeof origen !== &quot;object&quot;) throw new Error(&quot;JSON inválido&quot;);  
+    if (!confirm(&quot;¿Reemplazar toda la información actual con este respaldo?&quot;))  
       return;  
     const config = origen.configuracion || {};  
     estado = {  
@@ -2053,7 +2057,7 @@ async function importarRespaldoCompleto(archivo) {
       tramites: origen.tramites || [],  
       versiones: origen.controlVersiones || origen.versiones || [],  
       comentarios: origen.comentarios || [],  
-      ultimaCopia: config.ultimaCopia || origen.ultimaCopia || "",  
+      ultimaCopia: config.ultimaCopia || origen.ultimaCopia || &quot;&quot;,  
       columnasOcultasManuales:  
         config.columnasOcultasManuales || origen.columnasOcultasManuales || [],  
       columnasOcultasTramites:  
@@ -2061,10 +2065,10 @@ async function importarRespaldoCompleto(archivo) {
       anchosManuales: config.anchosManuales || origen.anchosManuales || {},  
       anchosTramites: config.anchosTramites || origen.anchosTramites || {},  
       anchosVersiones: config.anchosVersiones || origen.anchosVersiones || {},  
-      modo: "editor",  
+      modo: &quot;editor&quot;,  
     };  
     editorActivo = true;  
-    guardarEstado("Respaldo completo restaurado");  
+    guardarEstado(&quot;Respaldo completo restaurado&quot;);  
     renderTodo();  
   } catch (error) {  
     console.error(error);  
@@ -2084,28 +2088,28 @@ function crearPaquetePublicado() {
 }
 
 async function guardarYPublicarCambios() {
-  const boton = $("btnGuardarNube");
-  const textoOriginal = boton?.textContent || "💾 Guardar y publicar";
+  const boton = $(&quot;btnGuardarNube&quot;);
+  const textoOriginal = boton?.textContent || &quot;💾 Guardar y publicar&quot;;
 
   try {
     if (boton) {
       boton.disabled = true;
-      boton.textContent = "Guardando y publicando...";
+      boton.textContent = &quot;Guardando y publicando...&quot;;
     }
 
-    guardarEstado("");
+    guardarEstado(&quot;&quot;);
 
     if (!window.KirisStorage?.publicar) {
-      throw new Error("El módulo storage.js no está disponible");
+      throw new Error(&quot;El módulo storage.js no está disponible&quot;);
     }
 
     const paquete = crearPaquetePublicado();
     await window.KirisStorage.publicar(paquete);
     localStorage.setItem(PUBLISHED_KEY, JSON.stringify(paquete));
-    mostrarToast("Información guardada y publicada en el visor");
+    mostrarToast(&quot;Información guardada y publicada en el visor&quot;);
   } catch (error) {
     console.error(error);
-    mostrarToast(error.message || "No fue posible guardar y publicar");
+    mostrarToast(error.message || &quot;No fue posible guardar y publicar&quot;);
   } finally {
     if (boton) {
       boton.disabled = false;
@@ -2115,82 +2119,82 @@ async function guardarYPublicarCambios() {
 }
 
 function configurarBotones() {  
-  $("btnAgregarManual").addEventListener("click", () => abrirManual());  
-  $("btnAgregarTramite").addEventListener("click", () => abrirTramite());  
-  $("btnAgregarVersion").addEventListener("click", () => abrirVersion());  
-  $("btnEliminarManuales").addEventListener("click", () =>  
-    eliminarSeleccionados("manuales"),  
+  $(&quot;btnAgregarManual&quot;).addEventListener(&quot;click&quot;, () =&gt; abrirManual());  
+  $(&quot;btnAgregarTramite&quot;).addEventListener(&quot;click&quot;, () =&gt; abrirTramite());  
+  $(&quot;btnAgregarVersion&quot;).addEventListener(&quot;click&quot;, () =&gt; abrirVersion());  
+  $(&quot;btnEliminarManuales&quot;).addEventListener(&quot;click&quot;, () =&gt;  
+    eliminarSeleccionados(&quot;manuales&quot;),  
   );  
-  $("btnEliminarTramites").addEventListener("click", () =>  
-    eliminarSeleccionados("tramites"),  
+  $(&quot;btnEliminarTramites&quot;).addEventListener(&quot;click&quot;, () =&gt;  
+    eliminarSeleccionados(&quot;tramites&quot;),  
   );  
-  $("btnEliminarVersiones").addEventListener("click", () =>  
-    eliminarSeleccionados("versiones"),  
+  $(&quot;btnEliminarVersiones&quot;).addEventListener(&quot;click&quot;, () =&gt;  
+    eliminarSeleccionados(&quot;versiones&quot;),  
   );  
-  $("btnLimpiarFiltrosManuales").addEventListener("click", () => {  
+  $(&quot;btnLimpiarFiltrosManuales&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     filtros.manuales = {};  
     guardarVistaUsuario();
     renderManuales();  
   });  
-  $("btnLimpiarFiltrosTramites").addEventListener("click", () => {  
+  $(&quot;btnLimpiarFiltrosTramites&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     filtros.tramites = {};  
     guardarVistaUsuario();
     renderTramites();  
   });  
-  $("btnLimpiarFiltrosVersiones").addEventListener("click", () => {  
+  $(&quot;btnLimpiarFiltrosVersiones&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     filtros.versiones = {};  
     guardarVistaUsuario();
     renderVersiones();  
   });  
-  $("btnExportarManuales").addEventListener("click", () =>  
-    exportarCSV("manuales"),  
+  $(&quot;btnExportarManuales&quot;).addEventListener(&quot;click&quot;, () =&gt;  
+    exportarCSV(&quot;manuales&quot;),  
   );  
-$("btnExportarTramites").addEventListener( 
-    "click", 
+$(&quot;btnExportarTramites&quot;).addEventListener( 
+    &quot;click&quot;, 
     exportarTramitesExcel 
 ); 
-  $("btnExportarVersiones").addEventListener( 
-    "click", 
+  $(&quot;btnExportarVersiones&quot;).addEventListener( 
+    &quot;click&quot;, 
     exportarVersionesExcel, 
   ); 
-  $("btnColumnasManuales").addEventListener("click", () =>  
-    abrirColumnas("manuales"),  
+  $(&quot;btnColumnasManuales&quot;).addEventListener(&quot;click&quot;, () =&gt;  
+    abrirColumnas(&quot;manuales&quot;),  
   );  
-  $("btnColumnasTramites").addEventListener("click", () =>  
-    abrirColumnas("tramites"),  
+  $(&quot;btnColumnasTramites&quot;).addEventListener(&quot;click&quot;, () =&gt;  
+    abrirColumnas(&quot;tramites&quot;),  
   );  
-  $("btnCerrarColumnasManuales").addEventListener("click", () => {  
-    $("columnsPanelManuales").hidden = true;  
+  $(&quot;btnCerrarColumnasManuales&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
+    $(&quot;columnsPanelManuales&quot;).hidden = true;  
   });  
-  $("btnCerrarColumnasTramites").addEventListener("click", () => {  
-    $("columnsPanelTramites").hidden = true;  
+  $(&quot;btnCerrarColumnasTramites&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
+    $(&quot;columnsPanelTramites&quot;).hidden = true;  
   });  
-  $("btnMostrarTodasManuales").addEventListener("click", () => {  
+  $(&quot;btnMostrarTodasManuales&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     estado.columnasOcultasManuales = [];  
-    guardarEstado("");  
+    guardarEstado(&quot;&quot;);  
     renderManuales();  
-    abrirColumnas("manuales");  
+    abrirColumnas(&quot;manuales&quot;);  
   });  
-  $("btnMostrarTodasTramites").addEventListener("click", () => {  
+  $(&quot;btnMostrarTodasTramites&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
     estado.columnasOcultasTramites = [];  
-    guardarEstado("");  
+    guardarEstado(&quot;&quot;);  
     renderTramites();  
-    abrirColumnas("tramites");  
+    abrirColumnas(&quot;tramites&quot;);  
   });
-  $("btnGuardarNube").addEventListener("click", guardarYPublicarCambios);
-  $("btnGenerarReporte")?.addEventListener(
-    "click",
+  $(&quot;btnGuardarNube&quot;).addEventListener(&quot;click&quot;, guardarYPublicarCambios);
+  $(&quot;btnGenerarReporte&quot;)?.addEventListener(
+    &quot;click&quot;,
     generarReporteCompletoExcel,
   );
   
-  $("btnPantallaCompleta").addEventListener("click", () => {  
-    const panel = $("panelManuales");  
+  $(&quot;btnPantallaCompleta&quot;).addEventListener(&quot;click&quot;, () =&gt; {  
+    const panel = $(&quot;panelManuales&quot;);  
     if (!document.fullscreenElement) panel.requestFullscreen?.();  
     else document.exitFullscreen?.();  
   });  
-  $("btnExportarDashboard").addEventListener("click", () =>  
+  $(&quot;btnExportarDashboard&quot;).addEventListener(&quot;click&quot;, () =&gt;  
     descargar(  
-      "dashboard_kiris.json",  
+      &quot;dashboard_kiris.json&quot;,  
       JSON.stringify(  
         {  
           manuales: estado.manuales,  
@@ -2200,43 +2204,43 @@ $("btnExportarTramites").addEventListener(
         null,  
         2,  
       ),  
-      "application/json",  
+      &quot;application/json&quot;,  
     ),  
   );  
-  $("btnVerDetalleCiclo").addEventListener("click", abrirDetalleProduccion);  
+  $(&quot;btnVerDetalleCiclo&quot;).addEventListener(&quot;click&quot;, abrirDetalleProduccion);  
  
-  $("btnAgregarBitacora")?.addEventListener("click", () => abrirBitacora());  
-  $("btnImportarManuales")?.addEventListener("click", () =>  
-    $("inputExcelManuales").click(),  
+  $(&quot;btnAgregarBitacora&quot;)?.addEventListener(&quot;click&quot;, () =&gt; abrirBitacora());  
+  $(&quot;btnImportarManuales&quot;)?.addEventListener(&quot;click&quot;, () =&gt;  
+    $(&quot;inputExcelManuales&quot;).click(),  
   );  
-  $("btnImportarTramites")?.addEventListener("click", () =>  
-    $("inputExcelTramites").click(),  
+  $(&quot;btnImportarTramites&quot;)?.addEventListener(&quot;click&quot;, () =&gt;  
+    $(&quot;inputExcelTramites&quot;).click(),  
   );  
-  $("btnImportarVersiones")?.addEventListener("click", () =>  
-    $("inputExcelVersiones").click(),  
+  $(&quot;btnImportarVersiones&quot;)?.addEventListener(&quot;click&quot;, () =&gt;  
+    $(&quot;inputExcelVersiones&quot;).click(),  
   );  
-  $("inputExcelManuales")?.addEventListener("change", (e) =>  
-    importarCSV("manuales", e.target.files[0]).finally(  
-      () => (e.target.value = ""),  
+  $(&quot;inputExcelManuales&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
+    importarCSV(&quot;manuales&quot;, e.target.files[0]).finally(  
+      () =&gt; (e.target.value = &quot;&quot;),  
     ),  
   );  
-  $("inputExcelTramites")?.addEventListener("change", (e) =>  
-    importarCSV("tramites", e.target.files[0]).finally(  
-      () => (e.target.value = ""),  
+  $(&quot;inputExcelTramites&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
+    importarCSV(&quot;tramites&quot;, e.target.files[0]).finally(  
+      () =&gt; (e.target.value = &quot;&quot;),  
     ),  
   );  
-  $("inputExcelVersiones")?.addEventListener("change", (e) =>  
+  $(&quot;inputExcelVersiones&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
     importarControlVersionesXLSX(e.target.files[0]).finally(  
-      () => (e.target.value = ""),  
+      () =&gt; (e.target.value = &quot;&quot;),  
     ),  
   );  
-  $("btnExportarRespaldo")?.addEventListener("click", exportarRespaldoCompleto);  
-  $("btnImportarRespaldo")?.addEventListener("click", () =>  
-    $("inputRespaldoCompleto").click(),  
+  $(&quot;btnExportarRespaldo&quot;)?.addEventListener(&quot;click&quot;, exportarRespaldoCompleto);  
+  $(&quot;btnImportarRespaldo&quot;)?.addEventListener(&quot;click&quot;, () =&gt;  
+    $(&quot;inputRespaldoCompleto&quot;).click(),  
   );  
-  $("inputRespaldoCompleto")?.addEventListener("change", (e) =>  
+  $(&quot;inputRespaldoCompleto&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
     importarRespaldoCompleto(e.target.files[0]).finally(  
-      () => (e.target.value = ""),  
+      () =&gt; (e.target.value = &quot;&quot;),  
     ),  
   );  
 }  
@@ -2263,51 +2267,51 @@ async function inicializar() {
   actualizarEstadoGuardado();
 }  
  
-document.addEventListener("DOMContentLoaded", inicializar);  
+document.addEventListener(&quot;DOMContentLoaded&quot;, inicializar);  
  
 /* ===== KIRIS V3: mejoras funcionales solicitadas ===== */  
 let eliminacionPendiente = null;  
 function renderEntidad(tipo) {
-  if (tipo === "manuales") renderManuales();
-  else if (tipo === "tramites") renderTramites();
-  else if (tipo === "bitacora") renderTodo();
+  if (tipo === &quot;manuales&quot;) renderManuales();
+  else if (tipo === &quot;tramites&quot;) renderTramites();
+  else if (tipo === &quot;bitacora&quot;) renderTodo();
   else renderVersiones();
 }  
 function mostrarDeshacerEliminacion(tipo, eliminados, indices) {  
-  document.getElementById("undoToastKiris")?.remove();  
-  const t = document.createElement("div");  
-  t.id = "undoToastKiris";  
-  t.className = "undo-toast";  
-  t.innerHTML = `<span>${eliminados.length} registro(s) eliminado(s)</span><button type="button">↩ Deshacer eliminación</button><div class="undo-progress"></div>`;  
+  document.getElementById(&quot;undoToastKiris&quot;)?.remove();  
+  const t = document.createElement(&quot;div&quot;);  
+  t.id = &quot;undoToastKiris&quot;;  
+  t.className = &quot;undo-toast&quot;;  
+  t.innerHTML = `&lt;span&gt;${eliminados.length} registro(s) eliminado(s)&lt;/span&gt;&lt;button type=&quot;button&quot;&gt;↩ Deshacer eliminación&lt;/button&gt;&lt;div class=&quot;undo-progress&quot;&gt;&lt;/div&gt;`;  
   document.body.appendChild(t);  
   const token = Date.now();  
   eliminacionPendiente = { token, tipo, eliminados, indices };  
-  t.querySelector("button").onclick = () => {  
+  t.querySelector(&quot;button&quot;).onclick = () =&gt; {  
     if (!eliminacionPendiente || eliminacionPendiente.token !== token) return;  
     const lista = estado[tipo];  
-    eliminados.forEach((item, i) => lista.splice(indices[i], 0, item));  
+    eliminados.forEach((item, i) =&gt; lista.splice(indices[i], 0, item));  
     eliminacionPendiente = null;  
-    guardarEstado("");  
+    guardarEstado(&quot;&quot;);  
     renderEntidad(tipo);  
     t.remove();  
-    mostrarToast("Eliminación deshecha");  
+    mostrarToast(&quot;Eliminación deshecha&quot;);  
   };  
-  setTimeout(() => {  
+  setTimeout(() =&gt; {  
     if (eliminacionPendiente?.token === token) eliminacionPendiente = null;  
     t.remove();  
   }, 5000);  
 }  
 function eliminarSeleccionados(tipo) {  
   const singular =  
-    tipo === "manuales"  
-      ? "manual"  
-      : tipo === "tramites"  
-        ? "tramite"  
-        : "version";  
+    tipo === &quot;manuales&quot;  
+      ? &quot;manual&quot;  
+      : tipo === &quot;tramites&quot;  
+        ? &quot;tramite&quot;  
+        : &quot;version&quot;;  
   const ids = [  
     ...document.querySelectorAll(`.seleccion-${singular}:checked`),  
-  ].map((c) => c.dataset.id);  
-  if (!ids.length) return mostrarToast("No hay registros seleccionados");  
+  ].map((c) =&gt; c.dataset.id);  
+  if (!ids.length) return mostrarToast(&quot;No hay registros seleccionados&quot;);  
   if (  
     !confirm(  
       `¿Eliminar ${ids.length} registro(s)? Podrá deshacerse durante 5 segundos.`,  
@@ -2316,14 +2320,14 @@ function eliminarSeleccionados(tipo) {
     return;  
   const indices = [],  
     eliminados = [];  
-  estado[tipo].forEach((x, i) => {  
+  estado[tipo].forEach((x, i) =&gt; {  
     if (ids.includes(x.id)) {  
       indices.push(i);  
       eliminados.push({ ...x });  
     }  
   });  
-  estado[tipo] = estado[tipo].filter((x) => !ids.includes(x.id));  
-  guardarEstado("");  
+  estado[tipo] = estado[tipo].filter((x) =&gt; !ids.includes(x.id));  
+  guardarEstado(&quot;&quot;);  
   renderEntidad(tipo);  
   mostrarDeshacerEliminacion(tipo, eliminados, indices);  
 }  
@@ -2332,39 +2336,39 @@ function eliminarSeleccionados(tipo) {
 let filtroMenuActivo = null;  
 function valoresUnicos(tipo, columna) {  
   const cols =  
-    tipo === "manuales"  
+    tipo === &quot;manuales&quot;  
       ? COLUMNAS_MANUALES  
-      : tipo === "tramites"  
+      : tipo === &quot;tramites&quot;  
         ? COLUMNAS_TRAMITES  
         : COLUMNAS_VERSIONES;  
   return [  
     ...new Set(  
       estado[tipo].map(  
-        (o) => String(valorVisible(o, columna) ?? "").trim() || "(Vacío)",  
+        (o) =&gt; String(valorVisible(o, columna) ?? &quot;&quot;).trim() || &quot;(Vacío)&quot;,  
       ),  
     ),  
-  ].sort((a, b) =>  
-    a.localeCompare(b, "es", { numeric: true, sensitivity: "base" }),  
+  ].sort((a, b) =&gt;  
+    a.localeCompare(b, &quot;es&quot;, { numeric: true, sensitivity: &quot;base&quot; }),  
   );  
 }  
 function cumpleFiltros(objeto, tipo, columnas) {  
-  return columnas.every((col) => {  
+  return columnas.every((col) =&gt; {  
     const config = filtros[tipo][col.key];  
     if (!config) return true;  
-    const valor = String(valorVisible(objeto, col) ?? "");  
-    if (typeof config === "string")  
+    const valor = String(valorVisible(objeto, col) ?? &quot;&quot;);  
+    if (typeof config === &quot;string&quot;)  
       return normalizar(valor).includes(normalizar(config));  
-    const texto = config.texto || "";  
+    const texto = config.texto || &quot;&quot;;  
     const selecciones = config.valores || [];  
-    const mostrado = valor.trim() || "(Vacío)";  
+    const mostrado = valor.trim() || &quot;(Vacío)&quot;;  
     return (  
-      (!texto || normalizar(valor).includes(normalizar(texto))) &&  
+      (!texto || normalizar(valor).includes(normalizar(texto))) &amp;&amp;  
       (!selecciones.length || selecciones.includes(mostrado))  
     );  
   });  
 }  
 function cerrarMenuFiltroKiris() {  
-  document.getElementById("excelFilterMenuKiris")?.remove();  
+  document.getElementById(&quot;excelFilterMenuKiris&quot;)?.remove();  
   filtroMenuActivo = null;  
 }  
 function abrirMenuFiltroKiris(event, tipo, columna, input) {  
@@ -2372,38 +2376,38 @@ function abrirMenuFiltroKiris(event, tipo, columna, input) {
   cerrarMenuFiltroKiris();  
   filtroMenuActivo = { tipo, key: columna.key };  
   const config =  
-    typeof filtros[tipo][columna.key] === "object"  
+    typeof filtros[tipo][columna.key] === &quot;object&quot;  
       ? filtros[tipo][columna.key]  
-      : { texto: filtros[tipo][columna.key] || "", valores: [] };  
-  const menu = document.createElement("div");  
-  menu.id = "excelFilterMenuKiris";  
-  menu.className = "excel-filter-menu";  
+      : { texto: filtros[tipo][columna.key] || &quot;&quot;, valores: [] };  
+  const menu = document.createElement(&quot;div&quot;);  
+  menu.id = &quot;excelFilterMenuKiris&quot;;  
+  menu.className = &quot;excel-filter-menu&quot;;  
   const valores = valoresUnicos(tipo, columna);  
-  menu.innerHTML = `<h4>${escaparHTML(columna.label)}</h4><input class="excel-filter-search" placeholder="Buscar valores en la lista"><label><input class="todos" type="checkbox" ${!config.valores.length ? "checked" : ""}> Seleccionar todos</label><div class="excel-filter-options">${valores.map((v) => `<label data-text="${escaparHTML(normalizar(v))}"><input type="checkbox" value="${escaparHTML(v)}" ${config.valores.includes(v) ? "checked" : ""}> ${escaparHTML(v)}</label>`).join("")}</div><div class="excel-filter-actions"><button class="limpiar">Limpiar</button><button class="aplicar">Aplicar</button></div>`;  
+  menu.innerHTML = `&lt;h4&gt;${escaparHTML(columna.label)}&lt;/h4&gt;&lt;input class=&quot;excel-filter-search&quot; placeholder=&quot;Buscar valores en la lista&quot;&gt;&lt;label&gt;&lt;input class=&quot;todos&quot; type=&quot;checkbox&quot; ${!config.valores.length ? &quot;checked&quot; : &quot;&quot;}&gt; Seleccionar todos&lt;/label&gt;&lt;div class=&quot;excel-filter-options&quot;&gt;${valores.map((v) =&gt; `&lt;label data-text=&quot;${escaparHTML(normalizar(v))}&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;${escaparHTML(v)}&quot; ${config.valores.includes(v) ? &quot;checked&quot; : &quot;&quot;}&gt; ${escaparHTML(v)}&lt;/label&gt;`).join(&quot;&quot;)}&lt;/div&gt;&lt;div class=&quot;excel-filter-actions&quot;&gt;&lt;button class=&quot;limpiar&quot;&gt;Limpiar&lt;/button&gt;&lt;button class=&quot;aplicar&quot;&gt;Aplicar&lt;/button&gt;&lt;/div&gt;`;  
   document.body.appendChild(menu);  
   const r = input.getBoundingClientRect();  
-  menu.style.left = Math.min(r.left, innerWidth - 332) + "px";  
-  menu.style.top = Math.min(r.bottom + 4, innerHeight - 432) + "px";  
-  const buscar = menu.querySelector(".excel-filter-search");  
-  buscar.oninput = () =>  
+  menu.style.left = Math.min(r.left, innerWidth - 332) + &quot;px&quot;;  
+  menu.style.top = Math.min(r.bottom + 4, innerHeight - 432) + &quot;px&quot;;  
+  const buscar = menu.querySelector(&quot;.excel-filter-search&quot;);  
+  buscar.oninput = () =&gt;  
     menu  
-      .querySelectorAll(".excel-filter-options label")  
+      .querySelectorAll(&quot;.excel-filter-options label&quot;)  
       .forEach(  
-        (l) => (l.hidden = !l.dataset.text.includes(normalizar(buscar.value))),  
+        (l) =&gt; (l.hidden = !l.dataset.text.includes(normalizar(buscar.value))),  
       );  
-  menu.querySelector(".todos").onchange = (e) =>  
-    menu.querySelectorAll(".excel-filter-options input").forEach((ch) => {  
-      if (!ch.closest("label").hidden) ch.checked = e.target.checked;  
+  menu.querySelector(&quot;.todos&quot;).onchange = (e) =&gt;  
+    menu.querySelectorAll(&quot;.excel-filter-options input&quot;).forEach((ch) =&gt; {  
+      if (!ch.closest(&quot;label&quot;).hidden) ch.checked = e.target.checked;  
     });  
-  menu.querySelector(".limpiar").onclick = () => {  
+  menu.querySelector(&quot;.limpiar&quot;).onclick = () =&gt; {  
     delete filtros[tipo][columna.key];  
     cerrarMenuFiltroKiris();  
     renderEntidad(tipo);  
   };  
-  menu.querySelector(".aplicar").onclick = () => {  
+  menu.querySelector(&quot;.aplicar&quot;).onclick = () =&gt; {  
     const seleccion = [  
-      ...menu.querySelectorAll(".excel-filter-options input:checked"),  
-    ].map((x) => x.value);  
+      ...menu.querySelectorAll(&quot;.excel-filter-options input:checked&quot;),  
+    ].map((x) =&gt; x.value);  
     filtros[tipo][columna.key] = {  
       texto: input.value,  
       valores: seleccion.length === valores.length ? [] : seleccion,  
@@ -2411,20 +2415,20 @@ function abrirMenuFiltroKiris(event, tipo, columna, input) {
     cerrarMenuFiltroKiris();  
     renderEntidad(tipo);  
   };  
-  menu.onclick = (e) => e.stopPropagation();  
+  menu.onclick = (e) =&gt; e.stopPropagation();  
 }  
 function opcionesFiltroInline(tipo, columna) {  
   return [  
     ...new Set(  
-      estado[tipo].map((fila) => {  
+      estado[tipo].map((fila) =&gt; {  
         const valor =  
-          columna.key === "listo"  
+          columna.key === &quot;listo&quot;  
             ? normalizarEstadoListo(valorVisible(fila, columna))  
             : valorVisible(fila, columna);  
-        return String(valor).trim() || "(Vacío)";  
+        return String(valor).trim() || &quot;(Vacío)&quot;;  
       }),  
     ),  
-  ].sort((a, b) => a.localeCompare(b, "es", { numeric: true }));  
+  ].sort((a, b) =&gt; a.localeCompare(b, &quot;es&quot;, { numeric: true }));  
 }  
 function abrirFiltroInlineKiris(
     evento,
@@ -2438,22 +2442,22 @@ function abrirFiltroInlineKiris(
     input.focus();
 
     document
-        .querySelectorAll(".inline-filter-options")
-        .forEach(panel => panel.remove());
+        .querySelectorAll(&quot;.inline-filter-options&quot;)
+        .forEach(panel =&gt; panel.remove());
 
     const cfg = filtros[tipo][columna.key];
 
     const seleccionados =
-        typeof cfg === "object"
+        typeof cfg === &quot;object&quot;
             ? cfg.valores || []
             : [];
 
     const textoActual =
-        input.value || "";
+        input.value || &quot;&quot;;
 
     const valores =
         opcionesFiltroInline(tipo, columna)
-            .filter(valor =>
+            .filter(valor =&gt;
                 !textoActual ||
                 normalizar(valor)
                     .includes(
@@ -2462,117 +2466,117 @@ function abrirFiltroInlineKiris(
             );
 
     const panel =
-        document.createElement("div");
+        document.createElement(&quot;div&quot;);
 
     panel.className =
-        "inline-filter-options";
+        &quot;inline-filter-options&quot;;
 
     panel.innerHTML = `
 
-        <div class="inline-filter-list">
+        &lt;div class=&quot;inline-filter-list&quot;&gt;
 
             ${valores
-                .map(valor => `
+                .map(valor =&gt; `
 
-                    <label
-                        class="inline-filter-option"
-                    >
+                    &lt;label
+                        class=&quot;inline-filter-option&quot;
+                    &gt;
 
-                        <input
-                            type="checkbox"
-                            value="${escaparHTML(valor)}"
+                        &lt;input
+                            type=&quot;checkbox&quot;
+                            value=&quot;${escaparHTML(valor)}&quot;
 
                             ${
                                 !seleccionados.length ||
                                 seleccionados.includes(valor)
-                                    ? "checked"
-                                    : ""
+                                    ? &quot;checked&quot;
+                                    : &quot;&quot;
                             }
-                        >
+                        &gt;
 
-                        <span>
+                        &lt;span&gt;
                             ${escaparHTML(valor)}
-                        </span>
+                        &lt;/span&gt;
 
-                    </label>
+                    &lt;/label&gt;
 
                 `)
-                .join("")}
+                .join(&quot;&quot;)}
 
-        </div>
+        &lt;/div&gt;
 
-        <div class="inline-filter-actions">
+        &lt;div class=&quot;inline-filter-actions&quot;&gt;
 
-            <button
-                type="button"
-                class="btn-inline-none"
-            >
+            &lt;button
+                type=&quot;button&quot;
+                class=&quot;btn-inline-none&quot;
+            &gt;
                 Desmarcar todo
-            </button>
+            &lt;/button&gt;
 
-            <button
-                type="button"
-                class="btn-inline-all"
-            >
+            &lt;button
+                type=&quot;button&quot;
+                class=&quot;btn-inline-all&quot;
+            &gt;
                 Seleccionar todo
-            </button>
+            &lt;/button&gt;
 
-            <button
-                type="button"
-                class="btn-inline-clear"
-            >
+            &lt;button
+                type=&quot;button&quot;
+                class=&quot;btn-inline-clear&quot;
+            &gt;
                 Limpiar
-            </button>
+            &lt;/button&gt;
 
-            <button
-                type="button"
-                class="btn-inline-apply"
-            >
+            &lt;button
+                type=&quot;button&quot;
+                class=&quot;btn-inline-apply&quot;
+            &gt;
                 Aplicar
-            </button>
+            &lt;/button&gt;
 
-        </div>
+        &lt;/div&gt;
 
     `;
 
     input
-        .closest("th")
+        .closest(&quot;th&quot;)
         .appendChild(panel);
 
-    panel.onclick = e =>
+    panel.onclick = e =&gt;
         e.stopPropagation();
 
     panel
-        .querySelector(".btn-inline-none")
-        .onclick = () => {
+        .querySelector(&quot;.btn-inline-none&quot;)
+        .onclick = () =&gt; {
 
             panel
                 .querySelectorAll(
-                    'input[type="checkbox"]'
+                    &#x27;input[type=&quot;checkbox&quot;]&#x27;
                 )
-                .forEach(check => {
+                .forEach(check =&gt; {
                     check.checked = false;
                 });
 
         };
 
     panel
-        .querySelector(".btn-inline-all")
-        .onclick = () => {
+        .querySelector(&quot;.btn-inline-all&quot;)
+        .onclick = () =&gt; {
 
             panel
                 .querySelectorAll(
-                    'input[type="checkbox"]'
+                    &#x27;input[type=&quot;checkbox&quot;]&#x27;
                 )
-                .forEach(check => {
+                .forEach(check =&gt; {
                     check.checked = true;
                 });
 
         };
 
     panel
-        .querySelector(".btn-inline-clear")
-        .onclick = () => {
+        .querySelector(&quot;.btn-inline-clear&quot;)
+        .onclick = () =&gt; {
 
             delete filtros[tipo][columna.key];
 
@@ -2581,16 +2585,16 @@ function abrirFiltroInlineKiris(
         };
 
     panel
-        .querySelector(".btn-inline-apply")
-        .onclick = () => {
+        .querySelector(&quot;.btn-inline-apply&quot;)
+        .onclick = () =&gt; {
 
             const elegidos = [
 
                 ...panel.querySelectorAll(
-                    'input[type="checkbox"]:checked'
+                    &#x27;input[type=&quot;checkbox&quot;]:checked&#x27;
                 )
 
-            ].map(c => c.value);
+            ].map(c =&gt; c.value);
 
             filtros[tipo][columna.key] = {
                 texto: input.value,
@@ -2604,37 +2608,37 @@ function abrirFiltroInlineKiris(
 } 
 function crearEncabezado(elemento, columnas, tipo, ocultas = []) {  
   const titulos = columnas  
-    .map((c) => {  
-      const o = ocultas.includes(c.key) ? "display:none" : "";  
-      if (c.especial === "seleccion")  
-        return `<th style="${o}"><input id="seleccionarTodos_${tipo}" type="checkbox" aria-label="Seleccionar todos"></th>`;  
-      return `<th data-key="${c.key}" style="${o}"><div class="th-content"><span>${escaparHTML(c.label)}</span><span class="resize-handle" data-tipo="${tipo}" data-key="${c.key}"></span></div></th>`;  
+    .map((c) =&gt; {  
+      const o = ocultas.includes(c.key) ? &quot;display:none&quot; : &quot;&quot;;  
+      if (c.especial === &quot;seleccion&quot;)  
+        return `&lt;th style=&quot;${o}&quot;&gt;&lt;input id=&quot;seleccionarTodos_${tipo}&quot; type=&quot;checkbox&quot; aria-label=&quot;Seleccionar todos&quot;&gt;&lt;/th&gt;`;  
+      return `&lt;th data-key=&quot;${c.key}&quot; style=&quot;${o}&quot;&gt;&lt;div class=&quot;th-content&quot;&gt;&lt;span&gt;${escaparHTML(c.label)}&lt;/span&gt;&lt;span class=&quot;resize-handle&quot; data-tipo=&quot;${tipo}&quot; data-key=&quot;${c.key}&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/th&gt;`;  
     })  
-    .join("");  
+    .join(&quot;&quot;);  
   const filtrosHtml = columnas  
-    .map((c) => {  
-      const o = ocultas.includes(c.key) ? "display:none" : "";  
-      if (c.especial) return `<th style="${o}"></th>`;  
+    .map((c) =&gt; {  
+      const o = ocultas.includes(c.key) ? &quot;display:none&quot; : &quot;&quot;;  
+      if (c.especial) return `&lt;th style=&quot;${o}&quot;&gt;&lt;/th&gt;`;  
       const cfg = filtros[tipo][c.key],  
-        texto = typeof cfg === "object" ? cfg.texto || "" : cfg || "",  
-        activo = cfg && (texto || (cfg.valores || []).length);  
-      return `<th class="filter-cell" style="${o}"><input class="filter-input ${activo ? "filtro-activo" : ""}" data-tipo="${tipo}" data-key="${c.key}" value="${escaparHTML(texto)}" placeholder="Buscar o filtrar" autocomplete="off"></th>`;  
+        texto = typeof cfg === &quot;object&quot; ? cfg.texto || &quot;&quot; : cfg || &quot;&quot;,  
+        activo = cfg &amp;&amp; (texto || (cfg.valores || []).length);  
+      return `&lt;th class=&quot;filter-cell&quot; style=&quot;${o}&quot;&gt;&lt;input class=&quot;filter-input ${activo ? &quot;filtro-activo&quot; : &quot;&quot;}&quot; data-tipo=&quot;${tipo}&quot; data-key=&quot;${c.key}&quot; value=&quot;${escaparHTML(texto)}&quot; placeholder=&quot;Buscar o filtrar&quot; autocomplete=&quot;off&quot;&gt;&lt;/th&gt;`;  
     })  
-    .join("");  
-  elemento.innerHTML = `<tr>${titulos}</tr><tr class="filters-row">${filtrosHtml}</tr>`;  
-  elemento.querySelectorAll(".filter-input").forEach((input) => {  
-    const col = columnas.find((c) => c.key === input.dataset.key);  
-    input.onclick = (e) => abrirFiltroInlineKiris(e, tipo, col, input);  
-    input.oninput = () => {  
+    .join(&quot;&quot;);  
+  elemento.innerHTML = `&lt;tr&gt;${titulos}&lt;/tr&gt;&lt;tr class=&quot;filters-row&quot;&gt;${filtrosHtml}&lt;/tr&gt;`;  
+  elemento.querySelectorAll(&quot;.filter-input&quot;).forEach((input) =&gt; {  
+    const col = columnas.find((c) =&gt; c.key === input.dataset.key);  
+    input.onclick = (e) =&gt; abrirFiltroInlineKiris(e, tipo, col, input);  
+    input.oninput = () =&gt; {  
       const texto = input.value;  
       const prev = filtros[tipo][col.key];  
       filtros[tipo][col.key] = {  
         texto,  
-        valores: typeof prev === "object" ? prev.valores || [] : [],  
+        valores: typeof prev === &quot;object&quot; ? prev.valores || [] : [],  
       };  
       renderEntidad(tipo);  
       const nuevo = document.querySelector(  
-        `.filter-input[data-tipo="${tipo}"][data-key="${col.key}"]`,  
+        `.filter-input[data-tipo=&quot;${tipo}&quot;][data-key=&quot;${col.key}&quot;]`,  
       );  
       if (nuevo) {  
         nuevo.focus();  
@@ -2642,106 +2646,141 @@ function crearEncabezado(elemento, columnas, tipo, ocultas = []) {
         abrirFiltroInlineKiris({ stopPropagation() {} }, tipo, col, nuevo);  
       }  
     };  
-    input.onkeydown = (e) => {  
-      if (e.key !== "Enter") return;  
+    input.onkeydown = (e) =&gt; {  
+      if (e.key !== &quot;Enter&quot;) return;  
       e.preventDefault();  
       const prev = filtros[tipo][col.key];  
       filtros[tipo][col.key] = {  
         texto: input.value,  
-        valores: typeof prev === "object" ? prev.valores || [] : [],  
+        valores: typeof prev === &quot;object&quot; ? prev.valores || [] : [],  
       };  
       renderEntidad(tipo);  
     };  
   });  
 }  
-document.addEventListener("click", () =>  
+document.addEventListener(&quot;click&quot;, () =&gt;  
   document  
-    .querySelectorAll(".inline-filter-options")  
-    .forEach((panel) => panel.remove()),  
+    .querySelectorAll(&quot;.inline-filter-options&quot;)  
+    .forEach((panel) =&gt; panel.remove()),  
 );  
  
 /* Lectura de los XLSX adjuntos */  
 async function leerLibroXLSX(archivo) {  
-  if (typeof XLSX === "undefined")  
-    throw new Error("No se cargó el lector de Excel");  
+  if (typeof XLSX === &quot;undefined&quot;)  
+    throw new Error(&quot;No se cargó el lector de Excel&quot;);  
   const data = new Uint8Array(await archivo.arrayBuffer());  
-  return XLSX.read(data, { type: "array", cellDates: true });  
+  return XLSX.read(data, { type: &quot;array&quot;, cellDates: true });  
 }  
 function fechaXLSX(v) {  
-  if (!v) return "";  
+  if (!v) return &quot;&quot;;  
   const d = v instanceof Date ? v : new Date(v);  
   return isNaN(d)  
-    ? ""  
-    : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;  
+    ? &quot;&quot;  
+    : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, &quot;0&quot;)}-${String(d.getDate()).padStart(2, &quot;0&quot;)}`;  
 }  
-async function importarControlVersionesXLSX(archivo) {  
-  if (!archivo) return;  
-  try {  
-    const wb = await leerLibroXLSX(archivo),  
-      nuevos = [];  
-    wb.SheetNames.forEach((nombre) => {  
-      const idioma = normalizar(nombre).includes("ingles")  
-        ? "Inglés"  
-        : normalizar(nombre).includes("espanol")  
-          ? "Español"  
-          : "";  
-      if (!idioma) return;  
-      const filas = XLSX.utils.sheet_to_json(wb.Sheets[nombre], {  
-        header: 1,  
-        defval: "",  
-      });  
-      filas.slice(1).forEach((f) => {  
-        const codigo = String(f[0] || "").trim(),  
-          manual = String(f[1] || "").trim();  
-        if (!codigo.startsWith("UEO-") || !manual) return;  
-        nuevos.push({  
-          id: id("version"),  
-          sistema: /siscard\s*\+|siscardplus/i.test(manual)  
-            ? "siscard+"  
-            : "SISCARD",  
-          codigo,  
-          manual,  
-          idioma,  
-          numero: String(f[2] ?? "").trim() || "0",  
-          fecha: "",  
-          estado: "Disponible",  
-          observaciones: "",  
-        });  
-      });  
-    });  
-    if (!nuevos.length) throw new Error("No se encontraron filas válidas");  
-    if (  
-      confirm(  
-        "¿Reemplazar el Control de Versiones actual?\nAceptar = reemplazar. Cancelar = agregar.",  
-      )  
-    )  
-      estado.versiones = nuevos;  
-    else estado.versiones.push(...nuevos);  
-    guardarEstado(`${nuevos.length} versiones importadas`);  
-    renderVersiones();  
-  } catch (e) {  
-    console.error(e);  
-    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);  
-  }  
-}  
+async function importarControlVersionesXLSX(archivo) {
+  if (!archivo) return;
+  try {
+    const wb = await leerLibroXLSX(archivo);
+    const nombreHoja = wb.SheetNames.includes(&quot;ControlVersiones&quot;)
+      ? &quot;ControlVersiones&quot;
+      : wb.SheetNames.find((nombre) =&gt;
+          normalizar(nombre).replace(/[^a-z0-9]/g, &quot;&quot;).includes(&quot;controlversiones&quot;),
+        ) || wb.SheetNames[0];
+
+    if (!nombreHoja) throw new Error(&quot;El archivo no contiene hojas&quot;);
+
+    const filas = XLSX.utils.sheet_to_json(wb.Sheets[nombreHoja], {
+      defval: &quot;&quot;,
+      raw: false,
+      dateNF: &quot;yyyy-mm-dd&quot;,
+    });
+
+    const valorColumna = (fila, nombres) =&gt; {
+      const claves = Object.keys(fila || {});
+      const buscadas = nombres.map(normalizarEncabezado);
+      const clave = claves.find((item) =&gt;
+        buscadas.includes(normalizarEncabezado(item)),
+      );
+      return clave === undefined ? &quot;&quot; : fila[clave];
+    };
+
+    const nuevos = filas
+      .map((fila) =&gt; {
+        const codigo = String(valorColumna(fila, [&quot;Código&quot;, &quot;Codigo&quot;])).trim();
+        const manual = String(valorColumna(fila, [&quot;Manual&quot;])).trim();
+        if (!codigo &amp;&amp; !manual) return null;
+
+        return {
+          id: id(&quot;version&quot;),
+          sistema:
+            String(valorColumna(fila, [&quot;Sistema&quot;])).trim() || &quot;SISCARD&quot;,
+          codigo,
+          manual,
+          idioma: String(valorColumna(fila, [&quot;Idioma&quot;])).trim() || &quot;Español&quot;,
+          numero: String(
+            valorColumna(fila, [&quot;Versión disponible&quot;, &quot;Version disponible&quot;, &quot;Versión&quot;, &quot;Version&quot;]),
+          ).trim(),
+          ubicacionEService: String(
+            valorColumna(fila, [&quot;Ubicación en E-service&quot;, &quot;Ubicacion en E-service&quot;, &quot;Ubicación en Eservice&quot;, &quot;Ubicacion en Eservice&quot;]),
+          ).trim(),
+          fecha: fechaXLSX(
+            valorColumna(fila, [&quot;Fecha de versión&quot;, &quot;Fecha de version&quot;, &quot;Fecha&quot;]),
+          ),
+          estado:
+            String(valorColumna(fila, [&quot;Estado&quot;])).trim() || &quot;Disponible&quot;,
+          observaciones: String(
+            valorColumna(fila, [&quot;Observaciones&quot;]),
+          ).trim(),
+        };
+      })
+      .filter(Boolean);
+
+    if (!nuevos.length) {
+      throw new Error(
+        &quot;No se encontraron filas válidas. Use el Excel generado por Exportar EXCEL en Control de Versiones.&quot;,
+      );
+    }
+
+    nuevos.sort((a, b) =&gt;
+      String(a.codigo || &quot;&quot;).localeCompare(String(b.codigo || &quot;&quot;), &quot;es&quot;, {
+        numeric: true,
+        sensitivity: &quot;base&quot;,
+      }),
+    );
+
+    estado.versiones = nuevos;
+    filtros.versiones = {};
+    ordenamientosVista.versiones = { columna: &quot;codigo&quot;, sentido: 1 };
+    guardarEstado(`${nuevos.length} versiones importadas y reemplazadas`);
+    renderVersiones();
+    mostrarToast(
+      `Control de Versiones reemplazado con ${nuevos.length} registro(s) del Excel`,
+    );
+  } catch (e) {
+    console.error(e);
+    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);
+  }
+}
+
 async function importarDashboardProduccion(archivo) {  
   if (!archivo) return;  
   try {  
     const wb = await leerLibroXLSX(archivo),  
       hoja = wb.Sheets[wb.SheetNames[0]],  
-      filas = XLSX.utils.sheet_to_json(hoja, { defval: "", raw: true });  
-    estado.ciclo = filas.map((original, i) => {  
-      const start = original["Start Date"],  
-        comp = original["Comp Date"],  
-        cat = String(original["Change Category"] || "Sin categoría"),  
+      filas = XLSX.utils.sheet_to_json(hoja, { defval: &quot;&quot;, raw: true });  
+    estado.ciclo = filas.map((original, i) =&gt; {  
+      const start = original[&quot;Start Date&quot;],  
+        comp = original[&quot;Comp Date&quot;],  
+        cat = String(original[&quot;Change Category&quot;] || &quot;Sin categoría&quot;),  
         a = start ? new Date(start) : null,  
         b = comp ? new Date(comp) : null,  
         dias =  
-          a && b && !isNaN(a) && !isNaN(b)  
+          a &amp;&amp; b &amp;&amp; !isNaN(a) &amp;&amp; !isNaN(b)  
             ? Math.max(0, Math.round((b - a) / 86400000))  
             : null;  
       return {  
-        id: id("ciclo"),  
+        id: id(&quot;ciclo&quot;),  
         tipo: cat,  
         dias: dias ?? 0,  
         diasCiclo: dias,  
@@ -2756,209 +2795,209 @@ async function importarDashboardProduccion(archivo) {
   }  
 }  
 function abrirDetalleProduccion() {  
-  if (!estado.ciclo.length) return mostrarToast("Primero importe export.xlsx");  
-  const rows = estado.ciclo.map((x) => x.original || x),  
+  if (!estado.ciclo.length) return mostrarToast(&quot;Primero importe export.xlsx&quot;);  
+  const rows = estado.ciclo.map((x) =&gt; x.original || x),  
     headers = [...new Set(rows.flatMap(Object.keys))];  
-  const data = JSON.stringify({ headers, rows }, (k, v) =>  
+  const data = JSON.stringify({ headers, rows }, (k, v) =&gt;  
     v instanceof Date ? v.toISOString() : v,  
-  ).replace(/</g, "\\u003c");  
-  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Detalle de producción</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:white;padding:16px 22px}.bar{display:flex;gap:8px;padding:14px;align-items:center;position:sticky;top:0;background:#f3f3f3;z-index:5}.bar input{min-width:320px;padding:9px;border:1px solid #ccc;border-radius:8px}.bar button{padding:9px 12px;border:0;border-radius:8px;font-weight:700}.wrap{margin:0 14px 14px;overflow:auto;max-height:calc(100vh - 100px);background:white}table{border-collapse:collapse;width:max-content;min-width:100%;table-layout:fixed}th,td{border:1px solid #ddd;padding:7px;font-size:12px;vertical-align:top;white-space:normal;overflow-wrap:anywhere;word-break:break-word;min-width:150px;max-width:280px;line-height:1.4}thead tr:first-child th{position:sticky;top:0;background:#666;color:#fff;z-index:3}.filtros th{position:sticky;top:33px;background:#f7f7f7;z-index:2}.filtros input{min-width:125px;width:100%;box-sizing:border-box;padding:6px}</style></head><body><header><h2>Detalle de producción</h2></header><div class="bar"><input id="global" placeholder="Buscar en toda la réplica"><button onclick="limpiar()">Limpiar filtros</button><span id="count"></span></div><div class="wrap"><table id="tabla"></table></div><script>const DATA=${data};function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}function render(){const activo=document.activeElement;  
+  ).replace(/&lt;/g, &quot;\\u003c&quot;);  
+  const html = `&lt;!doctype html&gt;&lt;html lang=&quot;es&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Detalle de producción&lt;/title&gt;&lt;style&gt;body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:white;padding:16px 22px}.bar{display:flex;gap:8px;padding:14px;align-items:center;position:sticky;top:0;background:#f3f3f3;z-index:5}.bar input{min-width:320px;padding:9px;border:1px solid #ccc;border-radius:8px}.bar button{padding:9px 12px;border:0;border-radius:8px;font-weight:700}.wrap{margin:0 14px 14px;overflow:auto;max-height:calc(100vh - 100px);background:white}table{border-collapse:collapse;width:max-content;min-width:100%;table-layout:fixed}th,td{border:1px solid #ddd;padding:7px;font-size:12px;vertical-align:top;white-space:normal;overflow-wrap:anywhere;word-break:break-word;min-width:150px;max-width:280px;line-height:1.4}thead tr:first-child th{position:sticky;top:0;background:#666;color:#fff;z-index:3}.filtros th{position:sticky;top:33px;background:#f7f7f7;z-index:2}.filtros input{min-width:125px;width:100%;box-sizing:border-box;padding:6px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;header&gt;&lt;h2&gt;Detalle de producción&lt;/h2&gt;&lt;/header&gt;&lt;div class=&quot;bar&quot;&gt;&lt;input id=&quot;global&quot; placeholder=&quot;Buscar en toda la réplica&quot;&gt;&lt;button onclick=&quot;limpiar()&quot;&gt;Limpiar filtros&lt;/button&gt;&lt;span id=&quot;count&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;wrap&quot;&gt;&lt;table id=&quot;tabla&quot;&gt;&lt;/table&gt;&lt;/div&gt;&lt;script&gt;const DATA=${data};function esc(v){return String(v??&#x27;&#x27;).replace(/&amp;/g,&#x27;&amp;amp;&#x27;).replace(/&lt;/g,&#x27;&amp;lt;&#x27;).replace(/&gt;/g,&#x27;&amp;gt;&#x27;)}function render(){const activo=document.activeElement;  
 const ciActivo=activo?.dataset?.i ?? null;  
-const valorActivo=activo?.value ?? "";  
+const valorActivo=activo?.value ?? &quot;&quot;;  
 const posCursor=activo?.selectionStart ?? valorActivo.length;  
  
 const g=global.value.toLowerCase(),  
-      fs=[...document.querySelectorAll('.f')].map(x=>x.value.toLowerCase());const r=DATA.rows.filter(o=>DATA.headers.some(h=>String(o[h]??'').toLowerCase().includes(g))&&DATA.headers.every((h,i)=>!fs[i]||String(o[h]??'').toLowerCase().includes(fs[i])));tabla.innerHTML='<thead><tr>'+DATA.headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr><tr class="filtros">'+DATA.headers.map((h,i)=>'<th><input class="f" data-i="'+i+'" placeholder="Buscar o filtrar" value="'+esc(fs[i]||'')+'"></th>').join('')+'</tr></thead><tbody>'+r.map(o=>'<tr>'+DATA.headers.map(h=>'<td>'+esc(o[h])+'</td>').join('')+'</tr>').join('')+'</tbody>';count.textContent=r.length+' de '+DATA.rows.length+' registros';document.querySelectorAll('.f').forEach(x=>x.onkeyup=render);if(ciActivo!==null){  
-    const nuevo=document.querySelector('.f[data-i="' + ciActivo + '"]');  
+      fs=[...document.querySelectorAll(&#x27;.f&#x27;)].map(x=&gt;x.value.toLowerCase());const r=DATA.rows.filter(o=&gt;DATA.headers.some(h=&gt;String(o[h]??&#x27;&#x27;).toLowerCase().includes(g))&amp;&amp;DATA.headers.every((h,i)=&gt;!fs[i]||String(o[h]??&#x27;&#x27;).toLowerCase().includes(fs[i])));tabla.innerHTML=&#x27;&lt;thead&gt;&lt;tr&gt;&#x27;+DATA.headers.map(h=&gt;&#x27;&lt;th&gt;&#x27;+esc(h)+&#x27;&lt;/th&gt;&#x27;).join(&#x27;&#x27;)+&#x27;&lt;/tr&gt;&lt;tr class=&quot;filtros&quot;&gt;&#x27;+DATA.headers.map((h,i)=&gt;&#x27;&lt;th&gt;&lt;input class=&quot;f&quot; data-i=&quot;&#x27;+i+&#x27;&quot; placeholder=&quot;Buscar o filtrar&quot; value=&quot;&#x27;+esc(fs[i]||&#x27;&#x27;)+&#x27;&quot;&gt;&lt;/th&gt;&#x27;).join(&#x27;&#x27;)+&#x27;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;+r.map(o=&gt;&#x27;&lt;tr&gt;&#x27;+DATA.headers.map(h=&gt;&#x27;&lt;td&gt;&#x27;+esc(o[h])+&#x27;&lt;/td&gt;&#x27;).join(&#x27;&#x27;)+&#x27;&lt;/tr&gt;&#x27;).join(&#x27;&#x27;)+&#x27;&lt;/tbody&gt;&#x27;;count.textContent=r.length+&#x27; de &#x27;+DATA.rows.length+&#x27; registros&#x27;;document.querySelectorAll(&#x27;.f&#x27;).forEach(x=&gt;x.onkeyup=render);if(ciActivo!==null){  
+    const nuevo=document.querySelector(&#x27;.f[data-i=&quot;&#x27; + ciActivo + &#x27;&quot;]&#x27;);  
     if(nuevo){  
         nuevo.focus();  
         nuevo.setSelectionRange(posCursor,posCursor);  
     }  
-}}function limpiar(){global.value='';document.querySelectorAll('.f').forEach(x=>x.value='');render()}global.onkeyup=render;render();<\/script></body></html>`;  
-  const w = open("", "_blank");  
+}}function limpiar(){global.value=&#x27;&#x27;;document.querySelectorAll(&#x27;.f&#x27;).forEach(x=&gt;x.value=&#x27;&#x27;);render()}global.onkeyup=render;render();&lt;\/script&gt;&lt;/body&gt;&lt;/html&gt;`;  
+  const w = open(&quot;&quot;, &quot;_blank&quot;);  
   if (!w)  
-    return mostrarToast("Permita ventanas emergentes para ver el detalle");  
+    return mostrarToast(&quot;Permita ventanas emergentes para ver el detalle&quot;);  
   w.document.write(html);  
   w.document.close();  
 }  
  
 /* Bitácora: nombre visible y copia de un único registro */  
 function nombreManualBitacora(m) {  
-  return `${m.codigo || ""} - ${m.titulo || ""}`.replace(  
+  return `${m.codigo || &quot;&quot;} - ${m.titulo || &quot;&quot;}`.replace(  
     /^\s*-\s*|\s*-\s*$/g,  
-    "",  
+    &quot;&quot;,  
   );  
 }  
 function poblarDatalists() {  
   const opciones = estado.manuales  
     .map(  
-      (m) =>  
-        `<option value="${escaparHTML(nombreManualBitacora(m))}"></option>`,  
+      (m) =&gt;  
+        `&lt;option value=&quot;${escaparHTML(nombreManualBitacora(m))}&quot;&gt;&lt;/option&gt;`,  
     )  
-    .join("");  
-  $("listaManualesTramite").innerHTML = estado.manuales  
+    .join(&quot;&quot;);  
+  $(&quot;listaManualesTramite&quot;).innerHTML = estado.manuales  
     .map(  
-      (m) =>  
-        `<option value="${escaparHTML(m.titulo)}">${escaparHTML(m.codigo)}</option>`,  
+      (m) =&gt;  
+        `&lt;option value=&quot;${escaparHTML(m.titulo)}&quot;&gt;${escaparHTML(m.codigo)}&lt;/option&gt;`,  
     )  
-    .join("");  
-  $("listaManualesBitacora").innerHTML = opciones;  
-  $("listaTemasTramite").innerHTML = [  
-    ...new Set(estado.tramites.map((t) => t.temaGeneral).filter(Boolean)),  
+    .join(&quot;&quot;);  
+  $(&quot;listaManualesBitacora&quot;).innerHTML = opciones;  
+  $(&quot;listaTemasTramite&quot;).innerHTML = [  
+    ...new Set(estado.tramites.map((t) =&gt; t.temaGeneral).filter(Boolean)),  
   ]  
-    .map((x) => `<option value="${escaparHTML(x)}"></option>`)  
-    .join("");  
+    .map((x) =&gt; `&lt;option value=&quot;${escaparHTML(x)}&quot;&gt;&lt;/option&gt;`)  
+    .join(&quot;&quot;);  
 }  
 function guardarBitacoraFormulario(evento) {  
   evento.preventDefault();  
-  const existenteId = $("bitacoraId").value,  
-    valor = $("bitacoraManual").value.trim();  
-  const manual = estado.manuales.find((m) =>  
+  const existenteId = $(&quot;bitacoraId&quot;).value,  
+    valor = $(&quot;bitacoraManual&quot;).value.trim();  
+  const manual = estado.manuales.find((m) =&gt;  
     [m.titulo, m.codigo, nombreManualBitacora(m)].includes(valor),  
   );  
   const nombre = manual ? nombreManualBitacora(manual) : valor;  
   const datos = {  
-    id: existenteId || id("bitacora"),  
-    fecha: $("bitacoraFecha").value,  
+    id: existenteId || id(&quot;bitacora&quot;),  
+    fecha: $(&quot;bitacoraFecha&quot;).value,  
     manual: nombre,  
-    manualId: manual?.id || "",  
-    tipo: $("bitacoraTipo").value || manual?.tipo || "",  
-    horaInicio: $("bitacoraHoraInicio").value,  
-    horaFin: $("bitacoraHoraFin").value,  
+    manualId: manual?.id || &quot;&quot;,  
+    tipo: $(&quot;bitacoraTipo&quot;).value || manual?.tipo || &quot;&quot;,  
+    horaInicio: $(&quot;bitacoraHoraInicio&quot;).value,  
+    horaFin: $(&quot;bitacoraHoraFin&quot;).value,  
     horas: calcularHoras(  
-      $("bitacoraHoraInicio").value,  
-      $("bitacoraHoraFin").value,  
+      $(&quot;bitacoraHoraInicio&quot;).value,  
+      $(&quot;bitacoraHoraFin&quot;).value,  
     ),  
-    paginas: Number($("bitacoraPaginas").value || 0),  
-    detalle: $("bitacoraDetalle").value.trim(),  
+    paginas: Number($(&quot;bitacoraPaginas&quot;).value || 0),  
+    detalle: $(&quot;bitacoraDetalle&quot;).value.trim(),  
   };  
-  const i = estado.bitacora.findIndex((x) => x.id === existenteId);  
-  if (i >= 0) estado.bitacora[i] = datos;  
+  const i = estado.bitacora.findIndex((x) =&gt; x.id === existenteId);  
+  if (i &gt;= 0) estado.bitacora[i] = datos;  
   else estado.bitacora.unshift(datos);  
-  guardarEstado("Registro de Bitácora guardado");  
-  cerrarPantalla("bitacoraScreen");  
+  guardarEstado(&quot;Registro de Bitácora guardado&quot;);  
+  cerrarPantalla(&quot;bitacoraScreen&quot;);  
   renderTodo();  
 }  
 function abrirCopiaRegistro() {  
-  const sel = $("registroOrigenCopia");  
+  const sel = $(&quot;registroOrigenCopia&quot;);  
   sel.innerHTML = estado.bitacora  
     .map(  
-      (r) =>  
-        `<option value="${r.id}">${escaparHTML(r.fecha)} | ${escaparHTML(r.manual)} | ${Number(r.horas || 0).toFixed(2)} h</option>`,  
+      (r) =&gt;  
+        `&lt;option value=&quot;${r.id}&quot;&gt;${escaparHTML(r.fecha)} | ${escaparHTML(r.manual)} | ${Number(r.horas || 0).toFixed(2)} h&lt;/option&gt;`,  
     )  
-    .join("");  
-  $("fechaDestinoCopia").value = fechaISOHoy();  
+    .join(&quot;&quot;);  
+  $(&quot;fechaDestinoCopia&quot;).value = fechaISOHoy();  
   actualizarPreviewCopia();  
-  abrirPantalla("panelCopiaMasiva");  
+  abrirPantalla(&quot;panelCopiaMasiva&quot;);  
 }  
 function actualizarPreviewCopia() {  
   const r = estado.bitacora.find(  
-    (x) => x.id === $("registroOrigenCopia").value,  
+    (x) =&gt; x.id === $(&quot;registroOrigenCopia&quot;).value,  
   );  
-  $("previewCopia").textContent = r  
-    ? `Manual: ${r.manual}\nTipo: ${r.tipo}\nHorario: ${r.horaInicio} - ${r.horaFin}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPáginas: ${r.paginas || 0}\nDetalle: ${r.detalle || ""}`  
-    : "No hay registros disponibles.";  
+  $(&quot;previewCopia&quot;).textContent = r  
+    ? `Manual: ${r.manual}\nTipo: ${r.tipo}\nHorario: ${r.horaInicio} - ${r.horaFin}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPáginas: ${r.paginas || 0}\nDetalle: ${r.detalle || &quot;&quot;}`  
+    : &quot;No hay registros disponibles.&quot;;  
 }  
 function confirmarCopiaRegistro() {  
   const r = estado.bitacora.find(  
-      (x) => x.id === $("registroOrigenCopia").value,  
+      (x) =&gt; x.id === $(&quot;registroOrigenCopia&quot;).value,  
     ),  
-    fecha = $("fechaDestinoCopia").value;  
-  if (!r || !fecha) return mostrarToast("Seleccione un registro y una fecha");  
-  estado.bitacora.unshift({ ...r, id: id("bitacora"), fecha });  
-  guardarEstado("Registro copiado");  
-  cerrarPantalla("panelCopiaMasiva");  
+    fecha = $(&quot;fechaDestinoCopia&quot;).value;  
+  if (!r || !fecha) return mostrarToast(&quot;Seleccione un registro y una fecha&quot;);  
+  estado.bitacora.unshift({ ...r, id: id(&quot;bitacora&quot;), fecha });  
+  guardarEstado(&quot;Registro copiado&quot;);  
+  cerrarPantalla(&quot;panelCopiaMasiva&quot;);  
   renderTodo();  
 }  
-document.addEventListener("DOMContentLoaded", () => {  
-  $("btnImportarCiclo")?.addEventListener("click", () =>  
-    $("inputExcelDashboardCiclo").click(),  
+document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {  
+  $(&quot;btnImportarCiclo&quot;)?.addEventListener(&quot;click&quot;, () =&gt;  
+    $(&quot;inputExcelDashboardCiclo&quot;).click(),  
   );  
-  $("inputExcelDashboardCiclo")?.addEventListener("change", (e) =>  
+  $(&quot;inputExcelDashboardCiclo&quot;)?.addEventListener(&quot;change&quot;, (e) =&gt;  
     importarDashboardProduccion(e.target.files[0]).finally(  
-      () => (e.target.value = ""),  
+      () =&gt; (e.target.value = &quot;&quot;),  
     ),  
   );  
-  $("btnCopiarRegistros")?.addEventListener("click", abrirCopiaRegistro);  
-  $("btnCerrarCopiaMasiva")?.addEventListener("click", () =>  
-    cerrarPantalla("panelCopiaMasiva"),  
+  $(&quot;btnCopiarRegistros&quot;)?.addEventListener(&quot;click&quot;, abrirCopiaRegistro);  
+  $(&quot;btnCerrarCopiaMasiva&quot;)?.addEventListener(&quot;click&quot;, () =&gt;  
+    cerrarPantalla(&quot;panelCopiaMasiva&quot;),  
   );  
-  $("btnCancelarCopiaMasiva")?.addEventListener("click", () =>  
-    cerrarPantalla("panelCopiaMasiva"),  
+  $(&quot;btnCancelarCopiaMasiva&quot;)?.addEventListener(&quot;click&quot;, () =&gt;  
+    cerrarPantalla(&quot;panelCopiaMasiva&quot;),  
   );  
-  $("registroOrigenCopia")?.addEventListener("change", actualizarPreviewCopia);  
-  $("btnConfirmarCopiaMasiva")?.addEventListener(  
-    "click",  
+  $(&quot;registroOrigenCopia&quot;)?.addEventListener(&quot;change&quot;, actualizarPreviewCopia);  
+  $(&quot;btnConfirmarCopiaMasiva&quot;)?.addEventListener(  
+    &quot;click&quot;,  
     confirmarCopiaRegistro,  
   );  
 });  
  
 /* ===== KIRIS V4: columnas, fila activa y cierres ===== */  
 function ocultarTodasColumnas(tipo) {  
-  const columnas = tipo === "manuales" ? COLUMNAS_MANUALES : COLUMNAS_TRAMITES;  
-  const todas = columnas.filter((c) => !c.especial).map((c) => c.key);  
-  if (tipo === "manuales") estado.columnasOcultasManuales = todas;  
+  const columnas = tipo === &quot;manuales&quot; ? COLUMNAS_MANUALES : COLUMNAS_TRAMITES;  
+  const todas = columnas.filter((c) =&gt; !c.especial).map((c) =&gt; c.key);  
+  if (tipo === &quot;manuales&quot;) estado.columnasOcultasManuales = todas;  
   else estado.columnasOcultasTramites = todas;  
-  guardarEstado("");  
-  if (tipo === "manuales") renderManuales();  
+  guardarEstado(&quot;&quot;);  
+  if (tipo === &quot;manuales&quot;) renderManuales();  
   else renderTramites();  
   abrirColumnas(tipo);  
 }  
 function cerrarPanelesColumnas(evento) {  
-  const manuales = $("columnsPanelManuales");  
-  const tramites = $("columnsPanelTramites");  
+  const manuales = $(&quot;columnsPanelManuales&quot;);  
+  const tramites = $(&quot;columnsPanelTramites&quot;);  
   const dentroManual =  
-    manuales && !manuales.hidden && manuales.contains(evento.target);  
+    manuales &amp;&amp; !manuales.hidden &amp;&amp; manuales.contains(evento.target);  
   const dentroTramite =  
-    tramites && !tramites.hidden && tramites.contains(evento.target);  
-  const botonManual = evento.target.closest?.("#btnColumnasManuales");  
-  const botonTramite = evento.target.closest?.("#btnColumnasTramites");  
-  if (manuales && !dentroManual && !botonManual) manuales.hidden = true;  
-  if (tramites && !dentroTramite && !botonTramite) tramites.hidden = true;  
+    tramites &amp;&amp; !tramites.hidden &amp;&amp; tramites.contains(evento.target);  
+  const botonManual = evento.target.closest?.(&quot;#btnColumnasManuales&quot;);  
+  const botonTramite = evento.target.closest?.(&quot;#btnColumnasTramites&quot;);  
+  if (manuales &amp;&amp; !dentroManual &amp;&amp; !botonManual) manuales.hidden = true;  
+  if (tramites &amp;&amp; !dentroTramite &amp;&amp; !botonTramite) tramites.hidden = true;  
 }  
 function activarFilaManualDesdeEvento(evento) {  
-  const fila = evento.target.closest("#tbodyManuales tr[data-id]");  
+  const fila = evento.target.closest(&quot;#tbodyManuales tr[data-id]&quot;);  
   if (!fila) return;  
   document  
-    .querySelectorAll("#tbodyManuales tr.fila-activa")  
-    .forEach((r) => r.classList.remove("fila-activa"));  
-  fila.classList.add("fila-activa");  
+    .querySelectorAll(&quot;#tbodyManuales tr.fila-activa&quot;)  
+    .forEach((r) =&gt; r.classList.remove(&quot;fila-activa&quot;));  
+  fila.classList.add(&quot;fila-activa&quot;);  
 }  
-document.addEventListener("click", cerrarPanelesColumnas);  
-document.addEventListener("click", activarFilaManualDesdeEvento);  
-document.addEventListener("focusin", activarFilaManualDesdeEvento);  
-document.addEventListener("DOMContentLoaded", () => {  
-  $("btnOcultarTodasManuales")?.addEventListener("click", (e) => {  
+document.addEventListener(&quot;click&quot;, cerrarPanelesColumnas);  
+document.addEventListener(&quot;click&quot;, activarFilaManualDesdeEvento);  
+document.addEventListener(&quot;focusin&quot;, activarFilaManualDesdeEvento);  
+document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {  
+  $(&quot;btnOcultarTodasManuales&quot;)?.addEventListener(&quot;click&quot;, (e) =&gt; {  
     e.stopPropagation();  
-    ocultarTodasColumnas("manuales");  
+    ocultarTodasColumnas(&quot;manuales&quot;);  
   });  
-  $("btnOcultarTodasTramites")?.addEventListener("click", (e) => {  
+  $(&quot;btnOcultarTodasTramites&quot;)?.addEventListener(&quot;click&quot;, (e) =&gt; {  
     e.stopPropagation();  
-    ocultarTodasColumnas("tramites");  
+    ocultarTodasColumnas(&quot;tramites&quot;);  
   });  
 });  
  
 /* Mantener visible la fila de Manuales que está en trabajo */  
-let manualActivoId = "";  
-document.addEventListener("focusin", (evento) => {  
-  const fila = evento.target.closest?.("#tbodyManuales tr[data-id]");  
-  if (fila) manualActivoId = fila.dataset.id || "";  
+let manualActivoId = &quot;&quot;;  
+document.addEventListener(&quot;focusin&quot;, (evento) =&gt; {  
+  const fila = evento.target.closest?.(&quot;#tbodyManuales tr[data-id]&quot;);  
+  if (fila) manualActivoId = fila.dataset.id || &quot;&quot;;  
 });  
-document.addEventListener("click", (evento) => {  
-  const fila = evento.target.closest?.("#tbodyManuales tr[data-id]");  
-  if (fila) manualActivoId = fila.dataset.id || "";  
+document.addEventListener(&quot;click&quot;, (evento) =&gt; {  
+  const fila = evento.target.closest?.(&quot;#tbodyManuales tr[data-id]&quot;);  
+  if (fila) manualActivoId = fila.dataset.id || &quot;&quot;;  
 });  
-document.addEventListener("DOMContentLoaded", () => {  
-  const cuerpo = $("tbodyManuales");  
+document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {  
+  const cuerpo = $(&quot;tbodyManuales&quot;);  
   if (!cuerpo) return;  
-  new MutationObserver(() => {  
+  new MutationObserver(() =&gt; {  
     if (!manualActivoId) return;  
     cuerpo  
-      .querySelectorAll("tr.fila-activa")  
-      .forEach((r) => r.classList.remove("fila-activa"));  
+      .querySelectorAll(&quot;tr.fila-activa&quot;)  
+      .forEach((r) =&gt; r.classList.remove(&quot;fila-activa&quot;));  
     cuerpo  
-      .querySelector(`tr[data-id="${CSS.escape(manualActivoId)}"]`)  
-      ?.classList.add("fila-activa");  
+      .querySelector(`tr[data-id=&quot;${CSS.escape(manualActivoId)}&quot;]`)  
+      ?.classList.add(&quot;fila-activa&quot;);  
   }).observe(cuerpo, { childList: true });  
 });  
  
@@ -2966,45 +3005,45 @@ document.addEventListener("DOMContentLoaded", () => {
  
 /* KIRIS V2: movimiento directo y ordenamiento por lógica de negocio.     
    Cargar este archivo después de js/app.js. */  
-(() => {  
-  const $id = (id) => document.getElementById(id);  
-  const normalizarKiris = (valor) =>  
-    String(valor ?? "")  
+(() =&gt; {  
+  const $id = (id) =&gt; document.getElementById(id);  
+  const normalizarKiris = (valor) =&gt;  
+    String(valor ?? &quot;&quot;)  
       .toLowerCase()  
-      .normalize("NFD")  
-      .replace(/[\u0300-\u036f]/g, "");  
+      .normalize(&quot;NFD&quot;)  
+      .replace(/[\u0300-\u036f]/g, &quot;&quot;);  
  
   function columnasDe(tipo) {  
-    if (tipo === "manuales")  
+    if (tipo === &quot;manuales&quot;)  
       return window.COLUMNAS_MANUALES || COLUMNAS_MANUALES;  
-    if (tipo === "tramites")  
+    if (tipo === &quot;tramites&quot;)  
       return window.COLUMNAS_TRAMITES || COLUMNAS_TRAMITES;  
     return window.COLUMNAS_VERSIONES || COLUMNAS_VERSIONES;  
   }  
  
   function renderDe(tipo) {  
-    if (tipo === "manuales") renderManuales();  
-    else if (tipo === "tramites") renderTramites();  
+    if (tipo === &quot;manuales&quot;) renderManuales();  
+    else if (tipo === &quot;tramites&quot;) renderTramites();  
     else renderVersiones();  
   }  
  
   function valorOrdenable(registro, columna) {  
-    if (typeof valorVisible === "function")  
+    if (typeof valorVisible === &quot;function&quot;)  
       return valorVisible(registro, columna);  
-    return registro?.[columna.key] ?? "";  
+    return registro?.[columna.key] ?? &quot;&quot;;  
   }  
  
   function compararTexto(a, b) {  
-    return String(a ?? "").localeCompare(String(b ?? ""), "es", {  
+    return String(a ?? &quot;&quot;).localeCompare(String(b ?? &quot;&quot;), &quot;es&quot;, {  
       numeric: true,  
-      sensitivity: "base",  
+      sensitivity: &quot;base&quot;,  
     });  
   }  
  
   function compararNumero(a, b) {  
     const na = Number(a);  
     const nb = Number(b);  
-    if (Number.isNaN(na) && Number.isNaN(nb)) return 0;  
+    if (Number.isNaN(na) &amp;&amp; Number.isNaN(nb)) return 0;  
     if (Number.isNaN(na)) return 1;  
     if (Number.isNaN(nb)) return -1;  
     return na - nb;  
@@ -3023,9 +3062,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function indiceLogico(valor, opciones) {  
     const buscado = normalizarKiris(valor);  
     const indice = opciones.findIndex(  
-      (opcion) => normalizarKiris(opcion) === buscado,  
+      (opcion) =&gt; normalizarKiris(opcion) === buscado,  
     );  
-    return indice < 0 ? opciones.length : indice;  
+    return indice &lt; 0 ? opciones.length : indice;  
   }  
  
   function ordenarColeccion(tipo, columna, sentido = 1) {  
@@ -3033,24 +3072,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!Array.isArray(lista) || !columna || columna.especial) return;  
  
     const opcionesLogicas = Array.isArray(columna.opciones)  
-      ? columna.opciones.filter((opcion) => String(opcion).trim() !== "")  
+      ? columna.opciones.filter((opcion) =&gt; String(opcion).trim() !== &quot;&quot;)  
       : [];  
  
-    lista.sort((registroA, registroB) => {  
+    lista.sort((registroA, registroB) =&gt; {  
       const a = valorOrdenable(registroA, columna);  
       const b = valorOrdenable(registroB, columna);  
       let resultado;  
  
-      if (tipo === "manuales" && columna.key === "estado") {
-        const ordenEstados = ["No iniciado", "En proceso", "Completado", "Publicado"];
+      if (tipo === &quot;manuales&quot; &amp;&amp; columna.key === &quot;estado&quot;) {
+        const ordenEstados = [&quot;No iniciado&quot;, &quot;En proceso&quot;, &quot;Completado&quot;, &quot;Publicado&quot;];
         resultado = indiceLogico(a, ordenEstados) - indiceLogico(b, ordenEstados);
       } else if (opcionesLogicas.length) {
         resultado =  
           indiceLogico(a, opcionesLogicas) - indiceLogico(b, opcionesLogicas);  
         if (resultado === 0) resultado = compararTexto(a, b);  
-      } else if (columna.tipo === "number") {  
+      } else if (columna.tipo === &quot;number&quot;) {  
         resultado = compararNumero(a, b);  
-      } else if (columna.tipo === "date") {  
+      } else if (columna.tipo === &quot;date&quot;) {  
         resultado = compararFecha(a, b);  
       } else {  
         resultado = compararTexto(a, b);  
@@ -3068,40 +3107,40 @@ document.addEventListener("DOMContentLoaded", () => {
     evento.preventDefault();  
     evento.stopPropagation();  
     document  
-      .querySelectorAll(".sort-menu-kiris")  
-      .forEach((menu) => menu.remove());  
+      .querySelectorAll(&quot;.sort-menu-kiris&quot;)  
+      .forEach((menu) =&gt; menu.remove());  
  
-    const menu = document.createElement("div");  
-    menu.className = "sort-menu-kiris";  
+    const menu = document.createElement(&quot;div&quot;);  
+    menu.className = &quot;sort-menu-kiris&quot;;  
     const esLista =  
-      Array.isArray(columna.opciones) &&  
-      columna.opciones.filter(Boolean).length > 0;  
+      Array.isArray(columna.opciones) &amp;&amp;  
+      columna.opciones.filter(Boolean).length &gt; 0;  
     const detalle = esLista  
       ? columna.opciones  
           .filter(Boolean)  
           .map(  
-            (opcion, indice) =>  
-              `<li><strong>${indice + 1}.</strong> ${escaparHTML(opcion)}</li>`,  
+            (opcion, indice) =&gt;  
+              `&lt;li&gt;&lt;strong&gt;${indice + 1}.&lt;/strong&gt; ${escaparHTML(opcion)}&lt;/li&gt;`,  
           )  
-          .join("")  
-      : "";  
+          .join(&quot;&quot;)  
+      : &quot;&quot;;  
  
     menu.innerHTML = `     
-            <div class="sort-menu-title">Ordenar por ${escaparHTML(columna.label)}</div>     
-            ${esLista ? `<div class="sort-menu-help">Se aplicará el orden lógico definido para esta columna:</div><ol class="sort-menu-values">${detalle}</ol>` : `<div class="sort-menu-help">Esta columna se ordena por su tipo de información.</div>`}     
-            <button type="button" data-sort="normal">${esLista ? "Aplicar orden lógico" : columna.tipo === "date" ? "Más antiguo a más reciente" : columna.tipo === "number" ? "Menor a mayor" : "A a Z"}</button>     
-            <button type="button" data-sort="reverse">${esLista ? "Aplicar orden lógico inverso" : columna.tipo === "date" ? "Más reciente a más antiguo" : columna.tipo === "number" ? "Mayor a menor" : "Z a A"}</button>`;  
+            &lt;div class=&quot;sort-menu-title&quot;&gt;Ordenar por ${escaparHTML(columna.label)}&lt;/div&gt;     
+            ${esLista ? `&lt;div class=&quot;sort-menu-help&quot;&gt;Se aplicará el orden lógico definido para esta columna:&lt;/div&gt;&lt;ol class=&quot;sort-menu-values&quot;&gt;${detalle}&lt;/ol&gt;` : `&lt;div class=&quot;sort-menu-help&quot;&gt;Esta columna se ordena por su tipo de información.&lt;/div&gt;`}     
+            &lt;button type=&quot;button&quot; data-sort=&quot;normal&quot;&gt;${esLista ? &quot;Aplicar orden lógico&quot; : columna.tipo === &quot;date&quot; ? &quot;Más antiguo a más reciente&quot; : columna.tipo === &quot;number&quot; ? &quot;Menor a mayor&quot; : &quot;A a Z&quot;}&lt;/button&gt;     
+            &lt;button type=&quot;button&quot; data-sort=&quot;reverse&quot;&gt;${esLista ? &quot;Aplicar orden lógico inverso&quot; : columna.tipo === &quot;date&quot; ? &quot;Más reciente a más antiguo&quot; : columna.tipo === &quot;number&quot; ? &quot;Mayor a menor&quot; : &quot;Z a A&quot;}&lt;/button&gt;`;  
  
     document.body.appendChild(menu);  
     const rect = boton.getBoundingClientRect();  
     menu.style.left = `${Math.max(8, Math.min(rect.left, innerWidth - 330))}px`;  
     menu.style.top = `${Math.min(rect.bottom + 5, innerHeight - menu.offsetHeight - 8)}px`;  
-    menu.onclick = (e) => e.stopPropagation();  
-    menu.querySelector('[data-sort="normal"]').onclick = () => {  
+    menu.onclick = (e) =&gt; e.stopPropagation();  
+    menu.querySelector(&#x27;[data-sort=&quot;normal&quot;]&#x27;).onclick = () =&gt; {  
       menu.remove();  
       ordenarColeccion(tipo, columna, 1);  
     };  
-    menu.querySelector('[data-sort="reverse"]').onclick = () => {  
+    menu.querySelector(&#x27;[data-sort=&quot;reverse&quot;]&#x27;).onclick = () =&gt; {  
       menu.remove();  
       ordenarColeccion(tipo, columna, -1);  
     };  
@@ -3109,59 +3148,59 @@ document.addEventListener("DOMContentLoaded", () => {
  
   function agregarFlechasOrden() {  
     const configuraciones = [  
-      ["theadManuales", "manuales"],  
-      ["theadTramites", "tramites"],  
-      ["theadVersiones", "versiones"],  
+      [&quot;theadManuales&quot;, &quot;manuales&quot;],  
+      [&quot;theadTramites&quot;, &quot;tramites&quot;],  
+      [&quot;theadVersiones&quot;, &quot;versiones&quot;],  
     ];  
  
-    configuraciones.forEach(([theadId, tipo]) => {  
+    configuraciones.forEach(([theadId, tipo]) =&gt; {  
       const thead = $id(theadId);  
       if (!thead) return;  
       const columnas = columnasDe(tipo);  
-      thead.querySelectorAll("tr:first-child th[data-key]").forEach((th) => {  
-        const columna = columnas.find((item) => item.key === th.dataset.key);  
+      thead.querySelectorAll(&quot;tr:first-child th[data-key]&quot;).forEach((th) =&gt; {  
+        const columna = columnas.find((item) =&gt; item.key === th.dataset.key);  
         if (  
           !columna ||  
           columna.especial ||  
-          th.querySelector(".sort-arrow-kiris")  
+          th.querySelector(&quot;.sort-arrow-kiris&quot;)  
         )  
           return;  
-        const contenido = th.querySelector(".th-content");  
+        const contenido = th.querySelector(&quot;.th-content&quot;);  
         if (!contenido) return;  
-        const boton = document.createElement("button");  
-        boton.type = "button";  
-        boton.className = "sort-arrow-kiris";  
-        boton.textContent = "▼";  
+        const boton = document.createElement(&quot;button&quot;);  
+        boton.type = &quot;button&quot;;  
+        boton.className = &quot;sort-arrow-kiris&quot;;  
+        boton.textContent = &quot;▼&quot;;  
         boton.title = `Reorganizar por ${columna.label}`;  
-        boton.setAttribute("aria-label", `Reorganizar por ${columna.label}`);  
-        boton.onclick = (evento) =>  
+        boton.setAttribute(&quot;aria-label&quot;, `Reorganizar por ${columna.label}`);  
+        boton.onclick = (evento) =&gt;  
           abrirMenuOrden(evento, tipo, columna, boton);  
-        const resize = contenido.querySelector(".resize-handle");  
+        const resize = contenido.querySelector(&quot;.resize-handle&quot;);  
         contenido.insertBefore(boton, resize || null);  
       });  
     });  
   }  
  
-  let manualCopiadoParaMoverId = "";  
+  let manualCopiadoParaMoverId = &quot;&quot;;  
  
   function cerrarMenuFilaKiris() {  
     document  
-      .querySelectorAll(".row-copy-menu-kiris")  
-      .forEach((menu) => menu.remove());  
+      .querySelectorAll(&quot;.row-copy-menu-kiris&quot;)  
+      .forEach((menu) =&gt; menu.remove());  
   }  
  
   function estiloMenuFilaKiris(menu, x, y) {  
     Object.assign(menu.style, {  
-      position: "fixed",  
-      zIndex: "2600",  
-      width: "248px",  
-      padding: "8px",  
-      background: "#FFFFFF",  
-      color: "#333333",  
-      border: "1px solid #D9D9D9",  
-      borderTop: "4px solid #FF6C0C",  
-      borderRadius: "12px",  
-      boxShadow: "0 12px 34px rgba(0,0,0,.25)",  
+      position: &quot;fixed&quot;,  
+      zIndex: &quot;2600&quot;,  
+      width: &quot;248px&quot;,  
+      padding: &quot;8px&quot;,  
+      background: &quot;#FFFFFF&quot;,  
+      color: &quot;#333333&quot;,  
+      border: &quot;1px solid #D9D9D9&quot;,  
+      borderTop: &quot;4px solid #FF6C0C&quot;,  
+      borderRadius: &quot;12px&quot;,  
+      boxShadow: &quot;0 12px 34px rgba(0,0,0,.25)&quot;,  
     });  
     document.body.appendChild(menu);  
     const ancho = menu.offsetWidth;  
@@ -3171,84 +3210,84 @@ document.addEventListener("DOMContentLoaded", () => {
   }  
  
   function botonMenuFilaKiris(texto, principal = false) {  
-    const boton = document.createElement("button");  
-    boton.type = "button";  
+    const boton = document.createElement(&quot;button&quot;);  
+    boton.type = &quot;button&quot;;  
     boton.textContent = texto;  
     Object.assign(boton.style, {  
-      display: "block",  
-      width: "100%",  
-      margin: "0",  
-      padding: "10px 11px",  
-      background: principal ? "#FFF0E6" : "#FFFFFF",  
-      color: principal ? "#B94700" : "#333333",  
-      border: "0",  
-      borderRadius: "8px",  
-      fontWeight: principal ? "800" : "700",  
-      textAlign: "left",  
-      cursor: "pointer",  
+      display: &quot;block&quot;,  
+      width: &quot;100%&quot;,  
+      margin: &quot;0&quot;,  
+      padding: &quot;10px 11px&quot;,  
+      background: principal ? &quot;#FFF0E6&quot; : &quot;#FFFFFF&quot;,  
+      color: principal ? &quot;#B94700&quot; : &quot;#333333&quot;,  
+      border: &quot;0&quot;,  
+      borderRadius: &quot;8px&quot;,  
+      fontWeight: principal ? &quot;800&quot; : &quot;700&quot;,  
+      textAlign: &quot;left&quot;,  
+      cursor: &quot;pointer&quot;,  
     });  
-    boton.onmouseenter = () => {  
-      boton.style.background = "#FFD1B3";  
+    boton.onmouseenter = () =&gt; {  
+      boton.style.background = &quot;#FFD1B3&quot;;  
     };  
-    boton.onmouseleave = () => {  
-      boton.style.background = principal ? "#FFF0E6" : "#FFFFFF";  
+    boton.onmouseleave = () =&gt; {  
+      boton.style.background = principal ? &quot;#FFF0E6&quot; : &quot;#FFFFFF&quot;;  
     };  
     return boton;  
   }  
  
   function copiarFilaParaMover(manualId) {  
-    if (!estado.manuales.some((manual) => manual.id === manualId)) return;  
+    if (!estado.manuales.some((manual) =&gt; manual.id === manualId)) return;  
     manualCopiadoParaMoverId = manualId;  
     document  
-      .querySelectorAll("#tbodyManuales tr.fila-copiada-kiris")  
-      .forEach((fila) => fila.classList.remove("fila-copiada-kiris"));  
+      .querySelectorAll(&quot;#tbodyManuales tr.fila-copiada-kiris&quot;)  
+      .forEach((fila) =&gt; fila.classList.remove(&quot;fila-copiada-kiris&quot;));  
     const fila = document.querySelector(  
-      `#tbodyManuales tr[data-id="${CSS.escape(manualId)}"]`,  
+      `#tbodyManuales tr[data-id=&quot;${CSS.escape(manualId)}&quot;]`,  
     );  
     if (fila) {  
-      fila.classList.add("fila-copiada-kiris");  
-      fila.style.boxShadow = "inset 5px 0 0 #FF6C0C";  
+      fila.classList.add(&quot;fila-copiada-kiris&quot;);  
+      fila.style.boxShadow = &quot;inset 5px 0 0 #FF6C0C&quot;;  
     }  
     mostrarToast(  
-      "Fila copiada. Vaya al destino, haga clic derecho y seleccione Insertar fila copiada aquí",  
+      &quot;Fila copiada. Vaya al destino, haga clic derecho y seleccione Insertar fila copiada aquí&quot;,  
     );  
   }  
  
   function insertarFilaCopiadaEn(destinoId) {  
     const origen = estado.manuales.findIndex(  
-      (manual) => manual.id === manualCopiadoParaMoverId,  
+      (manual) =&gt; manual.id === manualCopiadoParaMoverId,  
     );  
     const destinoOriginal = estado.manuales.findIndex(  
-      (manual) => manual.id === destinoId,  
+      (manual) =&gt; manual.id === destinoId,  
     );  
-    if (origen < 0 || destinoOriginal < 0) {  
-      manualCopiadoParaMoverId = "";  
-      mostrarToast("La fila copiada ya no está disponible");  
+    if (origen &lt; 0 || destinoOriginal &lt; 0) {  
+      manualCopiadoParaMoverId = &quot;&quot;;  
+      mostrarToast(&quot;La fila copiada ya no está disponible&quot;);  
       return;  
     }  
     if (manualCopiadoParaMoverId === destinoId) {  
-      mostrarToast("Seleccione una fila de destino diferente");  
+      mostrarToast(&quot;Seleccione una fila de destino diferente&quot;);  
       return;  
     }  
     const [movido] = estado.manuales.splice(origen, 1);  
     const destino = estado.manuales.findIndex(  
-      (manual) => manual.id === destinoId,  
+      (manual) =&gt; manual.id === destinoId,  
     );  
     estado.manuales.splice(destino, 0, movido);  
-    manualCopiadoParaMoverId = "";  
-    guardarEstado("Fila insertada y nuevo orden guardado");  
+    manualCopiadoParaMoverId = &quot;&quot;;  
+    guardarEstado(&quot;Fila insertada y nuevo orden guardado&quot;);  
     renderManuales();  
   }  
  
   function cancelarFilaCopiada() {  
-    manualCopiadoParaMoverId = "";  
+    manualCopiadoParaMoverId = &quot;&quot;;  
     document  
-      .querySelectorAll("#tbodyManuales tr.fila-copiada-kiris")  
-      .forEach((fila) => {  
-        fila.classList.remove("fila-copiada-kiris");  
-        fila.style.boxShadow = "";  
+      .querySelectorAll(&quot;#tbodyManuales tr.fila-copiada-kiris&quot;)  
+      .forEach((fila) =&gt; {  
+        fila.classList.remove(&quot;fila-copiada-kiris&quot;);  
+        fila.style.boxShadow = &quot;&quot;;  
       });  
-    mostrarToast("Copia de fila cancelada");  
+    mostrarToast(&quot;Copia de fila cancelada&quot;);  
   }  
  
   function abrirMenuFilaKiris(evento, fila) {  
@@ -3256,41 +3295,41 @@ document.addEventListener("DOMContentLoaded", () => {
     evento.stopPropagation();  
     cerrarMenuFilaKiris();  
     const manualId = fila.dataset.id;  
-    const menu = document.createElement("div");  
-    menu.className = "row-copy-menu-kiris";  
+    const menu = document.createElement(&quot;div&quot;);  
+    menu.className = &quot;row-copy-menu-kiris&quot;;  
  
-    const titulo = document.createElement("div");  
+    const titulo = document.createElement(&quot;div&quot;);  
     titulo.textContent = manualCopiadoParaMoverId  
-      ? "Fila copiada"  
-      : "Opciones de fila";  
+      ? &quot;Fila copiada&quot;  
+      : &quot;Opciones de fila&quot;;  
     Object.assign(titulo.style, {  
-      padding: "6px 10px 8px",  
-      color: "#FF6C0C",  
-      fontSize: "13px",  
-      fontWeight: "800",  
+      padding: &quot;6px 10px 8px&quot;,  
+      color: &quot;#FF6C0C&quot;,  
+      fontSize: &quot;13px&quot;,  
+      fontWeight: &quot;800&quot;,  
     });  
     menu.appendChild(titulo);  
  
     const copiar = botonMenuFilaKiris(  
-      "📋 Copiar fila para mover",  
+      &quot;📋 Copiar fila para mover&quot;,  
       !manualCopiadoParaMoverId,  
     );  
-    copiar.onclick = () => {  
+    copiar.onclick = () =&gt; {  
       cerrarMenuFilaKiris();  
       copiarFilaParaMover(manualId);  
     };  
     menu.appendChild(copiar);  
  
     if (manualCopiadoParaMoverId) {  
-      const insertar = botonMenuFilaKiris("↳ Insertar fila copiada aquí", true);  
-      insertar.onclick = () => {  
+      const insertar = botonMenuFilaKiris(&quot;↳ Insertar fila copiada aquí&quot;, true);  
+      insertar.onclick = () =&gt; {  
         cerrarMenuFilaKiris();  
         insertarFilaCopiadaEn(manualId);  
       };  
       menu.appendChild(insertar);  
  
-      const cancelar = botonMenuFilaKiris("✕ Cancelar copia");  
-      cancelar.onclick = () => {  
+      const cancelar = botonMenuFilaKiris(&quot;✕ Cancelar copia&quot;);  
+      cancelar.onclick = () =&gt; {  
         cerrarMenuFilaKiris();  
         cancelarFilaCopiada();  
       };  
@@ -3298,15 +3337,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }  
  
     estiloMenuFilaKiris(menu, evento.clientX + 4, evento.clientY + 4);  
-    menu.onclick = (e) => e.stopPropagation();  
+    menu.onclick = (e) =&gt; e.stopPropagation();  
   }  
  
   function habilitarCopiarInsertarFilas() {  
-    document.querySelectorAll("#tbodyManuales tr[data-id]").forEach((fila) => {  
-      fila.oncontextmenu = (evento) => abrirMenuFilaKiris(evento, fila);  
+    document.querySelectorAll(&quot;#tbodyManuales tr[data-id]&quot;).forEach((fila) =&gt; {  
+      fila.oncontextmenu = (evento) =&gt; abrirMenuFilaKiris(evento, fila);  
       if (fila.dataset.id === manualCopiadoParaMoverId) {  
-        fila.classList.add("fila-copiada-kiris");  
-        fila.style.boxShadow = "inset 5px 0 0 #FF6C0C";  
+        fila.classList.add(&quot;fila-copiada-kiris&quot;);  
+        fila.style.boxShadow = &quot;inset 5px 0 0 #FF6C0C&quot;;  
       }  
     });  
   }  
@@ -3316,20 +3355,20 @@ document.addEventListener("DOMContentLoaded", () => {
     habilitarCopiarInsertarFilas();  
   }  
  
-  document.addEventListener("click", () => {  
+  document.addEventListener(&quot;click&quot;, () =&gt; {  
     document  
-      .querySelectorAll(".sort-menu-kiris")  
-      .forEach((menu) => menu.remove());  
+      .querySelectorAll(&quot;.sort-menu-kiris&quot;)  
+      .forEach((menu) =&gt; menu.remove());  
     cerrarMenuFilaKiris();  
   });  
-  document.addEventListener("DOMContentLoaded", () => {  
+  document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {  
     actualizarControles();  
     [  
-      "theadManuales",  
-      "theadTramites",  
-      "theadVersiones",  
-      "tbodyManuales",  
-    ].forEach((id) => {  
+      &quot;theadManuales&quot;,  
+      &quot;theadTramites&quot;,  
+      &quot;theadVersiones&quot;,  
+      &quot;tbodyManuales&quot;,  
+    ].forEach((id) =&gt; {  
       const nodo = $id(id);  
       if (nodo)  
         new MutationObserver(actualizarControles).observe(nodo, {  
@@ -3345,24 +3384,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ===== KIRIS: eliminar un registro específico de Bitácora ===== */
 function cerrarMenuRegistroBitacora() {
-  document.getElementById("menuRegistroBitacoraKiris")?.remove();
+  document.getElementById(&quot;menuRegistroBitacoraKiris&quot;)?.remove();
 }
 
 function eliminarRegistroBitacora(registroId) {
   const indice = estado.bitacora.findIndex(
-    (registro) => registro.id === registroId,
+    (registro) =&gt; registro.id === registroId,
   );
-  if (indice < 0) {
-    mostrarToast("No fue posible localizar el registro.");
+  if (indice &lt; 0) {
+    mostrarToast(&quot;No fue posible localizar el registro.&quot;);
     return;
   }
 
   const eliminado = { ...estado.bitacora[indice] };
   estado.bitacora.splice(indice, 1);
-  guardarEstado("");
+  guardarEstado(&quot;&quot;);
   renderTodo();
   mostrarDeshacerEliminacion(
-    "bitacora",
+    &quot;bitacora&quot;,
     [eliminado],
     [indice],
   );
@@ -3372,52 +3411,52 @@ function abrirMenuRegistroBitacora(evento, registroId) {
   cerrarMenuRegistroBitacora();
 
   const registro = estado.bitacora.find(
-    (item) => item.id === registroId,
+    (item) =&gt; item.id === registroId,
   );
   if (!registro) return;
 
-  const menu = document.createElement("div");
-  menu.id = "menuRegistroBitacoraKiris";
+  const menu = document.createElement(&quot;div&quot;);
+  menu.id = &quot;menuRegistroBitacoraKiris&quot;;
   menu.innerHTML = `
-    <div style="padding:6px 10px 8px;color:#FF6C0C;font-size:13px;font-weight:800;">
+    &lt;div style=&quot;padding:6px 10px 8px;color:#FF6C0C;font-size:13px;font-weight:800;&quot;&gt;
       Opciones del registro
-    </div>
-    <button type="button" data-accion="editar">✏️ Editar registro</button>
-    <button type="button" data-accion="eliminar">🗑️ Eliminar registro</button>
+    &lt;/div&gt;
+    &lt;button type=&quot;button&quot; data-accion=&quot;editar&quot;&gt;✏️ Editar registro&lt;/button&gt;
+    &lt;button type=&quot;button&quot; data-accion=&quot;eliminar&quot;&gt;🗑️ Eliminar registro&lt;/button&gt;
   `;
 
   Object.assign(menu.style, {
-    position: "fixed",
-    zIndex: "2800",
-    width: "230px",
-    padding: "8px",
-    background: "#FFFFFF",
-    color: "#333333",
-    border: "1px solid #D9D9D9",
-    borderTop: "4px solid #FF6C0C",
-    borderRadius: "12px",
-    boxShadow: "0 12px 34px rgba(0,0,0,.25)",
+    position: &quot;fixed&quot;,
+    zIndex: &quot;2800&quot;,
+    width: &quot;230px&quot;,
+    padding: &quot;8px&quot;,
+    background: &quot;#FFFFFF&quot;,
+    color: &quot;#333333&quot;,
+    border: &quot;1px solid #D9D9D9&quot;,
+    borderTop: &quot;4px solid #FF6C0C&quot;,
+    borderRadius: &quot;12px&quot;,
+    boxShadow: &quot;0 12px 34px rgba(0,0,0,.25)&quot;,
   });
 
-  menu.querySelectorAll("button").forEach((boton) => {
+  menu.querySelectorAll(&quot;button&quot;).forEach((boton) =&gt; {
     Object.assign(boton.style, {
-      display: "block",
-      width: "100%",
-      margin: "0",
-      padding: "10px 11px",
-      background: "#FFFFFF",
-      color: "#333333",
-      border: "0",
-      borderRadius: "8px",
-      fontWeight: "700",
-      textAlign: "left",
-      cursor: "pointer",
+      display: &quot;block&quot;,
+      width: &quot;100%&quot;,
+      margin: &quot;0&quot;,
+      padding: &quot;10px 11px&quot;,
+      background: &quot;#FFFFFF&quot;,
+      color: &quot;#333333&quot;,
+      border: &quot;0&quot;,
+      borderRadius: &quot;8px&quot;,
+      fontWeight: &quot;700&quot;,
+      textAlign: &quot;left&quot;,
+      cursor: &quot;pointer&quot;,
     });
-    boton.addEventListener("mouseenter", () => {
-      boton.style.background = "#FFF0E6";
+    boton.addEventListener(&quot;mouseenter&quot;, () =&gt; {
+      boton.style.background = &quot;#FFF0E6&quot;;
     });
-    boton.addEventListener("mouseleave", () => {
-      boton.style.background = "#FFFFFF";
+    boton.addEventListener(&quot;mouseleave&quot;, () =&gt; {
+      boton.style.background = &quot;#FFFFFF&quot;;
     });
   });
 
@@ -3425,16 +3464,17 @@ function abrirMenuRegistroBitacora(evento, registroId) {
   menu.style.left = `${Math.max(8, Math.min(evento.clientX + 4, innerWidth - menu.offsetWidth - 8))}px`;
   menu.style.top = `${Math.max(8, Math.min(evento.clientY + 4, innerHeight - menu.offsetHeight - 8))}px`;
 
-  menu.addEventListener("click", (e) => e.stopPropagation());
-  menu.querySelector('[data-accion="editar"]').addEventListener("click", () => {
+  menu.addEventListener(&quot;click&quot;, (e) =&gt; e.stopPropagation());
+  menu.querySelector(&#x27;[data-accion=&quot;editar&quot;]&#x27;).addEventListener(&quot;click&quot;, () =&gt; {
     cerrarMenuRegistroBitacora();
     abrirBitacora(registroId);
   });
-  menu.querySelector('[data-accion="eliminar"]').addEventListener("click", () => {
+  menu.querySelector(&#x27;[data-accion=&quot;eliminar&quot;]&#x27;).addEventListener(&quot;click&quot;, () =&gt; {
     cerrarMenuRegistroBitacora();
     eliminarRegistroBitacora(registroId);
   });
 }
 
-document.addEventListener("click", cerrarMenuRegistroBitacora);
-document.addEventListener("scroll", cerrarMenuRegistroBitacora, true);
+document.addEventListener(&quot;click&quot;, cerrarMenuRegistroBitacora);
+document.addEventListener(&quot;scroll&quot;, cerrarMenuRegistroBitacora, true);
+</pre></td></tr></table></body></html>
