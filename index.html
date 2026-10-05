@@ -1096,5 +1096,134 @@
    });
   </script>
 
+
+  <style id="orden-logico-control-versiones">
+   #tabVersiones th[data-orden-codigo="asc"]::after{content:"  ↑";color:#ff6c0c;font-weight:700}
+   #tabVersiones th[data-orden-codigo="desc"]::after{content:"  ↓";color:#ff6c0c;font-weight:700}
+  </style>
+  <script id="orden-logico-control-versiones">
+   /* Orden natural para la columna Código en Control de Versiones.
+      Ejemplo: MU-2 se ubica antes de MU-10. */
+   document.addEventListener("DOMContentLoaded", () => {
+    const tab = document.getElementById("tabVersiones");
+    const tbody = document.getElementById("tbodyVersiones");
+    const thead = document.getElementById("theadVersiones");
+    if (!tab || !tbody || !thead) return;
+
+    const normalizar = valor => String(valor ?? "")
+     .trim()
+     .normalize("NFD")
+     .replace(/[\u0300-\u036f]/g, "")
+     .toLocaleUpperCase("es");
+
+    const valorCelda = celda => {
+     const control = celda?.querySelector?.("input, select, textarea");
+     return String(control ? control.value : (celda?.textContent ?? "")).trim();
+    };
+
+    const comparadorNatural = new Intl.Collator("es", {
+     numeric: true,
+     sensitivity: "base",
+     ignorePunctuation: false
+    });
+
+    let direccion = "asc";
+    let ordenando = false;
+    let programado = false;
+
+    function obtenerColumnaCodigo() {
+     const celdas = [...thead.querySelectorAll("th")];
+     return celdas.findIndex(th => normalizar(th.textContent).replace(/[^A-Z0-9 ]/g, " ").trim() === "CODIGO");
+    }
+
+    function ordenarPorCodigo(forzarDireccion) {
+     if (ordenando) return;
+     const columna = obtenerColumnaCodigo();
+     if (columna < 0) return;
+     if (forzarDireccion) direccion = forzarDireccion;
+
+     const filas = [...tbody.querySelectorAll(":scope > tr")];
+     if (filas.length < 2) {
+      actualizarIndicador(columna);
+      return;
+     }
+
+     const factor = direccion === "desc" ? -1 : 1;
+     const decoradas = filas.map((fila, posicion) => ({
+      fila,
+      posicion,
+      codigo: normalizar(valorCelda(fila.children[columna]))
+     }));
+
+     decoradas.sort((a, b) => {
+      if (!a.codigo && !b.codigo) return a.posicion - b.posicion;
+      if (!a.codigo) return 1;
+      if (!b.codigo) return -1;
+      const resultado = comparadorNatural.compare(a.codigo, b.codigo);
+      return resultado === 0 ? a.posicion - b.posicion : resultado * factor;
+     });
+
+     ordenando = true;
+     const fragmento = document.createDocumentFragment();
+     decoradas.forEach(item => fragmento.appendChild(item.fila));
+     tbody.appendChild(fragmento);
+     ordenando = false;
+     actualizarIndicador(columna);
+    }
+
+    function actualizarIndicador(columna) {
+     [...thead.querySelectorAll("th")].forEach(th => {
+      th.removeAttribute("data-orden-codigo");
+      th.removeAttribute("aria-sort");
+     });
+     const th = thead.querySelectorAll("th")[columna];
+     if (!th) return;
+     th.dataset.ordenCodigo = direccion;
+     th.setAttribute("aria-sort", direccion === "asc" ? "ascending" : "descending");
+     th.title = direccion === "asc"
+      ? "Orden lógico por Código: menor a mayor"
+      : "Orden lógico por Código: mayor a menor";
+    }
+
+    function programarOrden() {
+     if (ordenando || programado) return;
+     programado = true;
+     requestAnimationFrame(() => {
+      programado = false;
+      ordenarPorCodigo();
+     });
+    }
+
+    /* Captura el clic antes del orden alfabético genérico de la tabla. */
+    thead.addEventListener("click", evento => {
+     const th = evento.target.closest("th");
+     if (!th) return;
+     const columna = obtenerColumnaCodigo();
+     if (columna < 0 || [...th.parentElement.children].indexOf(th) !== columna) return;
+     evento.preventDefault();
+     evento.stopPropagation();
+     evento.stopImmediatePropagation();
+     direccion = direccion === "asc" ? "desc" : "asc";
+     ordenarPorCodigo();
+    }, true);
+
+    /* Reubica automáticamente registros nuevos o códigos editados. */
+    const observador = new MutationObserver(programarOrden);
+    observador.observe(tbody, { childList: true, subtree: true, characterData: true });
+    observador.observe(thead, { childList: true, subtree: true, characterData: true });
+    tbody.addEventListener("change", evento => {
+     const columna = obtenerColumnaCodigo();
+     const celda = evento.target.closest("td");
+     if (celda && [...celda.parentElement.children].indexOf(celda) === columna) programarOrden();
+    });
+
+    /* El orden inicial y el de los registros recién cargados siempre es lógico ascendente. */
+    ordenarPorCodigo("asc");
+    setTimeout(() => ordenarPorCodigo("asc"), 0);
+    setTimeout(() => ordenarPorCodigo("asc"), 400);
+    setTimeout(() => ordenarPorCodigo("asc"), 1200);
+   });
+  </script>
+
  </body>
 </html>
