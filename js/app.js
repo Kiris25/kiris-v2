@@ -1676,7 +1676,7 @@ function ajustarHojaReporte(hoja, datos) {
 }
 
 function agregarHojaReporte(libro, nombre, datos) {
-  const filas = datos.length ? datos : [{ Información: "Sin registros" }];
+  const filas = datos.length ? datos : [{ "Información": "Sin registros" }];
   const hoja = XLSX.utils.json_to_sheet(filas);
   ajustarHojaReporte(hoja, filas);
   XLSX.utils.book_append_sheet(libro, hoja, nombre);
@@ -2678,12 +2678,9 @@ async function importarControlVersionesXLSX(archivo) {
   if (!archivo) return;
   try {
     const wb = await leerLibroXLSX(archivo);
-    const nombreHoja =
-      wb.SheetNames.find(
-        (nombre) =>
-          normalizar(nombre).replace(/[^a-z0-9]/g, "") ===
-          "controlversiones",
-      ) || wb.SheetNames[0];
+    const nombreHoja = wb.SheetNames.find((nombre) =>
+      normalizar(nombre).replace(/[^a-z0-9]/g, "") === "controlversiones"
+    ) || wb.SheetNames[0];
 
     if (!nombreHoja) throw new Error("El archivo no contiene hojas");
 
@@ -2695,86 +2692,56 @@ async function importarControlVersionesXLSX(archivo) {
 
     const obtenerValor = (fila, nombres) => {
       const claves = Object.keys(fila || {});
-      const encabezadosBuscados = nombres.map(normalizarEncabezado);
+      const buscados = nombres.map(normalizarEncabezado);
       const clave = claves.find((encabezado) =>
-        encabezadosBuscados.includes(normalizarEncabezado(encabezado)),
+        buscados.includes(normalizarEncabezado(encabezado))
       );
       return clave === undefined ? "" : fila[clave];
     };
 
-    const nuevos = filas
-      .map((fila) => {
-        const codigo = String(
-          obtenerValor(fila, ["Código", "Codigo"]),
-        ).trim();
-        const manual = String(obtenerValor(fila, ["Manual"])).trim();
+    const nuevos = filas.map((fila) => {
+      const codigo = String(obtenerValor(fila, ["Código", "Codigo"])).trim();
+      const manual = String(obtenerValor(fila, ["Manual"])).trim();
+      if (!codigo && !manual) return null;
 
-        if (!codigo && !manual) return null;
-
-        return {
-          id: id("version"),
-          sistema:
-            String(obtenerValor(fila, ["Sistema"])).trim() || "SISCARD",
-          codigo,
-          manual,
-          idioma:
-            String(obtenerValor(fila, ["Idioma"])).trim() || "Español",
-          numero: String(
-            obtenerValor(fila, [
-              "Versión disponible",
-              "Version disponible",
-              "Versión",
-              "Version",
-            ]),
-          ).trim(),
-          ubicacionEService: String(
-            obtenerValor(fila, [
-              "Ubicación en E-service",
-              "Ubicacion en E-service",
-              "Ubicación en Eservice",
-              "Ubicacion en Eservice",
-            ]),
-          ).trim(),
-          fecha: fechaXLSX(
-            obtenerValor(fila, [
-              "Fecha de versión",
-              "Fecha de version",
-              "Fecha",
-            ]),
-          ),
-          estado:
-            String(obtenerValor(fila, ["Estado"])).trim() || "Disponible",
-          observaciones: String(
-            obtenerValor(fila, ["Observaciones"]),
-          ).trim(),
-        };
-      })
-      .filter(Boolean);
+      return {
+        id: id("version"),
+        sistema: String(obtenerValor(fila, ["Sistema"])).trim() || "SISCARD",
+        codigo: codigo,
+        manual: manual,
+        idioma: String(obtenerValor(fila, ["Idioma"])).trim() || "Español",
+        numero: String(obtenerValor(fila, [
+          "Versión disponible", "Version disponible", "Versión", "Version"
+        ])).trim(),
+        ubicacionEService: String(obtenerValor(fila, [
+          "Ubicación en E-service", "Ubicacion en E-service",
+          "Ubicación en Eservice", "Ubicacion en Eservice"
+        ])).trim(),
+        fecha: fechaXLSX(obtenerValor(fila, [
+          "Fecha de versión", "Fecha de version", "Fecha"
+        ])),
+        estado: String(obtenerValor(fila, ["Estado"])).trim() || "Disponible",
+        observaciones: String(obtenerValor(fila, ["Observaciones"])).trim(),
+      };
+    }).filter(Boolean);
 
     if (!nuevos.length) {
-      throw new Error(
-        "No se encontraron filas válidas en el Excel de Control de Versiones",
-      );
+      throw new Error("No se encontraron filas válidas en el Excel de Control de Versiones");
     }
 
-    nuevos.sort((a, b) =>
-      String(a.codigo || "").localeCompare(String(b.codigo || ""), "es", {
-        numeric: true,
-        sensitivity: "base",
-      }),
-    );
+    nuevos.sort((a, b) => String(a.codigo || "").localeCompare(
+      String(b.codigo || ""), "es", { numeric: true, sensitivity: "base" }
+    ));
 
     estado.versiones = nuevos;
     filtros.versiones = {};
     ordenamientosVista.versiones = { columna: "codigo", sentido: 1 };
-    guardarEstado(`${nuevos.length} versiones importadas y reemplazadas`);
+    guardarEstado(nuevos.length + " versiones importadas y reemplazadas");
     renderVersiones();
-    mostrarToast(
-      `Control de Versiones reemplazado con ${nuevos.length} registro(s)`,
-    );
+    mostrarToast("Control de Versiones reemplazado con " + nuevos.length + " registro(s)");
   } catch (e) {
     console.error(e);
-    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);
+    mostrarToast("No fue posible importar Control de Versiones: " + e.message);
   }
 }
 
