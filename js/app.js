@@ -2678,38 +2678,34 @@ async function importarControlVersionesXLSX(archivo) {
   if (!archivo) return;
   try {
     const wb = await leerLibroXLSX(archivo);
-    const nombreHoja = wb.SheetNames.includes("ControlVersiones")
-      ? "ControlVersiones"
-      : wb.SheetNames[0];
-    const hoja = wb.Sheets[nombreHoja];
+    const hoja = wb.Sheets["ControlVersiones"] || wb.Sheets[wb.SheetNames[0]];
+    if (!hoja) throw new Error("No se encontró la hoja ControlVersiones");
+
     const filas = XLSX.utils.sheet_to_json(hoja, {
+      header: 1,
       defval: "",
       raw: false,
       dateNF: "yyyy-mm-dd",
     });
+
     const nuevos = filas
-      .map((fila) => ({
+      .slice(1)
+      .map((f) => ({
         id: id("version"),
-        sistema: String(fila["Sistema"] || "SISCARD").trim(),
-        codigo: String(fila["Código"] || fila["Codigo"] || "").trim(),
-        manual: String(fila["Manual"] || "").trim(),
-        idioma: String(fila["Idioma"] || "Español").trim(),
-        numero: String(
-          fila["Versión disponible"] || fila["Version disponible"] || "",
-        ).trim(),
-        ubicacionEService: String(
-          fila["Ubicación en E-service"] ||
-            fila["Ubicacion en E-service"] ||
-            "",
-        ).trim(),
-        fecha: fechaXLSX(
-          fila["Fecha de versión"] || fila["Fecha de version"] || "",
-        ),
-        estado: String(fila["Estado"] || "Disponible").trim(),
-        observaciones: String(fila["Observaciones"] || "").trim(),
+        sistema: String(f[0] || "").trim(),
+        codigo: String(f[1] || "").trim(),
+        manual: String(f[2] || "").trim(),
+        idioma: String(f[3] || "").trim(),
+        numero: String(f[4] || "").trim(),
+        ubicacionEService: String(f[5] || "").trim(),
+        fecha: fechaXLSX(f[6]),
+        estado: String(f[7] || "").trim(),
+        observaciones: String(f[8] || "").trim(),
       }))
-      .filter((version) => version.codigo || version.manual);
+      .filter((v) => v.codigo || v.manual);
+
     if (!nuevos.length) throw new Error("No se encontraron filas válidas");
+
     estado.versiones = nuevos;
     guardarEstado(`${nuevos.length} versiones importadas`);
     renderVersiones();
