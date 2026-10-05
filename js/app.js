@@ -17,26 +17,26 @@ const MESES = [
   "Noviembre",  
   "Diciembre",  
 ];  
-const DIAS = ["Lun", "Mar", "MiÃ©", "Jue", "Vie", "SÃ¡b", "Dom"];  
+const DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];  
  
 const COLUMNAS_MANUALES = [  
   { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
   { key: "orden", label: "#", width: 62, especial: "orden" },  
-  { key: "codigo", label: "CÃ³digo", width: 120 },  
-  { key: "titulo", label: "TÃ­tulo", width: 280 },  
+  { key: "codigo", label: "Código", width: 120 },  
+  { key: "titulo", label: "Título", width: 280 },  
   {  
     key: "idioma",  
     label: "Idioma",  
     width: 110,  
     tipo: "select",  
-    opciones: ["EspaÃ±ol", "InglÃ©s"],  
+    opciones: ["Español", "Inglés"],  
   },  
   {  
     key: "archivoElectronico",  
-    label: "Archivo electrÃ³nico",  
+    label: "Archivo electrónico",  
     width: 145,  
     tipo: "select",  
-    opciones: ["", "SÃ­", "No"],  
+    opciones: ["", "Sí", "No"],  
   },  
   { key: "ocRelacionado", label: "OC relacionado", width: 135 },  
   {  
@@ -53,8 +53,8 @@ const COLUMNAS_MANUALES = [
     tipo: "select",  
     opciones: ["", "N", "T", "A", "R"],  
   },  
-  { key: "paginas", label: "PÃ¡ginas", width: 95, tipo: "number" },  
-  { key: "diasEsfuerzo", label: "DÃ­as esfuerzo", width: 120, tipo: "number" },  
+  { key: "paginas", label: "Páginas", width: 95, tipo: "number" },  
+  { key: "diasEsfuerzo", label: "Días esfuerzo", width: 120, tipo: "number" },  
   { key: "horasEsfuerzo", label: "Horas esfuerzo", width: 125, tipo: "number" },  
   {  
     key: "tiempoInvertido",  
@@ -65,7 +65,7 @@ const COLUMNAS_MANUALES = [
   { key: "fechaInicio", label: "Fecha inicio", width: 130, tipo: "date" },  
   {  
     key: "fechaFinalizacion",  
-    label: "Fecha finalizaciÃ³n",  
+    label: "Fecha finalización",  
     width: 145,  
     tipo: "date",  
   },  
@@ -94,7 +94,7 @@ const COLUMNAS_TRAMITES = [
   },
   {
     key: "fechaLimite",
-    label: "Fecha lÃ­mite",
+    label: "Fecha límite",
     width: 135,
     tipo: "date",
     calculado: true,
@@ -123,25 +123,25 @@ const COLUMNAS_TRAMITES = [
   },  
   {  
     key: "justificacionGestor",  
-    label: "JustificaciÃ³n en Gestor",  
+    label: "Justificación en Gestor",  
     width: 180,  
     tipo: "select",  
-    opciones: ["", "SÃ", "NO", "NO APLICA"],  
+    opciones: ["", "SÍ", "NO", "NO APLICA"],  
   },  
   { key: "fechaPublicado", label: "Fecha publicado", width: 130, tipo: "date" },  
   {  
     key: "versionTraducir",  
-    label: "VersiÃ³n para traducir agregada",  
+    label: "Versión para traducir agregada",  
     width: 210,  
     tipo: "select",  
-    opciones: ["", "SÃ", "NO", "NO APLICA"],  
+    opciones: ["", "SÍ", "NO", "NO APLICA"],  
   },  
   {  
     key: "justificacionIngles",  
-    label: "JustificaciÃ³n Gestor InglÃ©s",  
+    label: "Justificación Gestor Inglés",  
     width: 200,  
     tipo: "select",  
-    opciones: ["", "SÃ", "NO", "AÃšN NO SE HA TRADUCIDO", "NO APLICA"],  
+    opciones: ["", "SÍ", "NO", "AÚN NO SE HA TRADUCIDO", "NO APLICA"],  
   },  
   {  
     key: "listo",  
@@ -152,11 +152,11 @@ const COLUMNAS_TRAMITES = [
       "",  
       "PENDIENTE",  
       "PENDIENTE / NO SE VE EL CAMBIO",  
-      "PENDIENTE / FALTA INFORMACIÃ“N",  
-      "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÃ“N",  
-      "SOLO ESPAÃ‘OL / NO APLICA INGLÃ‰S",  
-      "SOLO ESPAÃ‘OL / FALTA INGLÃ‰S",  
-      "SOLO INGLÃ‰S",  
+      "PENDIENTE / FALTA INFORMACIÓN",  
+      "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN",  
+      "SOLO ESPAÑOL / NO APLICA INGLÉS",  
+      "SOLO ESPAÑOL / FALTA INGLÉS",  
+      "SOLO INGLÉS",  
       "AMBOS IDIOMAS",  
     ],  
   },  
@@ -172,24 +172,24 @@ const COLUMNAS_VERSIONES = [
     tipo: "select",  
     opciones: ["SISCARD", "siscard+"],  
   },  
-  { key: "codigo", label: "CÃ³digo", width: 125 },  
+  { key: "codigo", label: "Código", width: 125 },  
   { key: "manual", label: "Manual", width: 280 },  
   {  
     key: "idioma",  
     label: "Idioma",  
     width: 110,  
     tipo: "select",  
-    opciones: ["EspaÃ±ol", "InglÃ©s"],  
+    opciones: ["Español", "Inglés"],  
   },  
-  { key: "numero", label: "VersiÃ³n disponible", width: 145 },  
-  { key: "ubicacionEService", label: "UbicaciÃ³n en E-service", width: 190 },  
-  { key: "fecha", label: "Fecha de versiÃ³n", width: 135, tipo: "date" },  
+  { key: "numero", label: "Versión disponible", width: 145 },  
+  { key: "ubicacionEService", label: "Ubicación en E-service", width: 190 },  
+  { key: "fecha", label: "Fecha de versión", width: 135, tipo: "date" },  
   {  
     key: "estado",  
     label: "Estado",  
     width: 130,  
     tipo: "select",  
-    opciones: ["Disponible", "Pendiente", "En revisiÃ³n", "Obsoleta"],  
+    opciones: ["Disponible", "Pendiente", "En revisión", "Obsoleta"],  
   },  
   {  
     key: "observaciones",  
@@ -213,8 +213,8 @@ function estadoInicial() {
         id: id("manual"),  
         codigo: "MAN001",  
         titulo: "Manual de prueba",  
-        idioma: "EspaÃ±ol",  
-        archivoElectronico: "SÃ­",  
+        idioma: "Español",  
+        archivoElectronico: "Sí",  
         ocRelacionado: "",  
         prioridad: "Alta",  
         tipo: "N",  
@@ -231,12 +231,12 @@ function estadoInicial() {
       {  
         id: id("tramite"),  
         requerimiento: "REQ001",  
-        detalle: "TrÃ¡mite de prueba",  
+        detalle: "Trámite de prueba",  
         tipoGestion: "T",
         fechaIngreso: fechaISOHoy(),  
         fechaInicio: "",  
         manualActualizar: "Manual de prueba",  
-        temaGeneral: "ParÃ¡metros",  
+        temaGeneral: "Parámetros",  
         baAsignado: "",  
         consultas: "",  
         respuestaConsulta: "",  
@@ -254,7 +254,7 @@ function estadoInicial() {
         sistema: "SISCARD",  
         codigo: "MAN001",  
         manual: "Manual de prueba",  
-        idioma: "EspaÃ±ol",  
+        idioma: "Español",  
         numero: "1.0",  
         ubicacionEService: "",  
         fecha: fechaISOHoy(),  
@@ -298,14 +298,14 @@ function normalizarEstadoCargado(datos) {
 async function cargarEstado() {
   try {
     if (!window.KirisStorage?.cargarPublicado) {
-      throw new Error("El mÃ³dulo storage.js no estÃ¡ disponible.");
+      throw new Error("El módulo storage.js no está disponible.");
     }
     const publicado = await window.KirisStorage.cargarPublicado();
     const estadoPublicado = normalizarEstadoCargado(publicado);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(estadoPublicado));
     return estadoPublicado;
   } catch (errorPublicado) {
-    console.error("No fue posible cargar data.json. Se intentarÃ¡ recuperar la copia local.", errorPublicado);
+    console.error("No fue posible cargar data.json. Se intentará recuperar la copia local.", errorPublicado);
     try {
       const guardado = JSON.parse(localStorage.getItem(STORAGE_KEY));
       if (guardado && typeof guardado === "object") {
@@ -423,7 +423,7 @@ function normalizar(valor) {
 function normalizarEstadoListo(valor) {  
   const texto = String(valor ?? "")  
     .trim()  
-    .replace(/AMBOS\s*[ÃI]\s*IDIOMAS/gi, "AMBOS IDIOMAS");  
+    .replace(/AMBOS\s*[ÍI]\s*IDIOMAS/gi, "AMBOS IDIOMAS");  
   return texto;  
 }  
  
@@ -474,7 +474,7 @@ function actualizarEstadoGuardado() {
       ? new Date(estado.ultimaCopia).toLocaleString("es-CR")  
       : "Sin guardado registrado";  
   if (estadoTexto) {
-    estadoTexto.textContent = "Fuente oficial: data.json Â· copia local de recuperaciÃ³n activa";
+    estadoTexto.textContent = "Fuente oficial: data.json · copia local de recuperación activa";
   }  
 }  
  
@@ -561,8 +561,8 @@ function diasEstimadosTramite(tramite) {
   return 0;
 }
 function tiempoEstimadoTramite(tramite) {
-  if (tramite.tipoGestion === "T") return "2 meses (40 dÃ­as hÃ¡biles)";
-  if (tramite.tipoGestion === "R") return "3 semanas (15 dÃ­as hÃ¡biles)";
+  if (tramite.tipoGestion === "T") return "2 meses (40 días hábiles)";
+  if (tramite.tipoGestion === "R") return "3 semanas (15 días hábiles)";
   return "";
 }
 function fechaLimiteTramite(tramite) {
@@ -584,10 +584,10 @@ function informacionCumplimientoTramite(tramite) {
   const restantes = contarDiasHabiles(hoy, limite);
   if (hoy > limite) return { texto: "Tarde", clase: "cumplimiento-tarde" };
   if (restantes <= 5) return {
-    texto: restantes === 0 ? "Vence hoy" : `PrÃ³ximo Â· ${restantes} dÃ­a(s) hÃ¡bil(es)`,
+    texto: restantes === 0 ? "Vence hoy" : `Próximo · ${restantes} día(s) hábil(es)`,
     clase: "cumplimiento-proximo",
   };
-  return { texto: `En tiempo Â· ${restantes} dÃ­a(s) hÃ¡bil(es)`, clase: "cumplimiento-en-tiempo" };
+  return { texto: `En tiempo · ${restantes} día(s) hábil(es)`, clase: "cumplimiento-en-tiempo" };
 }
 
 function valorVisible(objeto, columna) {  
@@ -701,7 +701,7 @@ function copiarRegistro(tipoEntidad, registroId) {
   const coleccion = estado[tipoEntidad];
 
   if (!Array.isArray(coleccion)) {
-    mostrarToast("No fue posible localizar la colecciÃ³n.");
+    mostrarToast("No fue posible localizar la colección.");
     return;
   }
 
@@ -770,14 +770,14 @@ function renderManuales() {
               if (columna.especial === "seleccion")  
                 return `<td style="${oculto}"><input class="seleccion-manual" type="checkbox" data-id="${manual.id}"></td>`;  
               if (columna.especial === "orden")  
-                return `<td class="numero-manual" style="${oculto}"><span class="numero-manual-valor">${estado.manuales.findIndex((item) => item.id === manual.id) + 1}</span><button class="drag-handle drag-manual" type="button" draggable="true" data-id="${manual.id}" title="Arrastrar para reordenar" aria-label="Mover fila ${estado.manuales.findIndex((item) => item.id === manual.id) + 1}">â‹®â‹®</button></td>`;  
+                return `<td class="numero-manual" style="${oculto}"><span class="numero-manual-valor">${estado.manuales.findIndex((item) => item.id === manual.id) + 1}</span><button class="drag-handle drag-manual" type="button" draggable="true" data-id="${manual.id}" title="Arrastrar para reordenar" aria-label="Mover fila ${estado.manuales.findIndex((item) => item.id === manual.id) + 1}">⋮⋮</button></td>`;  
               if (columna.especial === "acciones")  
-                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-manual="${manual.id}" title="Editar registro" aria-label="Editar registro">âœï¸</button> <button class="btn-icon editor-only" type="button" data-copiar-manual="${manual.id}" title="Copiar registro" aria-label="Copiar registro">ðŸ“‹</button></td>`;  
+                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-manual="${manual.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-manual="${manual.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
               return `<td style="${oculto}">${campoCelda(manual, columna, "manuales")}</td>`;  
             }).join("")}</tr>`,  
         )  
         .join("")  
-    : `<tr><td class="empty-state" colspan="${COLUMNAS_MANUALES.length}">No se encontraron manuales que coincidan con la bÃºsqueda.</td></tr>`;  
+    : `<tr><td class="empty-state" colspan="${COLUMNAS_MANUALES.length}">No se encontraron manuales que coincidan con la búsqueda.</td></tr>`;  
   enlazarEdicionTabla($("tbodyManuales"));  
   $("seleccionarTodos_manuales")?.addEventListener("change", (e) =>  
     document.querySelectorAll(".seleccion-manual").forEach((c) => {  
@@ -825,12 +825,12 @@ function renderTramites() {
               if (columna.especial === "seleccion")  
                 return `<td style="${oculto}"><input class="seleccion-tramite" type="checkbox" data-id="${tramite.id}"></td>`;  
               if (columna.especial === "acciones")  
-                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-tramite="${tramite.id}" title="Editar registro" aria-label="Editar registro">âœï¸</button> <button class="btn-icon editor-only" type="button" data-copiar-tramite="${tramite.id}" title="Copiar registro" aria-label="Copiar registro">ðŸ“‹</button></td>`;  
+                return `<td style="${oculto};white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-tramite="${tramite.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-tramite="${tramite.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
               return `<td style="${oculto}">${campoCelda(tramite, columna, "tramites")}</td>`;  
             }).join("")}</tr>`,  
         )  
         .join("")  
-    : `<tr><td class="empty-state" colspan="${COLUMNAS_TRAMITES.length}">No se encontraron trÃ¡mites que coincidan con la bÃºsqueda.</td></tr>`;  
+    : `<tr><td class="empty-state" colspan="${COLUMNAS_TRAMITES.length}">No se encontraron trámites que coincidan con la búsqueda.</td></tr>`;  
   enlazarEdicionTabla($("tbodyTramites"));  
   $("seleccionarTodos_tramites")?.addEventListener("change", (e) =>  
     document.querySelectorAll(".seleccion-tramite").forEach((c) => {  
@@ -872,12 +872,12 @@ function renderVersiones() {
               if (columna.especial === "seleccion")  
                 return `<td><input class="seleccion-version" type="checkbox" data-id="${version.id}"></td>`;  
               if (columna.especial === "acciones")  
-                return `<td style="white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-version="${version.id}" title="Editar registro" aria-label="Editar registro">âœï¸</button> <button class="btn-icon editor-only" type="button" data-copiar-version="${version.id}" title="Copiar registro" aria-label="Copiar registro">ðŸ“‹</button></td>`;  
+                return `<td style="white-space:nowrap"><button class="btn-icon editor-only" type="button" data-editar-version="${version.id}" title="Editar registro" aria-label="Editar registro">✏️</button> <button class="btn-icon editor-only" type="button" data-copiar-version="${version.id}" title="Copiar registro" aria-label="Copiar registro">📋</button></td>`;  
               return `<td>${campoCelda(version, columna, "versiones")}</td>`;  
             }).join("")}</tr>`,  
         )  
         .join("")  
-    : `<tr><td class="empty-state" colspan="${COLUMNAS_VERSIONES.length}">No se encontraron versiones que coincidan con la bÃºsqueda.</td></tr>`;  
+    : `<tr><td class="empty-state" colspan="${COLUMNAS_VERSIONES.length}">No se encontraron versiones que coincidan con la búsqueda.</td></tr>`;  
   enlazarEdicionTabla($("tbodyVersiones"));  
   $("seleccionarTodos_versiones")?.addEventListener("change", (e) =>  
     document.querySelectorAll(".seleccion-version").forEach((c) => {  
@@ -920,10 +920,10 @@ function renderResumenVersiones() {
       normalizar(v.idioma) === "espanol",  
   ).length;  
   $("resumenVersiones").innerHTML = [  
-    ["Total en InglÃ©s", ingles],  
-    ["Total en EspaÃ±ol", espanol],  
-    ["Total siscard+ InglÃ©s", siscardPlusIngles],  
-    ["Total siscard+ EspaÃ±ol", siscardPlusEspanol],  
+    ["Total en Inglés", ingles],  
+    ["Total en Español", espanol],  
+    ["Total siscard+ Inglés", siscardPlusIngles],  
+    ["Total siscard+ Español", siscardPlusEspanol],  
   ]  
     .map(  
       ([label, value]) =>  
@@ -1091,7 +1091,7 @@ function resumenCalendarioManual(manual) {
     `Manual: ${manual.codigo || ""} - ${manual.titulo || ""}`,  
     `Tipo: ${manual.tipo || ""}`,  
     `Fecha de inicio: ${manual.fechaInicio || ""}`,  
-    `Fecha de finalizaciÃ³n: ${manual.fechaFinalizacion || manual.fechaPublicado || ""}`,  
+    `Fecha de finalización: ${manual.fechaFinalizacion || manual.fechaPublicado || ""}`,  
     `Tiempo invertido: ${horas.toFixed(2)} h`,  
     `Total de horas registradas: ${horas.toFixed(2)} h`,  
   ].join("\n");  
@@ -1131,7 +1131,7 @@ function renderBitacora() {
     fechaBitacora,  
   );  
   $("tituloBitacora").textContent =  
-    `BitÃ¡cora Â· ${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`;  
+    `Bitácora · ${MESES[fechaBitacora.getMonth()]} ${fechaBitacora.getFullYear()}`;  
   const dias = matrizMes(fechaBitacora);  
   $("calendarioBitacora").innerHTML =  
     DIAS.map((d) => `<div class="calendario-encabezado">${d}</div>`).join("") +  
@@ -1142,8 +1142,8 @@ function renderBitacora() {
         const horas = registros.reduce((t, r) => t + Number(r.horas || 0), 0);  
         return `<div class="calendario-dia ${dia.getMonth() !== fechaBitacora.getMonth() ? "fuera-mes" : ""}" data-bitacora-fecha="${iso}">       
             <div class="calendario-numero">${dia.getDate()}</div>       
-            ${registros.map((r) => `<div class="calendario-evento tipo-${normalizar(r.tipo)}" data-registro-id="${r.id}" title="${escaparHTML(`Manual: ${r.manual || ""}\nTipo: ${r.tipo || ""}\nHora inicio: ${r.horaInicio || ""}\nHora fin: ${r.horaFin || ""}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPÃ¡ginas: ${r.paginas ?? ""}\nDetalle: ${r.detalle || ""}`)}">${escaparHTML(r.manual)} Â· ${Number(r.horas || 0).toFixed(2)} h</div>`).join("")}       
-            <div class="bitacora-resumen-dia">${registros.length ? `${registros.length} registro(s) Â· ${horas.toFixed(2)} h` : ""}</div>       
+            ${registros.map((r) => `<div class="calendario-evento tipo-${normalizar(r.tipo)}" data-registro-id="${r.id}" title="${escaparHTML(`Manual: ${r.manual || ""}\nTipo: ${r.tipo || ""}\nHora inicio: ${r.horaInicio || ""}\nHora fin: ${r.horaFin || ""}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPáginas: ${r.paginas ?? ""}\nDetalle: ${r.detalle || ""}`)}">${escaparHTML(r.manual)} · ${Number(r.horas || 0).toFixed(2)} h</div>`).join("")}       
+            <div class="bitacora-resumen-dia">${registros.length ? `${registros.length} registro(s) · ${horas.toFixed(2)} h` : ""}</div>       
         </div>`;  
       })  
       .join("");  
@@ -1240,7 +1240,7 @@ function renderDashboard() {
       )  
       .join("") || `<div class="empty-state">Sin registros para el mes.</div>`;  
   $("estrategiaSemanal").innerHTML =  
-    `<p><strong>Lunes, martes y jueves:</strong> traducciones, actualizaciones y manuales nuevos.</p><p><strong>MiÃ©rcoles:</strong> requerimientos.</p>`;  
+    `<p><strong>Lunes, martes y jueves:</strong> traducciones, actualizaciones y manuales nuevos.</p><p><strong>Miércoles:</strong> requerimientos.</p>`;  
   $("analisisTipos").innerHTML = ["N", "T", "A", "R"]  
     .map(  
       (tipo) =>  
@@ -1300,7 +1300,7 @@ function abrirDiasPorTarea() {
   if (!(estado.ciclo || []).length) return mostrarToast("Primero importe export.xlsx");
   const filas = filasDiasPorTarea();
   const datos = JSON.stringify(filas).replace(/</g, "\\u003c");
-  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>DÃ­as hÃ¡biles por tarea</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:#fff;padding:16px 22px}.wrap{margin:14px;overflow:auto;background:#fff}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:12px}th{background:#666;color:#fff;position:sticky;top:0}</style></head><body><header><h2>DÃ­as hÃ¡biles por tarea</h2></header><div class="wrap"><table><thead><tr><th>DÃ­as</th><th>Change #</th><th>Change Category</th><th>Seq</th><th>Task Status</th><th>Start Date</th><th>Comp Date</th></tr></thead><tbody id="body"></tbody></table></div><script>const filas=${datos};const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");body.innerHTML=filas.map(x=>` + "`" + `<tr><td>${x.dias}</td><td>${esc(x.cambio)}</td><td>${esc(x.categoria)}</td><td>${esc(x.secuencia)}</td><td>${esc(x.estadoTarea)}</td><td>${esc(x.inicio)}</td><td>${esc(x.fin)}</td></tr>` + "`" + `).join("");<\/script></body></html>`;
+  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Días hábiles por tarea</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:#fff;padding:16px 22px}.wrap{margin:14px;overflow:auto;background:#fff}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:12px}th{background:#666;color:#fff;position:sticky;top:0}</style></head><body><header><h2>Días hábiles por tarea</h2></header><div class="wrap"><table><thead><tr><th>Días</th><th>Change #</th><th>Change Category</th><th>Seq</th><th>Task Status</th><th>Start Date</th><th>Comp Date</th></tr></thead><tbody id="body"></tbody></table></div><script>const filas=${datos};const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");body.innerHTML=filas.map(x=>` + "`" + `<tr><td>${x.dias}</td><td>${esc(x.cambio)}</td><td>${esc(x.categoria)}</td><td>${esc(x.secuencia)}</td><td>${esc(x.estadoTarea)}</td><td>${esc(x.inicio)}</td><td>${esc(x.fin)}</td></tr>` + "`" + `).join("");<\/script></body></html>`;
   const ventana = open("", "_blank");
   if (!ventana) return mostrarToast("Permita ventanas emergentes para ver el detalle");
   ventana.document.write(html);
@@ -1316,7 +1316,7 @@ function renderCiclo() {
     const fin = fechaCampoCiclo(valorCampoCiclo(registro, ["Comp Date"]));
     const dias = diasHabilesEntreCiclo(inicio, fin);
     if (dias === null) return;
-    const categoria = String(valorCampoCiclo(registro, ["Change Category"]) || "Sin categorÃ­a");
+    const categoria = String(valorCampoCiclo(registro, ["Change Category"]) || "Sin categoría");
     (grupos[categoria] ||= []).push(dias);
     totalValidos += 1;
   });
@@ -1326,10 +1326,10 @@ function renderCiclo() {
     cantidad: valores.length,
   }));
   if ($("pendingTasksCount")) $("pendingTasksCount").textContent = pendientes;
-  $("resumenDashboardCiclo").innerHTML = `<div class="small-note">${totalValidos} registros con Start Date y Comp Date vÃ¡lidos</div>`;
+  $("resumenDashboardCiclo").innerHTML = `<div class="small-note">${totalValidos} registros con Start Date y Comp Date válidos</div>`;
   const max = Math.max(1, ...resumen.map((item) => item.promedio));
   $("graficoDashboardCiclo").innerHTML = resumen.map((item) =>
-    `<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${escaparHTML(item.tipo)}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${(item.promedio / max) * 100}%"></div></div><div class="dashboard-cycle-meta">${item.promedio.toFixed(1)} dÃ­as</div></div>`,
+    `<div class="dashboard-cycle-row"><div class="dashboard-cycle-label">${escaparHTML(item.tipo)}</div><div class="dashboard-cycle-bar-wrap"><div class="dashboard-cycle-bar" style="width:${(item.promedio / max) * 100}%"></div></div><div class="dashboard-cycle-meta">${item.promedio.toFixed(1)} días</div></div>`,
   ).join("") || `<div class="empty-state">Importe datos de ciclo para visualizar resultados.</div>`;
 }
 
@@ -1404,7 +1404,7 @@ function abrirTramite(tramiteId = "") {
   const t = estado.tramites.find((x) => x.id === tramiteId);  
   $("tramiteForm").reset();  
   $("tramiteId").value = t?.id || "";  
-  $("tramiteFormTitle").textContent = t ? "Editar trÃ¡mite" : "Nuevo trÃ¡mite";  
+  $("tramiteFormTitle").textContent = t ? "Editar trámite" : "Nuevo trámite";  
   const mapa = {  
     Requerimiento: "requerimiento",  
     Detalle: "detalle",  
@@ -1452,7 +1452,7 @@ function guardarTramiteFormulario(evento) {
   const indice = estado.tramites.findIndex((x) => x.id === existenteId);  
   if (indice >= 0) estado.tramites[indice] = datos;  
   else estado.tramites.unshift(datos);  
-  guardarEstado("TrÃ¡mite guardado");  
+  guardarEstado("Trámite guardado");  
   cerrarPantalla("tramiteScreen");  
   renderTramites();  
 }  
@@ -1471,8 +1471,8 @@ function abrirBitacora(registroId = "", fecha = fechaISOHoy()) {
   $("bitacoraForm").reset();  
   $("bitacoraId").value = r?.id || "";  
   $("bitacoraFormTitle").textContent = r  
-    ? "Editar registro de BitÃ¡cora"  
-    : "Registro de BitÃ¡cora";  
+    ? "Editar registro de Bitácora"  
+    : "Registro de Bitácora";  
   $("bitacoraFecha").value = r?.fecha || fecha;  
   $("bitacoraManual").value = r?.manual || "";  
   $("bitacoraTipo").value = r?.tipo || "";  
@@ -1489,11 +1489,11 @@ function abrirVersion(versionId = "") {
   const v = estado.versiones.find((x) => x.id === versionId);  
   $("versionForm").reset();  
   $("versionId").value = v?.id || "";  
-  $("versionFormTitle").textContent = v ? "Editar versiÃ³n" : "Agregar versiÃ³n";  
+  $("versionFormTitle").textContent = v ? "Editar versión" : "Agregar versión";  
   $("versionSistema").value = v?.sistema || "SISCARD";  
   $("versionCodigo").value = v?.codigo || "";  
   $("versionManual").value = v?.manual || "";  
-  $("versionIdioma").value = v?.idioma || "EspaÃ±ol";  
+  $("versionIdioma").value = v?.idioma || "Español";  
   $("versionNumero").value = v?.numero || "";  
   $("versionUbicacionEService").value = v?.ubicacionEService || "";  
   $("versionFecha").value = v?.fecha || "";  
@@ -1520,7 +1520,7 @@ function guardarVersionFormulario(evento) {
   const indice = estado.versiones.findIndex((x) => x.id === existenteId);  
   if (indice >= 0) estado.versiones[indice] = datos;  
   else estado.versiones.unshift(datos);  
-  guardarEstado("VersiÃ³n guardada");  
+  guardarEstado("Versión guardada");  
   cerrarPantalla("versionScreen");  
   renderVersiones();  
 }  
@@ -1632,7 +1632,7 @@ function exportarTramitesExcel() {
 function exportarVersionesExcel() { 
   try { 
     if (typeof XLSX === "undefined") { 
-      throw new Error("No se cargÃ³ la librerÃ­a de Excel"); 
+      throw new Error("No se cargó la librería de Excel"); 
     } 
  
     const columnas = COLUMNAS_VERSIONES.filter( 
@@ -1676,7 +1676,7 @@ function ajustarHojaReporte(hoja, datos) {
 }
 
 function agregarHojaReporte(libro, nombre, datos) {
-  const filas = datos.length ? datos : [{ InformaciÃ³n: "Sin registros" }];
+  const filas = datos.length ? datos : [{ Información: "Sin registros" }];
   const hoja = XLSX.utils.json_to_sheet(filas);
   ajustarHojaReporte(hoja, filas);
   XLSX.utils.book_append_sheet(libro, hoja, nombre);
@@ -1685,36 +1685,36 @@ function agregarHojaReporte(libro, nombre, datos) {
 function generarReporteCompletoExcel() {
   try {
     if (typeof XLSX === "undefined") {
-      throw new Error("No se cargÃ³ la librerÃ­a de Excel");
+      throw new Error("No se cargó la librería de Excel");
     }
 
     const libro = XLSX.utils.book_new();
     const manuales = (estado.manuales || []).map((manual, indice) => ({
       "#": indice + 1,
-      CÃ³digo: manual.codigo ?? "",
-      TÃ­tulo: manual.titulo ?? "",
+      Código: manual.codigo ?? "",
+      Título: manual.titulo ?? "",
       Idioma: manual.idioma ?? "",
-      "Archivo electrÃ³nico": manual.archivoElectronico ?? "",
+      "Archivo electrónico": manual.archivoElectronico ?? "",
       "OC relacionado": manual.ocRelacionado ?? "",
       Prioridad: manual.prioridad ?? "",
       Tipo: manual.tipo ?? "",
-      PÃ¡ginas: Number(manual.paginas || 0),
-      "DÃ­as esfuerzo": Number(manual.diasEsfuerzo || 0),
+      Páginas: Number(manual.paginas || 0),
+      "Días esfuerzo": Number(manual.diasEsfuerzo || 0),
       "Horas esfuerzo": Number(manual.horasEsfuerzo || 0),
       "Tiempo invertido": Number(horasBitacoraManual(manual).toFixed(2)),
       "Fecha inicio": manual.fechaInicio ?? "",
-      "Fecha finalizaciÃ³n": manual.fechaFinalizacion ?? "",
+      "Fecha finalización": manual.fechaFinalizacion ?? "",
       "Fecha publicado": manual.fechaPublicado ?? "",
       Estado: calcularEstadoManual(manual),
     }));
 
     const calendario = (estado.manuales || []).map((manual) => ({
-      CÃ³digo: manual.codigo ?? "",
+      Código: manual.codigo ?? "",
       Manual: manual.titulo ?? "",
       Tipo: manual.tipo ?? "",
       "Fecha inicio": manual.fechaInicio ?? "",
-      "Fecha finalizaciÃ³n": manual.fechaFinalizacion ?? "",
-      "Fecha publicaciÃ³n": manual.fechaPublicado ?? "",
+      "Fecha finalización": manual.fechaFinalizacion ?? "",
+      "Fecha publicación": manual.fechaPublicado ?? "",
       Estado: calcularEstadoManual(manual),
       "Horas registradas": Number(horasBitacoraManual(manual).toFixed(2)),
     }));
@@ -1726,7 +1726,7 @@ function generarReporteCompletoExcel() {
       "Hora inicio": registro.horaInicio ?? "",
       "Hora fin": registro.horaFin ?? "",
       Horas: Number(registro.horas || 0),
-      PÃ¡ginas: Number(registro.paginas || 0),
+      Páginas: Number(registro.paginas || 0),
       "Datos adicionales": registro.detalle ?? "",
     }));
 
@@ -1786,9 +1786,9 @@ function generarReporteCompletoExcel() {
 
     agregarHojaReporte(libro, "Avance Manuales", manuales);
     agregarHojaReporte(libro, "Calendario", calendario);
-    agregarHojaReporte(libro, "BitÃ¡cora", bitacora);
+    agregarHojaReporte(libro, "Bitácora", bitacora);
     agregarHojaReporte(libro, "Dashboard", dashboard);
-    agregarHojaReporte(libro, "TrÃ¡mites", tramites);
+    agregarHojaReporte(libro, "Trámites", tramites);
     agregarHojaReporte(libro, "Control Versiones", versiones);
 
     XLSX.writeFile(libro, `Reporte_KIRIS_${fechaISOHoy()}.xlsx`);
@@ -1882,7 +1882,7 @@ function renderComentarios() {
     estado.comentarios  
       .map(  
         (c) =>  
-          `<article class="feedback-card"><div class="feedback-card-title">${escaparHTML(c.seccion)}</div><div class="feedback-card-meta">${escaparHTML(c.nombre)} Â· ${new Date(c.fecha).toLocaleString("es-CR")}</div><div>${escaparHTML(c.comentario)}</div></article>`,  
+          `<article class="feedback-card"><div class="feedback-card-title">${escaparHTML(c.seccion)}</div><div class="feedback-card-meta">${escaparHTML(c.nombre)} · ${new Date(c.fecha).toLocaleString("es-CR")}</div><div>${escaparHTML(c.comentario)}</div></article>`,  
       )  
       .join("") || `<div class="empty-state">Sin comentarios.</div>`;  
 }  
@@ -1988,10 +1988,10 @@ async function importarCSV(tipo, archivo) {
         return obj;  
       })  
       .filter((o) => utiles.some((c) => String(o[c.key] ?? "").trim() !== ""));  
-    if (!nuevos.length) throw new Error("No se encontraron filas vÃ¡lidas");  
+    if (!nuevos.length) throw new Error("No se encontraron filas válidas");  
     if (  
       confirm(  
-        `Â¿Reemplazar los registros de ${tipo}?\nAceptar = reemplazar. Cancelar = agregar.`,  
+        `¿Reemplazar los registros de ${tipo}?\nAceptar = reemplazar. Cancelar = agregar.`,  
       )  
     )  
       estado[tipo] = nuevos;  
@@ -2041,8 +2041,8 @@ async function importarRespaldoCompleto(archivo) {
       respaldo?.tipo === "KIRIS_V2_RESPALDO_COMPLETO"  
         ? respaldo.datos  
         : respaldo;  
-    if (!origen || typeof origen !== "object") throw new Error("JSON invÃ¡lido");  
-    if (!confirm("Â¿Reemplazar toda la informaciÃ³n actual con este respaldo?"))  
+    if (!origen || typeof origen !== "object") throw new Error("JSON inválido");  
+    if (!confirm("¿Reemplazar toda la información actual con este respaldo?"))  
       return;  
     const config = origen.configuracion || {};  
     estado = {  
@@ -2085,7 +2085,7 @@ function crearPaquetePublicado() {
 
 async function guardarYPublicarCambios() {
   const boton = $("btnGuardarNube");
-  const textoOriginal = boton?.textContent || "ðŸ’¾ Guardar y publicar";
+  const textoOriginal = boton?.textContent || "💾 Guardar y publicar";
 
   try {
     if (boton) {
@@ -2096,13 +2096,13 @@ async function guardarYPublicarCambios() {
     guardarEstado("");
 
     if (!window.KirisStorage?.publicar) {
-      throw new Error("El mÃ³dulo storage.js no estÃ¡ disponible");
+      throw new Error("El módulo storage.js no está disponible");
     }
 
     const paquete = crearPaquetePublicado();
     await window.KirisStorage.publicar(paquete);
     localStorage.setItem(PUBLISHED_KEY, JSON.stringify(paquete));
-    mostrarToast("InformaciÃ³n guardada y publicada en el visor");
+    mostrarToast("Información guardada y publicada en el visor");
   } catch (error) {
     console.error(error);
     mostrarToast(error.message || "No fue posible guardar y publicar");
@@ -2278,7 +2278,7 @@ function mostrarDeshacerEliminacion(tipo, eliminados, indices) {
   const t = document.createElement("div");  
   t.id = "undoToastKiris";  
   t.className = "undo-toast";  
-  t.innerHTML = `<span>${eliminados.length} registro(s) eliminado(s)</span><button type="button">â†© Deshacer eliminaciÃ³n</button><div class="undo-progress"></div>`;  
+  t.innerHTML = `<span>${eliminados.length} registro(s) eliminado(s)</span><button type="button">↩ Deshacer eliminación</button><div class="undo-progress"></div>`;  
   document.body.appendChild(t);  
   const token = Date.now();  
   eliminacionPendiente = { token, tipo, eliminados, indices };  
@@ -2290,7 +2290,7 @@ function mostrarDeshacerEliminacion(tipo, eliminados, indices) {
     guardarEstado("");  
     renderEntidad(tipo);  
     t.remove();  
-    mostrarToast("EliminaciÃ³n deshecha");  
+    mostrarToast("Eliminación deshecha");  
   };  
   setTimeout(() => {  
     if (eliminacionPendiente?.token === token) eliminacionPendiente = null;  
@@ -2310,7 +2310,7 @@ function eliminarSeleccionados(tipo) {
   if (!ids.length) return mostrarToast("No hay registros seleccionados");  
   if (  
     !confirm(  
-      `Â¿Eliminar ${ids.length} registro(s)? PodrÃ¡ deshacerse durante 5 segundos.`,  
+      `¿Eliminar ${ids.length} registro(s)? Podrá deshacerse durante 5 segundos.`,  
     )  
   )  
     return;  
@@ -2340,7 +2340,7 @@ function valoresUnicos(tipo, columna) {
   return [  
     ...new Set(  
       estado[tipo].map(  
-        (o) => String(valorVisible(o, columna) ?? "").trim() || "(VacÃ­o)",  
+        (o) => String(valorVisible(o, columna) ?? "").trim() || "(Vacío)",  
       ),  
     ),  
   ].sort((a, b) =>  
@@ -2356,7 +2356,7 @@ function cumpleFiltros(objeto, tipo, columnas) {
       return normalizar(valor).includes(normalizar(config));  
     const texto = config.texto || "";  
     const selecciones = config.valores || [];  
-    const mostrado = valor.trim() || "(VacÃ­o)";  
+    const mostrado = valor.trim() || "(Vacío)";  
     return (  
       (!texto || normalizar(valor).includes(normalizar(texto))) &&  
       (!selecciones.length || selecciones.includes(mostrado))  
@@ -2421,7 +2421,7 @@ function opcionesFiltroInline(tipo, columna) {
           columna.key === "listo"  
             ? normalizarEstadoListo(valorVisible(fila, columna))  
             : valorVisible(fila, columna);  
-        return String(valor).trim() || "(VacÃ­o)";  
+        return String(valor).trim() || "(Vacío)";  
       }),  
     ),  
   ].sort((a, b) => a.localeCompare(b, "es", { numeric: true }));  
@@ -2663,7 +2663,7 @@ document.addEventListener("click", () =>
 /* Lectura de los XLSX adjuntos */  
 async function leerLibroXLSX(archivo) {  
   if (typeof XLSX === "undefined")  
-    throw new Error("No se cargÃ³ el lector de Excel");  
+    throw new Error("No se cargó el lector de Excel");  
   const data = new Uint8Array(await archivo.arrayBuffer());  
   return XLSX.read(data, { type: "array", cellDates: true });  
 }  
@@ -2674,56 +2674,110 @@ function fechaXLSX(v) {
     ? ""  
     : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;  
 }  
-async function importarControlVersionesXLSX(archivo) {  
-  if (!archivo) return;  
-  try {  
-    const wb = await leerLibroXLSX(archivo),  
-      nuevos = [];  
-    wb.SheetNames.forEach((nombre) => {  
-      const idioma = normalizar(nombre).includes("ingles")  
-        ? "InglÃ©s"  
-        : normalizar(nombre).includes("espanol")  
-          ? "EspaÃ±ol"  
-          : "";  
-      if (!idioma) return;  
-      const filas = XLSX.utils.sheet_to_json(wb.Sheets[nombre], {  
-        header: 1,  
-        defval: "",  
-      });  
-      filas.slice(1).forEach((f) => {  
-        const codigo = String(f[0] || "").trim(),  
-          manual = String(f[1] || "").trim();  
-        if (!codigo.startsWith("UEO-") || !manual) return;  
-        nuevos.push({  
-          id: id("version"),  
-          sistema: /siscard\s*\+|siscardplus/i.test(manual)  
-            ? "siscard+"  
-            : "SISCARD",  
-          codigo,  
-          manual,  
-          idioma,  
-          numero: String(f[2] ?? "").trim() || "0",  
-          fecha: "",  
-          estado: "Disponible",  
-          observaciones: "",  
-        });  
-      });  
-    });  
-    if (!nuevos.length) throw new Error("No se encontraron filas vÃ¡lidas");  
-    if (  
-      confirm(  
-        "Â¿Reemplazar el Control de Versiones actual?\nAceptar = reemplazar. Cancelar = agregar.",  
-      )  
-    )  
-      estado.versiones = nuevos;  
-    else estado.versiones.push(...nuevos);  
-    guardarEstado(`${nuevos.length} versiones importadas`);  
-    renderVersiones();  
-  } catch (e) {  
-    console.error(e);  
-    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);  
-  }  
-}  
+async function importarControlVersionesXLSX(archivo) {
+  if (!archivo) return;
+  try {
+    const wb = await leerLibroXLSX(archivo);
+    const nombreHoja =
+      wb.SheetNames.find(
+        (nombre) =>
+          normalizar(nombre).replace(/[^a-z0-9]/g, "") ===
+          "controlversiones",
+      ) || wb.SheetNames[0];
+
+    if (!nombreHoja) throw new Error("El archivo no contiene hojas");
+
+    const filas = XLSX.utils.sheet_to_json(wb.Sheets[nombreHoja], {
+      defval: "",
+      raw: false,
+      dateNF: "yyyy-mm-dd",
+    });
+
+    const obtenerValor = (fila, nombres) => {
+      const claves = Object.keys(fila || {});
+      const encabezadosBuscados = nombres.map(normalizarEncabezado);
+      const clave = claves.find((encabezado) =>
+        encabezadosBuscados.includes(normalizarEncabezado(encabezado)),
+      );
+      return clave === undefined ? "" : fila[clave];
+    };
+
+    const nuevos = filas
+      .map((fila) => {
+        const codigo = String(
+          obtenerValor(fila, ["Código", "Codigo"]),
+        ).trim();
+        const manual = String(obtenerValor(fila, ["Manual"])).trim();
+
+        if (!codigo && !manual) return null;
+
+        return {
+          id: id("version"),
+          sistema:
+            String(obtenerValor(fila, ["Sistema"])).trim() || "SISCARD",
+          codigo,
+          manual,
+          idioma:
+            String(obtenerValor(fila, ["Idioma"])).trim() || "Español",
+          numero: String(
+            obtenerValor(fila, [
+              "Versión disponible",
+              "Version disponible",
+              "Versión",
+              "Version",
+            ]),
+          ).trim(),
+          ubicacionEService: String(
+            obtenerValor(fila, [
+              "Ubicación en E-service",
+              "Ubicacion en E-service",
+              "Ubicación en Eservice",
+              "Ubicacion en Eservice",
+            ]),
+          ).trim(),
+          fecha: fechaXLSX(
+            obtenerValor(fila, [
+              "Fecha de versión",
+              "Fecha de version",
+              "Fecha",
+            ]),
+          ),
+          estado:
+            String(obtenerValor(fila, ["Estado"])).trim() || "Disponible",
+          observaciones: String(
+            obtenerValor(fila, ["Observaciones"]),
+          ).trim(),
+        };
+      })
+      .filter(Boolean);
+
+    if (!nuevos.length) {
+      throw new Error(
+        "No se encontraron filas válidas en el Excel de Control de Versiones",
+      );
+    }
+
+    nuevos.sort((a, b) =>
+      String(a.codigo || "").localeCompare(String(b.codigo || ""), "es", {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
+
+    estado.versiones = nuevos;
+    filtros.versiones = {};
+    ordenamientosVista.versiones = { columna: "codigo", sentido: 1 };
+    guardarEstado(`${nuevos.length} versiones importadas y reemplazadas`);
+    renderVersiones();
+    mostrarToast(
+      `Control de Versiones reemplazado con ${nuevos.length} registro(s)`,
+    );
+  } catch (e) {
+    console.error(e);
+    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);
+  }
+}
+
 async function importarDashboardProduccion(archivo) {  
   if (!archivo) return;  
   try {  
@@ -2733,7 +2787,7 @@ async function importarDashboardProduccion(archivo) {
     estado.ciclo = filas.map((original, i) => {  
       const start = original["Start Date"],  
         comp = original["Comp Date"],  
-        cat = String(original["Change Category"] || "Sin categorÃ­a"),  
+        cat = String(original["Change Category"] || "Sin categoría"),  
         a = start ? new Date(start) : null,  
         b = comp ? new Date(comp) : null,  
         dias =  
@@ -2748,7 +2802,7 @@ async function importarDashboardProduccion(archivo) {
         original,  
       };  
     });  
-    guardarEstado(`${estado.ciclo.length} registros de producciÃ³n importados`);  
+    guardarEstado(`${estado.ciclo.length} registros de producción importados`);  
     renderDashboard();  
   } catch (e) {  
     console.error(e);  
@@ -2762,7 +2816,7 @@ function abrirDetalleProduccion() {
   const data = JSON.stringify({ headers, rows }, (k, v) =>  
     v instanceof Date ? v.toISOString() : v,  
   ).replace(/</g, "\\u003c");  
-  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Detalle de producciÃ³n</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:white;padding:16px 22px}.bar{display:flex;gap:8px;padding:14px;align-items:center;position:sticky;top:0;background:#f3f3f3;z-index:5}.bar input{min-width:320px;padding:9px;border:1px solid #ccc;border-radius:8px}.bar button{padding:9px 12px;border:0;border-radius:8px;font-weight:700}.wrap{margin:0 14px 14px;overflow:auto;max-height:calc(100vh - 100px);background:white}table{border-collapse:collapse;width:max-content;min-width:100%;table-layout:fixed}th,td{border:1px solid #ddd;padding:7px;font-size:12px;vertical-align:top;white-space:normal;overflow-wrap:anywhere;word-break:break-word;min-width:150px;max-width:280px;line-height:1.4}thead tr:first-child th{position:sticky;top:0;background:#666;color:#fff;z-index:3}.filtros th{position:sticky;top:33px;background:#f7f7f7;z-index:2}.filtros input{min-width:125px;width:100%;box-sizing:border-box;padding:6px}</style></head><body><header><h2>Detalle de producciÃ³n</h2></header><div class="bar"><input id="global" placeholder="Buscar en toda la rÃ©plica"><button onclick="limpiar()">Limpiar filtros</button><span id="count"></span></div><div class="wrap"><table id="tabla"></table></div><script>const DATA=${data};function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}function render(){const activo=document.activeElement;  
+  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Detalle de producción</title><style>body{font-family:Segoe UI;margin:0;background:#f3f3f3;color:#333}header{background:#FF6C0C;color:white;padding:16px 22px}.bar{display:flex;gap:8px;padding:14px;align-items:center;position:sticky;top:0;background:#f3f3f3;z-index:5}.bar input{min-width:320px;padding:9px;border:1px solid #ccc;border-radius:8px}.bar button{padding:9px 12px;border:0;border-radius:8px;font-weight:700}.wrap{margin:0 14px 14px;overflow:auto;max-height:calc(100vh - 100px);background:white}table{border-collapse:collapse;width:max-content;min-width:100%;table-layout:fixed}th,td{border:1px solid #ddd;padding:7px;font-size:12px;vertical-align:top;white-space:normal;overflow-wrap:anywhere;word-break:break-word;min-width:150px;max-width:280px;line-height:1.4}thead tr:first-child th{position:sticky;top:0;background:#666;color:#fff;z-index:3}.filtros th{position:sticky;top:33px;background:#f7f7f7;z-index:2}.filtros input{min-width:125px;width:100%;box-sizing:border-box;padding:6px}</style></head><body><header><h2>Detalle de producción</h2></header><div class="bar"><input id="global" placeholder="Buscar en toda la réplica"><button onclick="limpiar()">Limpiar filtros</button><span id="count"></span></div><div class="wrap"><table id="tabla"></table></div><script>const DATA=${data};function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}function render(){const activo=document.activeElement;  
 const ciActivo=activo?.dataset?.i ?? null;  
 const valorActivo=activo?.value ?? "";  
 const posCursor=activo?.selectionStart ?? valorActivo.length;  
@@ -2782,7 +2836,7 @@ const g=global.value.toLowerCase(),
   w.document.close();  
 }  
  
-/* BitÃ¡cora: nombre visible y copia de un Ãºnico registro */  
+/* Bitácora: nombre visible y copia de un único registro */  
 function nombreManualBitacora(m) {  
   return `${m.codigo || ""} - ${m.titulo || ""}`.replace(  
     /^\s*-\s*|\s*-\s*$/g,  
@@ -2835,7 +2889,7 @@ function guardarBitacoraFormulario(evento) {
   const i = estado.bitacora.findIndex((x) => x.id === existenteId);  
   if (i >= 0) estado.bitacora[i] = datos;  
   else estado.bitacora.unshift(datos);  
-  guardarEstado("Registro de BitÃ¡cora guardado");  
+  guardarEstado("Registro de Bitácora guardado");  
   cerrarPantalla("bitacoraScreen");  
   renderTodo();  
 }  
@@ -2856,7 +2910,7 @@ function actualizarPreviewCopia() {
     (x) => x.id === $("registroOrigenCopia").value,  
   );  
   $("previewCopia").textContent = r  
-    ? `Manual: ${r.manual}\nTipo: ${r.tipo}\nHorario: ${r.horaInicio} - ${r.horaFin}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPÃ¡ginas: ${r.paginas || 0}\nDetalle: ${r.detalle || ""}`  
+    ? `Manual: ${r.manual}\nTipo: ${r.tipo}\nHorario: ${r.horaInicio} - ${r.horaFin}\nHoras: ${Number(r.horas || 0).toFixed(2)}\nPáginas: ${r.paginas || 0}\nDetalle: ${r.detalle || ""}`  
     : "No hay registros disponibles.";  
 }  
 function confirmarCopiaRegistro() {  
@@ -2938,7 +2992,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });  
 });  
  
-/* Mantener visible la fila de Manuales que estÃ¡ en trabajo */  
+/* Mantener visible la fila de Manuales que está en trabajo */  
 let manualActivoId = "";  
 document.addEventListener("focusin", (evento) => {  
   const fila = evento.target.closest?.("#tbodyManuales tr[data-id]");  
@@ -2962,10 +3016,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }).observe(cuerpo, { childList: true });  
 });  
  
-/* ===== KIRIS V5: mover a posiciÃ³n y ordenar por lÃ³gica de negocio ===== */  
+/* ===== KIRIS V5: mover a posición y ordenar por lógica de negocio ===== */  
  
-/* KIRIS V2: movimiento directo y ordenamiento por lÃ³gica de negocio.     
-   Cargar este archivo despuÃ©s de js/app.js. */  
+/* KIRIS V2: movimiento directo y ordenamiento por lógica de negocio.     
+   Cargar este archivo después de js/app.js. */  
 (() => {  
   const $id = (id) => document.getElementById(id);  
   const normalizarKiris = (valor) =>  
@@ -3088,9 +3142,9 @@ document.addEventListener("DOMContentLoaded", () => {
  
     menu.innerHTML = `     
             <div class="sort-menu-title">Ordenar por ${escaparHTML(columna.label)}</div>     
-            ${esLista ? `<div class="sort-menu-help">Se aplicarÃ¡ el orden lÃ³gico definido para esta columna:</div><ol class="sort-menu-values">${detalle}</ol>` : `<div class="sort-menu-help">Esta columna se ordena por su tipo de informaciÃ³n.</div>`}     
-            <button type="button" data-sort="normal">${esLista ? "Aplicar orden lÃ³gico" : columna.tipo === "date" ? "MÃ¡s antiguo a mÃ¡s reciente" : columna.tipo === "number" ? "Menor a mayor" : "A a Z"}</button>     
-            <button type="button" data-sort="reverse">${esLista ? "Aplicar orden lÃ³gico inverso" : columna.tipo === "date" ? "MÃ¡s reciente a mÃ¡s antiguo" : columna.tipo === "number" ? "Mayor a menor" : "Z a A"}</button>`;  
+            ${esLista ? `<div class="sort-menu-help">Se aplicará el orden lógico definido para esta columna:</div><ol class="sort-menu-values">${detalle}</ol>` : `<div class="sort-menu-help">Esta columna se ordena por su tipo de información.</div>`}     
+            <button type="button" data-sort="normal">${esLista ? "Aplicar orden lógico" : columna.tipo === "date" ? "Más antiguo a más reciente" : columna.tipo === "number" ? "Menor a mayor" : "A a Z"}</button>     
+            <button type="button" data-sort="reverse">${esLista ? "Aplicar orden lógico inverso" : columna.tipo === "date" ? "Más reciente a más antiguo" : columna.tipo === "number" ? "Mayor a menor" : "Z a A"}</button>`;  
  
     document.body.appendChild(menu);  
     const rect = boton.getBoundingClientRect();  
@@ -3131,7 +3185,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const boton = document.createElement("button");  
         boton.type = "button";  
         boton.className = "sort-arrow-kiris";  
-        boton.textContent = "â–¼";  
+        boton.textContent = "▼";  
         boton.title = `Reorganizar por ${columna.label}`;  
         boton.setAttribute("aria-label", `Reorganizar por ${columna.label}`);  
         boton.onclick = (evento) =>  
@@ -3210,7 +3264,7 @@ document.addEventListener("DOMContentLoaded", () => {
       fila.style.boxShadow = "inset 5px 0 0 #FF6C0C";  
     }  
     mostrarToast(  
-      "Fila copiada. Vaya al destino, haga clic derecho y seleccione Insertar fila copiada aquÃ­",  
+      "Fila copiada. Vaya al destino, haga clic derecho y seleccione Insertar fila copiada aquí",  
     );  
   }  
  
@@ -3223,7 +3277,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );  
     if (origen < 0 || destinoOriginal < 0) {  
       manualCopiadoParaMoverId = "";  
-      mostrarToast("La fila copiada ya no estÃ¡ disponible");  
+      mostrarToast("La fila copiada ya no está disponible");  
       return;  
     }  
     if (manualCopiadoParaMoverId === destinoId) {  
@@ -3272,7 +3326,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.appendChild(titulo);  
  
     const copiar = botonMenuFilaKiris(  
-      "ðŸ“‹ Copiar fila para mover",  
+      "📋 Copiar fila para mover",  
       !manualCopiadoParaMoverId,  
     );  
     copiar.onclick = () => {  
@@ -3282,14 +3336,14 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.appendChild(copiar);  
  
     if (manualCopiadoParaMoverId) {  
-      const insertar = botonMenuFilaKiris("â†³ Insertar fila copiada aquÃ­", true);  
+      const insertar = botonMenuFilaKiris("↳ Insertar fila copiada aquí", true);  
       insertar.onclick = () => {  
         cerrarMenuFilaKiris();  
         insertarFilaCopiadaEn(manualId);  
       };  
       menu.appendChild(insertar);  
  
-      const cancelar = botonMenuFilaKiris("âœ• Cancelar copia");  
+      const cancelar = botonMenuFilaKiris("✕ Cancelar copia");  
       cancelar.onclick = () => {  
         cerrarMenuFilaKiris();  
         cancelarFilaCopiada();  
@@ -3343,7 +3397,7 @@ document.addEventListener("DOMContentLoaded", () => {
  
 
 
-/* ===== KIRIS: eliminar un registro especÃ­fico de BitÃ¡cora ===== */
+/* ===== KIRIS: eliminar un registro específico de Bitácora ===== */
 function cerrarMenuRegistroBitacora() {
   document.getElementById("menuRegistroBitacoraKiris")?.remove();
 }
@@ -3382,8 +3436,8 @@ function abrirMenuRegistroBitacora(evento, registroId) {
     <div style="padding:6px 10px 8px;color:#FF6C0C;font-size:13px;font-weight:800;">
       Opciones del registro
     </div>
-    <button type="button" data-accion="editar">âœï¸ Editar registro</button>
-    <button type="button" data-accion="eliminar">ðŸ—‘ï¸ Eliminar registro</button>
+    <button type="button" data-accion="editar">✏️ Editar registro</button>
+    <button type="button" data-accion="eliminar">🗑️ Eliminar registro</button>
   `;
 
   Object.assign(menu.style, {
