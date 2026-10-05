@@ -872,6 +872,46 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">
   </script>
+  <script id="compatibilidad-excel-control-versiones">
+   /* Compatibilidad circular: el Excel exportado por Control de Versiones
+      puede utilizarse directamente como archivo de importación. */
+   (function () {
+    if (typeof XLSX === "undefined" || !XLSX.utils || !XLSX.utils.sheet_to_json) return;
+    const convertirOriginal = XLSX.utils.sheet_to_json.bind(XLSX.utils);
+    const normalizar = valor => String(valor ?? "")
+     .trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+     .toLocaleLowerCase("es").replace(/\s+/g, " ");
+    const nombresInternos = {
+     "sistema": "Sistema",
+     "codigo": "Código",
+     "manual": "Manual",
+     "idioma": "Idioma",
+     "version": "Versión",
+     "version disponible": "Versión",
+     "ubicacion en e-service": "Ubicación en E-service",
+     "ubicacion en eservice": "Ubicación en E-service",
+     "fecha": "Fecha",
+     "fecha de version": "Fecha",
+     "estado": "Estado",
+     "observaciones": "Observaciones"
+    };
+    XLSX.utils.sheet_to_json = function (hoja, opciones) {
+     const resultado = convertirOriginal(hoja, opciones);
+     /* Solo se renombran claves cuando la salida es un arreglo de objetos.
+        Los usos con header:1 permanecen intactos. */
+     if (!Array.isArray(resultado) || !resultado.length || Array.isArray(resultado[0]) || typeof resultado[0] !== "object") {
+      return resultado;
+     }
+     return resultado.map(registro => {
+      const compatible = {};
+      Object.entries(registro).forEach(([clave, valor]) => {
+       compatible[nombresInternos[normalizar(clave)] || clave] = valor;
+      });
+      return compatible;
+     });
+    };
+   })();
+  </script>
   <script src="js/storage.js">
   </script>
   <script src="js/app.js">
