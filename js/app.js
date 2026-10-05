@@ -2674,56 +2674,51 @@ function fechaXLSX(v) {
     ? ""  
     : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;  
 }  
-async function importarControlVersionesXLSX(archivo) {  
-  if (!archivo) return;  
-  try {  
-    const wb = await leerLibroXLSX(archivo),  
-      nuevos = [];  
-    wb.SheetNames.forEach((nombre) => {  
-      const idioma = normalizar(nombre).includes("ingles")  
-        ? "Inglés"  
-        : normalizar(nombre).includes("espanol")  
-          ? "Español"  
-          : "";  
-      if (!idioma) return;  
-      const filas = XLSX.utils.sheet_to_json(wb.Sheets[nombre], {  
-        header: 1,  
-        defval: "",  
-      });  
-      filas.slice(1).forEach((f) => {  
-        const codigo = String(f[0] || "").trim(),  
-          manual = String(f[1] || "").trim();  
-        if (!codigo.startsWith("UEO-") || !manual) return;  
-        nuevos.push({  
-          id: id("version"),  
-          sistema: /siscard\s*\+|siscardplus/i.test(manual)  
-            ? "siscard+"  
-            : "SISCARD",  
-          codigo,  
-          manual,  
-          idioma,  
-          numero: String(f[2] ?? "").trim() || "0",  
-          fecha: "",  
-          estado: "Disponible",  
-          observaciones: "",  
-        });  
-      });  
-    });  
-    if (!nuevos.length) throw new Error("No se encontraron filas válidas");  
-    if (  
-      confirm(  
-        "¿Reemplazar el Control de Versiones actual?\nAceptar = reemplazar. Cancelar = agregar.",  
-      )  
-    )  
-      estado.versiones = nuevos;  
-    else estado.versiones.push(...nuevos);  
-    guardarEstado(`${nuevos.length} versiones importadas`);  
-    renderVersiones();  
-  } catch (e) {  
-    console.error(e);  
-    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);  
-  }  
-}  
+async function importarControlVersionesXLSX(archivo) {
+  if (!archivo) return;
+  try {
+    const wb = await leerLibroXLSX(archivo);
+    const nombreHoja = wb.SheetNames.includes("ControlVersiones")
+      ? "ControlVersiones"
+      : wb.SheetNames[0];
+    const hoja = wb.Sheets[nombreHoja];
+    const filas = XLSX.utils.sheet_to_json(hoja, {
+      defval: "",
+      raw: false,
+      dateNF: "yyyy-mm-dd",
+    });
+    const nuevos = filas
+      .map((fila) => ({
+        id: id("version"),
+        sistema: String(fila["Sistema"] || "SISCARD").trim(),
+        codigo: String(fila["Código"] || fila["Codigo"] || "").trim(),
+        manual: String(fila["Manual"] || "").trim(),
+        idioma: String(fila["Idioma"] || "Español").trim(),
+        numero: String(
+          fila["Versión disponible"] || fila["Version disponible"] || "",
+        ).trim(),
+        ubicacionEService: String(
+          fila["Ubicación en E-service"] ||
+            fila["Ubicacion en E-service"] ||
+            "",
+        ).trim(),
+        fecha: fechaXLSX(
+          fila["Fecha de versión"] || fila["Fecha de version"] || "",
+        ),
+        estado: String(fila["Estado"] || "Disponible").trim(),
+        observaciones: String(fila["Observaciones"] || "").trim(),
+      }))
+      .filter((version) => version.codigo || version.manual);
+    if (!nuevos.length) throw new Error("No se encontraron filas válidas");
+    estado.versiones = nuevos;
+    guardarEstado(`${nuevos.length} versiones importadas`);
+    renderVersiones();
+  } catch (e) {
+    console.error(e);
+    mostrarToast(`No fue posible importar Control de Versiones: ${e.message}`);
+  }
+}
+
 async function importarDashboardProduccion(archivo) {  
   if (!archivo) return;  
   try {  
