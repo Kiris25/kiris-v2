@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-06T18:30:25.897Z",
+  "fechaPublicacion": "2026-10-06T22:07:55.410Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -3167,8 +3167,8 @@
       "horaInicio": "12:00",
       "horaFin": "17:30",
       "horas": 5.5,
-      "paginas": 0,
-      "detalle": "40-"
+      "paginas": 70,
+      "detalle": "40-110"
     },
     {
       "id": "bitacora_1791220238873_93d8a28d9c524",
