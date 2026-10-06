@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-05T23:33:01.593Z",
+  "fechaPublicacion": "2026-10-06T18:18:15.256Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -26,6 +26,40 @@
       "idioma": "Inglés",
       "archivoElectronico": "Sí",
       "ocRelacionado": "2842839",
+      "prioridad": "Alta",
+      "tipo": "T",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
+      "id": "manual_1791309995093_c01872658cfa2",
+      "codigo": "UEO-CAP-MI-065",
+      "titulo": "Manual for the Procedure to Create Web Acquiring Merchants",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2799361",
+      "prioridad": "Alta",
+      "tipo": "T",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
+      "id": "manual_1791310676133_c10ba59d3a4c18",
+      "codigo": "UEO-CAP-MI-065",
+      "titulo": "Manual for the Procedure to Create Web Acquiring Merchants",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2307888",
       "prioridad": "Alta",
       "tipo": "T",
       "paginas": 0,
@@ -74,6 +108,23 @@
       "estado": "No iniciado"
     },
     {
+      "id": "manual_1791310272506_9325439586ce78",
+      "codigo": "UEO-CAP-MI-061",
+      "titulo": "Issuer Parameters Manual",
+      "idioma": "Español",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2813324",
+      "prioridad": "Alta",
+      "tipo": "A",
+      "paginas": 158,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
       "id": "manual_1783711643188_edb4cff5fc17c",
       "codigo": "UEO-CAP-MI-012",
       "titulo": "Manual to Work with Services",
@@ -90,6 +141,23 @@
       "horasEsfuerzo": "",
       "color": "",
       "estado": "No iniciado"
+    },
+    {
+      "id": "manual_1791309681845_3ad1223c85ed58",
+      "codigo": "UEO-CAP-MI-012",
+      "titulo": "Manual to Work with Services",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2377333",
+      "prioridad": "Alta",
+      "tipo": "A",
+      "paginas": 220,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
     },
     {
       "id": "manual_1783711643188_d98154bef40d3",
@@ -115,7 +183,7 @@
       "titulo": "Master Files Manual for Clients",
       "idioma": "Inglés",
       "archivoElectronico": "Sí",
-      "ocRelacionado": "",
+      "ocRelacionado": "2553738",
       "prioridad": "Alta",
       "tipo": "A",
       "paginas": "16",
@@ -126,6 +194,40 @@
       "horasEsfuerzo": "",
       "color": "",
       "estado": "No iniciado"
+    },
+    {
+      "id": "manual_1791309880589_6a38f841ce2eb8",
+      "codigo": "UEO-CAP-MI-020",
+      "titulo": "Master Files Manual for Clients",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2557107",
+      "prioridad": "Alta",
+      "tipo": "A",
+      "paginas": 16,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
+      "id": "manual_1791309943992_c7424c49ef9f38",
+      "codigo": "UEO-CAP-MI-020",
+      "titulo": "Master Files Manual for Clients",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2421576",
+      "prioridad": "Alta",
+      "tipo": "A",
+      "paginas": 16,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
     },
     {
       "id": "manual_1783711643190_e5118fc28adc",
@@ -187,7 +289,7 @@
       "titulo": "Recurring Charges Application Manual",
       "idioma": "Inglés",
       "archivoElectronico": "No",
-      "ocRelacionado": "",
+      "ocRelacionado": "2321281",
       "prioridad": "Alta",
       "tipo": "N",
       "paginas": "46",
@@ -205,7 +307,7 @@
       "titulo": "Massages sending system manual (SEATH)",
       "idioma": "Inglés",
       "archivoElectronico": "Sí",
-      "ocRelacionado": "",
+      "ocRelacionado": "2725451",
       "prioridad": "Alta",
       "tipo": "T",
       "paginas": 71,
@@ -271,6 +373,40 @@
       "color": "#FF6C0C"
     },
     {
+      "id": "manual_1791310665797_e20ba05273655",
+      "codigo": "UEO-CAP-MI-046",
+      "titulo": "Web Acquiring Manual",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2307888",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 116,
+      "diasEsfuerzo": 1,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
+      "id": "manual_1791310150141_e548734e322f7",
+      "codigo": "UEO-CAP-MI-046",
+      "titulo": "Web Acquiring Manual",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2411553",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 116,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
       "id": "manual_1783965261648_0a4127a656e49",
       "codigo": "UEO-CAP-MU-065",
       "titulo": "Manual Procedimiento Creación de Comercios (Adquirencia Web)",
@@ -290,7 +426,7 @@
     },
     {
       "id": "manual_1787778264101_c34e331e6ebcd8",
-      "codigo": "N/A NO HAY TODAVIA ",
+      "codigo": "OSE-CAP-MU-136 Manual Proceso Masivo Cambio Tipos de Cliente",
       "titulo": "TIPOS DE CLIENTE",
       "idioma": "Español",
       "archivoElectronico": "No",
@@ -305,6 +441,57 @@
       "horasEsfuerzo": 0,
       "color": "#FF6C0C",
       "colorCalendario": "#FF6C0C"
+    },
+    {
+      "id": "manual_1791310479041_b4f705489e9b2",
+      "codigo": "OSE-CAP-MU-137 sicard+ Manual Proceso Masivo Cambio Tipos de Cliente",
+      "titulo": "TIPOS DE CLIENTE",
+      "idioma": "Español",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2554698",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
+      "id": "manual_1791310508093_c49e9413e70768",
+      "codigo": "OSE-CAP-MI-136 Client Type Massive Change Process Manual",
+      "titulo": "TIPOS DE CLIENTE",
+      "idioma": "Inglés",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2554698",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
+      "id": "manual_1791310562580_b49ca148b827a8",
+      "codigo": "OSE-CAP-MI-137 siscard+ Client Type Massive Change Process Manual",
+      "titulo": "TIPOS DE CLIENTE",
+      "idioma": "Inglés",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2554698",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
     },
     {
       "id": "manual_1787598499528_75b71799c05578",
@@ -1073,6 +1260,23 @@
       "color": "#FF6C0C"
     },
     {
+      "id": "manual_1791310049914_a64eb32846747",
+      "codigo": "UEO-CAP-MI-101",
+      "titulo": "siscard+ Loyalty Module Manual",
+      "idioma": "Inglés",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2637470",
+      "prioridad": "Alta",
+      "tipo": "T",
+      "paginas": 123,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "2026-07-21",
+      "fechaFinalizacion": "2026-05-06",
+      "fechaPublicado": "2026-05-06",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
+    },
+    {
       "id": "manual_1783711643181_c32c5b32f1242",
       "codigo": "UEO-CAP-MI-086",
       "titulo": "siscard+ Working with an Account Manual",
@@ -1112,7 +1316,7 @@
       "titulo": "Superfranchise Parameters Manual",
       "idioma": "Inglés",
       "archivoElectronico": "No",
-      "ocRelacionado": "",
+      "ocRelacionado": "2655786",
       "prioridad": "Alta",
       "tipo": "T",
       "paginas": "109",
@@ -1123,6 +1327,23 @@
       "horasEsfuerzo": "",
       "color": "",
       "estado": "No iniciado"
+    },
+    {
+      "id": "manual_1791309911521_4ca29a5311861",
+      "codigo": "UEO-CAP-MI-040",
+      "titulo": "Superfranchise Parameters Manual",
+      "idioma": "Inglés",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2743803",
+      "prioridad": "Alta",
+      "tipo": "T",
+      "paginas": 109,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
     },
     {
       "id": "manual_1783711643194_345a124a24fe7",
@@ -1202,7 +1423,7 @@
       "titulo": "siscard+ Installment Loan and Intrafinancing Module Manual",
       "idioma": "Inglés",
       "archivoElectronico": "Sí",
-      "ocRelacionado": "",
+      "ocRelacionado": "2554650",
       "prioridad": "Media",
       "tipo": "A",
       "paginas": "90",
@@ -1484,7 +1705,7 @@
       "titulo": "Shares Raffle Manual",
       "idioma": "Inglés",
       "archivoElectronico": "No",
-      "ocRelacionado": "",
+      "ocRelacionado": "2573303",
       "prioridad": "Baja",
       "tipo": "T",
       "paginas": "28",
@@ -1520,7 +1741,7 @@
       "titulo": "Loyalty Module Manual",
       "idioma": "Inglés",
       "archivoElectronico": "No",
-      "ocRelacionado": "",
+      "ocRelacionado": "2330900",
       "prioridad": "Baja",
       "tipo": "T",
       "paginas": "138",
@@ -1531,6 +1752,23 @@
       "horasEsfuerzo": "",
       "color": "",
       "estado": "No iniciado"
+    },
+    {
+      "id": "manual_1791310026665_55ae04ad6d447",
+      "codigo": "UEO-CAP-MI-007",
+      "titulo": "Loyalty Module Manual",
+      "idioma": "Inglés",
+      "archivoElectronico": "No",
+      "ocRelacionado": "2637470",
+      "prioridad": "Baja",
+      "tipo": "T",
+      "paginas": 138,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
     },
     {
       "id": "manual_1783711643193_f36f78f7104ae",
@@ -1556,7 +1794,7 @@
       "titulo": "Transactions Maintenance Manual",
       "idioma": "Inglés",
       "archivoElectronico": "No",
-      "ocRelacionado": "",
+      "ocRelacionado": "2688547",
       "prioridad": "Baja",
       "tipo": "T",
       "paginas": "100",
@@ -1736,7 +1974,7 @@
       "titulo": "Tokenization Module Manual",
       "idioma": "Inglés",
       "archivoElectronico": "No",
-      "ocRelacionado": "",
+      "ocRelacionado": "2752889",
       "prioridad": "Baja",
       "tipo": "N",
       "paginas": "27",
@@ -1754,7 +1992,7 @@
       "titulo": "Installment Loan and Intrafinancing Plans Manual",
       "idioma": "Inglés",
       "archivoElectronico": "Sí",
-      "ocRelacionado": "",
+      "ocRelacionado": "2554650",
       "prioridad": "Baja",
       "tipo": "T",
       "paginas": "82",
@@ -3393,7 +3631,8 @@
       "fechaPublicado": "2026-03-02",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_8_1787259543876",
@@ -3410,7 +3649,8 @@
       "fechaPublicado": "2026-03-02",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_9_1787259543876",
@@ -3427,7 +3667,8 @@
       "fechaPublicado": "2026-03-02",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_10_1787259543876",
@@ -3444,7 +3685,8 @@
       "fechaPublicado": "2026-03-02",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_6_1787259543876",
@@ -3461,7 +3703,8 @@
       "fechaPublicado": "2026-02-16",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_7_1787259543876",
@@ -3478,7 +3721,8 @@
       "fechaPublicado": "2026-02-13",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_1_1787259543876",
@@ -3495,7 +3739,8 @@
       "fechaPublicado": "2026-01-14",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_2_1787259543876",
@@ -3512,7 +3757,8 @@
       "fechaPublicado": "2026-01-14",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_3_1787259543876",
@@ -3529,7 +3775,8 @@
       "fechaPublicado": "2026-01-14",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_4_1787259543876",
@@ -3546,7 +3793,8 @@
       "fechaPublicado": "2026-01-14",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_0_1787259543876",
@@ -3563,7 +3811,8 @@
       "fechaPublicado": "2026-01-05",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_12_1787259543876",
@@ -3580,7 +3829,8 @@
       "fechaPublicado": "2026-01-12",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_11_1787259543876",
@@ -3597,7 +3847,8 @@
       "fechaPublicado": "2026-01-08",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_14_1787259543876",
@@ -3614,7 +3865,8 @@
       "fechaPublicado": "2026-02-24",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_13_1787259543876",
@@ -3631,7 +3883,8 @@
       "fechaPublicado": "2026-01-08",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_15_1787259543876",
@@ -3648,7 +3901,8 @@
       "fechaPublicado": "2026-01-14",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_16_1787259543876",
@@ -3665,7 +3919,8 @@
       "fechaPublicado": "2026-01-08",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_17_1787259543876",
@@ -3682,7 +3937,8 @@
       "fechaPublicado": "2026-01-08",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_18_1787259543876",
@@ -3699,7 +3955,8 @@
       "fechaPublicado": "2026-01-22",
       "versionTraducir": "SI",
       "justificacionIngles": "NO APLICA",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_19_1787259543876",
@@ -3716,7 +3973,8 @@
       "fechaPublicado": "2026-01-08",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_20_1787259543876",
@@ -3733,7 +3991,8 @@
       "fechaPublicado": "2026-01-08",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_21_1787259543876",
@@ -3750,7 +4009,8 @@
       "fechaPublicado": "2026-01-08",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_22_1787259543876",
@@ -3767,7 +4027,8 @@
       "fechaPublicado": "2026-03-04",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_23_1787259543876",
@@ -3820,7 +4081,8 @@
       "fechaPublicado": "2026-03-16",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_26_1787259543876",
@@ -3837,7 +4099,8 @@
       "fechaPublicado": "2026-03-11",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_28_1787259543876",
@@ -3854,7 +4117,8 @@
       "fechaPublicado": "2026-04-13",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_29_1787259543876",
@@ -3871,7 +4135,8 @@
       "fechaPublicado": "2026-03-11",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_31_1787259543876",
@@ -3888,7 +4153,8 @@
       "fechaPublicado": "2026-03-04",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_27_1787259543876",
@@ -3905,7 +4171,8 @@
       "fechaPublicado": "2026-02-24",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_32_1787259543876",
@@ -3922,7 +4189,8 @@
       "fechaPublicado": "2026-04-07",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_33_1787259543876",
@@ -3939,7 +4207,8 @@
       "fechaPublicado": "2026-04-07",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_34_1787259543876",
@@ -3956,7 +4225,8 @@
       "fechaPublicado": "2026-04-07",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_35_1787259543876",
@@ -3973,7 +4243,8 @@
       "fechaPublicado": "2026-04-08",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_36_1787259543876",
@@ -3990,7 +4261,8 @@
       "fechaPublicado": "2026-04-21",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_38_1787259543876",
@@ -4007,7 +4279,8 @@
       "fechaPublicado": "2026-06-09",
       "versionTraducir": "SI",
       "justificacionIngles": "NO APLICA",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_39_1787259543876",
@@ -4024,7 +4297,8 @@
       "fechaPublicado": "2026-06-09",
       "versionTraducir": "SI",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_37_1787259543876",
@@ -4041,7 +4315,8 @@
       "fechaPublicado": "2026-06-03",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_40_1787259543876",
@@ -4058,7 +4333,8 @@
       "fechaPublicado": "",
       "versionTraducir": "SI",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_41_1787259543876",
@@ -4075,7 +4351,8 @@
       "fechaPublicado": "2026-06-22",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_42_1787259543876",
@@ -4092,7 +4369,8 @@
       "fechaPublicado": "2026-06-22",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "AMBOS IDIOMAS"
+      "listo": "AMBOS IDIOMAS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_43_1787259543876",
@@ -4109,7 +4387,8 @@
       "fechaPublicado": "2026-06-09",
       "versionTraducir": "SI",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_44_1787259543876",
@@ -4126,7 +4405,8 @@
       "fechaPublicado": "2026-06-24",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_45_1787259543876",
@@ -4143,7 +4423,8 @@
       "fechaPublicado": "2026-06-24",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_46_1787259543876",
@@ -4160,7 +4441,8 @@
       "fechaPublicado": "2026-06-26",
       "versionTraducir": "SI",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_47_1787259543876",
@@ -4177,7 +4459,8 @@
       "fechaPublicado": "2026-07-01",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_48_1787259543876",
@@ -4194,7 +4477,8 @@
       "fechaPublicado": "2026-07-01",
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_49_1787259543876",
@@ -4211,7 +4495,8 @@
       "fechaPublicado": "",
       "versionTraducir": "SI",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_50_1787259543876",
@@ -4228,7 +4513,8 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "T"
     },
     {
       "id": "tramite_51_1787259543876",
@@ -4245,7 +4531,8 @@
       "fechaPublicado": "2026-07-09",
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_53_1787259543876",
@@ -4262,7 +4549,8 @@
       "fechaPublicado": "2026-07-08",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_54_1787259543876",
@@ -4279,7 +4567,8 @@
       "fechaPublicado": "2026-07-08",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_55_1787259543876",
@@ -4296,7 +4585,8 @@
       "fechaPublicado": "2026-07-08",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_52_1787259543876",
@@ -4313,7 +4603,8 @@
       "fechaPublicado": "2026-07-08",
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "",
-      "listo": "SOLO ESPAÑOL / NO APLICA INGLES"
+      "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_56_1787259543876",
@@ -4330,7 +4621,8 @@
       "fechaPublicado": "2026-07-22",
       "versionTraducir": "SI",
       "justificacionIngles": "NO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_57_1787259543876",
@@ -4347,7 +4639,8 @@
       "fechaPublicado": "2026-07-22",
       "versionTraducir": "SI",
       "justificacionIngles": "NO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_58_1787259543876",
@@ -4382,7 +4675,8 @@
       "fechaPublicado": "2026-08-26",
       "versionTraducir": "SÍ",
       "justificacionIngles": "AÚN NO SE HA TRADUCIDO",
-      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
+      "tipoGestion": "R"
     },
     {
       "id": "tramite_1787239544094_2c16e95fe2a118",
@@ -4451,7 +4745,7 @@
       "respuestaConsulta": "01/10/2026 El manual está listo para publicar pero al parecer hay cambios en el Gestor Documental por lo que se me dificulta crear un código y subirlo hasta que se resuelva. ",
       "justificacionGestor": "SÍ",
       "fechaPublicado": "2026-10-05",
-      "versionTraducir": "NO",
+      "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
       "tipoGestion": "T"
@@ -4596,7 +4890,7 @@
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
       "fechaPublicado": "2026-09-23",
-      "versionTraducir": "NO",
+      "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
@@ -4614,7 +4908,7 @@
       "respuestaConsulta": "",
       "justificacionGestor": "SÍ",
       "fechaPublicado": "2026-09-23",
-      "versionTraducir": "NO",
+      "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
