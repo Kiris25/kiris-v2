@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-06T18:18:15.256Z",
+  "fechaPublicacion": "2026-10-06T18:30:25.897Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -3158,6 +3158,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1791311393748_33bdf5a381c0f8",
+      "fecha": "2026-10-06",
+      "manual": "UEO-CAP-MU-132 - siscard+ Manual Trabajar con servicios",
+      "manualId": "manual_1783711643188_c23f0eac04ec68",
+      "tipo": "N",
+      "horaInicio": "12:00",
+      "horaFin": "17:30",
+      "horas": 5.5,
+      "paginas": 0,
+      "detalle": "40-"
+    },
     {
       "id": "bitacora_1791220238873_93d8a28d9c524",
       "fecha": "2026-10-05",
