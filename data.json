@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-07T18:36:34.324Z",
+  "fechaPublicacion": "2026-10-07T19:26:49.219Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -31,7 +31,7 @@
       "tipo": "A",
       "paginas": 0,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
+      "fechaInicio": "2026-10-07",
       "fechaFinalizacion": "",
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
@@ -3245,15 +3245,15 @@
   ],
   "bitacora": [
     {
-      "id": "bitacora_1791398190446_5cd73736547638",
+      "id": "bitacora_1791400531198_9fbdcbb298d11",
       "fecha": "2026-10-07",
       "manual": "UEO-CAP-MU-007 - Manual Módulo de Premiación",
       "manualId": "manual_1791398079970_c9eda4e76c1228",
       "tipo": "A",
       "horaInicio": "12:00",
-      "horaFin": "15:30",
-      "horas": 3.5,
-      "paginas": 0,
+      "horaFin": "13:00",
+      "horas": 1,
+      "paginas": 1,
       "detalle": ""
     },
     {
@@ -5106,11 +5106,11 @@
       "baAsignado": "",
       "consultas": "",
       "respuestaConsulta": "",
-      "justificacionGestor": "NO",
+      "justificacionGestor": "SÍ",
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN"
     },
     {
       "id": "tramite_1790789035340_d2a62d249864d",
@@ -5128,7 +5128,7 @@
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE / NO SE VE EL CAMBIO"
     },
     {
       "id": "tramite_1791241811135_2d134e306e84f8",
