@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-07T19:43:40.227Z",
+  "fechaPublicacion": "2026-10-07T20:11:53.857Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -511,21 +511,22 @@
       "color": "#FF6C0C"
     },
     {
-      "id": "manual_1791402174067_a82fc95915452",
-      "codigo": "UEO-CAP-MU-065",
-      "titulo": "Manual Procedimiento Creación de Comercios (Adquirencia Web)",
+      "id": "manual_1791403717668_05ea77647f6e8",
+      "codigo": "UEO-CAP-MU-046",
+      "titulo": "Manual de Adquirencia Web",
       "idioma": "Español",
       "archivoElectronico": "Sí",
       "ocRelacionado": "2692574",
       "prioridad": "Alta",
       "tipo": "R",
-      "paginas": 43,
+      "paginas": 116,
       "diasEsfuerzo": 0,
-      "fechaInicio": "2026-06-03",
+      "fechaInicio": "2026-10-07",
       "fechaFinalizacion": "",
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "color": "#FF6C0C",
+      "colorCalendario": "#F4A261"
     },
     {
       "id": "manual_1787778264101_c34e331e6ebcd8",
@@ -3264,8 +3265,8 @@
     {
       "id": "bitacora_1791402214414_dec597a3a069f",
       "fecha": "2026-10-07",
-      "manual": "UEO-CAP-MU-065 - Manual Procedimiento Creación de Comercios (Adquirencia Web)",
-      "manualId": "manual_1783965261648_0a4127a656e49",
+      "manual": "UEO-CAP-MU-046 - Manual de Adquirencia Web",
+      "manualId": "manual_1787779641803_77363601cc025",
       "tipo": "R",
       "horaInicio": "14:00",
       "horaFin": "15:30",
@@ -5070,16 +5071,16 @@
       "listo": "SOLO INGLÉS"
     },
     {
-      "id": "tramite_1790787598534_0798802f64234",
+      "id": "tramite_1791403354990_d27fe999304f28",
       "requerimiento": "2692574",
       "detalle": "MCC de gobierno. A solicitud del equipo de TI se incluyó el requerimiento para que se realicen los ajustes necesarios para estar en cumplimiento con los comercios gubernamentales, en base al análisis realizado por el equipo de TI y de esta manera se solvente el inconveniente que se está presentando con la marca y que está generando una multa mensual.",
       "tipoGestion": "R",
       "fechaIngreso": "2026-09-28",
       "fechaInicio": "2026-10-07",
-      "manualActualizar": "Manual Procedimiento Creación de Comercios (Adquirencia Web)",
+      "manualActualizar": "Manual de Adquirencia Web",
       "temaGeneral": "Adquirencia Web",
       "baAsignado": "",
-      "consultas": "",
+      "consultas": "Agregar MCC de gobierno en Tipos y Categorías",
       "respuestaConsulta": "",
       "justificacionGestor": "NO",
       "fechaPublicado": "",
