@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-14T20:19:42.216Z",
+  "fechaPublicacion": "2026-10-14T20:33:00.985Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -1787,8 +1787,8 @@
     },
     {
       "id": "manual_1792009095762_e4f027773a7a78",
-      "codigo": "UEO-CAP-MU-086",
-      "titulo": "siscard+ Working with an Account Manual",
+      "codigo": "UEO-CAP-MU-004",
+      "titulo": "siscard+ Manual Trabajar con una cuenta",
       "idioma": "Español",
       "archivoElectronico": "Sí",
       "ocRelacionado": "1891807",
@@ -1796,11 +1796,12 @@
       "tipo": "R",
       "paginas": 0,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
-      "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "fechaInicio": "2026-10-14",
+      "fechaFinalizacion": "2026-10-14",
+      "fechaPublicado": "2026-10-14",
+      "horasEsfuerzo": 3.95,
+      "color": "#FF6C0C",
+      "colorCalendario": "#F72585"
     },
     {
       "id": "manual_1792006393650_58d59d33b4c69",
@@ -5313,11 +5314,11 @@
       "baAsignado": "",
       "consultas": "Es un campo llamado Service Code en la consulta de tarjetas.",
       "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
+      "justificacionGestor": "SÍ",
+      "fechaPublicado": "2026-10-14",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1790789022385_f2a42f71021728",
