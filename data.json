@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-14T18:49:29.677Z",
+  "fechaPublicacion": "2026-10-14T19:27:47.050Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -5733,9 +5733,9 @@
       "codigo": "PRD-MAM-MU-004",
       "manual": "Manual Trabajar con una cuenta",
       "idioma": "Español",
-      "numero": "2",
+      "numero": "3",
       "ubicacionEService": "Siscard Emisor Manuales de usuario",
-      "fecha": "",
+      "fecha": "2026-10-14",
       "estado": "Disponible",
       "observaciones": ""
     },
