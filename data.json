@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-14T19:35:26.039Z",
+  "fechaPublicacion": "2026-10-14T20:19:42.216Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -1433,7 +1433,7 @@
     },
     {
       "id": "manual_1783711643182_6ab6e62d92cfd",
-      "codigo": "UEO-CAP-MI-086",
+      "codigo": "UEO-CAP-MU-086",
       "titulo": "siscard+ Manual Trabajar con una cuenta",
       "idioma": "Español",
       "archivoElectronico": "Sí",
@@ -1450,7 +1450,7 @@
     },
     {
       "id": "manual_1791404717242_7ae058ea1802f8",
-      "codigo": "UEO-CAP-MI-086",
+      "codigo": "UEO-CAP-MU-086",
       "titulo": "siscard+ Manual Trabajar con una cuenta",
       "idioma": "Español",
       "archivoElectronico": "Sí",
@@ -1459,11 +1459,12 @@
       "tipo": "A",
       "paginas": 167,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
-      "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "fechaInicio": "2026-10-14",
+      "fechaFinalizacion": "2026-10-14",
+      "fechaPublicado": "2026-10-14",
+      "horasEsfuerzo": 2.45,
+      "color": "#FF6C0C",
+      "colorCalendario": "#F72585"
     },
     {
       "id": "manual_1783711643193_a4318c5d34241",
@@ -1759,11 +1760,12 @@
       "tipo": "A",
       "paginas": 0,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
-      "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "fechaInicio": "2026-10-14",
+      "fechaFinalizacion": "2026-10-14",
+      "fechaPublicado": "2026-10-14",
+      "horasEsfuerzo": 3.95,
+      "color": "#FF6C0C",
+      "colorCalendario": "#4D908E"
     },
     {
       "id": "manual_1791404603660_2dd79582ca742",
@@ -1779,9 +1781,26 @@
       "fechaInicio": "2026-10-14",
       "fechaFinalizacion": "2026-10-14",
       "fechaPublicado": "2026-10-14",
-      "horasEsfuerzo": 5,
+      "horasEsfuerzo": 3.95,
       "color": "#FF6C0C",
       "colorCalendario": "#E63946"
+    },
+    {
+      "id": "manual_1792009095762_e4f027773a7a78",
+      "codigo": "UEO-CAP-MU-086",
+      "titulo": "siscard+ Working with an Account Manual",
+      "idioma": "Español",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "1891807",
+      "prioridad": "Media",
+      "tipo": "R",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C"
     },
     {
       "id": "manual_1792006393650_58d59d33b4c69",
@@ -1807,23 +1826,6 @@
       "idioma": "Inglés",
       "archivoElectronico": "Sí",
       "ocRelacionado": "2921143",
-      "prioridad": "Media",
-      "tipo": "T",
-      "paginas": 0,
-      "diasEsfuerzo": 0,
-      "fechaInicio": "",
-      "fechaFinalizacion": "",
-      "fechaPublicado": "",
-      "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
-    },
-    {
-      "id": "manual_1791404765265_6ad634eb0c3818",
-      "codigo": "UEO-CAP-MI-004",
-      "titulo": "Working with an Account Manual",
-      "idioma": "Inglés",
-      "archivoElectronico": "Sí",
-      "ocRelacionado": "1891807",
       "prioridad": "Media",
       "tipo": "T",
       "paginas": 0,
@@ -3365,6 +3367,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1792007278854_d0f77fa16ba048",
+      "fecha": "2026-10-14",
+      "manual": "UEO-CAP-MI-086 - siscard+ Manual Trabajar con una cuenta",
+      "manualId": "manual_1783711643182_6ab6e62d92cfd",
+      "tipo": "A",
+      "horaInicio": "13:03",
+      "horaFin": "15:30",
+      "horas": 2.45,
+      "paginas": 0,
+      "detalle": "Actualización en relación con 1891807"
+    },
     {
       "id": "bitacora_1792003768325_4561914447c6b",
       "fecha": "2026-10-14",
@@ -5348,16 +5362,16 @@
       "tipoGestion": "T",
       "fechaIngreso": "2026-10-05",
       "fechaInicio": "2026-10-07",
-      "manualActualizar": "UEO-CAP-MU-135 siscard+ Manual del Módulo de Autogestión Click to Pay",
+      "manualActualizar": "siscard+ Manual Trabajar con una cuenta",
       "temaGeneral": "Trabajar con una Cuenta",
       "baAsignado": "",
       "consultas": "Se debe agregar además las actualizaciones de Click to Pay en la opcion 20 Tarjetas del TRT28SN3 Trabajar con una cuenta. \nFALTA EN VERSION SISCARD+",
       "respuestaConsulta": "",
-      "justificacionGestor": "NO",
-      "fechaPublicado": "",
-      "versionTraducir": "NO",
+      "justificacionGestor": "SÍ",
+      "fechaPublicado": "2026-10-14",
+      "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
     },
     {
       "id": "tramite_1791395923771_33dd46c4d33bd8",
