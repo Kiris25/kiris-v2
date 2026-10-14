@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-14T20:33:00.985Z",
+  "fechaPublicacion": "2026-10-14T20:47:33.518Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -5121,6 +5121,24 @@
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS"
+    },
+    {
+      "id": "tramite_1792010795169_04c347866ce168",
+      "requerimiento": "2921143",
+      "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
+      "tipoGestion": "T",
+      "fechaIngreso": "2026-10-14",
+      "fechaInicio": "2026-08-24",
+      "manualActualizar": "siscard+ Manual del Módulo de Autogestión Click to Pay",
+      "temaGeneral": "CLICK TO PAY",
+      "baAsignado": "",
+      "consultas": "Se debe agregar además las actualizaciones de Click to Pay en la opcion 20 Tarjetas del TRT28SN3 Trabajar con una cuenta.",
+      "respuestaConsulta": "",
+      "justificacionGestor": "NO",
+      "fechaPublicado": "",
+      "versionTraducir": "NO",
+      "justificacionIngles": "AÚN NO SE HA TRADUCIDO",
+      "listo": "PENDIENTE"
     },
     {
       "id": "tramite_1787239953045_8d136c07cce068",
