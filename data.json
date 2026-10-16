@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-15T21:21:53.398Z",
+  "fechaPublicacion": "2026-10-16T21:06:17.657Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -3368,6 +3368,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1792184775223_2c9e265ba9e998",
+      "fecha": "2026-10-16",
+      "manual": "N/A - BOT BCR",
+      "manualId": "manual_1790025713576_1bc15cc405e92",
+      "tipo": "N",
+      "horaInicio": "11:00",
+      "horaFin": "12:00",
+      "horas": 1,
+      "paginas": 0,
+      "detalle": "Se hizo reunión con el proveedor para revisar el manual pero aún está pendiente ligarlo con BCR como tal."
+    },
     {
       "id": "bitacora_1792007278854_d0f77fa16ba048",
       "fecha": "2026-10-14",
