@@ -555,20 +555,68 @@ function contarDiasHabiles(desde, hasta) {
   }
   return total;
 }
+/* Para el tipo + se conserva la lógica de cumplimiento del app 11,
+   pero su fecha límite es un mes calendario después de la fecha de ingreso.
+   Si cae en sábado, domingo o feriado, avanza al siguiente día hábil. */
+function fechaPascua(anio) {
+  const a = anio % 19;
+  const b = Math.floor(anio / 100);
+  const c = anio % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const mes = Math.floor((h + l - 7 * m + 114) / 31);
+  const dia = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(anio, mes - 1, dia);
+}
+function esFeriadoCostaRica(fecha) {
+  const mesDia = `${String(fecha.getMonth() + 1).padStart(2, "0")}-${String(fecha.getDate()).padStart(2, "0")}`;
+  const feriadosFijos = new Set([
+    "01-01", "04-11", "05-01", "07-25", "08-02",
+    "08-15", "09-15", "12-01", "12-25",
+  ]);
+  if (feriadosFijos.has(mesDia)) return true;
+  const pascua = fechaPascua(fecha.getFullYear());
+  const juevesSanto = new Date(pascua);
+  juevesSanto.setDate(pascua.getDate() - 3);
+  const viernesSanto = new Date(pascua);
+  viernesSanto.setDate(pascua.getDate() - 2);
+  return fecha.toDateString() === juevesSanto.toDateString()
+    || fecha.toDateString() === viernesSanto.toDateString();
+}
+function fechaLimiteTipoMas(fechaIngreso) {
+  const fecha = new Date(fechaIngreso);
+  fecha.setMonth(fecha.getMonth() + 1);
+  while (!esDiaHabil(fecha) || esFeriadoCostaRica(fecha)) {
+    fecha.setDate(fecha.getDate() + 1);
+  }
+  return fecha;
+}
 function diasEstimadosTramite(tramite) {
   if (tramite.tipoGestion === "T") return 40;
   if (tramite.tipoGestion === "R") return 15;
   return 0;
 }
 function tiempoEstimadoTramite(tramite) {
-  if (tramite.tipoGestion === "T") return "2 meses (40 dÃ­as hÃ¡biles)";
-  if (tramite.tipoGestion === "R") return "3 semanas (15 dÃ­as hÃ¡biles)";
+  if (tramite.tipoGestion === "T") return "2 meses (40 días hábiles)";
+  if (tramite.tipoGestion === "R") return "3 semanas (15 días hábiles)";
+  if (tramite.tipoGestion === "+") return "1 mes";
   return "";
 }
 function fechaLimiteTramite(tramite) {
   const ingreso = fechaLocalDesdeISO(tramite.fechaIngreso);
+  if (!ingreso) return "";
+  if (tramite.tipoGestion === "+") {
+    return fechaISODesdeLocal(fechaLimiteTipoMas(ingreso));
+  }
   const dias = diasEstimadosTramite(tramite);
-  if (!ingreso || !dias) return "";
+  if (!dias) return "";
   return fechaISODesdeLocal(sumarDiasHabiles(ingreso, dias));
 }
 function informacionCumplimientoTramite(tramite) {
@@ -584,12 +632,11 @@ function informacionCumplimientoTramite(tramite) {
   const restantes = contarDiasHabiles(hoy, limite);
   if (hoy > limite) return { texto: "Tarde", clase: "cumplimiento-tarde" };
   if (restantes <= 5) return {
-    texto: restantes === 0 ? "Vence hoy" : `PrÃ³ximo Â· ${restantes} dÃ­a(s) hÃ¡bil(es)`,
+    texto: restantes === 0 ? "Vence hoy" : `Próximo · ${restantes} día(s) hábil(es)`,
     clase: "cumplimiento-proximo",
   };
-  return { texto: `En tiempo Â· ${restantes} dÃ­a(s) hÃ¡bil(es)`, clase: "cumplimiento-en-tiempo" };
+  return { texto: `En tiempo · ${restantes} día(s) hábil(es)`, clase: "cumplimiento-en-tiempo" };
 }
-
 function valorVisible(objeto, columna) {  
   if (columna.key === "tiempoEstimado") return tiempoEstimadoTramite(objeto);
   if (columna.key === "fechaLimite") return fechaLimiteTramite(objeto);
