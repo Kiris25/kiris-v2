@@ -21,6 +21,7 @@ const DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
  
 const COLUMNAS_MANUALES = [  
   { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
+  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
   { key: "orden", label: "#", width: 62, especial: "orden" },  
   { key: "codigo", label: "Código", width: 120 },  
   { key: "titulo", label: "Título", width: 280 },  
@@ -71,11 +72,11 @@ const COLUMNAS_MANUALES = [
   },  
   { key: "fechaPublicado", label: "Fecha publicado", width: 140, tipo: "date" },  
   { key: "estado", label: "Estado", width: 145, calculado: true },  
-  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
 ];  
  
 const COLUMNAS_TRAMITES = [  
   { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
+  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
   { key: "requerimiento", label: "Requerimiento", width: 135 },  
   { key: "detalle", label: "Detalle", width: 230 },  
   {
@@ -83,7 +84,7 @@ const COLUMNAS_TRAMITES = [
     label: "Tipo T / R",
     width: 120,
     tipo: "select",
-    opciones: ["", "T", "R"],
+    opciones: ["", "T", "R", "+"],
   },
   { key: "fechaIngreso", label: "Fecha ingreso", width: 130, tipo: "date" },  
   {
@@ -151,6 +152,7 @@ const COLUMNAS_TRAMITES = [
     opciones: [  
       "",  
       "PENDIENTE",  
+      "PENDIENTE VERSIÓN SISCARD+",  
       "PENDIENTE / NO SE VE EL CAMBIO",  
       "PENDIENTE / FALTA INFORMACIÓN",  
       "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN",  
@@ -160,11 +162,11 @@ const COLUMNAS_TRAMITES = [
       "AMBOS IDIOMAS",  
     ],  
   },  
-  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
 ];  
  
 const COLUMNAS_VERSIONES = [  
   { key: "seleccion", label: "", width: 42, especial: "seleccion" },  
+  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
   {  
     key: "sistema",  
     label: "Sistema",  
@@ -197,7 +199,6 @@ const COLUMNAS_VERSIONES = [
     width: 280,  
     tipo: "textarea",  
   },  
-  { key: "acciones", label: "Acciones", width: 110, especial: "acciones" },  
 ];  
  
 function id(prefijo) {  
@@ -560,13 +561,18 @@ function diasEstimadosTramite(tramite) {
   if (tramite.tipoGestion === "R") return 15;
   return 0;
 }
+function fechaPascuaKiris(anio) { const a=anio%19,b=Math.floor(anio/100),c=anio%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mes=Math.floor((h+l-7*m+114)/31),dia=((h+l-7*m+114)%31)+1; return new Date(anio,mes-1,dia); }
+function esFeriadoKiris(fecha) { const md=`${String(fecha.getMonth()+1).padStart(2,"0")}-${String(fecha.getDate()).padStart(2,"0")}`; if(new Set(["01-01","04-11","05-01","07-25","08-02","08-15","09-15","12-01","12-25"]).has(md)) return true; const p=fechaPascuaKiris(fecha.getFullYear()),j=new Date(p),v=new Date(p); j.setDate(j.getDate()-3); v.setDate(v.getDate()-2); return fecha.toDateString()===j.toDateString()||fecha.toDateString()===v.toDateString(); }
+function sumarDiasHabilesTipoMas(inicio,cantidad) { const fecha=new Date(inicio); let n=0; while(n<cantidad){ fecha.setDate(fecha.getDate()+1); if(esDiaHabil(fecha)&&!esFeriadoKiris(fecha)) n++; } return fecha; }
 function tiempoEstimadoTramite(tramite) {
   if (tramite.tipoGestion === "T") return "2 meses (40 días hábiles)";
   if (tramite.tipoGestion === "R") return "3 semanas (15 días hábiles)";
+  if (tramite.tipoGestion === "+") return "1 mes (30 días hábiles)";
   return "";
 }
 function fechaLimiteTramite(tramite) {
   const ingreso = fechaLocalDesdeISO(tramite.fechaIngreso);
+  if (ingreso && tramite.tipoGestion === "+") return fechaISODesdeLocal(sumarDiasHabilesTipoMas(ingreso, 30));
   const dias = diasEstimadosTramite(tramite);
   if (!ingreso || !dias) return "";
   return fechaISODesdeLocal(sumarDiasHabiles(ingreso, dias));
@@ -747,6 +753,9 @@ function copiarRegistro(tipoEntidad, registroId) {
   }
 }
 
+const filaActivaIds={manuales:"",tramites:"",versiones:""};
+function marcarFilaEnTrabajo(e){for(const [id,tipo] of [["tbodyManuales","manuales"],["tbodyTramites","tramites"],["tbodyVersiones","versiones"]]){const f=e.target.closest?.(`#${id} tr[data-id]`);if(f){filaActivaIds[tipo]=f.dataset.id;document.querySelectorAll(`#${id} tr.fila-en-trabajo`).forEach(x=>x.classList.remove("fila-en-trabajo"));f.classList.add("fila-en-trabajo");break;}}}
+document.addEventListener("pointerdown",marcarFilaEnTrabajo);document.addEventListener("focusin",marcarFilaEnTrabajo);
 function renderManuales() {  
   const ocultas = estado.columnasOcultasManuales || [];  
   crearColgroup(  
@@ -763,7 +772,7 @@ function renderManuales() {
     ? lista  
         .map(  
           (manual) =>  
-            `<tr data-id="${manual.id}">${COLUMNAS_MANUALES.map((columna) => {  
+            `<tr data-id="${manual.id}" class="${manual.id===filaActivaIds.manuales?"fila-en-trabajo":""}">${COLUMNAS_MANUALES.map((columna) => {  
               const oculto = ocultas.includes(columna.key)  
                 ? "display:none"  
                 : "";  
@@ -818,7 +827,7 @@ function renderTramites() {
     ? lista  
         .map(  
           (tramite) =>  
-            `<tr data-id="${tramite.id}">${COLUMNAS_TRAMITES.map((columna) => {  
+            `<tr data-id="${tramite.id}" class="${[tramite.id===filaActivaIds.tramites?"fila-en-trabajo":"",normalizarEstadoListo(tramite.listo)==="PENDIENTE VERSIÓN SISCARD+"?"fila-pendiente-siscard":""].filter(Boolean).join(" ")}">${COLUMNAS_TRAMITES.map((columna) => {  
               const oculto = ocultas.includes(columna.key)  
                 ? "display:none"  
                 : "";  
@@ -868,7 +877,7 @@ function renderVersiones() {
     ? lista  
         .map(  
           (version) =>  
-            `<tr data-id="${version.id}">${COLUMNAS_VERSIONES.map((columna) => {  
+            `<tr data-id="${version.id}" class="${version.id===filaActivaIds.versiones?"fila-en-trabajo":""}">${COLUMNAS_VERSIONES.map((columna) => {  
               if (columna.especial === "seleccion")  
                 return `<td><input class="seleccion-version" type="checkbox" data-id="${version.id}"></td>`;  
               if (columna.especial === "acciones")  
