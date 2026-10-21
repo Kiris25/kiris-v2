@@ -83,7 +83,7 @@ const COLUMNAS_TRAMITES = [
     label: "Tipo T / R",
     width: 120,
     tipo: "select",
-    opciones: ["", "T", "R"],
+    opciones: ["", "T", "R", "+"],
   },
   { key: "fechaIngreso", label: "Fecha ingreso", width: 130, tipo: "date" },  
   {
@@ -151,6 +151,7 @@ const COLUMNAS_TRAMITES = [
     opciones: [  
       "",  
       "PENDIENTE",  
+      "PENDIENTE VERSIÓN SISCARD+",  
       "PENDIENTE / NO SE VE EL CAMBIO",  
       "PENDIENTE / FALTA INFORMACIÓN",  
       "PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN",  
@@ -558,11 +559,13 @@ function contarDiasHabiles(desde, hasta) {
 function diasEstimadosTramite(tramite) {
   if (tramite.tipoGestion === "T") return 40;
   if (tramite.tipoGestion === "R") return 15;
+  if (tramite.tipoGestion === "+") return 30;
   return 0;
 }
 function tiempoEstimadoTramite(tramite) {
   if (tramite.tipoGestion === "T") return "2 meses (40 días hábiles)";
   if (tramite.tipoGestion === "R") return "3 semanas (15 días hábiles)";
+  if (tramite.tipoGestion === "+") return "1 mes (30 días hábiles)";
   return "";
 }
 function fechaLimiteTramite(tramite) {
