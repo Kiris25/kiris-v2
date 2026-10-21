@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-21T18:19:50.838Z",
+  "fechaPublicacion": "2026-10-21T20:23:56.066Z",
   "manuales": [
     {
       "id": "manual_1791398079970_c9eda4e76c1228",
@@ -3981,7 +3981,7 @@
       "id": "tramite_1792606682562_bad8c9943f0658",
       "requerimiento": "2565805",
       "detalle": "Se adjunta requerimiento de premiación firmado, favor confirmar si las otras dos iniciativas solicitadas también en el BRD ya están en producción o estarán en producción, ya que adicional a solicitar los puntos por cumpleaños, se solicito poder parametrizar puntos de bienvenida y por consumo de B/. 100.00 balboas.  Compartirnos cotización sobre el BRD firmado y en que tiempo estaría saliendo a producción.",
-      "tipoGestion": "R",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-10-21",
       "fechaInicio": "",
       "manualActualizar": "siscard+ Manual Módulo de Premiación",
@@ -3993,7 +3993,7 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE VERSIÓN SISCARD+"
     },
     {
       "id": "tramite_1792606431084_c5e775d408a44",
@@ -4071,7 +4071,7 @@
       "id": "tramite_1792604355585_f71387e5b9d8e",
       "requerimiento": "2890537",
       "detalle": "Buenas tardes,  Adjunto documento para proceder con la creacion de un nuevo reporte en el modulo de trasiego.",
-      "tipoGestion": "R",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-10-19",
       "fechaInicio": "",
       "manualActualizar": "PRD-MAM-MU-100 siscard+ Manual Módulo de trasiego",
@@ -4083,7 +4083,7 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE VERSIÓN SISCARD+"
     },
     {
       "id": "tramite_1792089608583_a950c27713b85",
@@ -4209,7 +4209,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_7_1787259543876",
@@ -4263,7 +4263,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
       "listo": "AMBOS IDIOMAS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_3_1787259543876",
@@ -4299,7 +4299,7 @@
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
       "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_0_1787259543876",
@@ -4569,7 +4569,7 @@
       "versionTraducir": "NO APLICA",
       "justificacionIngles": "NO APLICA",
       "listo": "SOLO ESPAÑOL / NO APLICA INGLÉS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_25_1787259543876",
@@ -4623,7 +4623,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
       "listo": "AMBOS IDIOMAS",
-      "tipoGestion": "T"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_29_1787259543876",
@@ -4731,7 +4731,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "AUN NO SE HA TRADUCIDO",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_35_1787259543876",
@@ -4857,7 +4857,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
       "listo": "AMBOS IDIOMAS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_43_1787259543876",
@@ -4911,7 +4911,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_46_1787259543876",
@@ -4965,7 +4965,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "SI",
       "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_49_1787259543876",
@@ -5001,7 +5001,7 @@
       "versionTraducir": "NO",
       "justificacionIngles": "",
       "listo": "SOLO ESPAÑOL / NO APLICA INGLES",
-      "tipoGestion": "T"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_51_1787259543876",
@@ -5109,7 +5109,7 @@
       "versionTraducir": "SI",
       "justificacionIngles": "NO",
       "listo": "SOLO ESPAÑOL / FALTA INGLÉS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_57_1787259543876",
@@ -5187,7 +5187,7 @@
       "id": "tramite_1787779446191_64fa2a70b263e",
       "requerimiento": "2750695",
       "detalle": "Buen día, agradezco su apoyo con el BRD adjunto - Usuarios aprobadores iniciativa Landing Page, visto con Juan Bautista G",
-      "tipoGestion": "R",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-08-12",
       "fechaInicio": "2026-09-02",
       "manualActualizar": "siscard+ Manual Módulo de seguridad",
@@ -5313,7 +5313,7 @@
       "id": "tramite_1792010795169_04c347866ce168",
       "requerimiento": "2921143",
       "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
-      "tipoGestion": "T",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-10-14",
       "fechaInicio": "2026-08-24",
       "manualActualizar": "siscard+ Manual del Módulo de Autogestión Click to Pay",
@@ -5325,7 +5325,7 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "AÚN NO SE HA TRADUCIDO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE VERSIÓN SISCARD+"
     },
     {
       "id": "tramite_1787239953045_8d136c07cce068",
@@ -5343,7 +5343,7 @@
       "versionTraducir": "SÍ",
       "justificacionIngles": "SÍ",
       "listo": "AMBOS IDIOMAS",
-      "tipoGestion": "R"
+      "tipoGestion": "+"
     },
     {
       "id": "tramite_1788369378218_6ddce51dea739",
@@ -5475,7 +5475,7 @@
       "id": "tramite_1790789035340_d2a62d249864d",
       "requerimiento": "2470765",
       "detalle": "cambio de en la forma logica de los puntos meta y maximo del producto de tarjeta de credito.",
-      "tipoGestion": "R",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-09-30",
       "fechaInicio": "",
       "manualActualizar": "siscard+ Manual Módulo de Premiación",
@@ -5487,7 +5487,7 @@
       "fechaPublicado": "",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE / NO SE VE EL CAMBIO"
+      "listo": "PENDIENTE VERSIÓN SISCARD+"
     },
     {
       "id": "tramite_1790792120579_428b2623948a98",
@@ -5511,7 +5511,7 @@
       "id": "tramite_1791404835764_dcb9dec1ccb4c8",
       "requerimiento": "1891807",
       "detalle": "SERVICE CODE",
-      "tipoGestion": "R",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-09-30",
       "fechaInicio": "2026-10-07",
       "manualActualizar": "siscard+ Manual Trabajar con una cuenta",
@@ -5547,7 +5547,7 @@
       "id": "tramite_1791241495620_417bfaa2479c4",
       "requerimiento": "2554698",
       "detalle": "Se solicita proceso para poder ajustar de manera masiva los tipos de clientes de cuentas.",
-      "tipoGestion": "T",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-10-05",
       "fechaInicio": "",
       "manualActualizar": "OSE-CAP-MU-137 - siscard+ Manual Proceso Masivo Cambio Tipos de Cliente",
@@ -5559,13 +5559,13 @@
       "fechaPublicado": "",
       "versionTraducir": "NO",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE VERSIÓN SISCARD+"
     },
     {
       "id": "tramite_1791241811135_2d134e306e84f8",
       "requerimiento": "2921143",
       "detalle": "Buenas tardes,  Luego de la implementación del funcionalidad Click to Pay VISA se solicita la creación manual usuario para el nuevo Módulo Autogestión Click to Pay programa TRU73PA0. Para Siscard Estáadar y Siscard +.  Se adjunta comunicado enviado a los clientes como referencia.",
-      "tipoGestion": "T",
+      "tipoGestion": "+",
       "fechaIngreso": "2026-10-05",
       "fechaInicio": "2026-10-07",
       "manualActualizar": "siscard+ Manual Trabajar con una cuenta",
