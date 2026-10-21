@@ -1,13 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="es">
- <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
    Repositorio de Manuales KIRIS V2
   </title>
-  <link href="css/estilos.css" rel="stylesheet">
- 
+<link href="css/estilos.css" rel="stylesheet"/>
 <style id="kiris-mejoras-solicitadas">
 #tabDashboard .dashboard-scroll{width:100%;overflow-x:auto;padding-bottom:6px}
 #tabDashboard .dashboard-scroll>.dashboard-cycle-chart{min-width:620px}
@@ -15,864 +15,865 @@
 #tabDashboard .pending-tasks-card strong{font-size:14px}
 #tabDashboard .dashboard-method-note{margin:12px 0 0;padding:10px 12px;background:#fff5ee;border-left:4px solid #ff6c0c;border-radius:8px;color:#555;font-size:12px;line-height:1.45}
 </style>
+<style id="filas-kiris">#tbodyManuales tr.fila-en-trabajo>td,#tbodyTramites tr.fila-en-trabajo>td,#tbodyVersiones tr.fila-en-trabajo>td{background:#fff4cc!important;box-shadow:inset 0 2px #f0ad00,inset 0 -2px #f0ad00}#tbodyTramites tr.fila-pendiente-siscard>td{background:#e8e0ff!important;color:#38236b}#tbodyTramites tr.fila-pendiente-siscard>td:first-child{box-shadow:inset 5px 0 #7652c7}#tbodyTramites tr.fila-pendiente-siscard.fila-en-trabajo>td{background:#d8cbff!important}</style>
 </head>
- <body>
-  <main class="app" id="app">
-   <header class="app-header">
-    <div>
-     <h1>
+<body>
+<main class="app" id="app">
+<header class="app-header">
+<div>
+<h1>
       Repositorio de Manuales
      </h1>
-     <div class="header-subtitle">
-      Bit&aacute;cora, seguimiento y respaldo de informaci&oacute;n &middot;
+<div class="header-subtitle">
+      Bitácora, seguimiento y respaldo de información ·
       <span class="modo-badge-editor" id="modoUsuarioBadge">
        Editor
       </span>
-     </div>
-    </div>
-    <div class="backup-timer">
-     <strong>
+</div>
+</div>
+<div class="backup-timer">
+<strong>
       Guardado el:
      </strong>
-     <span id="ultimaCopiaTexto">
+<span id="ultimaCopiaTexto">
       Sin guardado registrado
      </span>
-     <div class="small-note" id="estadoSincronizacion">
+<div class="small-note" id="estadoSincronizacion">
       Datos locales
      </div>
-    </div>
-    <div class="header-actions">
-     <button class="btn btn-primary" id="btnGenerarReporte" type="button">
+</div>
+<div class="header-actions">
+<button class="btn btn-primary" id="btnGenerarReporte" type="button">
       📊 Generar reporte
      </button>
-     <button class="btn btn-success editor-only" id="btnGuardarNube" type="button">
+<button class="btn btn-success editor-only" id="btnGuardarNube" type="button">
       💾 Guardar y publicar
      </button>
-    </div>
-   </header>
-   <div class="layout">
-    <nav class="tabs">
-     <button aria-selected="true" class="tab-btn active" data-tab="tabManuales" type="button">
+</div>
+</header>
+<div class="layout">
+<nav class="tabs">
+<button aria-selected="true" class="tab-btn active" data-tab="tabManuales" type="button">
       Avance de Manuales
      </button>
-     <button class="tab-btn" data-tab="tabCalendario" type="button">
+<button class="tab-btn" data-tab="tabCalendario" type="button">
       Calendario
      </button>
-     <button class="tab-btn" data-tab="tabBitacora" type="button">
-      Bit&aacute;cora
+<button class="tab-btn" data-tab="tabBitacora" type="button">
+      Bitácora
      </button>
-     <button class="tab-btn" data-tab="tabDashboard" type="button">
-      Dashboard de Producci&oacute;n
+<button class="tab-btn" data-tab="tabDashboard" type="button">
+      Dashboard de Producción
      </button>
-     <button class="tab-btn" data-tab="tabTramites" type="button">
-      Tr&aacute;mites y Requerimientos
+<button class="tab-btn" data-tab="tabTramites" type="button">
+      Trámites y Requerimientos
      </button>
-     <button class="tab-btn" data-tab="tabVersiones" type="button">
+<button class="tab-btn" data-tab="tabVersiones" type="button">
       Control de Versiones
      </button>
-    </nav>
-    <section class="tab-content active" id="tabManuales">
-     <div class="panel" id="panelManuales">
-      <div class="panel-header">
-       <div>
-        <h2>
-         Bit&aacute;cora de Manuales
+</nav>
+<section class="tab-content active" id="tabManuales">
+<div class="panel" id="panelManuales">
+<div class="panel-header">
+<div>
+<h2>
+         Bitácora de Manuales
         </h2>
-        <div class="small-note">
-         Edici&oacute;n directa, filtros y columnas ajustables.
+<div class="small-note">
+         Edición directa, filtros y columnas ajustables.
         </div>
-       </div>
-       <div class="toolbar">
-        <button class="btn btn-success editor-only" id="btnAgregarManual">
+</div>
+<div class="toolbar">
+<button class="btn btn-success editor-only" id="btnAgregarManual">
          + Agregar manual
         </button>
-        <button class="btn btn-danger editor-only" id="btnEliminarManuales">
+<button class="btn btn-danger editor-only" id="btnEliminarManuales">
          🗑️ Eliminar seleccionados
         </button>
-        <button class="btn btn-secondary editor-only" id="btnImportarManuales">
+<button class="btn btn-secondary editor-only" id="btnImportarManuales">
          📥 Importar CSV
         </button>
-        <button class="btn btn-primary" id="btnExportarManuales">
+<button class="btn btn-primary" id="btnExportarManuales">
          📤 Exportar EXCEL
         </button>
-        <button class="btn btn-secondary editor-only" id="btnExportarRespaldo">
+<button class="btn btn-secondary editor-only" id="btnExportarRespaldo">
          📦 Exportar respaldo
         </button>
-        <button class="btn btn-secondary editor-only" id="btnImportarRespaldo">
+<button class="btn btn-secondary editor-only" id="btnImportarRespaldo">
          ♻️ Importar respaldo
         </button>
-        <button class="btn btn-light" id="btnColumnasManuales">
+<button class="btn btn-light" id="btnColumnasManuales">
          Columnas
         </button>
 <button class="btn btn-light" id="btnLimpiarFiltrosManuales">
          Limpiar filtros
         </button>
-        <button class="btn btn-light" id="btnPantallaCompleta">
+<button class="btn btn-light" id="btnPantallaCompleta">
          ⛶
         </button>
-        <input accept=".csv" hidden id="inputExcelManuales" type="file">
-        <input accept=".json,application/json" hidden id="inputRespaldoCompleto" type="file">
-       </div>
-      </div>
-      <div class="table-wrapper">
-       <table id="tablaManuales">
-        <colgroup id="colgroupManuales">
-        </colgroup>
-        <thead id="theadManuales">
-        </thead>
-        <tbody id="tbodyManuales">
-        </tbody>
-       </table>
-      </div>
-     </div>
-    </section>
-    <section class="tab-content" id="tabCalendario">
-     <div class="panel">
-      <div class="panel-header">
-       <div class="navegacion-mes">
-        <button class="btn btn-light" id="btnCalendarioAnterior">
+<input accept=".csv" hidden="" id="inputExcelManuales" type="file"/>
+<input accept=".json,application/json" hidden="" id="inputRespaldoCompleto" type="file"/>
+</div>
+</div>
+<div class="table-wrapper">
+<table id="tablaManuales">
+<colgroup id="colgroupManuales">
+</colgroup>
+<thead id="theadManuales">
+</thead>
+<tbody id="tbodyManuales">
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="tab-content" id="tabCalendario">
+<div class="panel">
+<div class="panel-header">
+<div class="navegacion-mes">
+<button class="btn btn-light" id="btnCalendarioAnterior">
          ◀
         </button>
-        <h2 id="tituloCalendario">
+<h2 id="tituloCalendario">
          Calendario
         </h2>
-        <button class="btn btn-light" id="btnCalendarioSiguiente">
+<button class="btn btn-light" id="btnCalendarioSiguiente">
          ▶
         </button>
-       </div>
-       <div class="toolbar">
-        <select id="selectorMesCalendario">
-        </select>
-        <select id="selectorAnioCalendario">
-        </select>
-        <input id="fechaDesdeCalendario" type="date">
-        <input id="fechaHastaCalendario" type="date">
-        <button class="btn btn-primary" id="btnCalendarioHoy">
+</div>
+<div class="toolbar">
+<select id="selectorMesCalendario">
+</select>
+<select id="selectorAnioCalendario">
+</select>
+<input id="fechaDesdeCalendario" type="date"/>
+<input id="fechaHastaCalendario" type="date"/>
+<button class="btn btn-primary" id="btnCalendarioHoy">
          Hoy
         </button>
-       </div>
-      </div>
-      <div class="calendario-grid" id="calendarioManuales">
-      </div>
-     </div>
-    </section>
-    <section class="tab-content" id="tabBitacora">
-     <div class="panel">
-      <div class="panel-header">
-       <div class="navegacion-mes">
-        <button class="btn btn-light" id="btnBitacoraAnterior">
+</div>
+</div>
+<div class="calendario-grid" id="calendarioManuales">
+</div>
+</div>
+</section>
+<section class="tab-content" id="tabBitacora">
+<div class="panel">
+<div class="panel-header">
+<div class="navegacion-mes">
+<button class="btn btn-light" id="btnBitacoraAnterior">
          ◀
         </button>
-        <h2 id="tituloBitacora">
-         Bit&aacute;cora
+<h2 id="tituloBitacora">
+         Bitácora
         </h2>
-        <button class="btn btn-light" id="btnBitacoraSiguiente">
+<button class="btn btn-light" id="btnBitacoraSiguiente">
          ▶
         </button>
-       </div>
-       <div class="toolbar">
-        <select id="selectorMesBitacora">
-        </select>
-        <select id="selectorAnioBitacora">
-        </select>
-        <button class="btn btn-success editor-only" id="btnAgregarBitacora">
+</div>
+<div class="toolbar">
+<select id="selectorMesBitacora">
+</select>
+<select id="selectorAnioBitacora">
+</select>
+<button class="btn btn-success editor-only" id="btnAgregarBitacora">
          + Agregar registro
         </button>
-        <button class="btn btn-secondary editor-only" id="btnCopiarRegistros">
+<button class="btn btn-secondary editor-only" id="btnCopiarRegistros">
          📋 Copiar registros
         </button>
-       </div>
-      </div>
-      <div class="calendario-grid" id="calendarioBitacora">
-      </div>
-     </div>
-    </section>
-    <section class="tab-content" id="tabDashboard">
-     <div class="panel dashboard-header-panel">
-      <div class="panel-header">
-       <div>
-        <h2>
-         Dashboard de Producci&oacute;n
+</div>
+</div>
+<div class="calendario-grid" id="calendarioBitacora">
+</div>
+</div>
+</section>
+<section class="tab-content" id="tabDashboard">
+<div class="panel dashboard-header-panel">
+<div class="panel-header">
+<div>
+<h2>
+         Dashboard de Producción
         </h2>
-        <div class="small-note">
+<div class="small-note">
          Indicadores, horas y tiempos de ciclo.
         </div>
-       </div>
-       <div class="toolbar">
-        <button class="btn btn-secondary editor-only" id="btnImportarCiclo">
+</div>
+<div class="toolbar">
+<button class="btn btn-secondary editor-only" id="btnImportarCiclo">
          📥 Importar export.xlsx
         </button>
-        <button class="btn btn-success" id="btnExportarDashboard">
+<button class="btn btn-success" id="btnExportarDashboard">
          📤 Exportar Dashboard
         </button>
-        <input accept=".xlsx,.xls,.csv" hidden id="inputExcelDashboardCiclo" type="file">
-       </div>
-      </div>
-     </div>
-     <div class="kpi-grid" id="kpiCards">
-     </div>
-     <div class="dashboard-grid">
-      <div class="panel">
-       <h3>
+<input accept=".xlsx,.xls,.csv" hidden="" id="inputExcelDashboardCiclo" type="file"/>
+</div>
+</div>
+</div>
+<div class="kpi-grid" id="kpiCards">
+</div>
+<div class="dashboard-grid">
+<div class="panel">
+<h3>
         📈 Horas por tipo
        </h3>
-       <div id="graficoTiposMes">
-       </div>
-      </div>
-      <div class="panel">
-       <div class="panel-header compacta">
-        <h3>
+<div id="graficoTiposMes">
+</div>
+</div>
+<div class="panel">
+<div class="panel-header compacta">
+<h3>
          🏆 Manuales del mes
         </h3>
-        <div class="navegacion-mes">
-         <button class="btn btn-light" id="btnDashboardMesAnterior">
+<div class="navegacion-mes">
+<button class="btn btn-light" id="btnDashboardMesAnterior">
           ◀
          </button>
-         <select id="selectorMesDashboard">
-         </select>
-         <input id="selectorAnioDashboard" type="number">
-         <button class="btn btn-light" id="btnDashboardMesSiguiente">
+<select id="selectorMesDashboard">
+</select>
+<input id="selectorAnioDashboard" type="number"/>
+<button class="btn btn-light" id="btnDashboardMesSiguiente">
           ▶
          </button>
-        </div>
-       </div>
-       <div id="topManualesHoras">
-       </div>
-      </div>
-     </div>
-     <div class="dashboard-grid">
-      <div class="panel">
-       <h3>
+</div>
+</div>
+<div id="topManualesHoras">
+</div>
+</div>
+</div>
+<div class="dashboard-grid">
+<div class="panel">
+<h3>
         📅 Estrategia Semanal
        </h3>
-       <div id="estrategiaSemanal">
-       </div>
-      </div>
-      <div class="panel">
-       <h3>
-        📚 An&aacute;lisis por tipo
+<div id="estrategiaSemanal">
+</div>
+</div>
+<div class="panel">
+<h3>
+        📚 Análisis por tipo
        </h3>
-       <div id="analisisTipos">
-       </div>
-      </div>
-     </div>
-     <div class="panel panel-ciclo">
-      <div class="panel-header">
-       <div>
-        <h3>📌 Requerimientos y Trámites</h3>
-        <div class="small-note">Promedio de días hábiles por categoría.</div>
-       </div>
-       <div class="toolbar">
-        <button class="btn btn-light" id="btnDiasPorTarea" type="button">Días hábiles por tarea</button>
-        <button class="btn btn-light" id="btnVerDetalleCiclo" type="button">Ver detalle</button>
-       </div>
-      </div>
-      <div class="pending-tasks-card"><span>Pending Tasks:</span><strong id="pendingTasksCount">0</strong></div>
-      <div class="dashboard-cycle-summary" id="resumenDashboardCiclo"></div>
-      <div class="dashboard-scroll"><div class="dashboard-cycle-chart" id="graficoDashboardCiclo"></div></div>
-      <div class="dashboard-method-note">El gráfico calcula, para cada <strong>Change Category</strong>, los días hábiles transcurridos entre <strong>Start Date</strong> y <strong>Comp Date</strong>, excluyendo sábados y domingos. Solo se incluyen registros que contienen ambas fechas válidas; luego se muestra el promedio de días hábiles por categoría.</div>
-     </div>
-    </section>
-    <section class="tab-content" id="tabTramites">
-     <div class="panel">
-      <div class="panel-header">
-       <div>
-        <h2>
-         Tr&aacute;mites y Requerimientos
+<div id="analisisTipos">
+</div>
+</div>
+</div>
+<div class="panel panel-ciclo">
+<div class="panel-header">
+<div>
+<h3>📌 Requerimientos y Trámites</h3>
+<div class="small-note">Promedio de días hábiles por categoría.</div>
+</div>
+<div class="toolbar">
+<button class="btn btn-light" id="btnDiasPorTarea" type="button">Días hábiles por tarea</button>
+<button class="btn btn-light" id="btnVerDetalleCiclo" type="button">Ver detalle</button>
+</div>
+</div>
+<div class="pending-tasks-card"><span>Pending Tasks:</span><strong id="pendingTasksCount">0</strong></div>
+<div class="dashboard-cycle-summary" id="resumenDashboardCiclo"></div>
+<div class="dashboard-scroll"><div class="dashboard-cycle-chart" id="graficoDashboardCiclo"></div></div>
+<div class="dashboard-method-note">El gráfico calcula, para cada <strong>Change Category</strong>, los días hábiles transcurridos entre <strong>Start Date</strong> y <strong>Comp Date</strong>, excluyendo sábados y domingos. Solo se incluyen registros que contienen ambas fechas válidas; luego se muestra el promedio de días hábiles por categoría.</div>
+</div>
+</section>
+<section class="tab-content" id="tabTramites">
+<div class="panel">
+<div class="panel-header">
+<div>
+<h2>
+         Trámites y Requerimientos
         </h2>
-       </div>
-       <div class="toolbar">
-        <button class="btn btn-success editor-only" id="btnAgregarTramite">
+</div>
+<div class="toolbar">
+<button class="btn btn-success editor-only" id="btnAgregarTramite">
          + Agregar registro
         </button>
-        <button class="btn btn-danger editor-only" id="btnEliminarTramites">
+<button class="btn btn-danger editor-only" id="btnEliminarTramites">
          🗑️ Eliminar seleccionados
         </button>
-        <button class="btn btn-secondary editor-only" id="btnImportarTramites">
+<button class="btn btn-secondary editor-only" id="btnImportarTramites">
          📥 Importar CSV
         </button>
-        <button class="btn btn-success" id="btnExportarTramites">
+<button class="btn btn-success" id="btnExportarTramites">
          📤 Exportar EXCEL
         </button>
-        <button class="btn btn-light" id="btnColumnasTramites">
+<button class="btn btn-light" id="btnColumnasTramites">
          Columnas
         </button>
 <button class="btn btn-light" id="btnLimpiarFiltrosTramites">
          Limpiar filtros
         </button>
-        <input accept=".csv" hidden id="inputExcelTramites" type="file">
-       </div>
-      </div>
-      <div class="table-wrapper">
-       <table>
-        <colgroup id="colgroupTramites">
-        </colgroup>
-        <thead id="theadTramites">
-        </thead>
-        <tbody id="tbodyTramites">
-        </tbody>
-       </table>
-      </div>
-     </div>
-    </section>
-    <section class="tab-content" id="tabVersiones">
-     <div class="panel">
-      <div class="panel-header">
-       <div>
-        <h2>
+<input accept=".csv" hidden="" id="inputExcelTramites" type="file"/>
+</div>
+</div>
+<div class="table-wrapper">
+<table>
+<colgroup id="colgroupTramites">
+</colgroup>
+<thead id="theadTramites">
+</thead>
+<tbody id="tbodyTramites">
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="tab-content" id="tabVersiones">
+<div class="panel">
+<div class="panel-header">
+<div>
+<h2>
          Control de Versiones
         </h2>
-       </div>
-       <div class="toolbar">
-        <button class="btn btn-success editor-only" id="btnAgregarVersion">
-         + Agregar versi&oacute;n
+</div>
+<div class="toolbar">
+<button class="btn btn-success editor-only" id="btnAgregarVersion">
+         + Agregar versión
         </button>
-        <button class="btn btn-danger editor-only" id="btnEliminarVersiones">
+<button class="btn btn-danger editor-only" id="btnEliminarVersiones">
          🗑️ Eliminar seleccionados
         </button>
-        <button class="btn btn-secondary editor-only" id="btnImportarVersiones">
+<button class="btn btn-secondary editor-only" id="btnImportarVersiones">
          📥 Importar Control de Versiones
         </button>
-        <button class="btn btn-success" id="btnExportarVersiones">
+<button class="btn btn-success" id="btnExportarVersiones">
          📤 Exportar EXCEL
         </button>
 <button class="btn btn-light" id="btnLimpiarFiltrosVersiones">
          Limpiar filtros
         </button>
-        <input accept=".xlsx,.xls" hidden id="inputExcelVersiones" type="file">
-       </div>
-      </div>
-      <div class="kpi-grid resumen-versiones" id="resumenVersiones">
-      </div>
-      <div class="table-wrapper">
-       <table>
-        <colgroup id="colgroupVersiones">
-        </colgroup>
-        <thead id="theadVersiones">
-        </thead>
-        <tbody id="tbodyVersiones">
-        </tbody>
-       </table>
-      </div>
-     </div>
-    </section>
-   </div>
-  </main>
-  <section class="form-screen" hidden id="manualScreen">
-   <div class="form-card">
-    <div class="modal-cabecera">
-     <h2 id="manualFormTitle">
+<input accept=".xlsx,.xls" hidden="" id="inputExcelVersiones" type="file"/>
+</div>
+</div>
+<div class="kpi-grid resumen-versiones" id="resumenVersiones">
+</div>
+<div class="table-wrapper">
+<table>
+<colgroup id="colgroupVersiones">
+</colgroup>
+<thead id="theadVersiones">
+</thead>
+<tbody id="tbodyVersiones">
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</main>
+<section class="form-screen" hidden="" id="manualScreen">
+<div class="form-card">
+<div class="modal-cabecera">
+<h2 id="manualFormTitle">
       Agregar manual
      </h2>
-     <button class="btn-cerrar" id="btnCerrarManual">
-      &times;
+<button class="btn-cerrar" id="btnCerrarManual">
+      ×
      </button>
-    </div>
-    <form id="manualForm">
-     <input id="manualId" type="hidden">
-     <div class="form-grid form-grid-3">
-      <label>
-       C&oacute;digo
-       <input id="manualCodigo" list="listaCodigosManuales" autocomplete="off" required>
-      </label>
-      <label>
-       T&iacute;tulo
-       <input id="manualTitulo" list="listaTitulosManuales" autocomplete="off" required>
-      </label>
-      <label>
+</div>
+<form id="manualForm">
+<input id="manualId" type="hidden"/>
+<div class="form-grid form-grid-3">
+<label>
+       Código
+       <input autocomplete="off" id="manualCodigo" list="listaCodigosManuales" required=""/>
+</label>
+<label>
+       Título
+       <input autocomplete="off" id="manualTitulo" list="listaTitulosManuales" required=""/>
+</label>
+<label>
        Idioma
        <select id="manualIdioma">
-        <option>
-         Espa&ntilde;ol
+<option>
+         Español
         </option>
-        <option>
-         Ingl&eacute;s
+<option>
+         Inglés
         </option>
-       </select>
-      </label>
-      <label>
-       Archivo electr&oacute;nico
+</select>
+</label>
+<label>
+       Archivo electrónico
        <select id="manualArchivoElectronico">
-        <option>
+<option>
+</option>
+<option>
+         Sí
         </option>
-        <option>
-         S&iacute;
-        </option>
-        <option>
+<option>
          No
         </option>
-       </select>
-      </label>
-      <label>
+</select>
+</label>
+<label>
        OC relacionado
-       <input id="manualOcRelacionado">
-      </label>
-      <label>
+       <input id="manualOcRelacionado"/>
+</label>
+<label>
        Prioridad
        <select id="manualPrioridad">
-        <option>
-        </option>
-        <option>
+<option>
+</option>
+<option>
          Alta
         </option>
-        <option>
+<option>
          Media
         </option>
-        <option>
+<option>
          Baja
         </option>
-       </select>
-      </label>
-      <label>
+</select>
+</label>
+<label>
        Tipo
        <select id="manualTipo">
-        <option>
-        </option>
-        <option>
+<option>
+</option>
+<option>
          N
         </option>
-        <option>
+<option>
          T
         </option>
-        <option>
+<option>
          A
         </option>
-        <option>
+<option>
          R
         </option>
-       </select>
-      </label>
-      <label>
-       P&aacute;ginas
-       <input id="manualPaginas" type="number">
-      </label>
-      <label>
-       D&iacute;as esfuerzo
-       <input id="manualDiasEsfuerzo" step="0.5" type="number">
-      </label>
-      <label>
+</select>
+</label>
+<label>
+       Páginas
+       <input id="manualPaginas" type="number"/>
+</label>
+<label>
+       Días esfuerzo
+       <input id="manualDiasEsfuerzo" step="0.5" type="number"/>
+</label>
+<label>
        Fecha inicio
-       <input id="manualFechaInicio" type="date">
-      </label>
-      <label>
-       Fecha finalizaci&oacute;n
-       <input id="manualFechaFinalizacion" type="date">
-      </label>
-      <label>
+       <input id="manualFechaInicio" type="date"/>
+</label>
+<label>
+       Fecha finalización
+       <input id="manualFechaFinalizacion" type="date"/>
+</label>
+<label>
        Fecha publicado
-       <input id="manualFechaPublicado" type="date">
-      </label>
-      <label>
+       <input id="manualFechaPublicado" type="date"/>
+</label>
+<label>
        Horas esfuerzo
-       <input id="manualHorasEsfuerzo" step="0.25" type="number">
-      </label>
-      <label>
+       <input id="manualHorasEsfuerzo" step="0.25" type="number"/>
+</label>
+<label>
        Estado
-       <input id="manualEstado" readonly>
-      </label>
-     </div>
-     <div class="form-acciones">
-      <button class="btn btn-light" id="btnCancelarManual" type="button">
+       <input id="manualEstado" readonly=""/>
+</label>
+</div>
+<div class="form-acciones">
+<button class="btn btn-light" id="btnCancelarManual" type="button">
        Cancelar
       </button>
-      <button class="btn btn-primary" type="submit">
+<button class="btn btn-primary" type="submit">
        Guardar
       </button>
-     </div>
-    </form>
-    <datalist id="listaCodigosManuales"></datalist>
-    <datalist id="listaTitulosManuales"></datalist>
-   </div>
-  </section>
-  <section class="form-screen" hidden id="tramiteScreen">
-   <div class="form-card">
-    <div class="modal-cabecera">
-     <h2 id="tramiteFormTitle">
-      Nuevo tr&aacute;mite
+</div>
+</form>
+<datalist id="listaCodigosManuales"></datalist>
+<datalist id="listaTitulosManuales"></datalist>
+</div>
+</section>
+<section class="form-screen" hidden="" id="tramiteScreen">
+<div class="form-card">
+<div class="modal-cabecera">
+<h2 id="tramiteFormTitle">
+      Nuevo trámite
      </h2>
-     <button class="btn-cerrar" id="btnCerrarTramite">
-      &times;
+<button class="btn-cerrar" id="btnCerrarTramite">
+      ×
      </button>
-    </div>
-    <form id="tramiteForm">
-     <input id="tramiteId" type="hidden">
-     <div class="form-grid form-grid-3">
-      <label>
+</div>
+<form id="tramiteForm">
+<input id="tramiteId" type="hidden"/>
+<div class="form-grid form-grid-3">
+<label>
        Requerimiento
-       <input id="tramiteRequerimiento" required>
-      </label>
-      <label>
+       <input id="tramiteRequerimiento" required=""/>
+</label>
+<label>
        Detalle
-       <input id="tramiteDetalle" required>
-      </label>
-      <label>
+       <input id="tramiteDetalle" required=""/>
+</label>
+<label>
        Tipo T / R
-       <select id="tramiteTipoGestion" required>
-        <option value>
+       <select id="tramiteTipoGestion" required="">
+<option value="">
+</option>
+<option value="T">
+         T - Trámite
         </option>
-        <option value="T">
-         T - Tr&aacute;mite
-        </option>
-        <option value="R">
+<option value="R">
          R - Requerimiento
         </option>
-       </select>
-      </label>
-      <label>
+<option value="+">+</option></select>
+</label>
+<label>
        Fecha ingreso
-       <input id="tramiteFechaIngreso" required type="date">
-      </label>
-      <label>
+       <input id="tramiteFechaIngreso" required="" type="date"/>
+</label>
+<label>
        Fecha inicio
-       <input id="tramiteFechaInicio" type="date">
-      </label>
-      <label>
+       <input id="tramiteFechaInicio" type="date"/>
+</label>
+<label>
        Manual a actualizar
-       <input id="tramiteManualActualizar" list="listaManualesTramite">
-      </label>
-      <label>
+       <input id="tramiteManualActualizar" list="listaManualesTramite"/>
+</label>
+<label>
        Tema general
-       <input id="tramiteTemaGeneral" list="listaTemasTramite">
-      </label>
-      <label>
+       <input id="tramiteTemaGeneral" list="listaTemasTramite"/>
+</label>
+<label>
        BA asignado
-       <input id="tramiteBAAsignado">
-      </label>
-      <label>
+       <input id="tramiteBAAsignado"/>
+</label>
+<label>
        Consultas
        <textarea id="tramiteConsultas"></textarea>
-      </label>
-      <label>
+</label>
+<label>
        Respuesta
        <textarea id="tramiteRespuestaConsulta"></textarea>
-      </label>
-      <label>
-       Justificaci&oacute;n Gestor
+</label>
+<label>
+       Justificación Gestor
        <select id="tramiteJustificacionGestor">
-        <option>
+<option>
+</option>
+<option>
+         SÍ
         </option>
-        <option>
-         S&Iacute;
-        </option>
-        <option>
+<option>
          NO
         </option>
-        <option>
+<option>
          NO APLICA
         </option>
-       </select>
-      </label>
-      <label>
+</select>
+</label>
+<label>
        Fecha publicado
-       <input id="tramiteFechaPublicado" type="date">
-      </label>
-      <label>
-       Versi&oacute;n para traducir
+       <input id="tramiteFechaPublicado" type="date"/>
+</label>
+<label>
+       Versión para traducir
        <select id="tramiteVersionTraducir">
-        <option>
+<option>
+</option>
+<option>
+         SÍ
         </option>
-        <option>
-         S&Iacute;
-        </option>
-        <option>
+<option>
          NO
         </option>
-        <option>
+<option>
          NO APLICA
         </option>
-       </select>
-      </label>
-      <label>
-       Justificaci&oacute;n Ingl&eacute;s
+</select>
+</label>
+<label>
+       Justificación Inglés
        <select id="tramiteJustificacionIngles">
-        <option>
+<option>
+</option>
+<option>
+         SÍ
         </option>
-        <option>
-         S&Iacute;
-        </option>
-        <option>
+<option>
          NO
         </option>
-        <option>
-         A&Uacute;N NO SE HA TRADUCIDO
+<option>
+         AÚN NO SE HA TRADUCIDO
         </option>
-        <option>
+<option>
          NO APLICA
         </option>
-       </select>
-      </label>
-      <label>
+</select>
+</label>
+<label>
        Listo
        <select id="tramiteListo">
-        <option>
-        </option>
-        <option>
+<option>
+</option><option>PENDIENTE VERSIÓN SISCARD+</option>
+<option>
          PENDIENTE
         </option>
-        <option>
+<option>
          PENDIENTE / NO SE VE EL CAMBIO
         </option>
-        <option>
-         PENDIENTE / FALTA INFORMACI&Oacute;N
+<option>
+         PENDIENTE / FALTA INFORMACIÓN
         </option>
-        <option>
-         PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACI&Oacute;N
+<option>
+         PENDIENTE DE PUBLICAR / LISTA LA ACTUALIZACIÓN
         </option>
-        <option>
-         SOLO ESPA&Ntilde;OL / NO APLICA INGL&Eacute;S
+<option>
+         SOLO ESPAÑOL / NO APLICA INGLÉS
         </option>
-        <option>
-         SOLO ESPA&Ntilde;OL / FALTA INGL&Eacute;S
+<option>
+         SOLO ESPAÑOL / FALTA INGLÉS
         </option>
-        <option>
-         SOLO INGL&Eacute;S
+<option>
+         SOLO INGLÉS
         </option>
-        <option>
+<option>
          AMBOS IDIOMAS
         </option>
-       </select>
-      </label>
-     </div>
-     <datalist id="listaManualesTramite">
-     </datalist>
-     <datalist id="listaTemasTramite">
-     </datalist>
-     <div class="form-acciones">
-      <button class="btn btn-light" id="btnCancelarTramite" type="button">
+</select>
+</label>
+</div>
+<datalist id="listaManualesTramite">
+</datalist>
+<datalist id="listaTemasTramite">
+</datalist>
+<div class="form-acciones">
+<button class="btn btn-light" id="btnCancelarTramite" type="button">
        Cancelar
       </button>
-      <button class="btn btn-primary" type="submit">
+<button class="btn btn-primary" type="submit">
        Guardar
       </button>
-     </div>
-    </form>
-   </div>
-  </section>
-  <section class="form-screen" hidden id="bitacoraScreen">
-   <div class="form-card">
-    <div class="modal-cabecera">
-     <h2 id="bitacoraFormTitle">
-      Registro de Bit&aacute;cora
+</div>
+</form>
+</div>
+</section>
+<section class="form-screen" hidden="" id="bitacoraScreen">
+<div class="form-card">
+<div class="modal-cabecera">
+<h2 id="bitacoraFormTitle">
+      Registro de Bitácora
      </h2>
-     <button class="btn-cerrar" id="btnCerrarBitacora">
-      &times;
+<button class="btn-cerrar" id="btnCerrarBitacora">
+      ×
      </button>
-    </div>
-    <form id="bitacoraForm">
-     <input id="bitacoraId" type="hidden">
-     <div class="form-grid form-grid-3">
-      <label>
+</div>
+<form id="bitacoraForm">
+<input id="bitacoraId" type="hidden"/>
+<div class="form-grid form-grid-3">
+<label>
        Fecha
-       <input id="bitacoraFecha" required type="date">
-      </label>
-      <label>
+       <input id="bitacoraFecha" required="" type="date"/>
+</label>
+<label>
        Manual
-       <input id="bitacoraManual" list="listaManualesBitacora" required>
-      </label>
-      <label>
+       <input id="bitacoraManual" list="listaManualesBitacora" required=""/>
+</label>
+<label>
        Tipo
-       <input id="bitacoraTipo" readonly>
-      </label>
-      <label>
+       <input id="bitacoraTipo" readonly=""/>
+</label>
+<label>
        Hora inicio
-       <input id="bitacoraHoraInicio" required type="time">
-      </label>
-      <label>
+       <input id="bitacoraHoraInicio" required="" type="time"/>
+</label>
+<label>
        Hora fin
-       <input id="bitacoraHoraFin" required type="time">
-      </label>
-      <label>
+       <input id="bitacoraHoraFin" required="" type="time"/>
+</label>
+<label>
        Horas
-       <input id="bitacoraHoras" readonly type="number">
-      </label>
-      <label>
-       P&aacute;ginas
-       <input id="bitacoraPaginas" type="number">
-      </label>
-      <label class="campo-completo">
+       <input id="bitacoraHoras" readonly="" type="number"/>
+</label>
+<label>
+       Páginas
+       <input id="bitacoraPaginas" type="number"/>
+</label>
+<label class="campo-completo">
        Datos adicionales
        <textarea id="bitacoraDetalle"></textarea>
-      </label>
-     </div>
-     <datalist id="listaManualesBitacora">
-     </datalist>
-     <div class="form-acciones">
-      <button class="btn btn-light" id="btnCancelarBitacora" type="button">
+</label>
+</div>
+<datalist id="listaManualesBitacora">
+</datalist>
+<div class="form-acciones">
+<button class="btn btn-light" id="btnCancelarBitacora" type="button">
        Cancelar
       </button>
-      <button class="btn btn-primary" type="submit">
+<button class="btn btn-primary" type="submit">
        Guardar
       </button>
-     </div>
-    </form>
-   </div>
-  </section>
-  <section class="form-screen" hidden id="versionScreen">
-   <div class="form-card">
-    <div class="modal-cabecera">
-     <h2 id="versionFormTitle">
-      Agregar versi&oacute;n
+</div>
+</form>
+</div>
+</section>
+<section class="form-screen" hidden="" id="versionScreen">
+<div class="form-card">
+<div class="modal-cabecera">
+<h2 id="versionFormTitle">
+      Agregar versión
      </h2>
-     <button class="btn-cerrar" id="btnCerrarVersion">
-      &times;
+<button class="btn-cerrar" id="btnCerrarVersion">
+      ×
      </button>
-    </div>
-    <form id="versionForm">
-     <input id="versionId" type="hidden">
-     <div class="form-grid">
-      <label>
+</div>
+<form id="versionForm">
+<input id="versionId" type="hidden"/>
+<div class="form-grid">
+<label>
        Sistema
        <select id="versionSistema">
-        <option>
+<option>
          SISCARD
         </option>
-        <option>
+<option>
          siscard+
         </option>
-       </select>
-      </label>
-      <label>
-       C&oacute;digo
-       <input id="versionCodigo" required>
-      </label>
-      <label>
+</select>
+</label>
+<label>
+       Código
+       <input id="versionCodigo" required=""/>
+</label>
+<label>
        Manual
-       <input id="versionManual" required>
-      </label>
-      <label>
+       <input id="versionManual" required=""/>
+</label>
+<label>
        Idioma
        <select id="versionIdioma">
-        <option>
-         Espa&ntilde;ol
+<option>
+         Español
         </option>
-        <option>
-         Ingl&eacute;s
+<option>
+         Inglés
         </option>
-       </select>
-      </label>
-      <label>
-       Versi&oacute;n
-       <input id="versionNumero" required>
-      </label>
-      <label>
-       Ubicaci&oacute;n en E-service
-       <input id="versionUbicacionEService" type="text">
-      </label>
-      <label>
+</select>
+</label>
+<label>
+       Versión
+       <input id="versionNumero" required=""/>
+</label>
+<label>
+       Ubicación en E-service
+       <input id="versionUbicacionEService" type="text"/>
+</label>
+<label>
        Fecha
-       <input id="versionFecha" type="date">
-      </label>
-      <label>
+       <input id="versionFecha" type="date"/>
+</label>
+<label>
        Estado
        <select id="versionEstado">
-        <option>
+<option>
          Disponible
         </option>
-        <option>
+<option>
          Pendiente
         </option>
-        <option>
-         En revisi&oacute;n
+<option>
+         En revisión
         </option>
-        <option>
+<option>
          Obsoleta
         </option>
-       </select>
-      </label>
-      <label class="campo-completo">
+</select>
+</label>
+<label class="campo-completo">
        Observaciones
        <textarea id="versionObservaciones"></textarea>
-      </label>
-     </div>
-     <div class="form-acciones">
-      <button class="btn btn-light" id="btnCancelarVersion" type="button">
+</label>
+</div>
+<div class="form-acciones">
+<button class="btn btn-light" id="btnCancelarVersion" type="button">
        Cancelar
       </button>
-      <button class="btn btn-primary" type="submit">
+<button class="btn btn-primary" type="submit">
        Guardar
       </button>
-     </div>
-    </form>
-   </div>
-  </section>
-  <section class="modal" hidden id="panelCopiaMasiva">
-   <div class="modal-contenido modal-pequeno">
-    <div class="modal-cabecera">
-     <h2>
-      Copiar registro de Bit&aacute;cora
+</div>
+</form>
+</div>
+</section>
+<section class="modal" hidden="" id="panelCopiaMasiva">
+<div class="modal-contenido modal-pequeno">
+<div class="modal-cabecera">
+<h2>
+      Copiar registro de Bitácora
      </h2>
-     <button class="btn-cerrar" id="btnCerrarCopiaMasiva" type="button">
-      &times;
+<button class="btn-cerrar" id="btnCerrarCopiaMasiva" type="button">
+      ×
      </button>
-    </div>
-    <label>
+</div>
+<label>
      Registro realizado
      <select id="registroOrigenCopia">
-     </select>
-    </label>
-    <label>
+</select>
+</label>
+<label>
      Copiar en la fecha
-     <input id="fechaDestinoCopia" type="date">
-    </label>
-    <div class="copia-preview" id="previewCopia">
-    </div>
-    <div class="form-acciones">
-     <button class="btn btn-light" id="btnCancelarCopiaMasiva" type="button">
+     <input id="fechaDestinoCopia" type="date"/>
+</label>
+<div class="copia-preview" id="previewCopia">
+</div>
+<div class="form-acciones">
+<button class="btn btn-light" id="btnCancelarCopiaMasiva" type="button">
       Cancelar
      </button>
-     <button class="btn btn-primary" id="btnConfirmarCopiaMasiva" type="button">
+<button class="btn btn-primary" id="btnConfirmarCopiaMasiva" type="button">
       Copiar registro
      </button>
-    </div>
-   </div>
-  </section>
-  <aside class="columns-panel" hidden id="columnsPanelManuales">
-   <h3>
+</div>
+</div>
+</section>
+<aside class="columns-panel" hidden="" id="columnsPanelManuales">
+<h3>
     Columnas de Manuales
    </h3>
-   <div id="columnsListManuales">
-   </div>
-   <div class="form-acciones">
-    <button class="btn btn-light" id="btnMostrarTodasManuales">
+<div id="columnsListManuales">
+</div>
+<div class="form-acciones">
+<button class="btn btn-light" id="btnMostrarTodasManuales">
      Mostrar todas
     </button>
-    <button class="btn btn-light" id="btnOcultarTodasManuales">
+<button class="btn btn-light" id="btnOcultarTodasManuales">
      Quitar todas
     </button>
-    <button class="btn btn-primary" id="btnCerrarColumnasManuales">
+<button class="btn btn-primary" id="btnCerrarColumnasManuales">
      Cerrar
     </button>
-   </div>
-  </aside>
-  <aside class="columns-panel" hidden id="columnsPanelTramites">
-   <h3>
-    Columnas de Tr&aacute;mites
+</div>
+</aside>
+<aside class="columns-panel" hidden="" id="columnsPanelTramites">
+<h3>
+    Columnas de Trámites
    </h3>
-   <div id="columnsListTramites">
-   </div>
-   <div class="form-acciones">
-    <button class="btn btn-light" id="btnMostrarTodasTramites">
+<div id="columnsListTramites">
+</div>
+<div class="form-acciones">
+<button class="btn btn-light" id="btnMostrarTodasTramites">
      Mostrar todas
     </button>
-    <button class="btn btn-light" id="btnOcultarTodasTramites">
+<button class="btn btn-light" id="btnOcultarTodasTramites">
      Quitar todas
     </button>
-    <button class="btn btn-primary" id="btnCerrarColumnasTramites">
+<button class="btn btn-primary" id="btnCerrarColumnasTramites">
      Cerrar
     </button>
-   </div>
-  </aside>
-  <div class="context-menu" hidden id="contextMenu">
-  </div>
-  <div class="filter-menu" hidden id="filterMenu">
-  </div>
-  <div class="delete-popup" hidden id="deletePopup">
-  </div>
-  <div class="toast" hidden id="toast">
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">
-  </script>
-  <script id="compatibilidad-excel-control-versiones">
+</div>
+</aside>
+<div class="context-menu" hidden="" id="contextMenu">
+</div>
+<div class="filter-menu" hidden="" id="filterMenu">
+</div>
+<div class="delete-popup" hidden="" id="deletePopup">
+</div>
+<div class="toast" hidden="" id="toast">
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">
+</script>
+<script id="compatibilidad-excel-control-versiones">
    /* Compatibilidad circular: el Excel exportado por Control de Versiones
       puede utilizarse directamente como archivo de importación. */
    (function () {
@@ -912,11 +913,11 @@
     };
    })();
   </script>
-  <script src="js/storage.js">
-  </script>
-  <script src="js/app.js">
-  </script>
-  <script>
+<script src="js/storage.js">
+</script>
+<script src="js/app.js">
+</script>
+<script>
    // Autocompletado de Código y Título en Avance de Manuales.
    // Las entradas siguen siendo editables para permitir manuales nuevos.
    document.addEventListener("DOMContentLoaded", () => {
@@ -1010,12 +1011,10 @@
     setTimeout(actualizarListas, 0);
    });
   </script>
-
- 
-  <style id="ajustes-avance-manuales">
+<style id="ajustes-avance-manuales">
    .tipo-manual-referencia{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;margin-right:6px;border-radius:10px;background:#eef2ff;color:#3949ab;font-size:11px;font-weight:700;vertical-align:middle}
   </style>
-  <script>
+<script>
    /* Ajustes de Avance de Manuales y Dashboard */
    document.addEventListener("DOMContentLoaded", () => {
     const normalizar = valor => String(valor ?? "").trim().toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -1135,6 +1134,5 @@
     ejecutar(); setTimeout(ejecutar,300); setTimeout(ejecutar,1200);
    });
   </script>
-
- </body>
+</body>
 </html>
