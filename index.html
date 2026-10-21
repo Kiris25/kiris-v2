@@ -1136,5 +1136,146 @@
    });
   </script>
 
- </body>
+ 
+<style id="mejoras-tramites-filas-activas">
+  /* Fila que la persona está editando o consultando en este momento. */
+  #tbodyTramites tr.fila-en-trabajo > td,
+  #tbodyManuales tr.fila-en-trabajo > td,
+  #tbodyVersiones tr.fila-en-trabajo > td{
+    background:#fff4cc !important;
+    box-shadow:inset 0 2px 0 #f0ad00,inset 0 -2px 0 #f0ad00;
+  }
+  #tbodyTramites tr.fila-en-trabajo > td:first-child,
+  #tbodyManuales tr.fila-en-trabajo > td:first-child,
+  #tbodyVersiones tr.fila-en-trabajo > td:first-child{
+    box-shadow:inset 5px 0 0 #f0ad00,inset 0 2px 0 #f0ad00,inset 0 -2px 0 #f0ad00;
+  }
+  /* Estado nuevo de Listo: se mantiene visible aunque la fila deje de estar activa. */
+  #tbodyTramites tr.fila-pendiente-siscard > td{
+    background:#e8e0ff !important;
+    color:#38236b;
+  }
+  #tbodyTramites tr.fila-pendiente-siscard > td:first-child{
+    box-shadow:inset 5px 0 0 #7652c7;
+  }
+  #tbodyTramites tr.fila-pendiente-siscard.fila-en-trabajo > td{
+    background:#d8cbff !important;
+    box-shadow:inset 0 2px 0 #f0ad00,inset 0 -2px 0 #f0ad00;
+  }
+  #tbodyTramites tr.fila-pendiente-siscard.fila-en-trabajo > td:first-child{
+    box-shadow:inset 5px 0 0 #7652c7,inset 0 2px 0 #f0ad00,inset 0 -2px 0 #f0ad00;
+  }
+</style>
+<script id="logica-mejoras-tramites-filas-activas">
+document.addEventListener('DOMContentLoaded', () => {
+  const normalizar = valor => String(valor ?? '').trim().toLocaleLowerCase('es')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9+]+/g,' ').trim();
+  const textoCelda = celda => {
+    const control = celda?.querySelector?.('input,select,textarea');
+    return String(control ? control.value : (celda?.textContent ?? '')).trim();
+  };
+  const encabezados = tabla => [...(tabla?.querySelectorAll('thead th') || [])].map(th => normalizar(th.textContent));
+  const buscarIndice = (lista, alternativas) => lista.findIndex(x => alternativas.some(a => x === a || x.includes(a)));
+
+  function agregarOpcionesFormulario(){
+    const tipo=document.getElementById('tramiteTipoGestion');
+    if(tipo && ![...tipo.options].some(o=>o.value==='+')){
+      const op=document.createElement('option'); op.value='+'; op.textContent='+ - Adicional'; tipo.appendChild(op);
+    }
+    const listo=document.getElementById('tramiteListo');
+    const etiqueta='PENDIENTE VERSIÓN SISCARD+';
+    if(listo && ![...listo.options].some(o=>normalizar(o.textContent)===normalizar(etiqueta))){
+      const op=document.createElement('option'); op.textContent=etiqueta; listo.appendChild(op);
+    }
+  }
+
+  function moverAccionesJuntoChecklist(tabla){
+    if(!tabla) return;
+    const hs=encabezados(tabla);
+    const iAcc=buscarIndice(hs,['acciones','accion']);
+    let iCheck=hs.findIndex(x=>x.includes('checklist')||x.includes('seleccion')||x.includes('seleccionar'));
+    if(iCheck<0){
+      iCheck=[...tabla.querySelectorAll('thead th')].findIndex(th=>th.querySelector('input[type="checkbox"]'));
+    }
+    if(iAcc<0||iCheck<0||iAcc===iCheck+1) return;
+    tabla.querySelectorAll('tr').forEach(fila=>{
+      const celdas=[...fila.children];
+      const acciones=celdas[iAcc];
+      const check=celdas[iCheck];
+      if(acciones&&check) check.insertAdjacentElement('afterend',acciones);
+    });
+    const cols=[...(tabla.querySelector('colgroup')?.children||[])];
+    if(cols[iAcc]&&cols[iCheck]) cols[iCheck].insertAdjacentElement('afterend',cols[iAcc]);
+  }
+
+  function sumarDiasHabiles(fechaISO, cantidad=30){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(fechaISO)) return '';
+    const [a,m,d]=fechaISO.split('-').map(Number);
+    const fecha=new Date(a,m-1,d,12,0,0);
+    if(Number.isNaN(fecha.getTime())) return '';
+    let agregados=0;
+    while(agregados<cantidad){
+      fecha.setDate(fecha.getDate()+1);
+      const dia=fecha.getDay();
+      if(dia!==0&&dia!==6) agregados++;
+    }
+    const pad=n=>String(n).padStart(2,'0');
+    return `${fecha.getFullYear()}-${pad(fecha.getMonth()+1)}-${pad(fecha.getDate())}`;
+  }
+
+  function actualizarTramites(){
+    const tbody=document.getElementById('tbodyTramites');
+    const tabla=tbody?.closest('table');
+    if(!tabla) return;
+    const hs=encabezados(tabla);
+    const iIngreso=buscarIndice(hs,['fecha ingreso','fecha de ingreso']);
+    const iCumplimiento=buscarIndice(hs,['cumplimiento']);
+    const iListo=buscarIndice(hs,['listo']);
+    [...tbody.rows].forEach(fila=>{
+      const c=[...fila.cells];
+      if(iIngreso>=0&&iCumplimiento>=0){
+        const fecha=sumarDiasHabiles(textoCelda(c[iIngreso]),30);
+        const control=c[iCumplimiento]?.querySelector('input,textarea,select');
+        if(fecha && textoCelda(c[iCumplimiento])!==fecha){
+          if(control) control.value=fecha; else c[iCumplimiento].textContent=fecha;
+        }
+      }
+      const pendiente=iListo>=0 && normalizar(textoCelda(c[iListo]))===normalizar('PENDIENTE VERSIÓN SISCARD+');
+      fila.classList.toggle('fila-pendiente-siscard',pendiente);
+    });
+  }
+
+  function activarFila(evento){
+    const tbody=evento.target.closest?.('#tbodyTramites,#tbodyManuales,#tbodyVersiones');
+    const fila=evento.target.closest?.('tr');
+    if(!tbody||!fila) return;
+    tbody.querySelectorAll('tr.fila-en-trabajo').forEach(f=>f.classList.remove('fila-en-trabajo'));
+    fila.classList.add('fila-en-trabajo');
+  }
+
+  document.addEventListener('focusin',activarFila);
+  document.addEventListener('pointerdown',activarFila);
+  document.addEventListener('change',e=>{
+    if(e.target.closest?.('#tbodyTramites,#tramiteForm')) setTimeout(actualizarTramites,0);
+  });
+
+  let pendiente=false;
+  const aplicar=()=>{
+    if(pendiente) return; pendiente=true;
+    requestAnimationFrame(()=>{
+      pendiente=false;
+      agregarOpcionesFormulario();
+      moverAccionesJuntoChecklist(document.getElementById('tablaManuales'));
+      moverAccionesJuntoChecklist(document.getElementById('tbodyTramites')?.closest('table'));
+      actualizarTramites();
+    });
+  };
+  const observer=new MutationObserver(aplicar);
+  observer.observe(document.body,{childList:true,subtree:true});
+  aplicar(); setTimeout(aplicar,250); setTimeout(aplicar,1000);
+});
+</script>
+
+</body>
 </html>
