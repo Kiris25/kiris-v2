@@ -2149,10 +2149,7 @@ async function guardarYPublicarCambios() {
     const paquete = crearPaquetePublicado();
     await window.KirisStorage.publicar(paquete);
     localStorage.setItem(PUBLISHED_KEY, JSON.stringify(paquete));
-    mostrarToast("Información guardada y publicada e  $("btnExportarManuales").addEventListener(
-    "click",
-    exportarManualesExcel,
-  );o fue posible guardar y publicar");
+    mostrarToast("Información guardada y publicada en el visor");
   } finally {
     if (boton) {
       boton.disabled = false;
@@ -2189,8 +2186,9 @@ function configurarBotones() {
     guardarVistaUsuario();
     renderVersiones();  
   });  
-  $("btnExportarManuales").addEventListener("click", () =>  
-    exportarCSV("manuales"),  
+  $("btnExportarManuales").addEventListener(
+    "click",
+    exportarManualesExcel,
   );  
 $("btnExportarTramites").addEventListener( 
     "click", 
