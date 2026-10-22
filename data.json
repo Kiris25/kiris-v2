@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-22T19:02:02.441Z",
+  "fechaPublicacion": "2026-10-22T19:17:35.130Z",
   "manuales": [
     {
       "id": "manual_1791398129811_663e5aba39e788",
@@ -24,7 +24,7 @@
       "codigo": "UEO-CAP-MI-007",
       "titulo": "Loyalty Module Manual",
       "idioma": "Español",
-      "archivoElectronico": "Sí",
+      "archivoElectronico": "No",
       "ocRelacionado": "2470765",
       "prioridad": "Alta",
       "tipo": "T",
