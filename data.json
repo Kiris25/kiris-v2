@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-22T19:39:48.713Z",
+  "fechaPublicacion": "2026-10-22T19:41:47.288Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -5755,9 +5755,9 @@
       "codigo": "PRD-MAM-MI-012",
       "manual": "Manual to Work with Services",
       "idioma": "Inglés",
-      "numero": "0",
+      "numero": "1",
       "ubicacionEService": "Siscard Issuer User Manuals",
-      "fecha": "",
+      "fecha": "2026-10-22",
       "estado": "Disponible",
       "observaciones": ""
     },
