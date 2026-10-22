@@ -1601,6 +1601,44 @@ function exportarCSV(tipo) {
   );  
 }  
  
+function exportarManualesExcel() {
+  try {
+    if (typeof XLSX === "undefined") {
+      throw new Error("No se cargó la librería de Excel");
+    }
+
+    const columnas = COLUMNAS_MANUALES.filter(
+      (columna) => !columna.especial,
+    );
+    const datos = estado.manuales.map((manual) => {
+      const fila = {};
+      columnas.forEach((columna) => {
+        fila[columna.label] = valorVisible(manual, columna);
+      });
+      return fila;
+    });
+    const hoja = XLSX.utils.json_to_sheet(datos);
+    hoja["!cols"] = columnas.map((columna) => {
+      const valores = datos.map((fila) => String(fila[columna.label] ?? ""));
+      const anchoMaximo = Math.max(
+        columna.label.length,
+        ...valores.map((valor) => valor.length),
+      );
+      return { wch: Math.min(Math.max(anchoMaximo + 2, 12), 45) };
+    });
+    if (hoja["!ref"]) {
+      hoja["!autofilter"] = { ref: hoja["!ref"] };
+    }
+    const libro = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(libro, hoja, "Avance Manuales");
+    XLSX.writeFile(libro, `Avance_Manuales_${fechaISOHoy()}.xlsx`);
+    mostrarToast("Avance de Manuales exportado a Excel");
+  } catch (error) {
+    console.error("No fue posible exportar Avance de Manuales.", error);
+    mostrarToast(`No fue posible exportar Excel: ${error.message}`);
+  }
+}
+
 function exportarTramitesExcel() { 
  
     const columnas = COLUMNAS_TRAMITES 
@@ -2111,10 +2149,10 @@ async function guardarYPublicarCambios() {
     const paquete = crearPaquetePublicado();
     await window.KirisStorage.publicar(paquete);
     localStorage.setItem(PUBLISHED_KEY, JSON.stringify(paquete));
-    mostrarToast("Información guardada y publicada en el visor");
-  } catch (error) {
-    console.error(error);
-    mostrarToast(error.message || "No fue posible guardar y publicar");
+    mostrarToast("Información guardada y publicada e  $("btnExportarManuales").addEventListener(
+    "click",
+    exportarManualesExcel,
+  );o fue posible guardar y publicar");
   } finally {
     if (boton) {
       boton.disabled = false;
