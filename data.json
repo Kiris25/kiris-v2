@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-22T18:58:08.326Z",
+  "fechaPublicacion": "2026-10-22T19:02:02.441Z",
   "manuales": [
     {
       "id": "manual_1791398129811_663e5aba39e788",
@@ -4024,7 +4024,7 @@
       "requerimiento": 2377333,
       "detalle": "El Banco Popular nosípide hacer un cambio a la logica actual de limite global, para que lasícuentasíque tienen tarjetasíadicionalesícon limite propio de igual manera se lesípueda agregar lasítarjetasítitularesía limite global.",
       "fechaIngreso": "2025-06-26",
-      "fechaInicio": "",
+      "fechaInicio": "2026-02-03",
       "manualActualizar": "\r\nUEO-CAP-MU-012  Manual Trabajar con servicios",
       "temaGeneral": "Límite Global",
       "baAsignado": "",
@@ -4042,7 +4042,7 @@
       "requerimiento": 2377335,
       "detalle": "El Banco Popular nosípide hacer un cambio a la logica actual de limite global, para que lasícuentasíque tienen tarjetasíadicionalesícon limite propio de igual manera se lesípueda agregar lasítarjetasítitularesía limite global.",
       "fechaIngreso": "2025-06-26",
-      "fechaInicio": "",
+      "fechaInicio": "2026-02-03",
       "manualActualizar": "\r\nUEO-CAP-MU-012  Manual Trabajar con servicios",
       "temaGeneral": "Límite Global",
       "baAsignado": "",
@@ -4060,7 +4060,7 @@
       "requerimiento": 2666404,
       "detalle": "El Banco Popular nosípide hacer un cambio a la logica actual de limite global, para que lasícuentasíque tienen tarjetasíadicionalesícon limite propio de igual manera se lesípueda agregar lasítarjetasítitularesía limite global.",
       "fechaIngreso": "2025-06-26",
-      "fechaInicio": "",
+      "fechaInicio": "2026-02-03",
       "manualActualizar": "\r\nUEO-CAP-MU-012  Manual Trabajar con servicios",
       "temaGeneral": "Límite Global",
       "baAsignado": "",
