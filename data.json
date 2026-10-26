@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-26T21:31:00.666Z",
+  "fechaPublicacion": "2026-10-26T21:38:44.472Z",
   "manuales": [
     {
       "id": "manual_1788812221838_af1c3ff91a3d88",
@@ -5915,9 +5915,9 @@
       "codigo": "PRD-MAM-MI-065",
       "manual": "Manual for the Procedure to Create Web Acquiring Merchants",
       "idioma": "Inglés",
-      "numero": "2",
+      "numero": "3",
       "ubicacionEService": "Web Acquiring  User Manuals",
-      "fecha": "",
+      "fecha": "2026-10-26",
       "estado": "Disponible",
       "observaciones": ""
     },
