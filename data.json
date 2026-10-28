@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-28T18:43:07.416Z",
+  "fechaPublicacion": "2026-10-28T20:48:44.053Z",
   "manuales": [
     {
       "id": "manual_1793210405410_44c9ddfd1355b",
@@ -16,7 +16,7 @@
       "fechaInicio": "2026-10-28",
       "fechaFinalizacion": "2026-10-28",
       "fechaPublicado": "2026-10-28",
-      "horasEsfuerzo": 2,
+      "horasEsfuerzo": 3,
       "color": "#FF6C0C",
       "colorCalendario": "#4361EE"
     },
@@ -3584,14 +3584,26 @@
   ],
   "bitacora": [
     {
+      "id": "bitacora_1793220447314_317f7b89d9d63",
+      "fecha": "2026-10-28",
+      "manual": "N/A - BOT BCR",
+      "manualId": "manual_1790025713576_1bc15cc405e92",
+      "tipo": "N",
+      "horaInicio": "13:00",
+      "horaFin": "15:30",
+      "horas": 2.5,
+      "paginas": 0,
+      "detalle": ""
+    },
+    {
       "id": "bitacora_1793211912687_b5d63b8a502c8",
       "fecha": "2026-10-28",
       "manual": "UEO-CAP-MU-065 - Manual Procedimiento Creación de Comercios (Adquirencia Web)",
       "manualId": "manual_1793210405410_44c9ddfd1355b",
       "tipo": "R",
-      "horaInicio": "11:00",
+      "horaInicio": "12:00",
       "horaFin": "13:00",
-      "horas": 2,
+      "horas": 1,
       "paginas": 44,
       "detalle": "Actualización con requerimientos"
     },
@@ -3614,8 +3626,8 @@
       "manualId": "manual_1793191044672_d787623aedd458",
       "tipo": "A",
       "horaInicio": "06:00",
-      "horaFin": "20:00",
-      "horas": 14,
+      "horaFin": "08:00",
+      "horas": 2,
       "paginas": 14,
       "detalle": ""
     },
