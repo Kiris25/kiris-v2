@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-28T20:48:44.053Z",
+  "fechaPublicacion": "2026-10-28T21:26:12.938Z",
   "manuales": [
     {
       "id": "manual_1793210405410_44c9ddfd1355b",
@@ -16,7 +16,7 @@
       "fechaInicio": "2026-10-28",
       "fechaFinalizacion": "2026-10-28",
       "fechaPublicado": "2026-10-28",
-      "horasEsfuerzo": 3,
+      "horasEsfuerzo": 1,
       "color": "#FF6C0C",
       "colorCalendario": "#4361EE"
     },
@@ -4321,7 +4321,7 @@
       "manualActualizar": "NUEVO MANUAL BOT BCR",
       "temaGeneral": "BOT BCR",
       "baAsignado": "",
-      "consultas": "El 23/9/2026 terminé la versión inicial y le envié un correo a Pablo Marín y a Ricardo Villalta para que me aclararan dudas y le dieran una revisión general al documento.  ",
+      "consultas": "El 23/9/2026 terminé la versión inicial y le envié un correo a Pablo Marín y a Ricardo Villalta para que me aclararan dudas y le dieran una revisión general al documento.  \n\nEl 28/10 pedí más información para saber: 1. Cuánto dura el BOT en dar de Alta\n2. a cuál categoría E-service se pide\n3. Pedi un usuario. \nSi no tengo respuesta, la otra semana cierro la OC pidiendo esa info y chao.",
       "respuestaConsulta": "",
       "justificacionGestor": "NO",
       "fechaPublicado": "",
