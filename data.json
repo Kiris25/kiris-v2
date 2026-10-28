@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-28T18:26:08.035Z",
+  "fechaPublicacion": "2026-10-28T18:31:31.281Z",
   "manuales": [
     {
       "id": "manual_1793210405410_44c9ddfd1355b",
@@ -6971,9 +6971,9 @@
       "codigo": "PRD-MAM-MU-065",
       "manual": "Manual Adquirencia Web Procedimiento creación de comercio",
       "idioma": "Español",
-      "numero": "5",
+      "numero": "6",
       "ubicacionEService": "Adquirencia Web Manuales de usuario",
-      "fecha": "2026-09-21",
+      "fecha": "2026-10-28",
       "estado": "Disponible",
       "observaciones": ""
     },
