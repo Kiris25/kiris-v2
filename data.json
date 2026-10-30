@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-30T12:18:07.996Z",
+  "fechaPublicacion": "2026-10-30T12:21:25.583Z",
   "manuales": [
     {
       "id": "manual_1793301988170_eaff7a5d177cd",
@@ -6322,9 +6322,9 @@
       "codigo": "PRD-MAM-MU-006",
       "manual": "Manual Módulo de trasiego",
       "idioma": "Español",
-      "numero": "0",
+      "numero": "1",
       "ubicacionEService": "Siscard Emisor Manuales de usuario",
-      "fecha": "",
+      "fecha": "2026-10-30",
       "estado": "Disponible",
       "observaciones": ""
     },
