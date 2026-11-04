@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-10-30T12:27:58.166Z",
+  "fechaPublicacion": "2026-11-04T20:43:04.718Z",
   "manuales": [
     {
       "id": "manual_1793362965301_eb683a05eaa66",
@@ -4338,6 +4338,24 @@
     }
   ],
   "tramites": [
+    {
+      "id": "tramite_1793824936693_95a8031c6dc98",
+      "requerimiento": "2868529",
+      "detalle": "Se adjunto documento UEO-UGES-FO-008 Bussiness Requirements Document para el desarrollo de reporte REC (Reporte de Estado de cuenta) el cual es solicitado conforme a la estructura y definiciones establecidas por la SIB de Guatemala según Anexo Oficio IVE Num. 2090",
+      "tipoGestion": "R",
+      "fechaIngreso": "2026-10-30",
+      "fechaInicio": "",
+      "manualActualizar": "NUEVO MANUAL REC",
+      "temaGeneral": "REPORTE REC",
+      "baAsignado": "",
+      "consultas": "Nuevo programa para generar reporte REC a demanda, parece que aplica solo para Guatemala, pero se puede crear un manual por si acaso. Verificar si habrá que publicarlo. ",
+      "respuestaConsulta": "",
+      "justificacionGestor": "NO",
+      "fechaPublicado": "",
+      "versionTraducir": "NO",
+      "justificacionIngles": "NO",
+      "listo": "PENDIENTE"
+    },
     {
       "id": "tramite_5_1787259543876",
       "requerimiento": 2617301,
