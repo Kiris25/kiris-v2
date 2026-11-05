@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-11-05T17:43:14.310Z",
+  "fechaPublicacion": "2026-11-05T17:50:58.004Z",
   "manuales": [
     {
       "id": "manual_1793900457456_1f2bc1a320a658",
@@ -6507,9 +6507,9 @@
       "codigo": "PRD-MAM-MU-007",
       "manual": "Manual Módulo de premiación",
       "idioma": "Español",
-      "numero": "6",
+      "numero": "7",
       "ubicacionEService": "Siscard Emisor Manuales de usuario",
-      "fecha": "2026-10-06",
+      "fecha": "2026-11-05",
       "estado": "Disponible",
       "observaciones": ""
     },
