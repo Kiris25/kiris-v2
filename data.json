@@ -1,7 +1,25 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-11-13T13:01:06.165Z",
+  "fechaPublicacion": "2026-11-17T16:25:33.057Z",
   "manuales": [
+    {
+      "id": "manual_1794932680727_c6ac03db31c8",
+      "codigo": "UEO-CAP-MU-071",
+      "titulo": "Manual Módulo de tokenización",
+      "idioma": "Español",
+      "archivoElectronico": "Sí",
+      "ocRelacionado": "2906886",
+      "prioridad": "Alta",
+      "tipo": "R",
+      "paginas": 0,
+      "diasEsfuerzo": 0,
+      "fechaInicio": "2026-11-17",
+      "fechaFinalizacion": "",
+      "fechaPublicado": "",
+      "horasEsfuerzo": 0,
+      "color": "#FF6C0C",
+      "colorCalendario": "#6A994E"
+    },
     {
       "id": "manual_1790025713576_1bc15cc405e92",
       "codigo": "PRD-MAM-MU-128",
@@ -3773,6 +3791,18 @@
   ],
   "bitacora": [
     {
+      "id": "bitacora_1794932728857_64ad7dbf0456e8",
+      "fecha": "2026-11-17",
+      "manual": "UEO-CAP-MU-071 - Manual Módulo de tokenización",
+      "manualId": "manual_1794932680727_c6ac03db31c8",
+      "tipo": "R",
+      "horaInicio": "08:00",
+      "horaFin": "17:30",
+      "horas": 9.5,
+      "paginas": 0,
+      "detalle": ""
+    },
+    {
       "id": "bitacora_1794509735814_c92ece09702b9",
       "fecha": "2026-11-12",
       "manual": "N/A NUEVO MANUAL - NUEVO MANUAL VARIACIÓN DE TASA",
@@ -4542,7 +4572,7 @@
       "detalle": "Buenos días! Se requiere realizar las adecuaciones requeridas en Siscard como parte del proceso actual de tokenización, incorporando las validaciones, reglas de negocio y funcionalidades necesarias para soportar el correcto procesamiento de los nuevos eventos de Visa Account Updater (VAU): Account Closed, Contact Cardholder, VAU Cardholder Opt-In y VAU Cardholder Opt-Out. Estas adecuaciones permitirán identificar los escenarios aplicables, gestionar las solicitudes del emisor y generar la información requerida para su posterior procesamiento mediante la API ChangeCardInfo, garantizando la continuidad operativa de los tokens y el cumplimiento de los lineamientos definidos por Visa para la administración del ciclo de vida de las credenciales tokenizadas.",
       "tipoGestion": "R",
       "fechaIngreso": "2026-10-21",
-      "fechaInicio": "",
+      "fechaInicio": "2026-11-17",
       "manualActualizar": "Manual Módulo de tokenización",
       "temaGeneral": "Tokenización",
       "baAsignado": "",
