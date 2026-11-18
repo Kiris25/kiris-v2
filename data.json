@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-11-17T22:52:05.184Z",
+  "fechaPublicacion": "2026-11-18T16:18:48.279Z",
   "manuales": [
     {
       "id": "manual_1794932680727_c6ac03db31c8",
@@ -1816,11 +1816,12 @@
       "tipo": "N",
       "paginas": 0,
       "diasEsfuerzo": 0,
-      "fechaInicio": "",
+      "fechaInicio": "2026-11-18",
       "fechaFinalizacion": "",
       "fechaPublicado": "",
       "horasEsfuerzo": 0,
-      "color": "#FF6C0C"
+      "color": "#FF6C0C",
+      "colorCalendario": "#2A9D8F"
     },
     {
       "id": "manual_1783711643190_e5118fc28adc",
@@ -1892,7 +1893,8 @@
       "fechaPublicadoGestor": "",
       "horasEsfuerzo": "",
       "color": "",
-      "estado": "No iniciado"
+      "estado": "No iniciado",
+      "colorCalendario": "#FF6C0C"
     },
     {
       "id": "manual_1783711643199_752c3d8e478e9",
@@ -3882,6 +3884,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1795018720634_fc10df995b77a8",
+      "fecha": "2026-11-18",
+      "manual": "UEO-CAP-IN-0012 - Manual de reportes",
+      "manualId": "",
+      "tipo": "",
+      "horaInicio": "06:00",
+      "horaFin": "15:30",
+      "horas": 9.5,
+      "paginas": 0,
+      "detalle": ""
+    },
     {
       "id": "bitacora_1794952593485_eb348463f9be1",
       "fecha": "2026-11-17",
@@ -6180,7 +6194,7 @@
       "fechaPublicado": "2026-10-30",
       "versionTraducir": "SÍ",
       "justificacionIngles": "NO",
-      "listo": "PENDIENTE"
+      "listo": "PENDIENTE VERSIÓN SISCARD+"
     },
     {
       "id": "tramite_1792604355585_f71387e5b9d8e",
