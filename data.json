@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-11-24T16:41:30.785Z",
+  "fechaPublicacion": "2026-11-24T17:44:34.975Z",
   "manuales": [
     {
       "id": "manual_1795119690929_34c0ca59f3cf38",
@@ -1949,22 +1949,23 @@
     },
     {
       "id": "manual_1783711643198_8dd45990eef99",
-      "codigo": "",
-      "titulo": "PRD-MAM-MU-141 siscard+ Manual Trabajar con Override",
+      "codigo": "PRD-MAM-MU-141",
+      "titulo": "siscard+ Manual Trabajar con Override",
       "idioma": "Español",
       "archivoElectronico": "No",
       "ocRelacionado": "",
       "prioridad": "Alta",
       "tipo": "N",
       "paginas": "9",
-      "diasEsfuerzo": "1.8",
+      "diasEsfuerzo": 7,
       "fechaInicio": "2026-11-17",
-      "fechaFinalizacion": "",
+      "fechaFinalizacion": "2026-11-24",
       "fechaPublicadoGestor": "",
-      "horasEsfuerzo": "",
+      "horasEsfuerzo": 9.5,
       "color": "",
       "estado": "No iniciado",
-      "colorCalendario": "#FF6C0C"
+      "colorCalendario": "#FF6C0C",
+      "fechaPublicado": "2026-11-24"
     },
     {
       "id": "manual_1783711643199_752c3d8e478e9",
@@ -8840,6 +8841,18 @@
       "numero": "0",
       "ubicacionEService": "siscard+ Emisor Manuales de usuario",
       "fecha": "",
+      "estado": "Disponible",
+      "observaciones": ""
+    },
+    {
+      "id": "version_1795542252742_e977dd60ae5068",
+      "sistema": "siscard+",
+      "codigo": "PRD-MAM-MU-141",
+      "manual": "siscard+ Manual Trabajar con Override",
+      "idioma": "Español",
+      "numero": "0",
+      "ubicacionEService": "siscard+ Emisor Manuales de usuario",
+      "fecha": "2026-11-24",
       "estado": "Disponible",
       "observaciones": ""
     },
