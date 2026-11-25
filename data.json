@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-11-25T19:03:48.912Z",
+  "fechaPublicacion": "2026-11-25T19:16:39.974Z",
   "manuales": [
     {
       "id": "manual_1795623611910_d838bf559a9f8",
@@ -4832,6 +4832,24 @@
     }
   ],
   "tramites": [
+    {
+      "id": "tramite_1795634197781_24854b05e44958",
+      "requerimiento": "2908837",
+      "detalle": "Se adjunta BRD Firmado de Factura Electrónica",
+      "tipoGestion": "R",
+      "fechaIngreso": "2026-11-19",
+      "fechaInicio": "",
+      "manualActualizar": "Manual Archivos maestros para clientes",
+      "temaGeneral": "Maestro",
+      "baAsignado": "",
+      "consultas": "Nuevo maestro U85TRA de ITBMS para Caja de Ahorro",
+      "respuestaConsulta": "",
+      "justificacionGestor": "NO",
+      "fechaPublicado": "",
+      "versionTraducir": "NO",
+      "justificacionIngles": "NO",
+      "listo": "PENDIENTE"
+    },
     {
       "id": "tramite_1795633419134_8537540bfd9af8",
       "requerimiento": "2908837",
