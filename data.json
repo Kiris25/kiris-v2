@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-11-27T18:42:08.050Z",
+  "fechaPublicacion": "2026-11-27T18:45:22.874Z",
   "manuales": [
     {
       "id": "manual_1795804398358_ed99523a15bfa",
@@ -7377,9 +7377,9 @@
       "codigo": "PRD-MAM-MU-028",
       "manual": "Manual Aplicación de cargos recurrentes",
       "idioma": "Español",
-      "numero": "2",
+      "numero": "3",
       "ubicacionEService": "Adquirencia Web Manuales de usuario",
-      "fecha": "",
+      "fecha": "2026-11-27",
       "estado": "Disponible",
       "observaciones": ""
     },
