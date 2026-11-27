@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fechaPublicacion": "2026-11-27T18:33:42.717Z",
+  "fechaPublicacion": "2026-11-27T18:35:42.027Z",
   "manuales": [
     {
       "id": "manual_1795804398358_ed99523a15bfa",
@@ -11,12 +11,12 @@
       "ocRelacionado": "2959413",
       "prioridad": "Alta",
       "tipo": "R",
-      "paginas": 0,
+      "paginas": 48,
       "diasEsfuerzo": 1,
       "fechaInicio": "2026-11-26",
       "fechaFinalizacion": "2026-11-27",
       "fechaPublicado": "2026-11-27",
-      "horasEsfuerzo": 0,
+      "horasEsfuerzo": 9.5,
       "color": "#FF6C0C",
       "colorCalendario": "#E63946"
     },
@@ -4008,6 +4008,18 @@
     }
   ],
   "bitacora": [
+    {
+      "id": "bitacora_1795804523499_fa26a143d842d8",
+      "fecha": "2026-11-26",
+      "manual": "PRD-MAM-MU-028 - Manual Aplicación de Cargos Recurrentes",
+      "manualId": "manual_1795804398358_ed99523a15bfa",
+      "tipo": "R",
+      "horaInicio": "06:00",
+      "horaFin": "15:30",
+      "horas": 9.5,
+      "paginas": 48,
+      "detalle": ""
+    },
     {
       "id": "bitacora_1795626754251_8e21478b31acb",
       "fecha": "2026-11-25",
